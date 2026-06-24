@@ -55,7 +55,7 @@
   align-content: center;
   justify-items: start;
   padding: 36px;
-  background: url("../../images/welcome.jpg") center / cover no-repeat;
+  background: url("/easyearn/images/welcome.jpg") center / cover no-repeat;
 }
 
 .dashboard-hero-snapshot {
