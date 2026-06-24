@@ -1,0 +1,115 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>EasyEarn - Verification</title>
+  <link rel="stylesheet" href="../../css/landing.css">
+  <link rel="stylesheet" href="employer-pages.css">
+</head>
+<body>
+  <div id="site-header"></div>
+  <main class="employer-shell">
+    <section class="employer-page-header">
+      <div class="employer-badge">Verification</div>
+      <h1>Employer Verification</h1>
+      <p>Complete your verification package so admin can review and approve your employer account.</p>
+    </section>
+
+    <!-- Status Banner: 3-column -->
+    <article class="employer-card" style="display:grid; grid-template-columns: 1fr 1fr 1fr; gap:36px; align-items:center;">
+      <div>
+        <div class="employer-badge">Verification Status</div>
+        <h2 id="verification-status-title" style="margin-top:10px; margin-bottom:6px; font-size:22px;">Current status: Pending</h2>
+        <p style="font-size:0.875rem; margin:0;">Fill in all required fields and upload supporting documents, then submit for admin review.</p>
+      </div>
+      <div style="display:grid; gap:16px;">
+        <div class="employer-status-row"><strong>Company info</strong><div class="employer-status-track"><span id="verification-company-track" style="width:0%"></span></div><strong id="verification-company-value">0%</strong></div>
+        <div class="employer-status-row"><strong>Documents</strong><div class="employer-status-track"><span id="verification-doc-track" style="width:0%"></span></div><strong id="verification-doc-value">0%</strong></div>
+        <div class="employer-status-row"><strong>Admin review</strong><div class="employer-status-track"><span id="verification-review-track" style="width:0%"></span></div><strong id="verification-review-value">0%</strong></div>
+      </div>
+      <ul class="employer-checklist" style="margin:0;">
+        <li>Enter your SSM registration number</li>
+        <li>State the business type correctly</li>
+        <li>Add the registered business address</li>
+        <li>Upload the business registration document</li>
+        <li>Upload contact person proof</li>
+      </ul>
+    </article>
+
+    <!-- Form Card: full width, 3-column grid -->
+    <article class="employer-card">
+      <div class="employer-section-head">
+        <div>
+          <div class="employer-badge">Required Items</div>
+          <h2>Malaysia verification package</h2>
+          <p>Provide your business details and attach the supporting files below.</p>
+        </div>
+      </div>
+      <form id="verification-form">
+        <div class="employer-form-grid" style="grid-template-columns: repeat(3, minmax(0,1fr));">
+
+          <label class="employer-field">
+            <span>SSM Registration Number</span>
+            <input id="verification-ssm-number" type="text" placeholder="202401012345 (1234567-X)">
+          </label>
+
+          <label class="employer-field">
+            <span>Business type</span>
+            <select id="verification-business-type">
+              <option value="">Select one</option>
+              <option value="Sdn Bhd">Sdn Bhd</option>
+              <option value="Sole Proprietorship">Sole Proprietorship</option>
+              <option value="Partnership">Partnership</option>
+              <option value="LLP">LLP</option>
+              <option value="Enterprise">Enterprise</option>
+              <option value="Other">Other</option>
+            </select>
+          </label>
+
+          <label class="employer-field">
+            <span>Registered business address</span>
+            <input id="verification-business-address" type="text" placeholder="Full registered address as shown in SSM documents">
+          </label>
+
+          <div class="employer-field">
+            <span>Business registration document</span>
+            <label for="verification-registration-file" class="employer-upload-box">
+              <input id="verification-registration-file" type="file" accept=".pdf,image/*">
+              <span class="employer-upload-title">Choose file</span>
+              <small>PDF, PNG, JPG, or WebP. Max 2MB.</small>
+            </label>
+            <small id="verification-registration-status" class="employer-inline-status">No file selected.</small>
+          </div>
+
+          <div class="employer-field">
+            <span>Contact person proof</span>
+            <label for="verification-contact-file" class="employer-upload-box">
+              <input id="verification-contact-file" type="file" accept=".pdf,image/*">
+              <span class="employer-upload-title">Choose file</span>
+              <small>IC copy, staff card, or signed authorisation letter.</small>
+            </label>
+            <small id="verification-contact-status" class="employer-inline-status">No file selected.</small>
+          </div>
+
+          <!-- Submit aligned to bottom of 3rd column -->
+          <div class="employer-field" style="display:flex; flex-direction:column; justify-content:flex-end; gap:10px;">
+            <button class="btn-primary" id="verification-submit-btn" type="submit" style="width:100%;">Submit for Verification</button>
+            <p class="employer-inline-status" id="verification-submit-status" style="margin:0; text-align:center;">Upload your files first, then submit.</p>
+          </div>
+
+        </div>
+      </form>
+    </article>
+
+  </main>
+
+  <script>
+    window.EASYEARN_BASE_PATH = '../../';
+    window.EASYEARN_HEADER_PATH = '../../partials/header-employer.html';
+  </script>
+  <script src="../../js/translate.js" defer></script>
+  <script src="../../js/includes.js?v=20260611b" defer></script>
+  <script type="module" src="../../js/employer-verification.js?v=20260611a"></script>
+</body>
+</html>

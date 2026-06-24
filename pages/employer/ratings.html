@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>EasyEarn - My Ratings</title>
+  <link rel="stylesheet" href="../../css/landing.css">
+  <link rel="stylesheet" href="employer-pages.css">
+</head>
+<body>
+  <div id="site-header"></div>
+  <main class="employer-shell">
+    <section class="employer-page-header">
+      <div class="employer-badge">Ratings &amp; Reviews</div>
+      <h1>Your Employer Reputation</h1>
+      <p>Ratings left by job seekers after completed jobs.</p>
+    </section>
+
+    <section class="employer-grid three">
+      <article class="employer-card employer-metric" style="border-top:3px solid #f59e0b;">
+        <span class="employer-stat-label">Average Rating</span>
+        <strong id="avg-rating">—</strong>
+        <p id="avg-rating-sub">Loading…</p>
+      </article>
+      <article class="employer-card employer-metric" style="border-top:3px solid #3b82f6;">
+        <span class="employer-stat-label">Total Reviews</span>
+        <strong id="total-reviews">—</strong>
+        <p id="total-reviews-sub">Loading…</p>
+      </article>
+      <article class="employer-card employer-metric" style="border-top:3px solid #22c55e;">
+        <span class="employer-stat-label">5-Star Reviews</span>
+        <strong id="five-star">—</strong>
+        <p id="five-star-sub">Loading…</p>
+      </article>
+    </section>
+
+    <section class="employer-card" style="margin-bottom:1.5rem">
+      <div class="employer-section-head">
+        <div>
+          <div class="employer-badge">Breakdown</div>
+          <h2>Rating Distribution</h2>
+        </div>
+      </div>
+      <div id="star-breakdown" style="padding:1rem 0">
+        <p style="color:var(--text-muted)">Loading…</p>
+      </div>
+    </section>
+
+    <section class="employer-card">
+      <div class="employer-section-head">
+        <div>
+          <div class="employer-badge">Feedback</div>
+          <h2>All Reviews</h2>
+        </div>
+      </div>
+      <div class="employer-list" id="reviews-list">
+        <p style="color:var(--text-muted);padding:1rem">Loading reviews…</p>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    window.EASYEARN_BASE_PATH = '../../';
+    window.EASYEARN_HEADER_PATH = '../../partials/header-employer.html';
+  </script>
+  <script src="../../js/translate.js" defer></script>
+  <script src="../../js/includes.js?v=20260611b" defer></script>
+  <script type="module" src="../../js/employer-ratings.js"></script>
+</body>
+</html>

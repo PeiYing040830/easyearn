@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>EasyEarn - Security</title>
+  <link rel="stylesheet" href="css/security.css">
+</head>
+<body>
+  <div id="site-header"></div>
+
+  <header class="page-hero security-hero">
+    <div class="security-hero-bg" aria-hidden="true">
+      <div class="security-hero-slide is-active" style="background-image: url('images/photographer.jpg');"></div>
+      <div class="security-hero-slide" style="background-image: url('images/tutor.jpeg');"></div>
+      <div class="security-hero-slide" style="background-image: url('images/promoter.jpeg');"></div>
+    </div>
+    <div class="security-hero-overlay" aria-hidden="true"></div>
+    <div class="page-hero-inner">
+      <div class="hero-badge">Security</div>
+      <h1>Technical Security Measures</h1>
+      <p>Built to protect data, verify access, and keep the platform safe for everyone.</p>
+    </div>
+  </header>
+
+  <div class="pub-page-body">
+
+    <div class="pub-section-card">
+      <div class="section-title">
+        <div class="section-tag">Security</div>
+        <h2>Authentication & Access</h2>
+        <p>Secure access layers reduce unauthorized activity across the platform.</p>
+      </div>
+      <div class="security-grid">
+        <div class="security-card"><h3>Supabase Authentication</h3><ul class="clean-list"><li>Email and password authentication</li><li>Role-based access separation</li><li>Session handling with secure tokens</li></ul></div>
+        <div class="security-card"><h3>Role-Based Access Control</h3><ul class="clean-list"><li>Separate Employer / Job Seeker access</li><li>Admin-only reporting dashboards</li><li>Protected routes for sensitive data</li></ul></div>
+        <div class="security-card"><h3>Account Integrity</h3><ul class="clean-list"><li>Verified employer badges</li><li>Report & review workflows</li><li>Audit trails for key actions</li></ul></div>
+      </div>
+    </div>
+
+    <div class="pub-section-card">
+      <div class="section-title">
+        <div class="section-tag">Data</div>
+        <h2>Data & Platform Integrity</h2>
+        <p>Infrastructure controls help prevent misuse and protect user records.</p>
+      </div>
+      <div class="policy-grid">
+        <div class="policy-card"><h3>HTTPS & Encryption</h3><ul class="clean-list"><li>Encrypted transmission with HTTPS</li><li>Secure API calls to Supabase</li><li>Protection against common web threats</li></ul></div>
+        <div class="policy-card"><h3>Row Level Security (RLS)</h3><ul class="clean-list"><li>Role-based access rules</li><li>Scoped reads/writes for each user</li><li>Admin-only moderation permissions</li></ul></div>
+        <div class="policy-card"><h3>Monitoring & Reviews</h3><ul class="clean-list"><li>Admin review of reported listings</li><li>Log records for suspicious behavior</li><li>Periodic security audits</li></ul></div>
+      </div>
+    </div>
+
+    <div class="pub-section-card">
+      <div class="section-title">
+        <div class="section-tag">FAQ</div>
+        <h2>Security FAQ</h2>
+        <p>Quick answers about protection and privacy on EasyEarn.</p>
+      </div>
+      <div class="faq-grid">
+        <details class="faq-item"><summary>How is my data protected?</summary><p>We use HTTPS, Supabase authentication, and RLS policies to protect personal data and prevent unauthorized access.</p></details>
+        <details class="faq-item"><summary>How do you handle reports?</summary><p>Reports are reviewed by admins. High-risk cases are prioritized for immediate action.</p></details>
+        <details class="faq-item"><summary>Can employers access job seeker data?</summary><p>Only data required for matching is visible. Sensitive data is restricted by role-based rules.</p></details>
+        <details class="faq-item"><summary>What if I find a suspicious listing?</summary><p>Use the Report page to submit details for admin review and investigation.</p></details>
+      </div>
+    </div>
+
+  </div><!-- end pub-page-body -->
+
+  <div id="site-footer"></div>
+  <script src="js/translate.js" defer></script>
+  <script src="js/includes.js" defer></script>
+  <script src="js/security.js" defer></script>
+</body>
+</html>

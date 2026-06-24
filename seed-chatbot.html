@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EasyEarn - Seed Chatbot Knowledge</title>
+    <link rel="stylesheet" href="css/landing.css">
+    <style>
+      .seed-wrap {
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 60px 20px;
+        background: #ecfeff;
+      }
+      .seed-card {
+        max-width: 680px;
+        background: #ffffff;
+        border-radius: 16px;
+        padding: 32px;
+        box-shadow: 0 18px 40px rgba(16, 24, 40, 0.12);
+        border: 1px solid #e6f4ea;
+      }
+      .seed-card h1 {
+        font-size: 28px;
+        margin-bottom: 10px;
+        color: #0f172a;
+      }
+      .seed-card p {
+        color: #475569;
+        line-height: 1.7;
+        margin-bottom: 18px;
+      }
+      .seed-actions {
+        display: flex;
+        gap: 12px;
+        flex-wrap: wrap;
+      }
+      .seed-log {
+        margin-top: 18px;
+        background: #0f172a;
+        color: #e2e8f0;
+        padding: 14px;
+        border-radius: 10px;
+        font-size: 13px;
+        min-height: 80px;
+        white-space: pre-wrap;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="seed-wrap">
+      <div class="seed-card">
+        <h1>Seed Chatbot Knowledge Base</h1>
+        <p>This will write 52 common Q&amp;A entries into the Supabase table <strong>chatbot_knowledge</strong>. Run once, then you can delete this page if you want.</p>
+        <div class="seed-actions">
+          <button class="btn-primary" id="seed-btn" type="button">Seed 52 Q&A</button>
+          <a class="btn-outline" href="chatbot.html">Go to Chatbot</a>
+        </div>
+        <div class="seed-log" id="seed-log">Ready.</div>
+      </div>
+    </div>
+
+    <script type="module" src="js/seed-chatbot.js?v=20260505a"></script>
+  </body>
+</html>

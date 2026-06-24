@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>EasyEarn - Login / Register</title>
+  <link rel="stylesheet" href="css/landing.css">
+  <link rel="stylesheet" href="css/style.css?v=20260515a">
+  <style>
+    /* ── Tab switcher ── */
+    .auth-tabs {
+      display: flex;
+      background: #f1f5f9;
+      border-radius: 12px;
+      padding: 4px;
+      margin-bottom: 28px;
+      gap: 4px;
+    }
+
+    .auth-tab {
+      flex: 1;
+      padding: 10px;
+      border: none;
+      border-radius: 9px;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      background: transparent;
+      color: #64748b;
+      transition: background 0.2s, color 0.2s, box-shadow 0.2s;
+    }
+
+    .auth-tab.active {
+      background: #ffffff;
+      color: #0891b2;
+      box-shadow: 0 2px 8px rgba(8, 145, 178, 0.14);
+    }
+
+    .auth-tab:hover:not(.active) {
+      color: #0891b2;
+    }
+
+    /* ── Panel visibility ── */
+    .auth-panel { display: none; }
+    .auth-panel.active { display: block; }
+
+    /* ── Heading per panel ── */
+    .auth-heading { margin-bottom: 20px; }
+    .auth-heading h1 { font-size: 24px; color: #0891b2; margin-bottom: 2px; }
+    .auth-heading p  { font-size: 13px; color: #64748b; }
+
+    /* dark mode tabs */
+    body.theme-dark .auth-tabs { background: #1f2937; }
+    body.theme-dark .auth-tab { color: #9ca3af; }
+    body.theme-dark .auth-tab.active { background: #111827; color: #67e8f9; box-shadow: 0 2px 8px rgba(6,182,212,0.14); }
+    body.theme-dark .auth-heading h1 { color: #67e8f9; }
+    body.theme-dark .auth-heading p  { color: #9ca3af; }
+
+    /* wider box for register tab */
+    .auth-box { transition: max-width 0.25s ease; }
+    .auth-box.wide { max-width: 480px; }
+
+    /* select styling */
+    .form-group select {
+      width: 100%;
+      padding: 12px 14px;
+      border: 1.5px solid #ddd;
+      border-radius: 8px;
+      font-size: 14px;
+      outline: none;
+      transition: border-color 0.2s;
+      background: #fff;
+    }
+    .form-group select:focus { border-color: #0891b2; }
+    body.theme-dark .form-group select {
+      background: #1f2937;
+      border-color: #374151;
+      color: #f8fafc;
+    }
+  </style>
+</head>
+<body class="auth-bg-page">
+  <div id="site-header"></div>
+
+  <div class="auth-container">
+    <div class="auth-box" id="auth-box">
+
+      <!-- Tab switcher -->
+      <div class="auth-tabs">
+        <button class="auth-tab active" id="tab-login" onclick="switchTab('login')">Login</button>
+        <button class="auth-tab"        id="tab-register" onclick="switchTab('register')">Register</button>
+      </div>
+
+      <div id="error-msg" class="error-msg" style="display:none;"></div>
+
+      <!-- ── LOGIN PANEL ── -->
+      <div class="auth-panel active" id="panel-login">
+        <div class="auth-heading">
+          <h1>Welcome back</h1>
+          <p>Sign in to your EasyEarn account</p>
+        </div>
+        <div class="form-group">
+          <label>Email</label>
+          <input type="email" id="login-email" placeholder="Enter your email">
+        </div>
+        <div class="form-group">
+          <label>Password</label>
+          <div class="password-field">
+            <input type="password" id="login-password" placeholder="Enter your password">
+            <button class="password-toggle" type="button" data-toggle-target="login-password" aria-label="Show password">👀</button>
+          </div>
+        </div>
+        <button class="btn-primary" id="login-btn">Login</button>
+        <p class="link-text">No account? <a href="#" onclick="switchTab('register'); return false;">Register here</a></p>
+      </div>
+
+      <!-- ── REGISTER PANEL ── -->
+      <div class="auth-panel" id="panel-register">
+        <div class="auth-heading">
+          <h1>Create account</h1>
+          <p>Join EasyEarn and start earning</p>
+        </div>
+        <div class="form-group">
+          <label>Full Name</label>
+          <input type="text" id="name" placeholder="Enter your full name">
+        </div>
+        <div class="form-group">
+          <label>Email</label>
+          <input type="email" id="email" placeholder="Enter your email">
+        </div>
+        <div class="form-group">
+          <label>Password</label>
+          <div class="password-field">
+            <input type="password" id="password" placeholder="Min 6 characters + one of !@#$%^">
+            <button class="password-toggle" type="button" data-toggle-target="password" aria-label="Show password">👀</button>
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Confirm Password</label>
+          <div class="password-field">
+            <input type="password" id="confirm-password" placeholder="Re-enter your password">
+            <button class="password-toggle" type="button" data-toggle-target="confirm-password" aria-label="Show password">👀</button>
+          </div>
+        </div>
+        <div class="form-group">
+          <label>I am a...</label>
+          <div class="role-selector">
+            <div class="role-card selected" id="role-seeker" onclick="selectRole('seeker')">
+              <span class="role-icon">💼</span>
+              <span>Job Seeker</span>
+            </div>
+            <div class="role-card" id="role-employer" onclick="selectRole('employer')">
+              <span class="role-icon">👨‍💼</span>
+              <span>Employer</span>
+            </div>
+            <div class="role-card" id="role-admin" onclick="selectRole('admin')">
+              <span class="role-icon">🔒</span>
+              <span>Admin</span>
+            </div>
+          </div>
+        </div>
+        <div class="form-group admin-code" id="employer-code-group">
+          <label>Employer Secure Code</label>
+          <div class="password-field">
+            <input type="password" id="employer-code" placeholder="Enter employer secure code">
+            <button class="password-toggle" type="button" data-toggle-target="employer-code" aria-label="Show secure code">👀</button>
+          </div>
+        </div>
+        <div class="form-group admin-code" id="admin-code-group">
+          <label>Admin Secure Code</label>
+          <div class="password-field">
+            <input type="password" id="admin-code" placeholder="Enter admin secure code">
+            <button class="password-toggle" type="button" data-toggle-target="admin-code" aria-label="Show secure code">👀</button>
+          </div>
+        </div>
+        <button class="btn-primary" id="register-btn">Create Account</button>
+        <p class="link-text">Already have an account? <a href="#" onclick="switchTab('login'); return false;">Login here</a></p>
+      </div>
+
+    </div>
+  </div>
+
+  <script src="js/translate.js" defer></script>
+  <script src="js/includes.js" defer></script>
+
+  <script>
+    // ── Tab switching ──
+    function switchTab(tab) {
+      const box = document.getElementById('auth-box');
+      document.querySelectorAll('.auth-tab').forEach(t => t.classList.remove('active'));
+      document.querySelectorAll('.auth-panel').forEach(p => p.classList.remove('active'));
+      document.getElementById('tab-' + tab).classList.add('active');
+      document.getElementById('panel-' + tab).classList.add('active');
+      box.classList.toggle('wide', tab === 'register');
+      clearError();
+      // update URL without reload
+      const url = new URL(window.location);
+      url.searchParams.set('tab', tab);
+      history.replaceState(null, '', url);
+    }
+
+    // Read ?tab= on load
+    const initTab = new URLSearchParams(window.location.search).get('tab');
+    if (initTab === 'register') switchTab('register');
+  </script>
+
+  <script type="module" src="js/auth.js"></script>
+</body>
+</html>

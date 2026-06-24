@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>EasyEarn - Chatbot</title>
+  <link rel="stylesheet" href="css/chatbot.css">
+</head>
+<body>
+  <div id="site-header"></div>
+
+  <header class="page-hero chatbot-hero">
+    <div class="chatbot-hero-bg" aria-hidden="true">
+      <div class="chatbot-hero-slide is-active" style="background-image: url('images/barista.png');"></div>
+      <div class="chatbot-hero-slide" style="background-image: url('images/waiter.jpg');"></div>
+      <div class="chatbot-hero-slide" style="background-image: url('images/cleaner.jpeg');"></div>
+    </div>
+    <div class="chatbot-hero-overlay" aria-hidden="true"></div>
+    <div class="page-hero-inner">
+      <div class="hero-badge">Chatbot</div>
+      <h1>EasyEarn Assistant</h1>
+      <p>Ask about jobs, hiring tools, applications, verification, and platform features anytime.</p>
+    </div>
+  </header>
+
+  <section class="section">
+    <div class="section-inner">
+      <div class="chatbot-shell">
+        <div class="chatbot-header">
+          <div class="chatbot-title">
+            <div class="chatbot-avatar">EE</div>
+            <div>
+              <h2>EasyEarn Assistant</h2>
+              <span class="chatbot-status">Online - Typically replies in seconds</span>
+            </div>
+          </div>
+          <span class="chatbot-pill">Support</span>
+        </div>
+        <div class="chatbot-body" id="chatbot-body">
+          <div class="chat-message bot">
+            <div class="chat-bubble">Hi! I'm EasyEarn Assistant. I can help with registration, jobs, applications, employer workflow, and reports. What do you need today?</div>
+          </div>
+        </div>
+        <div class="chatbot-footer">
+          <input id="chatbot-input" type="text" placeholder="Type your question...">
+          <button id="chatbot-send" type="button">Send</button>
+        </div>
+        <div class="chatbot-quick" id="chatbot-quick">
+          <button type="button" data-quick="How do I register?">Register</button>
+          <button type="button" data-quick="How do I upload resume?">Upload Resume</button>
+          <button type="button" data-quick="How do employers post a job?">Post a job</button>
+          <button type="button" data-quick="I want to report a scam">Report</button>
+        </div>
+      </div>
+      <p class="chatbot-hint">You are chatting with the EasyEarn Assistant. Ask about registration, jobs, applications, employer workflow, or reports.</p>
+    </div>
+  </section>
+
+  <div id="site-footer"></div>
+
+  <script src="js/translate.js" defer></script>
+  <script src="js/includes.js" defer></script>
+  <script type="module" src="js/chatbot.js?v=20260505a"></script>
+</body>
+</html>

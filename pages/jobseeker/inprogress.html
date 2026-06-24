@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>EasyEarn - In Progress</title>
+  <link rel="stylesheet" href="../../css/landing.css">
+  <link rel="stylesheet" href="jobseeker-pages.css">
+</head>
+<body>
+  <div id="site-header"></div>
+
+  <main class="inprogress-shell" aria-labelledby="inprogress-title">
+    <section class="inprogress-panel">
+      <div class="inprogress-media" aria-hidden="true">
+        <img src="../../images/inprogress.png" alt="" onerror="this.onerror=null;this.src='../../images/logout.png';">
+      </div>
+
+      <div class="inprogress-content">
+        <span class="inprogress-kicker">In Progress</span>
+        <h1 id="inprogress-title">Your EasyEarn workspace is almost ready.</h1>
+        <p>
+          Keep your profile moving while this section is being prepared. You can continue with messages,
+          resume updates, and verified work history from here.
+        </p>
+
+        <div class="inprogress-actions" aria-label="Job seeker shortcuts">
+          <a class="btn-primary" href="messages.html">Open Messages</a>
+          <a class="btn-outline" href="resume.html">Open Resume</a>
+          <a class="btn-outline" href="work-history.html">Open Work History</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    window.EASYEARN_BASE_PATH = '../../';
+    window.EASYEARN_HEADER_PATH = '../../partials/header-jobseeker.html';
+  </script>
+  <script src="../../js/translate.js" defer></script>
+  <script src="../../js/includes.js" defer></script>
+</body>
+</html>

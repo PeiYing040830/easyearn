@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>EasyEarn - Browse Jobs</title>
+  <link rel="stylesheet" href="css/jobs.css">
+</head>
+<body>
+  <div id="site-header"></div>
+
+  <header class="page-hero jobs-hero">
+    <div class="page-hero-inner">
+      <div class="section-tag">Browse Jobs</div>
+      <h1>Find the right gig for today</h1>
+      <p>Explore short‑term, part‑time, and flexible jobs across Malaysia. Filter by category, location, and schedule.</p>
+    </div>
+  </header>
+
+  <section class="section">
+    <div class="section-inner">
+      <div class="jobs-toolbar">
+        <input class="jobs-search" id="jobs-search" type="text" placeholder="Search by role, location, or keyword">
+        <div class="jobs-filters" id="jobs-filters">
+          <button class="filter-pill is-active" data-filter="all" type="button">All</button>
+          <button class="filter-pill" data-filter="events" type="button">Events</button>
+          <button class="filter-pill" data-filter="fnb" type="button">F&amp;B</button>
+          <button class="filter-pill" data-filter="education" type="button">Education</button>
+          <button class="filter-pill" data-filter="delivery" type="button">Delivery</button>
+        </div>
+        <button class="btn-locate" id="btn-locate" type="button" title="Find jobs near me">
+          📍 Near Me
+        </button>
+      </div>
+      <div class="location-bar" id="location-bar" style="display:none">
+        <span id="location-label">📍 Showing jobs near <strong id="location-name"></strong></span>
+        <label style="margin-left:16px;font-size:13px;">
+          Radius:
+          <select id="radius-select" style="margin-left:4px;padding:3px 8px;border-radius:6px;border:1px solid #a5f3fc;font-size:13px;">
+            <option value="5">5 km</option>
+            <option value="10" selected>10 km</option>
+            <option value="25">25 km</option>
+            <option value="50">50 km</option>
+          </select>
+        </label>
+        <button id="btn-clear-location" style="margin-left:12px;background:none;border:none;color:#dc2626;cursor:pointer;font-size:13px;">✕ Clear</button>
+      </div>
+      <div class="jobs-empty" id="jobs-empty" style="display:none">No jobs found. Try a different keyword or filter.</div>
+      <div class="jobs-loading" id="jobs-loading" style="text-align:center;padding:2rem;color:#888;">Loading jobs...</div>
+
+      <div class="jobs-grid" id="jobs-grid"></div>
+    </div>
+  </section>
+
+  <div id="site-footer"></div>
+
+  <script src="js/translate.js" defer></script>
+  <script src="js/includes.js" defer></script>
+  <script type="module" src="js/jobs.js"></script>
+</body>
+</html>

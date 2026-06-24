@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>EasyEarn - Admin Jobs</title>
+  <link rel="stylesheet" href="../../css/landing.css">
+  <link rel="stylesheet" href="admin-pages.css">
+</head>
+<body>
+  <div id="site-header"></div>
+  <main class="admin-shell">
+    <div class="admin-header"><div class="admin-badge">Jobs</div><h1>Job listing moderation</h1><p>Review platform listings, flagged posts, and future quality controls for employer-uploaded jobs.</p></div>
+    <section class="admin-grid three">
+      <article class="admin-card admin-metric"><span class="admin-stat-label">Live Jobs</span><strong id="admin-jobs-live-count">0</strong><p id="admin-jobs-live-note">No listings connected yet.</p></article>
+      <article class="admin-card admin-metric"><span class="admin-stat-label">Flagged Jobs</span><strong id="admin-jobs-flagged-count">0</strong><p id="admin-jobs-flagged-note">No flags yet.</p></article>
+      <article class="admin-card admin-metric"><span class="admin-stat-label">Removed</span><strong id="admin-jobs-removed-count">0</strong><p id="admin-jobs-removed-note">No removals yet.</p></article>
+    </section>
+    <section class="admin-card">
+      <div class="admin-section-head"><div><div class="admin-badge">Queue</div><h2>Job review queue</h2><p>Review employer listings and set a moderation state for demo purposes here.</p></div></div>
+      <div class="admin-analytics-toolbar">
+        <label class="admin-analytics-filter">
+          <span>Status</span>
+          <select id="admin-jobs-status-filter">
+            <option value="pending">Pending Review</option>
+            <option value="approved">Approved</option>
+            <option value="flagged">Flagged</option>
+            <option value="removed">Removed</option>
+            <option value="closed">Closed</option>
+            <option value="expired">Expired</option>
+            <option value="all">All Jobs</option>
+          </select>
+        </label>
+        <label class="admin-analytics-filter admin-analytics-search">
+          <span>Search</span>
+          <input id="admin-jobs-search" type="search" placeholder="Search title, employer, category, pay, or description">
+        </label>
+      </div>
+      <p id="admin-jobs-status" class="admin-inline-status">Job moderation actions will update here.</p>
+      <div id="admin-jobs-queue" class="admin-list"><article class="admin-item"><strong>No job moderation cases yet</strong><p>Flagged or reported listings can appear here once reports and job collections are connected.</p><div class="admin-item-meta"><span>Employer: -</span><span>Reason: -</span><span>Status: Empty</span></div></article></div>
+    </section>
+  </main>
+
+  <script>window.EASYEARN_BASE_PATH='../../';window.EASYEARN_HEADER_PATH='../../partials/header-admin.html';</script>
+  <script src="../../js/translate.js" defer></script><script src="../../js/includes.js" defer></script>
+  <script type="module" src="../../js/admin-jobs.js?v=20260429b"></script>
+</body>
+</html>

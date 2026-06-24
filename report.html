@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>EasyEarn - Report</title>
+  <link rel="stylesheet" href="css/report.css">
+</head>
+<body>
+  <div id="site-header"></div>
+
+  <header class="page-hero report-hero">
+    <div class="report-hero-bg" aria-hidden="true">
+      <div class="report-hero-slide is-active" style="background-image: url('images/eventcrew.jpeg');"></div>
+      <div class="report-hero-slide" style="background-image: url('images/waiter.jpg');"></div>
+      <div class="report-hero-slide" style="background-image: url('images/photographer.jpg');"></div>
+    </div>
+    <div class="report-hero-overlay" aria-hidden="true"></div>
+    <div class="page-hero-inner">
+      <div class="hero-badge">Report a Scam</div>
+      <h1>Help keep EasyEarn safe</h1>
+      <p>Report suspicious employers, job listings, or payment issues. Our admin team will review your report.</p>
+    </div>
+  </header>
+
+  <div class="pub-page-body">
+
+    <div class="pub-section-card">
+      <div class="section-title">
+        <div class="section-tag">Report Form</div>
+        <h2>Submit a Report</h2>
+        <p>Please provide as much detail as possible for faster investigation.</p>
+      </div>
+      <div class="report-grid">
+        <form class="report-form" id="report-form">
+          <div class="form-row">
+            <div class="form-field">
+              <label for="report-name">Full Name</label>
+              <div class="field-control"><span class="field-icon">👤</span><input id="report-name" type="text" placeholder="Your name"></div>
+            </div>
+            <div class="form-field">
+              <label for="report-email">Email</label>
+              <div class="field-control"><span class="field-icon">✉️</span><input id="report-email" type="email" placeholder="your@email.com"></div>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-field">
+              <label for="report-role">I am a</label>
+              <div class="field-control"><span class="field-icon">🏷️</span><select id="report-role"><option>Job Seeker</option><option>Employer</option><option>Other</option></select></div>
+            </div>
+            <div class="form-field">
+              <label for="report-type">Report Type</label>
+              <div class="field-control"><span class="field-icon">⚠️</span><select id="report-type"><option>Suspicious Listing</option><option>Non-paying Employer</option><option>Fake Profile</option><option>Harassment or Abuse</option><option>Other</option></select></div>
+            </div>
+          </div>
+          <div class="form-field">
+            <label for="report-link">Listing or Profile Link (optional)</label>
+            <div class="field-control"><span class="field-icon">🔗</span><input id="report-link" type="text" placeholder="Paste job listing link or employer profile"></div>
+          </div>
+          <div class="form-field">
+            <label for="report-desc">Description</label>
+            <textarea id="report-desc" rows="6" placeholder="Describe what happened and include any relevant details"></textarea>
+          </div>
+          <div class="form-field">
+            <label for="report-file">Evidence (optional)</label>
+            <div class="field-control"><span class="field-icon">📎</span><input id="report-file" type="file"></div>
+          </div>
+          <button class="btn-primary" type="submit">Submit Report</button>
+          <p class="form-note">For emergencies, please contact your local authorities.</p>
+        </form>
+
+        <div class="report-side">
+          <div class="report-info-card"><div class="report-info-icon">🛡️</div><h3>How reporting works</h3><p>Reports are reviewed by admins within 24–48 hours. High-risk cases are prioritized immediately.</p></div>
+          <div class="report-info-card"><div class="report-info-icon">✅</div><h3>What happens next</h3><p>We may temporarily hide listings, verify employers, and contact you if more info is needed.</p></div>
+          <div class="report-info-card"><div class="report-info-icon">📞</div><h3>Contact support</h3><p>Email: support@easyearn.my<br>Hours: 9am - 6pm (Mon to Fri)</p></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="pub-section-card">
+      <div class="section-title">
+        <div class="section-tag">FAQ</div>
+        <h2>Reporting FAQ</h2>
+        <p>Quick answers about safety, verification, and response timelines.</p>
+      </div>
+      <div class="faq-grid">
+        <details class="faq-item"><summary>How long does it take to review a report?</summary><p>Most reports are reviewed within 24–48 hours. High-risk cases may be addressed sooner.</p></details>
+        <details class="faq-item"><summary>Will the employer know I reported them?</summary><p>No. Reports are confidential and reviewed only by admins.</p></details>
+        <details class="faq-item"><summary>What evidence should I upload?</summary><p>Provide screenshots, messages, job links, or any proof that helps verify the issue.</p></details>
+        <details class="faq-item"><summary>Can I report even if I am not registered?</summary><p>Yes. You can submit a report with your email and details of the incident.</p></details>
+      </div>
+    </div>
+
+  </div><!-- end pub-page-body -->
+
+  <div id="site-footer"></div>
+  <script src="js/translate.js" defer></script>
+  <script src="js/includes.js" defer></script>
+  <script type="module" src="js/report.js"></script>
+</body>
+</html>

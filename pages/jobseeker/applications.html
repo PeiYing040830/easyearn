@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>EasyEarn - My Applications</title>
+  <link rel="stylesheet" href="../../css/landing.css">
+  <link rel="stylesheet" href="jobseeker-pages.css">
+</head>
+<body>
+  <div id="site-header"></div>
+  <main class="jobseeker-shell">
+    <div class="jobseeker-header">
+      <div class="hero-badge">Applications</div>
+      <h1>My Applications</h1>
+      <p>Track every job you've applied to — pending, accepted, completed, or rejected.</p>
+    </div>
+
+    <!-- Stats -->
+    <section class="jobseeker-card">
+      <div class="section-heading-row">
+        <div>
+          <div class="hero-badge">Application Overview</div>
+          <h2>Your current pipeline</h2>
+          <p>Live counts from Supabase — updates as employers review your applications.</p>
+        </div>
+        <a href="jobs.html" class="btn-outline interview-action-btn">Browse More Jobs</a>
+      </div>
+      <div class="jobseeker-grid application-stats-grid">
+        <article class="jobseeker-card application-stat-card">
+          <span class="application-stat-label">In Review</span>
+          <h3 id="applications-inreview-count">0</h3>
+          <p id="applications-inreview-note">No applications under review yet.</p>
+        </article>
+        <article class="jobseeker-card application-stat-card" style="border-top: 3px solid #22c55e;">
+          <span class="application-stat-label" style="color:#16a34a;">Active</span>
+          <h3 id="applications-active-count">0</h3>
+          <p id="applications-active-note">No active jobs yet.</p>
+        </article>
+        <article class="jobseeker-card application-stat-card" style="border-top: 3px solid #6366f1;">
+          <span class="application-stat-label" style="color:#4f46e5;">Completed</span>
+          <h3 id="applications-completed-count">0</h3>
+          <p id="applications-completed-note">No completed jobs yet.</p>
+        </article>
+        <article class="jobseeker-card application-stat-card" style="border-top: 3px solid #f43f5e;">
+          <span class="application-stat-label" style="color:#e11d48;">Rejected</span>
+          <h3 id="applications-rejected-count">0</h3>
+          <p id="applications-rejected-note">No rejected applications yet.</p>
+        </article>
+      </div>
+    </section>
+
+    <!-- Chart -->
+    <section class="jobseeker-card chart-card applications-chart-card">
+      <div class="section-heading-row">
+        <div>
+          <div class="hero-badge">Trend View</div>
+          <h2>Application activity trend</h2>
+          <p>Visual breakdown of your application statuses.</p>
+        </div>
+      </div>
+      <div class="chart-duo-grid">
+        <div class="chart-placeholder line-chart-placeholder">
+          <canvas id="applications-line-canvas" style="width:100%;height:220px;"></canvas>
+        </div>
+        <div class="chart-placeholder pie-chart-placeholder">
+          <div class="pie-chart-wrap">
+            <canvas id="applications-donut-canvas" style="width:160px;height:160px;"></canvas>
+          </div>
+          <div class="pie-chart-legend">
+            <span><span><i class="legend-dot" style="background:#93c5fd;"></i>In Review</span><strong id="applications-pending-share">0%</strong></span>
+            <span><span><i class="legend-dot" style="background:#86efac;"></i>Active</span><strong id="applications-reviewed-share">0%</strong></span>
+            <span><span><i class="legend-dot" style="background:#a5b4fc;"></i>Completed</span><strong id="applications-completed-share">0%</strong></span>
+            <span><span><i class="legend-dot" style="background:#fca5a5;"></i>Rejected</span><strong id="applications-rejected-share">0%</strong></span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Filter Tabs -->
+    <section class="jobseeker-card">
+      <div class="section-heading-row">
+        <div>
+          <div class="hero-badge">Filter</div>
+          <h2>View by status</h2>
+        </div>
+      </div>
+      <div class="jobs-filter-actions" style="flex-wrap:wrap;">
+        <button type="button" class="btn-primary" id="filter-all">All</button>
+        <button type="button" class="btn-outline" id="filter-active">Active (Pending / Reviewed / Accepted)</button>
+        <button type="button" class="btn-outline" id="filter-completed">Completed</button>
+        <button type="button" class="btn-outline" id="filter-rejected">Rejected</button>
+      </div>
+    </section>
+
+    <!-- Applications List -->
+    <section class="jobseeker-card">
+      <div class="section-heading-row">
+        <div>
+          <div class="hero-badge">Recent Activity</div>
+          <h2>Your applications</h2>
+          <p>Accepted jobs can be marked as completed. Work History unlocks after you confirm payment received.</p>
+        </div>
+      </div>
+      <div id="applications-live-list" class="jobseeker-list application-list">
+        <article class="jobseeker-item application-item">
+          <div class="application-main">
+            <div class="application-title-row">
+              <h3>Loading applications...</h3>
+              <span class="status-pill pending">Loading</span>
+            </div>
+            <div class="application-summary">
+              <p class="application-company">Please wait</p>
+              <p>Your live application pipeline is loading from Supabase.</p>
+            </div>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- Work History Log (completed jobs) -->
+    <section class="jobseeker-card" id="completed-jobs-section">
+      <div class="section-heading-row">
+        <div>
+          <div class="hero-badge">Completed</div>
+          <h2>Completed jobs</h2>
+          <p>These jobs are marked complete and saved in your Work History automatically.</p>
+        </div>
+        <a href="work-history.html" class="btn-outline interview-action-btn">View Full Work History</a>
+      </div>
+      <div id="completed-jobs-list" class="jobseeker-list application-list">
+        <article class="jobseeker-item application-item">
+          <div class="application-main">
+            <div class="application-title-row">
+              <h3>No completed jobs yet</h3>
+              <span class="status-pill accepted">Empty</span>
+            </div>
+            <div class="application-summary">
+              <p>Once an accepted job is marked complete, it will appear here and be saved to your Work History.</p>
+            </div>
+          </div>
+        </article>
+      </div>
+    </section>
+  </main>
+
+  <!-- Work History Modal -->
+  <div id="work-history-modal" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,0.45); z-index:9999; align-items:center; justify-content:center;">
+    <div style="background:#fff; border-radius:16px; padding:32px; max-width:520px; width:90%; box-shadow:0 20px 60px rgba(0,0,0,0.2);">
+      <h2 style="margin-bottom:6px;">Submit Completion Request</h2>
+      <p style="color:#64748b; margin-bottom:20px;">Send your completion details to the employer. This job will only appear in Work History after the employer confirms it.</p>
+
+      <div class="profile-form-grid" style="display:grid; gap:14px;">
+        <input type="hidden" id="wh-application-id">
+        <input type="hidden" id="wh-employer-id">
+
+        <label class="profile-field">
+          <span>Job Title</span>
+          <input id="wh-job-title" type="text" placeholder="e.g. Barista">
+        </label>
+        <label class="profile-field">
+          <span>Employer / Company</span>
+          <input id="wh-employer-name" type="text" placeholder="e.g. Coffee Bro KL">
+        </label>
+        <label class="profile-field">
+          <span>Category</span>
+          <input id="wh-category" type="text" placeholder="e.g. F&B">
+        </label>
+        <label class="profile-field">
+          <span>Start Date</span>
+          <input id="wh-start-date" type="date">
+        </label>
+        <label class="profile-field">
+          <span>End Date</span>
+          <input id="wh-end-date" type="date">
+        </label>
+        <label class="profile-field">
+          <span>Total Earnings (RM)</span>
+          <input id="wh-earnings" type="number" min="0" step="0.01" placeholder="e.g. 250">
+        </label>
+      </div>
+
+      <p id="wh-modal-status" style="margin-top:14px; color:#64748b; min-height:20px;"></p>
+
+      <div style="display:flex; gap:10px; margin-top:20px; justify-content:flex-end;">
+        <button type="button" id="wh-cancel-btn" class="btn-outline">Cancel</button>
+        <button type="button" id="wh-save-btn" class="btn-primary">Submit Completion</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    window.EASYEARN_BASE_PATH = '../../';
+    window.EASYEARN_HEADER_PATH = '../../partials/header-jobseeker.html';
+  </script>
+  <script src="../../js/translate.js" defer></script>
+  <script src="../../js/includes.js" defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script type="module" src="../../js/jobseeker-applications.js?v=20260430d"></script>
+</body>
+</html>
+

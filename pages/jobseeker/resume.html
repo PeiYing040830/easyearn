@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>EasyEarn - Resume</title>
+  <link rel="stylesheet" href="../../css/landing.css">
+  <link rel="stylesheet" href="jobseeker-pages.css">
+</head>
+<body>
+  <div id="site-header"></div>
+  <main class="jobseeker-shell resume-shell">
+    <div class="jobseeker-header">
+      <div class="hero-badge">Resume</div>
+      <h1>Resume Builder</h1>
+      <p>Turn your work history into a clean, employer-ready resume preview.</p>
+    </div>
+
+    <section class="resume-toolbar-card">
+      <div class="resume-toolbar-copy">
+        <div class="hero-badge">Preview</div>
+        <h2>Professional one-page layout</h2>
+        <p>This preview is styled to look like an actual printable resume instead of a dashboard widget.</p>
+      </div>
+      <div class="resume-toolbar-actions">
+        <button class="btn-outline" id="resume-refresh-btn" type="button">Refresh from Profile</button>
+        <button class="btn-primary" id="resume-download-btn" type="button">Download PDF</button>
+      </div>
+    </section>
+
+    <section class="resume-paper-wrap">
+      <article class="resume-paper">
+        <header class="resume-paper-header">
+          <div class="resume-paper-identity">
+            <div class="resume-photo" id="resume-photo">JS</div>
+            <div>
+              <p class="resume-eyebrow">Job Seeker Resume</p>
+              <h2 id="resume-name">Job Seeker</h2>
+              <p class="resume-role" id="resume-role">Add your professional headline in profile.</p>
+            </div>
+          </div>
+          <div class="resume-paper-contact" id="resume-contact">
+            <p id="resume-email">Email not set</p>
+            <p id="resume-phone">Phone not set</p>
+            <p id="resume-location">Location not set</p>
+          </div>
+        </header>
+
+        <div class="resume-paper-grid">
+          <aside class="resume-paper-sidebar">
+            <section class="resume-section">
+              <h3>Profile</h3>
+              <p id="resume-profile-text">Add a short bio in your profile so employers can quickly understand your strengths.</p>
+            </section>
+
+            <section class="resume-section">
+              <h3>Skills</h3>
+              <ul class="resume-skill-list" id="resume-skills-list">
+                <li>Add skills in your profile to populate this section.</li>
+              </ul>
+            </section>
+
+            <section class="resume-section">
+              <h3>Education</h3>
+              <ul class="resume-education-list" id="resume-education-list">
+                <li>Add your qualifications in profile.</li>
+              </ul>
+            </section>
+
+            <section class="resume-section">
+              <h3>Availability</h3>
+              <ul class="resume-meta-list" id="resume-availability-list">
+                <li>Set your available days and work preferences in profile.</li>
+              </ul>
+            </section>
+          </aside>
+
+          <div class="resume-paper-main">
+            <section class="resume-section">
+              <h3>Work Experience</h3>
+              <div id="resume-work-list">
+                <article class="resume-entry resume-empty-entry">
+                  <div class="resume-entry-head">
+                    <div>
+                      <h4>No work history yet</h4>
+                      <p>Completed jobs will appear here.</p>
+                    </div>
+                  </div>
+                </article>
+              </div>
+            </section>
+
+            <section class="resume-section">
+              <h3>Highlighted Results</h3>
+              <div class="resume-result-grid">
+                <div class="resume-result-card">
+                  <strong id="resume-stat-gigs">0</strong>
+                  <span>Completed gigs</span>
+                </div>
+                <div class="resume-result-card">
+                  <strong id="resume-stat-earnings">RM0</strong>
+                  <span>Total earnings tracked</span>
+                </div>
+                <div class="resume-result-card">
+                  <strong id="resume-stat-rating">N/A</strong>
+                  <span>Average employer rating</span>
+                </div>
+              </div>
+            </section>
+
+            <section class="resume-section">
+              <h3>References</h3>
+              <div id="resume-references-list">
+                <p>Complete jobs to generate references from employers.</p>
+              </div>
+            </section>
+          </div>
+        </div>
+      </article>
+    </section>
+  </main>
+
+  <script>
+    window.EASYEARN_BASE_PATH = '../../';
+    window.EASYEARN_HEADER_PATH = '../../partials/header-jobseeker.html';
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/jspdf@2.5.1/dist/jspdf.umd.min.js"></script>
+  <script src="../../js/translate.js" defer></script>
+  <script src="../../js/includes.js" defer></script>
+  <script type="module" src="../../js/jobseeker-resume.js"></script>
+</body>
+</html>

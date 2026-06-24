@@ -1,0 +1,920 @@
+@import url("landing.css");
+
+:root {
+  --js-surface: #ffffff;
+  --js-surface-soft: #f8fafc;
+  --js-page-soft: #eefaf2;
+  --js-page-soft-strong: #e3f6ea;
+  --js-card-soft: #fbfffc;
+  --js-border: #dbe7f3;
+  --js-text: #0f172a;
+  --js-muted: #475569;
+  --js-green: #16a34a;
+  --js-green-soft: #dcfce7;
+  --js-blue: #0f766e;
+  --js-blue-soft: #ccfbf1;
+  --js-gold: #b45309;
+  --js-gold-soft: #fef3c7;
+  --js-rose: #be123c;
+  --js-rose-soft: #ffe4e6;
+  --js-page-gutter: 24px;
+  --js-section-gap: 28px;
+  --js-footer-gap: var(--js-section-gap);
+}
+
+.dashboard-hero {
+  margin-top: 78px;
+  padding: 32px 24px 0 !important;
+  background: var(--js-page-soft);
+  text-align: left;
+  position: relative;
+  overflow: visible;
+}
+
+.dashboard-hero-inner {
+  max-width: 1380px;
+  margin: 0 auto;
+}
+
+.dashboard-hero-split {
+  display: grid;
+  grid-template-columns: minmax(0, 1.15fr) minmax(280px, 0.85fr);
+  gap: 18px;
+  align-items: stretch;
+}
+
+.dashboard-hero-copy,
+.dashboard-hero-snapshot {
+  border: 1px solid var(--js-border);
+  border-radius: 28px;
+  box-shadow: 0 16px 32px rgba(15, 23, 42, 0.08);
+}
+
+.dashboard-hero-copy {
+  display: grid;
+  align-content: center;
+  justify-items: start;
+  padding: 36px;
+  background: url("../../images/welcome.jpg") center / cover no-repeat;
+}
+
+.dashboard-hero-snapshot {
+  display: grid;
+  align-content: center;
+  gap: 18px;
+  padding: 28px;
+  background: linear-gradient(145deg, #f8fffb, #e4f8ec);
+}
+
+.dashboard-hero-snapshot .section-title p {
+  margin: 0;
+}
+
+.dashboard-hero-snapshot .section-title h2 {
+  font-size: 30px;
+  margin-bottom: 10px;
+}
+
+.section-inner {
+  max-width: none;
+  width: 100%;
+  margin: 0;
+}
+
+.dashboard-hero h1 {
+  font-size: clamp(2.2rem, 4vw, 3.2rem);
+  font-weight: 800;
+  color: var(--js-text);
+  margin-bottom: 14px;
+}
+
+.dashboard-hero p {
+  max-width: 760px;
+  margin: 0 0 22px;
+  color: var(--js-text);
+  font-size: 1rem;
+  line-height: 1.65;
+}
+
+.hero-actions,
+.card-actions,
+.job-tags,
+.job-meta-row,
+.split-section {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.hero-actions,
+.card-actions {
+  justify-content: center;
+}
+
+.dashboard-hero .hero-actions {
+  justify-content: flex-start;
+}
+
+.section-title.left-aligned,
+.section-title.left-aligned p,
+.section-title.left-aligned h2 {
+  text-align: left;
+}
+
+.section-title.compact {
+  margin-bottom: 0;
+}
+
+.split-section {
+  justify-content: space-between;
+  align-items: end;
+  margin-bottom: 24px;
+}
+
+.text-link {
+  color: #15803d;
+  font-weight: 700;
+  text-decoration: none;
+  transition: color 0.2s ease, text-decoration-color 0.2s ease;
+}
+
+.text-link:hover {
+  text-decoration: underline;
+}
+
+.dashboard-grid {
+  display: grid;
+  gap: 12px;
+}
+
+main {
+  display: grid;
+  gap: var(--js-section-gap);
+  padding: 30px var(--js-page-gutter) var(--js-footer-gap);
+  background: var(--js-page-soft);
+}
+
+/* Section-level card wrapper — frames each dashboard section like a job card */
+.section-panel {
+  background: var(--js-surface);
+  border: 1px solid var(--js-border);
+  border-radius: 24px;
+  padding: 30px 40px !important; 
+  box-shadow: 0 8px 32px rgba(15, 23, 42, 0.07);
+}
+
+body.theme-dark .section-panel {
+  background: #0d1b2a;
+  border-color: #1f2937;
+  box-shadow: 0 8px 32px rgba(2, 6, 23, 0.32);
+}
+
+.section {
+  padding: 0;
+  background: transparent;
+  border-top: 0;
+}
+
+.section.gray {
+  background: transparent;
+}
+
+main > .section:first-child {
+  padding: 0;
+}
+
+.pipeline-grid,
+.actions-grid {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+.jobs-grid {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.dashboard-card {
+  background: var(--js-card-soft);
+  border: 1px solid var(--js-border);
+  border-radius: 14px;
+  padding: 16px;
+  box-shadow: 0 18px 40px rgba(15, 23, 42, 0.08);
+  transition: transform 0.24s ease, box-shadow 0.24s ease, border-color 0.24s ease, background-color 0.24s ease;
+}
+
+.dashboard-card:hover,
+.dashboard-card:focus-within {
+  transform: translateY(-3px);
+  border-color: #86efac;
+  box-shadow: 0 22px 42px rgba(22, 163, 74, 0.12);
+}
+
+.dashboard-card h3 {
+  font-size: 1.1rem;
+  color: var(--js-text);
+  margin-bottom: 8px;
+}
+
+.dashboard-card p {
+  color: var(--js-muted);
+  line-height: 1.65;
+}
+
+.card-kicker {
+  display: inline-flex;
+  align-items: center;
+  padding: 6px 10px;
+  border-radius: 999px;
+  background: #dcfce7;
+  color: #16a34a;
+  font-size: 0.78rem;
+  font-weight: 700;
+  margin-bottom: 14px;
+  transition: transform 0.22s ease, box-shadow 0.22s ease, background-color 0.22s ease;
+}
+
+.dashboard-card:hover .card-kicker,
+.dashboard-card:focus-within .card-kicker {
+  transform: translateY(-1px);
+  box-shadow: 0 10px 18px rgba(22, 163, 74, 0.1);
+}
+
+.progress-card h3 {
+  font-size: 2rem;
+  font-weight: 800;
+  margin-bottom: 10px;
+}
+
+.dashboard-overview {
+  display: grid;
+  grid-template-columns: minmax(0, 1.25fr) minmax(320px, 0.9fr);
+  gap: 18px;
+  align-items: stretch;
+  margin-bottom: 18px;
+}
+
+.overview-copy {
+  margin-bottom: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.overview-progress {
+  padding: 20px 22px;
+}
+
+.progress-heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 12px;
+}
+
+.progress-heading h3 {
+  margin-bottom: 0;
+}
+
+.stats-strip {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.stat-pill-card {
+  padding: 18px 20px;
+  box-shadow: 0 10px 24px rgba(15, 23, 42, 0.06);
+}
+
+.stat-inline {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.stat-inline strong {
+  font-size: 2rem;
+  line-height: 1;
+  color: var(--js-text);
+}
+
+.stat-inline p {
+  margin: 0;
+  font-size: 0.95rem;
+}
+
+.progress-track {
+  width: 100%;
+  height: 12px;
+  border-radius: 999px;
+  background: #e2e8f0;
+  overflow: hidden;
+  margin: 14px 0 16px;
+}
+
+.progress-fill {
+  display: block;
+  height: 100%;
+  border-radius: inherit;
+  background: linear-gradient(90deg, #22c55e, #15803d);
+}
+
+.mini-checklist {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  gap: 10px;
+}
+
+.mini-checklist li {
+  padding-left: 18px;
+  position: relative;
+  color: var(--js-muted);
+}
+
+.mini-checklist li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 9px;
+  width: 8px;
+  height: 8px;
+  border-radius: 999px;
+  background: #cbd5e1;
+}
+
+.mini-checklist li.done::before {
+  background: var(--js-green);
+}
+
+.pipeline-card {
+  position: relative;
+  overflow: hidden;
+}
+
+.pipeline-card::after {
+  transition: transform 0.24s ease;
+}
+
+.pipeline-card:hover::after,
+.pipeline-card:focus-within::after {
+  transform: scale(1.06);
+}
+
+.pipeline-card::after {
+  content: "";
+  position: absolute;
+  inset: auto -40px -40px auto;
+  width: 110px;
+  height: 110px;
+  border-radius: 50%;
+  opacity: 0.8;
+}
+
+.pipeline-count {
+  font-size: 2.2rem;
+  font-weight: 800;
+  margin-bottom: 8px;
+}
+
+.pipeline-card.pending {
+  background: linear-gradient(180deg, #fbfffc, #f3fbf6);
+}
+
+.pipeline-card.pending .pipeline-count {
+  color: var(--js-gold);
+}
+
+.pipeline-card.pending::after {
+  background: var(--js-gold-soft);
+}
+
+.pipeline-card.reviewed .pipeline-count {
+  color: var(--js-blue);
+}
+
+.pipeline-card.reviewed::after {
+  background: var(--js-blue-soft);
+}
+
+.pipeline-card.accepted .pipeline-count {
+  color: var(--js-green);
+}
+
+.pipeline-card.accepted::after {
+  background: var(--js-green-soft);
+}
+
+.pipeline-card.rejected .pipeline-count {
+  color: var(--js-rose);
+}
+
+.pipeline-card.rejected::after {
+  background: var(--js-rose-soft);
+}
+
+.job-card .job-company {
+  font-weight: 700;
+  color: var(--js-text);
+  margin-bottom: 6px;
+}
+
+.job-detail-stack {
+  display: grid;
+  gap: 2px;
+  margin-bottom: 16px;
+}
+
+.job-detail-stack p {
+  margin: 0;
+}
+
+.pill-match,
+.pill-verified,
+.job-tags span {
+  display: inline-flex;
+  align-items: center;
+  padding: 6px 10px;
+  border-radius: 999px;
+  font-size: 0.78rem;
+  font-weight: 700;
+}
+
+.pill-match {
+  background: var(--js-green-soft);
+  color: #166534;
+}
+
+.pill-verified {
+  background: #e0f2fe;
+  color: #0369a1;
+}
+
+.job-tags {
+  margin: 0 0 18px;
+}
+
+.job-tags span {
+  background: var(--js-surface-soft);
+  color: var(--js-muted);
+  border: 1px solid var(--js-border);
+}
+
+.dashboard-empty-card {
+  text-align: center;
+}
+
+.dashboard-empty-card p {
+  margin-bottom: 0;
+}
+
+.action-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.action-card p {
+  margin-bottom: 18px;
+}
+
+@media (max-width: 1100px) {
+  .stats-strip,
+  .pipeline-grid,
+  .actions-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .jobs-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .dashboard-overview {
+    grid-template-columns: 1fr;
+  }
+
+  .dashboard-hero-split {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 700px) {
+  .dashboard-hero {
+    margin-top: 78px;
+    padding: 24px 18px 0 !important;
+  }
+
+  .dashboard-hero-copy,
+  .dashboard-hero-snapshot {
+    border-radius: 20px;
+    padding: 24px 20px;
+  }
+
+  main {
+    padding: 30px var(--js-page-gutter) var(--js-footer-gap);
+  }
+
+  .section {
+    padding: 0;
+  }
+
+  main > .section:first-child {
+    padding: 0;
+  }
+
+  .stats-strip,
+  .pipeline-grid,
+  .actions-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .split-section {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .dashboard-card {
+    padding: 18px;
+  }
+
+  .section-panel {
+    padding: 22px 18px;
+    border-radius: 20px;
+  }
+}
+
+body.theme-dark .dashboard-hero {
+  background: #07131a;
+}
+
+body.theme-dark .dashboard-hero-snapshot {
+  background: linear-gradient(145deg, #0f172a, #13251d);
+  border-color: #1f2937;
+  box-shadow: 0 16px 32px rgba(2, 6, 23, 0.32);
+}
+
+body.theme-dark main {
+  background: #07131a;
+}
+
+body.theme-dark .section {
+  background: transparent;
+  border-top-color: rgba(74, 222, 128, 0.08);
+}
+
+body.theme-dark .section.gray {
+  background: transparent;
+}
+
+body.theme-dark .dashboard-card h3,
+body.theme-dark .job-card .job-company,
+body.theme-dark .stat-inline strong {
+  color: #f8fafc;
+}
+
+body.theme-dark .dashboard-card p,
+body.theme-dark .mini-checklist li,
+body.theme-dark .job-tags span {
+  color: #cbd5e1;
+}
+
+body.theme-dark .dashboard-hero-copy h1 {
+  color: #0f172a;
+}
+
+body.theme-dark .dashboard-hero-copy p {
+  color: #0f172a;
+}
+
+body.theme-dark .dashboard-hero-snapshot h2 {
+  color: #f8fafc;
+}
+
+body.theme-dark .dashboard-hero-snapshot p {
+  color: #cbd5e1;
+}
+
+body.theme-dark .dashboard-card,
+body.theme-dark .job-tags span {
+  background: #0f172a;
+  border-color: #1f2937;
+}
+
+body.theme-dark .dashboard-card:hover,
+body.theme-dark .dashboard-card:focus-within {
+  border-color: rgba(74, 222, 128, 0.65);
+  box-shadow: 0 24px 40px rgba(2, 6, 23, 0.34);
+}
+
+body.theme-dark .progress-track {
+  background: #1e293b;
+}
+
+body.theme-dark .text-link {
+  color: #86efac;
+}
+
+body.theme-dark .card-kicker {
+  background: rgba(22, 163, 74, 0.18);
+  color: #86efac;
+}
+
+/* Match the index "Ready to EasyEarn?" CTA colors on the job seeker dashboard. */
+.footer {
+  background: linear-gradient(135deg, #16a34a 0%, #15803d 100%);
+  color: rgba(255, 255, 255, 0.82);
+}
+
+.footer-col h4 {
+  color: #ffffff;
+}
+
+.footer-col p,
+.footer-col a {
+  color: rgba(255, 255, 255, 0.86);
+}
+
+.footer-col a:hover {
+  color: #ffffff;
+}
+
+.footer-bottom {
+  border-top-color: rgba(255, 255, 255, 0.22);
+  color: rgba(255, 255, 255, 0.78);
+}
+
+body.theme-dark .footer {
+  background: linear-gradient(135deg, #16a34a 0%, #15803d 100%);
+  color: rgba(255, 255, 255, 0.82);
+}
+
+body.theme-dark .footer-col h4 {
+  color: #ffffff;
+}
+
+body.theme-dark .footer-col p,
+body.theme-dark .footer-col a {
+  color: rgba(255, 255, 255, 0.86);
+}
+
+body.theme-dark .footer-col a:hover {
+  color: #ffffff;
+}
+
+body.theme-dark .footer-bottom {
+  border-top-color: rgba(255, 255, 255, 0.22);
+  color: rgba(255, 255, 255, 0.78);
+}
+
+#floating-chatbot #chatbot-toggle {
+  background: linear-gradient(135deg, #1ba94c, #0f8b3b) !important;
+  box-shadow: 0 16px 30px rgba(27, 169, 76, 0.28) !important;
+}
+
+#floating-chatbot #chatbot-toggle:hover,
+#floating-chatbot #chatbot-toggle:focus-visible {
+  background: linear-gradient(135deg, #16a34a, #15803d) !important;
+}
+
+#floating-chatbot #chatbot-window .chatbot-header,
+#floating-chatbot #chatbot-send-btn,
+#floating-chatbot .chatbot-message.user {
+  background: #16a34a !important;
+  color: #ffffff !important;
+}
+
+#floating-chatbot .chatbot-message.bot {
+  background: #e7f7ee !important;
+  color: #14532d !important;
+}
+
+#floating-chatbot .chatbot-quick-btn {
+  border-color: #d8efe0 !important;
+  background: #f0fdf4 !important;
+  color: #15803d !important;
+}
+
+#floating-chatbot .chatbot-quick-btn:hover,
+#floating-chatbot .chatbot-quick-btn:focus-visible,
+#floating-chatbot #chatbot-send-btn:hover,
+#floating-chatbot #chatbot-send-btn:focus-visible {
+  background: #15803d !important;
+  border-color: #15803d !important;
+  color: #ffffff !important;
+}
+
+/* ═══════════════════════════════════════════════
+   JOBSEEKER DASHBOARD: override teal → green
+   (landing.css uses teal; dashboard only loads
+    landing.css + this file, not jobseeker-pages.css)
+   ═══════════════════════════════════════════════ */
+
+/* Buttons - match footer green gradient */
+.dashboard-hero .btn-primary,
+.dashboard-hero .btn-outline {
+  background: linear-gradient(135deg, #16a34a 0%, #15803d 100%);
+  border-color: #15803d;
+  color: #ffffff;
+  box-shadow: 0 4px 14px rgba(22, 163, 74, 0.35);
+}
+
+.dashboard-hero .btn-primary:hover,
+.dashboard-hero .btn-primary:focus-visible {
+  background: #ffffff;
+  color: #16a34a;
+  border-color: #16a34a;
+  transform: translateY(-2px);
+  box-shadow: 0 16px 28px rgba(22, 163, 74, 0.24);
+}
+
+.dashboard-hero .btn-outline:hover,
+.dashboard-hero .btn-outline:focus-visible {
+  background: #f0fdf4;
+  color: #15803d;
+  border-color: #16a34a;
+  transform: translateY(-2px);
+  box-shadow: 0 14px 24px rgba(22, 163, 74, 0.18);
+}
+
+/* "Job Seeker Dashboard" hero-badge */
+.dashboard-hero .hero-badge {
+  background: #dcfce7;
+  color: #16a34a;
+  border-color: #86efac;
+}
+
+/* "SNAPSHOT" section-tag */
+.section-tag {
+  background: #dcfce7;
+  color: #16a34a;
+}
+
+/* pill-verified: was light blue */
+.pill-verified {
+  background: #dcfce7;
+  color: #166534;
+}
+
+/* dark mode overrides */
+body.theme-dark .dashboard-hero .btn-primary,
+body.theme-dark .dashboard-hero .btn-outline {
+  background: linear-gradient(135deg, #16a34a 0%, #15803d 100%);
+  border-color: #15803d;
+  color: #ffffff;
+}
+
+body.theme-dark .dashboard-hero .hero-badge {
+  background: rgba(22, 163, 74, 0.18);
+  color: #86efac;
+  border-color: rgba(22, 163, 74, 0.35);
+}
+
+body.theme-dark .section-tag {
+  background: rgba(22, 163, 74, 0.18);
+  color: #86efac;
+}
+
+/* ═══════════════════════════════════════════════
+   JOBSEEKER DASHBOARD: navbar + brand → green
+   ═══════════════════════════════════════════════ */
+
+/* "EasyEarn" brand text */
+.jobseeker-navbar .nav-brand span,
+.jobseeker-navbar .nav-brand {
+  color: #16a34a !important;
+}
+
+/* Nav link hover */
+.jobseeker-navbar .nav-links a:hover {
+  color: #16a34a;
+}
+
+/* Nav active pill (Dashboard) */
+.jobseeker-navbar .nav-links a.is-active {
+  color: #15803d;
+  background: #dcfce7;
+  border: 1px solid #86efac;
+}
+
+.jobseeker-navbar .nav-links a::after {
+  background: #16a34a;
+}
+
+/* Logout button */
+.jobseeker-navbar .nav-logout {
+  background: #ffffff;
+  border-color: #16a34a;
+  color: #16a34a;
+}
+
+.jobseeker-navbar .nav-logout:hover,
+.jobseeker-navbar .nav-logout:focus-visible {
+  background: #16a34a;
+  border-color: #16a34a;
+  color: #ffffff;
+}
+
+/* User badge / avatar chip */
+.jobseeker-navbar .nav-user {
+  background: #f0fdf4;
+  border: 1px solid #bbf7d0;
+  color: #15803d;
+}
+
+.jobseeker-navbar .nav-user-badge:not(.has-image) {
+  background: linear-gradient(135deg, #16a34a, #15803d);
+  color: #ffffff;
+}
+
+/* Theme toggle */
+.jobseeker-navbar .theme-toggle {
+  border-color: rgba(22, 163, 74, 0.24);
+  background: rgba(220, 252, 231, 0.6);
+}
+
+.jobseeker-navbar .theme-toggle:hover,
+.jobseeker-navbar .theme-toggle:focus-visible {
+  background: #16a34a;
+  color: #ffffff;
+  border-color: #16a34a;
+}
+
+/* All buttons in jobseeker dashboard pages → green gradient */
+.dashboard-hero .btn-primary,
+.dashboard-hero .btn-outline,
+.dashboard-card .btn-primary,
+.dashboard-card .btn-outline,
+.section .btn-primary,
+.section .btn-outline,
+.card-actions .btn-primary,
+.card-actions .btn-outline {
+  background: linear-gradient(135deg, #16a34a 0%, #15803d 100%);
+  border-color: #15803d;
+  color: #ffffff;
+  box-shadow: 0 4px 14px rgba(22, 163, 74, 0.35);
+}
+
+.dashboard-hero .btn-primary:hover,
+.dashboard-hero .btn-primary:focus-visible,
+.dashboard-hero .btn-outline:hover,
+.dashboard-hero .btn-outline:focus-visible,
+.dashboard-card .btn-primary:hover,
+.dashboard-card .btn-primary:focus-visible,
+.dashboard-card .btn-outline:hover,
+.dashboard-card .btn-outline:focus-visible,
+.section .btn-primary:hover,
+.section .btn-primary:focus-visible,
+.section .btn-outline:hover,
+.section .btn-outline:focus-visible,
+.card-actions .btn-primary:hover,
+.card-actions .btn-primary:focus-visible,
+.card-actions .btn-outline:hover,
+.card-actions .btn-outline:focus-visible {
+  background: #ffffff;
+  color: #16a34a;
+  border-color: #16a34a;
+  transform: translateY(-2px);
+  box-shadow: 0 16px 28px rgba(22, 163, 74, 0.24);
+}
+
+/* dark mode navbar */
+body.theme-dark .jobseeker-navbar .nav-links a:hover {
+  color: #4ade80;
+}
+
+body.theme-dark .jobseeker-navbar .nav-links a.is-active {
+  color: #86efac;
+  background: rgba(22, 163, 74, 0.18);
+  border-color: rgba(22, 163, 74, 0.35);
+}
+
+body.theme-dark .jobseeker-navbar .nav-logout {
+  border-color: #16a34a;
+  color: #86efac;
+}
+
+body.theme-dark .jobseeker-navbar .nav-logout:hover {
+  background: #16a34a;
+  color: #ffffff;
+}
+
+body.theme-dark .jobseeker-navbar .nav-user {
+  background: rgba(22, 163, 74, 0.12);
+  border-color: rgba(22, 163, 74, 0.28);
+  color: #86efac;
+}
+
+body.theme-dark .jobseeker-navbar .theme-toggle {
+  border-color: rgba(22, 163, 74, 0.28);
+  background: rgba(22, 163, 74, 0.1);
+}
+
+body.theme-dark .jobseeker-navbar .theme-toggle:hover {
+  background: #16a34a;
+  color: #ffffff;
+}
+
+body.theme-dark .jobseeker-navbar .nav-brand,
+body.theme-dark .jobseeker-navbar .nav-brand span {
+  color: #4ade80 !important;
+}
