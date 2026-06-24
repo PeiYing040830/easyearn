@@ -1,4 +1,4 @@
-﻿function loadPartial(id, path) {
+function loadPartial(id, path) {
   const target = document.getElementById(id);
   if (!target) return Promise.resolve(false);
 
