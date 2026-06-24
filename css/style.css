@@ -15,7 +15,7 @@ html:has(body.auth-bg-page) {
   min-height: 100%;
   background:
     linear-gradient(180deg, rgba(255, 255, 255, 0.18), rgba(255, 255, 255, 0.58)),
-    url("../images/login.jpg") center / cover fixed no-repeat;
+    url("/easyearn/images/login.jpg") center / cover fixed no-repeat;
 }
 
 body.auth-bg-page {
@@ -31,7 +31,7 @@ body.auth-bg-page::before {
   z-index: -1;
   background:
     linear-gradient(180deg, rgba(255, 255, 255, 0.18), rgba(255, 255, 255, 0.58)),
-    url("../images/login.jpg") center / cover no-repeat;
+    url("/easyearn/images/login.jpg") center / cover no-repeat;
 }
 
 .auth-container {
@@ -261,7 +261,7 @@ body.theme-dark {
 html:has(body.theme-dark.auth-bg-page) {
   background:
     linear-gradient(180deg, rgba(0, 0, 0, 0.45), rgba(0, 0, 0, 0.65)),
-    url("../images/login.jpg") center / cover fixed no-repeat;
+    url("/easyearn/images/login.jpg") center / cover fixed no-repeat;
 }
 
 body.theme-dark.auth-bg-page {
@@ -271,7 +271,7 @@ body.theme-dark.auth-bg-page {
 body.theme-dark.auth-bg-page::before {
   background:
     linear-gradient(180deg, rgba(0, 0, 0, 0.45), rgba(0, 0, 0, 0.65)),
-    url("../images/login.jpg") center / cover no-repeat;
+    url("/easyearn/images/login.jpg") center / cover no-repeat;
 }
 
 body.theme-dark .auth-box {
