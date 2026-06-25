@@ -2551,7 +2551,7 @@ body.theme-dark .pub-section-card {
 }
 
 /* ==========================================================================
-   Hamburger Menu Styles (900px Breakpoint)
+   Hamburger Menu Styles (Updated to 1024px Breakpoint for Half Screen)
    ========================================================================== */
 
 /* Hide hamburger button by default on desktop view */
@@ -2577,10 +2577,10 @@ body.theme-dark .pub-section-card {
   transition: all 0.3s ease;
 }
 
-/* Mobile responsive view under 900px breakpoint */
-@media (max-width: 900px) {
+/* Mobile & Half-Screen responsive view under 1024px breakpoint */
+@media (max-width: 1024px) {
   #hamburger-btn {
-    display: flex; /* Show hamburger icon */
+    display: flex; /* Show hamburger icon on half screen / tablet / mobile */
   }
 
   /* Transform nav links into a full-width mobile dropdown menu */
