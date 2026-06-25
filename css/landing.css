@@ -2431,11 +2431,14 @@ body.theme-dark textarea:focus {
     font-size: 12px;
   }
 
-  .nav-user-name,
-  .nav-translate-label {
-    display: none;
-  }
+.nav-user-name,
+.nav-translate-label {
+  display: none;
+}
 
+#google_translate_element {
+  display: inline-flex !important;
+}
   .nav-user {
     padding: 6px;
   }
@@ -2580,33 +2583,47 @@ body.theme-dark .pub-section-card {
 /* Mobile & Half-Screen responsive view under 1024px breakpoint */
 @media (max-width: 1024px) {
   #hamburger-btn {
-    display: flex; /* Show hamburger icon on half screen / tablet / mobile */
+    display: flex;
   }
 
-  /* Transform nav links into a full-width mobile dropdown menu */
   .marketing-navbar .nav-links,
   .app-navbar .nav-links {
-    display: none; /* Hidden by default */
+    display: none;
     position: absolute;
     top: 100%;
-    left: 0;
-    width: 100%;
-    background-color: var(--bg-color, #ffffff); 
-    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    right: 0;
+    left: auto;
+    width: auto;
+    min-width: 180px;
+    background-color: var(--nav-bg, #ffffff);
+    border: 1px solid var(--border-color, #e5e7eb);
+    border-radius: 10px;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.12);
     flex-direction: column;
-    padding: 20px;
-    gap: 15px;
-    align-items: center;
+    padding: 8px 0;
+    gap: 0;
+    align-items: stretch;
     z-index: 1000;
   }
 
-  /* Display mobile dropdown menu when navbar state is active */
+  .marketing-navbar .nav-links a,
+  .app-navbar .nav-links a {
+    padding: 10px 20px;
+    font-size: 14px;
+    white-space: nowrap;
+    border-radius: 0;
+  }
+
+  .marketing-navbar .nav-links a:hover,
+  .app-navbar .nav-links a:hover {
+    background-color: var(--hover-bg, #f3f4f6);
+  }
+
   .marketing-navbar.nav-active .nav-links,
   .app-navbar.nav-active .nav-links {
     display: flex;
   }
 
-  /* Animated state for hamburger bars turning into an 'X' close icon */
   .nav-active #hamburger-btn span:nth-child(1) {
     transform: translateY(8px) rotate(45deg);
   }
