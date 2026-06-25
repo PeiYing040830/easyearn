@@ -4106,6 +4106,24 @@ body.theme-dark .history-hero-copy p {
   color: #94a3b8;
 }
 
+body.theme-dark .jobseeker-shell .hero-badge,
+body.theme-dark .jobseeker-header .hero-badge {
+  background: rgba(22, 163, 74, 0.18) !important;
+  color: #86efac !important;
+  border-color: rgba(22, 163, 74, 0.35) !important;
+}
+
+body.theme-dark .jobseeker-shell .section-tag,
+body.theme-dark .jobseeker-header .section-tag {
+  background: rgba(22, 163, 74, 0.18) !important;
+  color: #86efac !important;
+}
+
+body.theme-dark .jobseeker-shell .card-kicker {
+  background: rgba(22, 163, 74, 0.18) !important;
+  color: #86efac !important;
+}
+
 @media (max-width: 820px) {
   .messages-shell {
     padding: 96px 12px 20px;
