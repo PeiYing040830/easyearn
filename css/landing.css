@@ -2701,3 +2701,4 @@ body.theme-dark .app-navbar .nav-links a:hover {
   }
 }
 `nbody.theme-dark #hamburger-btn span { background-color: #e2e8f0; }
+`nbody.theme-dark #hamburger-btn span { background-color: #e2e8f0 !important; }
