@@ -4178,6 +4178,14 @@ body.theme-dark .jobseeker-shell .card-kicker {
         gap: 4px;
     }
 
+     #applications-donut-canvas {
+        max-height: 200px !important;
+    }
+    
+    #applications-line-canvas {
+        max-height: 160px !important;
+    }
+    
     .jobseeker-navbar .theme-toggle,
     .jobseeker-navbar .nav-translate {
         width: 26px;
