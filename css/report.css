@@ -293,14 +293,18 @@ body.theme-dark .faq-item p {
   .report-form {
     padding: 16px;
     overflow: hidden;
+    width: 100%;
+    max-width: 100%;
   }
 
   .field-control {
+    box-sizing: border-box;
     max-width: 100%;
     overflow: hidden;
   }
 
   .report-form textarea {
+    box-sizing: border-box;
     max-width: 100%;
   }
 }

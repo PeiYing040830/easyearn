@@ -2532,7 +2532,8 @@ body.theme-dark textarea:focus {
   padding: 48px 40px;
   max-width: 1040px;
   margin: 0 auto;
-  width: 100%;
+  width: 100%;         
+  box-sizing: border-box; 
 }
 
 .pub-section-card .section-title {
