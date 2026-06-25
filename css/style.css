@@ -355,4 +355,4 @@ body.theme-dark .error-msg {
 
 .navbar { position: sticky; top: 0; z-index: 1000; }
 
-@media (max-width: 900px) { .marketing-navbar { flex-wrap: wrap; } .nav-links { order: 3; width: 100%; display: flex; flex-wrap: wrap; justify-content: center; padding: 0.5rem 0; border-top: 1px solid #eee; } .nav-tools { margin-left: auto; } }
+
