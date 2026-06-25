@@ -1879,10 +1879,6 @@ body.theme-dark .jobs-preview-status {
     height: 70px;
   }
 
-  .nav-links a:not(.nav-login):not(.nav-register) {
-    display: none;
-  }
-
   .nav-translate {
     display: none;
   }
