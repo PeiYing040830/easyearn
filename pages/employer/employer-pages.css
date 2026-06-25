@@ -300,6 +300,7 @@ body.theme-dark .employer-navbar .theme-toggle:hover {
 }
 .employer-card { background: #fffdf9; border: 1px solid var(--employer-base-border); border-radius: 20px; padding: 30px; box-shadow: 0 10px 24px rgba(15, 23, 42, 0.08); transition: transform 0.24s ease, box-shadow 0.24s ease, border-color 0.24s ease, background-color 0.24s ease; }
 .employer-card:hover, .employer-card:focus-within { transform: translateY(-3px); border-color: var(--employer-accent-border); box-shadow: 0 18px 34px var(--employer-accent-shadow-soft); }
+.verification-status-card { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 36px; align-items: center; }
 .employer-card h2, .employer-card h3 { color: #0f172a; margin-bottom: 8px; }
 .employer-card p { color: #64748b; line-height: 1.65; margin-bottom: 0; }
 .employer-metric {
@@ -1795,6 +1796,28 @@ body.theme-dark .messages-bubble.is-duitnow.is-theirs {
 @media (max-width: 860px) {
   .chart-duo-grid {
     grid-template-columns: 1fr;
+  }
+
+  /* Verification status banner: 3-col → 1-col at tablet */
+  .verification-status-card {
+    grid-template-columns: 1fr !important;
+  }
+
+  /* Verification form: collapse 3-col inline grid to 2-col at tablet width */
+  #verification-form .employer-form-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  }
+
+  /* Submit button cell: full width, not in 3rd column */
+  #verification-form .employer-form-grid > div:last-child {
+    grid-column: 1 / -1;
+  }
+}
+
+@media (max-width: 760px) {
+  /* Verification form: collapse to 1-col on mobile */
+  #verification-form .employer-form-grid {
+    grid-template-columns: 1fr !important;
   }
 }
 
