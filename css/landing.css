@@ -1879,10 +1879,6 @@ body.theme-dark .jobs-preview-status {
     height: 70px;
   }
 
-  .nav-translate {
-    display: none;
-  }
-
   .section {
     padding: 64px 24px;
   }
@@ -2634,6 +2630,11 @@ body.theme-dark .pub-section-card {
   }
   .nav-active #hamburger-btn span:nth-child(3) {
     transform: translateY(-8px) rotate(-45deg);
+  }
+
+  .marketing-navbar.nav-active,
+  .app-navbar.nav-active {
+    box-shadow: none !important;
   }
 }
 
