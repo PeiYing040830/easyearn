@@ -2668,6 +2668,21 @@ body.theme-dark .app-navbar .nav-links a:hover {
 
 /* ── nav-register inside hamburger dropdown: remove button style ── */
 @media (max-width: 1024px) {
+  .marketing-navbar .nav-links .nav-login,
+  .app-navbar .nav-links .nav-login {
+    color: inherit !important;
+    -webkit-text-fill-color: inherit;
+    font-weight: 400;
+  }
+
+  body.theme-dark .marketing-navbar .nav-links .nav-login,
+  body.theme-dark .app-navbar .nav-links .nav-login {
+    color: #cbd5e1 !important;
+    -webkit-text-fill-color: #cbd5e1;
+  }
+}
+
+@media (max-width: 1024px) {
   .marketing-navbar .nav-links .nav-register,
   .app-navbar .nav-links .nav-register {
     background: none;
