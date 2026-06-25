@@ -2568,11 +2568,11 @@ body.theme-dark .pub-section-card {
   gap: 6px;
 }
 
-#hamburger-btn span {
+#hamburger-btn span {`
   display: block;
   width: 100%;
   height: 2px;
-  background-color: var(--text-color, #333);
+  background-color: var(--hamburger-color, #333);
   border-radius: 3px;
   transition: all 0.3s ease;
   flex-shrink: 0;
@@ -2700,3 +2700,4 @@ body.theme-dark .app-navbar .nav-links a:hover {
     -webkit-text-fill-color: #38bdf8;
   }
 }
+`nbody.theme-dark #hamburger-btn span { background-color: #e2e8f0; }
