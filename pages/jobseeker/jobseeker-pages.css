@@ -51,7 +51,7 @@
   color: #16a34a !important; 
   font-size: 1.1rem;
   margin: 0;
-  white-space: nowrap; 
+  white-space: normal; 
   max-width: none !important;
   width: auto;
 }
@@ -4073,9 +4073,23 @@ body.theme-dark .messages-shell .messages-bubble.is-duitnow.is-mine small {
 
 /* ── Dark Mode: jobseeker hero banners ── */
 body.theme-dark .jobseeker-header {
-  background: linear-gradient(145deg, #0a1f12, #0d2318) !important;
   border-color: #1f2937;
   box-shadow: 0 16px 32px rgba(0, 0, 0, 0.4);
+}
+
+body.theme-dark .jobseeker-header::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(5, 20, 10, 0.55);
+  border-radius: inherit;
+  z-index: 0;
+  pointer-events: none;
+}
+
+body.theme-dark .jobseeker-header > * {
+  position: relative;
+  z-index: 1;
 }
 
 body.theme-dark .jobseeker-header h1 {
