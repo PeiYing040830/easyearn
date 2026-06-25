@@ -1798,6 +1798,10 @@ body.theme-dark .messages-bubble.is-duitnow.is-theirs {
     grid-template-columns: 1fr;
   }
 
+  .employer-shell {
+    padding-top: 100px;
+  }
+
   /* Verification status banner: 3-col → 1-col at tablet */
   .verification-status-card {
     grid-template-columns: 1fr !important;
