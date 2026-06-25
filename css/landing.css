@@ -2647,3 +2647,56 @@ body.theme-dark .pub-section-card {
   .pub-page-body { padding: 16px 12px; gap: 12px; }
   .pub-section-card { padding: 24px 16px; border-radius: 14px; }
 }
+/* ── Hamburger dropdown: dark mode background ── */
+body.theme-dark .marketing-navbar .nav-links,
+body.theme-dark .app-navbar .nav-links {
+  background-color: #1e293b;
+  border-color: #334155;
+}
+
+body.theme-dark .marketing-navbar .nav-links a,
+body.theme-dark .app-navbar .nav-links a {
+  color: #cbd5e1;
+}
+
+body.theme-dark .marketing-navbar .nav-links a:hover,
+body.theme-dark .app-navbar .nav-links a:hover {
+  background-color: #0f172a;
+  color: #38bdf8;
+}
+
+/* ── nav-register inside hamburger dropdown: remove button style ── */
+@media (max-width: 1024px) {
+  .marketing-navbar .nav-links .nav-register,
+  .app-navbar .nav-links .nav-register {
+    background: none;
+    border: none;
+    box-shadow: none;
+    color: inherit !important;
+    -webkit-text-fill-color: inherit;
+    font-weight: 400;
+    padding: 10px 20px;
+    border-radius: 0;
+  }
+
+  .marketing-navbar .nav-links .nav-register:hover,
+  .app-navbar .nav-links .nav-register:hover {
+    background-color: var(--hover-bg, #f3f4f6);
+    color: inherit !important;
+    -webkit-text-fill-color: inherit;
+    border: none;
+  }
+
+  body.theme-dark .marketing-navbar .nav-links .nav-register,
+  body.theme-dark .app-navbar .nav-links .nav-register {
+    color: #cbd5e1 !important;
+    -webkit-text-fill-color: #cbd5e1;
+  }
+
+  body.theme-dark .marketing-navbar .nav-links .nav-register:hover,
+  body.theme-dark .app-navbar .nav-links .nav-register:hover {
+    background-color: #0f172a;
+    color: #38bdf8 !important;
+    -webkit-text-fill-color: #38bdf8;
+  }
+}
