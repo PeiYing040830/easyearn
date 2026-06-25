@@ -4172,3 +4172,25 @@ body.theme-dark .jobseeker-shell .card-kicker {
     width: 100%;
   }
 }
+
+@media (max-width: 480px) {
+    .jobseeker-navbar .nav-tools {
+        gap: 4px;
+    }
+
+    .jobseeker-navbar .theme-toggle,
+    .jobseeker-navbar .nav-translate {
+        width: 26px;
+        height: 26px;
+        min-width: 26px;
+    }
+
+    .jobseeker-navbar .nav-user {
+        display: none;
+    }
+
+    .jobseeker-navbar .nav-logout {
+        padding: 4px 10px;
+        font-size: 12px;
+    }
+}
