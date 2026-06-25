@@ -553,6 +553,20 @@ body.theme-dark .dashboard-hero-snapshot {
   box-shadow: 0 16px 32px rgba(2, 6, 23, 0.32);
 }
 
+body.theme-dark .dashboard-hero-copy {
+  background: linear-gradient(145deg, #0f2318, #0d1f15);
+  border-color: #1f2937;
+  box-shadow: 0 16px 32px rgba(2, 6, 23, 0.32);
+}
+
+body.theme-dark .dashboard-hero-copy h1 {
+  color: #f1f5f9;
+}
+
+body.theme-dark .dashboard-hero-copy p {
+  color: #94a3b8;
+}
+
 body.theme-dark main {
   background: #07131a;
 }
