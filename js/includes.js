@@ -143,14 +143,4 @@ document.addEventListener('DOMContentLoaded', () => {
       document.body.appendChild(script);
     }
   });
-  document.addEventListener('DOMContentLoaded', function() {
-    var btn = document.getElementById('hamburger-btn');
-    var links = document.getElementById('nav-links');
-    if (btn && links) {
-      btn.addEventListener('click', function() {
-       links.classList.toggle('open');
-    });
-  }
 });
-});
-
