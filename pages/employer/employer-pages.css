@@ -1800,7 +1800,7 @@ body.theme-dark .messages-bubble.is-duitnow.is-theirs {
 
 @media (max-width: 760px) {
   .employer-shell {
-    padding-top: 184px;
+    padding-top: 120px;
   }
 
   .employer-page-header,
@@ -1826,6 +1826,16 @@ body.theme-dark .messages-bubble.is-duitnow.is-theirs {
   .employer-hero-actions {
     width: 100%;
   }
+  .employer-form-actions .btn-primary,
+    .employer-form-actions .btn-outline {
+        width: 100%;
+        min-width: 0;
+        max-width: 100%;
+    }
+
+    .employer-form-grid {
+        grid-template-columns: 1fr; 
+    }
 }
 
 @media (max-width: 720px) {
