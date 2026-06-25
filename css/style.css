@@ -8,7 +8,7 @@ body {
   font-family: 'Segoe UI', sans-serif;
   background: #ffffff;
   min-height: 100vh;
-  padding-top: 90px;
+  padding-top: 0;
 }
 
 html:has(body.auth-bg-page) {
