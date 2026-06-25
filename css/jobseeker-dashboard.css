@@ -553,22 +553,6 @@ body.theme-dark .dashboard-hero-snapshot {
   box-shadow: 0 16px 32px rgba(2, 6, 23, 0.32);
 }
 
-body.theme-dark .dashboard-hero-copy {
-  background: linear-gradient(145deg, #0f2318, #13251d);
-  border-color: #1f2937;
-  box-shadow: 0 16px 32px rgba(2, 6, 23, 0.32);
-}
-
-body.theme-dark .dashboard-hero-copy h1 {
-  color: #f1f5f9 !important;
-  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.6);
-}
-
-body.theme-dark .dashboard-hero-copy p {
-  color: #cbd5e1 !important;
-  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.5);
-}
-
 body.theme-dark main {
   background: #07131a;
 }
@@ -592,14 +576,6 @@ body.theme-dark .dashboard-card p,
 body.theme-dark .mini-checklist li,
 body.theme-dark .job-tags span {
   color: #cbd5e1;
-}
-
-body.theme-dark .dashboard-hero-copy h1 {
-  color: #0f172a;
-}
-
-body.theme-dark .dashboard-hero-copy p {
-  color: #0f172a;
 }
 
 body.theme-dark .dashboard-hero-snapshot h2 {
