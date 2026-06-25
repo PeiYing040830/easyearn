@@ -171,3 +171,28 @@
   .stacking-card.is-middle { transform: translate3d(14px, 14px, 0) scale(0.97); }
   .stacking-card.is-back   { transform: translate3d(28px, 28px, 0) scale(0.94); }
 }
+
+/* ── Dark Mode ── */
+body.theme-dark .about-page-body {
+  background: #0b1220;
+}
+
+body.theme-dark .about-section-card {
+  background: #111827;
+  border-color: #1f2937;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
+}
+
+body.theme-dark .stacking-card {
+  background: #1a2332;
+  border-color: #1f2937;
+  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.3);
+}
+
+body.theme-dark .stacking-card-body h3 {
+  color: #f1f5f9;
+}
+
+body.theme-dark .stacking-card-body p {
+  color: #94a3b8;
+}

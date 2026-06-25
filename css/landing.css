@@ -2700,5 +2700,11 @@ body.theme-dark .app-navbar .nav-links a:hover {
     -webkit-text-fill-color: #38bdf8;
   }
 }
-`nbody.theme-dark #hamburger-btn span { background-color: #e2e8f0; }
-`nbody.theme-dark #hamburger-btn span { background-color: #e2e8f0 !important; }
+body.theme-dark #hamburger-btn span { background-color: #e2e8f0 !important; }
+
+/* Chatbot floating window dark mode */
+body.theme-dark .floating-chat-body .chat-bubble {
+  background: #111827 !important;
+  border-color: #1f2937 !important;
+  color: #e5e7eb !important;
+}

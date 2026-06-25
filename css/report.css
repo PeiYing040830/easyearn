@@ -65,6 +65,7 @@
   border: 1px solid #e6eef7;
   border-radius: 16px;
   padding: 24px;
+  box-sizing: border-box;
   box-shadow: 0 10px 28px rgba(15, 23, 42, 0.08);
   transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s;
 }
@@ -91,6 +92,8 @@
   border-radius: 12px;
   padding: 10px 12px;
   background: #f8fdff;
+  box-sizing: border-box;
+  max-width: 100%;
 }
 
 .field-control input,
@@ -98,6 +101,7 @@
   border: none;
   outline: none;
   flex: 1;
+  min-width: 0;
   font-size: 14px;
   background: transparent;
   color: #0f172a;
@@ -111,6 +115,7 @@
 .field-icon {
   width: 28px;
   height: 28px;
+  flex-shrink: 0;
   border-radius: 10px;
   background: #e5f6fa;
   display: grid;
@@ -120,6 +125,7 @@
 
 .report-form textarea {
   width: 100%;
+  box-sizing: border-box;
   border: 1.5px solid #dce3f1;
   border-radius: 12px;
   padding: 10px 12px;
@@ -280,5 +286,21 @@ body.theme-dark .faq-item p {
 
   .form-row {
     grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 480px) {
+  .report-form {
+    padding: 16px;
+    overflow: hidden;
+  }
+
+  .field-control {
+    max-width: 100%;
+    overflow: hidden;
+  }
+
+  .report-form textarea {
+    max-width: 100%;
   }
 }
