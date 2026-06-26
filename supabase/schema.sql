@@ -1,5 +1,9 @@
 -- EasyEarn full Supabase rebuild script.
 -- Built from the live Supabase snapshot exported on 2026-05-03.
+-- Synced against the live database on 2026-06-27 to add unique constraints on
+-- applications(job_id, seeker_id) and ratings(application_id, reviewer_id) that
+-- existed live but were missing from this file, and to correct the saved_jobs
+-- unique index name to match what is actually deployed.
 --
 -- Run this file on a fresh Supabase project, or on the current project only if you
 -- want to repair missing tables/functions/policies. It drops removed cleanup
@@ -318,7 +322,7 @@ alter table public.saved_jobs add column if not exists job_id uuid;
 alter table public.saved_jobs add column if not exists saved_at timestamp with time zone default now();
 alter table public.saved_jobs alter column seeker_id set not null;
 alter table public.saved_jobs alter column job_id set not null;
-create unique index if not exists saved_jobs_seeker_job_unique
+create unique index if not exists saved_jobs_seeker_id_job_id_key
   on public.saved_jobs(seeker_id, job_id);
 
 alter table public.work_history add column if not exists seeker_id uuid;
@@ -380,6 +384,13 @@ begin
   alter table public.applications
     add constraint applications_seeker_id_fkey
     foreign key (seeker_id) references public.users(id) on delete cascade not valid;
+exception when duplicate_object then null;
+end $$;
+do $$
+begin
+  alter table public.applications
+    add constraint applications_job_id_seeker_id_key
+    unique (job_id, seeker_id);
 exception when duplicate_object then null;
 end $$;
 
@@ -444,6 +455,13 @@ begin
   alter table public.ratings
     add constraint ratings_reviewee_id_fkey
     foreign key (reviewee_id) references public.users(id) on delete set null not valid;
+exception when duplicate_object then null;
+end $$;
+do $$
+begin
+  alter table public.ratings
+    add constraint ratings_application_id_reviewer_id_key
+    unique (application_id, reviewer_id);
 exception when duplicate_object then null;
 end $$;
 
@@ -527,6 +545,27 @@ begin
   from public.job_listings
   where id = new.job_id;
 
+  return new;
+end;
+$function$;
+
+
+create or replace function public.handle_new_auth_user()
+returns trigger
+language plpgsql
+security definer
+set search_path to 'public'
+as $function$
+begin
+  insert into public.users (id, email, full_name, role, created_at)
+  values (
+    new.id,
+    new.email,
+    coalesce(new.raw_user_meta_data->>'full_name', ''),
+    coalesce(new.raw_user_meta_data->>'role', 'seeker'),
+    now()
+  )
+  on conflict (id) do nothing;
   return new;
 end;
 $function$;
@@ -620,6 +659,11 @@ drop trigger if exists trg_new_application on public.applications;
 create trigger trg_new_application
 after insert on public.applications
 for each row execute function public.notify_new_application();
+
+drop trigger if exists on_auth_user_created on auth.users;
+create trigger on_auth_user_created
+  after insert on auth.users
+  for each row execute function public.handle_new_auth_user();
 
 -- ---------------------------------------------------------------------------
 -- RLS

@@ -7,7 +7,7 @@
 }
 
 .jobseeker-shell {
-  padding: 126px var(--jobseeker-page-gutter) var(--jobseeker-footer-gap);
+  padding: 120px var(--jobseeker-page-gutter) var(--jobseeker-footer-gap);
 }
 
 .jobseeker-shell > * + * {
@@ -1868,6 +1868,18 @@ body.theme-dark .resume-shell {
   color: #16a34a;
   font-size: 13px;
   font-weight: 700;
+}
+
+@media (max-width: 900px) {
+  .jobseeker-shell {
+    padding-top: 108px;
+  }
+}
+
+@media (max-width: 560px) {
+  .jobseeker-shell {
+    padding-top: 100px;
+  }
 }
 
 @media (max-width: 960px) {
