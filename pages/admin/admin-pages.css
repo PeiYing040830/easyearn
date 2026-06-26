@@ -2643,10 +2643,10 @@ body.theme-dark .messages-bubble.is-duitnow.is-theirs {
 
 .admin-shell.messages-shell .messages-form textarea {
   grid-area: input;
-  min-height: 86px;
-  max-height: 120px;
+  min-height: 160px;
+  max-height: 260px;
   padding: 12px 14px;
-  resize: none;
+  resize: vertical;
   border-radius: 8px;
   border: 1.5px solid rgba(109, 40, 217, 0.42);
   background: #ffffff;
@@ -2726,6 +2726,25 @@ body.theme-dark .messages-bubble.is-duitnow.is-theirs {
   }
 
   .admin-shell.messages-shell .messages-panel {
+    width: 100%;
+    display: flex !important;
+    flex-direction: column;
+  }
+
+  .admin-shell.messages-shell .messages-thread-body {
+    height: 400px;
+    flex: 1 1 auto;
+  }
+
+  .admin-shell.messages-shell .messages-form {
+    grid-template-columns: minmax(0, 1fr) 180px;
+    grid-template-areas:
+      "toolbar toolbar"
+      "preview preview"
+      "input send"
+      "status .";
+    grid-template-rows: auto auto minmax(64px, auto) auto;
+    overflow: visible;
     width: 100%;
   }
 
