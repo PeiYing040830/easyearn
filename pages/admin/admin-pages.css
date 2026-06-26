@@ -60,16 +60,16 @@
 }
 
 .nav-logout {
-  background: var(--admin-accent);
+  background: #ffffff;
   border-color: var(--admin-accent);
-  color: #ffffff;
+  color: var(--admin-accent-strong);
 }
 
 .nav-logout:hover,
 .nav-logout:focus-visible {
-  background: #ffffff;
+  background: var(--admin-accent);
   border-color: var(--admin-accent);
-  color: var(--admin-accent-strong);
+  color: #ffffff;
 }
 
 .theme-toggle {
