@@ -36,11 +36,19 @@ body.auth-bg-page::before {
 
 .auth-container {
   width: 100%;
-  padding: 56px 20px 60px;
+  padding: 20px;
   display: flex;
   justify-content: center;
-  align-items: flex-start;
+  align-items: center;
   min-height: calc(100vh - 78px);
+}
+
+/* register form is taller — switch to top-aligned with breathing room
+   so it never gets clipped above the viewport on tall screens */
+.auth-container:has(.auth-box.wide) {
+  align-items: flex-start;
+  padding-top: 56px;
+  padding-bottom: 60px;
 }
 
 @media (max-width: 768px) {
