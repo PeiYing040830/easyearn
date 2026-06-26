@@ -2767,13 +2767,14 @@ body.theme-dark .messages-bubble.is-duitnow.is-theirs {
       "status";
   }
 
-.admin-shell.messages-shell .messages-form {
+  .admin-shell.messages-shell .messages-form {
     grid-template-columns: minmax(0, 1fr) 180px;
     grid-template-areas:
+      "toolbar toolbar"
       "preview preview"
       "input send"
-      "toolbar status";
-    grid-template-rows: auto minmax(64px, auto) auto;
+      "status .";
+    grid-template-rows: auto auto minmax(64px, auto) auto;
     overflow: visible;
   }
 
