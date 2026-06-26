@@ -36,7 +36,7 @@ body.auth-bg-page::before {
 
 .auth-container {
   width: 100%;
-  padding: 60px 20px 20px;
+  padding: 88px 20px 64px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -47,16 +47,16 @@ body.auth-bg-page::before {
    so it never gets clipped above the viewport on tall screens */
 .auth-container:has(.auth-box.wide) {
   align-items: flex-start;
-  padding-top: 56px;
-  padding-bottom: 60px;
+  padding-top: 84px;
+  padding-bottom: 72px;
 }
 
 @media (max-width: 768px) {
   .auth-container {
     min-height: calc(100vh - 70px);
     align-items: flex-start;
-    padding-top: 40px;
-    padding-bottom: 40px;
+    padding-top: 58px;
+    padding-bottom: 54px;
   }
 }
 .auth-box {
