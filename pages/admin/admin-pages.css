@@ -2604,13 +2604,11 @@ body.theme-dark .messages-bubble.is-duitnow.is-theirs {
   min-height: 140px;
   padding: 14px 16px 16px;
   display: grid;
-  grid-template-columns: minmax(0, 1fr) 180px;
+  grid-template-columns: 1fr auto;
   grid-template-areas:
     "toolbar toolbar"
-    "preview ."
     "input send"
-    "status .";
-  grid-template-rows: auto auto minmax(64px, auto) auto;
+    "status status";
   gap: 10px;
   border-top: 1px solid rgba(109, 40, 217, 0.12);
   background: #ffffff;
@@ -2795,19 +2793,11 @@ body.theme-dark .messages-bubble.is-duitnow.is-theirs {
   }
 
   .admin-shell.messages-shell .messages-form {
-    grid-template-columns: minmax(0, 1fr) 180px;
-    grid-template-areas:
-      "toolbar toolbar"
-      "preview preview"
-      "input send"
-      "status .";
-    grid-template-rows: auto auto minmax(64px, auto) auto;
-    overflow: visible;
+    width: 100%;
   }
 
   .admin-shell.messages-shell .messages-toolbar {
     grid-area: toolbar;
-    align-self: center;
   }
 
   .messages-shell .messages-form-actions .btn-primary {
