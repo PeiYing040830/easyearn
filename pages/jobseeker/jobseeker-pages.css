@@ -1348,7 +1348,7 @@
 
 @media (max-width: 960px) {
   .jobseeker-grid {
-    grid-template-columns: 1fr;
+    grid-template-columns: minmax(0, 1fr);
   }
 
   .jobseeker-header h1 {
@@ -1366,7 +1366,7 @@
   .jobs-hub-grid,
   .history-layout-grid,
   .recommendation-grid {
-    grid-template-columns: 1fr;
+    grid-template-columns: minmax(0, 1fr);
     display: grid;
   }
 
@@ -1436,7 +1436,7 @@
   }
 
   .profile-form-grid {
-    grid-template-columns: 1fr;
+    grid-template-columns: minmax(0, 1fr);
   }
 
   .day-checkbox-grid {
