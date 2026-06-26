@@ -144,7 +144,7 @@ import {
     }
     container.innerHTML = educationEntries.map((entry, idx) => `
       <div class="profile-field profile-field-full" style="border:1px solid #e5e7eb;border-radius:10px;padding:14px 16px;position:relative;margin-bottom:4px">
-        <div style="display:grid;grid-template-columns:1fr 1fr auto;gap:10px;align-items:end">
+        <div style="display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr) auto;gap:10px;align-items:end">
           <label style="display:flex;flex-direction:column;gap:4px;font-size:0.85rem;font-weight:600;color:#374151">
             Level
             <select data-edu-idx="${idx}" data-edu-field="level" style="padding:7px 10px;border:1px solid #d1d5db;border-radius:7px;font-size:0.9rem">
