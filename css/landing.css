@@ -2633,7 +2633,7 @@ body.theme-dark .pub-section-card {
   .app-navbar .nav-links {
     display: none;
     position: absolute;
-    top: calc(100% + 8px);
+    top: 100%;
     right: 12px;
     left: auto;
     width: auto;
