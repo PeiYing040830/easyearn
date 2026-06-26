@@ -2633,13 +2633,14 @@ body.theme-dark .pub-section-card {
   .app-navbar .nav-links {
     display: none;
     position: absolute;
-    top: 100%;
-    right: 0;
-    left: 0;
-    width: 100%;
+    top: calc(100% + 8px);
+    right: 12px;
+    left: auto;
+    width: auto;
+    min-width: 180px;
     background-color: var(--nav-bg, #ffffff);
     border: 1px solid var(--border-color, #e5e7eb);
-    border-radius: 0 0 10px 10px;
+    border-radius: 10px;
     box-shadow: 0 8px 24px rgba(0,0,0,0.12);
     flex-direction: column;
     padding: 8px 0;
