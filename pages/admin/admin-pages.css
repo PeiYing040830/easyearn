@@ -2718,7 +2718,15 @@ body.theme-dark .messages-bubble.is-duitnow.is-theirs {
   .admin-shell.messages-shell .messages-layout {
     height: auto;
     min-height: 0;
-    grid-template-columns: 1fr;
+    grid-template-columns: 1fr !important;
+  }
+
+  .admin-shell.messages-shell .messages-sidebar {
+    display: none !important;
+  }
+
+  .admin-shell.messages-shell .messages-panel {
+    width: 100%;
   }
 
   .messages-sidebar,
