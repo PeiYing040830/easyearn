@@ -211,7 +211,7 @@ body.theme-dark .employer-navbar .theme-toggle:hover {
 
 /* ── Layout ──────────────────────────────────────────────────────────────── */
 
-.employer-shell { padding: 126px 24px 80px; }
+.employer-shell { padding: 120px 24px 80px; }
 .employer-shell > * + * { margin-top: 40px; }
 .employer-dashboard > * + * { margin-top: 44px; }
 .employer-dashboard .employer-grid.four { margin-bottom: 8px; }
@@ -1688,10 +1688,6 @@ body.theme-dark .messages-bubble.is-duitnow.is-theirs {
 }
 
 @media (max-width: 1280px) {
-  .employer-shell {
-    padding-top: 156px;
-  }
-
   .employer-grid.four {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
@@ -1710,10 +1706,6 @@ body.theme-dark .messages-bubble.is-duitnow.is-theirs {
 }
 
 @media (max-width: 1100px) {
-  .employer-shell {
-    padding-top: 168px;
-  }
-
   .employer-grid.three,
   .employer-timeline {
     grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -1806,7 +1798,7 @@ body.theme-dark .messages-bubble.is-duitnow.is-theirs {
   }
 
   .employer-shell {
-    padding-top: 100px;
+    padding-top: 108px;
   }
 
   /* Verification status banner: 3-col → 1-col at tablet */
@@ -1833,10 +1825,6 @@ body.theme-dark .messages-bubble.is-duitnow.is-theirs {
 }
 
 @media (max-width: 760px) {
-  .employer-shell {
-    padding-top: 120px;
-  }
-
   .employer-page-header,
   .employer-header,
   .employer-page-header-main {
@@ -1906,7 +1894,7 @@ body.theme-dark .messages-bubble.is-duitnow.is-theirs {
 
 @media (max-width: 560px) {
   .employer-shell {
-    padding: 126px 14px 64px;
+    padding: 100px 14px 64px;
   }
 
   .employer-card,
