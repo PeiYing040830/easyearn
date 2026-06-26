@@ -2232,7 +2232,7 @@ body.theme-dark .messages-form textarea:disabled {
   grid-template-columns: minmax(0, 1fr) 180px;
   grid-template-areas:
     "toolbar toolbar"
-    "preview ."
+    "preview preview"
     "input send"
     "status .";
   grid-template-rows: auto auto minmax(64px, auto) auto;
@@ -2241,6 +2241,7 @@ body.theme-dark .messages-form textarea:disabled {
 
 .messages-shell .messages-toolbar {
   grid-area: toolbar;
+  align-self: center;
 }
 
 .messages-shell .messages-form textarea {
@@ -2757,23 +2758,27 @@ body.theme-dark .messages-bubble.is-duitnow.is-theirs {
   }
 
   .messages-shell .messages-form {
-    grid-template-columns: 1fr;
+    grid-template-columns: minmax(0, 1fr) 180px;
     grid-template-areas:
-      "toolbar"
-      "preview"
-      "input"
-      "send"
-      "status";
+      "toolbar toolbar"
+      "preview preview"
+      "input send"
+      "status .";
   }
 
-  .admin-shell.messages-shell .messages-form {
-    grid-template-columns: 1fr;
+.admin-shell.messages-shell .messages-form {
+    grid-template-columns: minmax(0, 1fr) 180px;
     grid-template-areas:
-      "toolbar"
-      "preview"
-      "input"
-      "send"
-      "status";
+      "preview preview"
+      "input send"
+      "toolbar status";
+    grid-template-rows: auto minmax(64px, auto) auto;
+    overflow: visible;
+  }
+
+  .admin-shell.messages-shell .messages-toolbar {
+    grid-area: toolbar;
+    align-self: center;
   }
 
   .messages-shell .messages-form-actions .btn-primary {
