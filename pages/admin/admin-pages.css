@@ -2758,12 +2758,13 @@ body.theme-dark .messages-bubble.is-duitnow.is-theirs {
   }
 
   .messages-shell .messages-form {
-    grid-template-columns: minmax(0, 1fr) 180px;
+    grid-template-columns: 1fr;
     grid-template-areas:
-      "toolbar toolbar"
-      "preview preview"
-      "input send"
-      "status .";
+      "toolbar"
+      "preview"
+      "input"
+      "send"
+      "status";
   }
 
 .admin-shell.messages-shell .messages-form {
