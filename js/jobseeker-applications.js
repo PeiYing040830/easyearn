@@ -489,7 +489,6 @@ import {
     document.getElementById('wh-category').value       = job.category || '';
     document.getElementById('wh-start-date').value     = '';
     document.getElementById('wh-end-date').value       = new Date().toISOString().split('T')[0];
-    document.getElementById('wh-earnings').value       = '';
     if (whStatus) whStatus.textContent = '';
     whModal.style.display = 'flex';
   }
@@ -516,7 +515,7 @@ import {
         category: document.getElementById('wh-category').value,
         start_date: document.getElementById('wh-start-date').value || null,
         end_date: document.getElementById('wh-end-date').value || null,
-        earnings: parseFloat(document.getElementById('wh-earnings').value) || 0
+        earnings: 0 // employer fills the actual amount when confirming payment
       });
 
       await updateApplicationStatus(applicationId, 'completion_pending');
