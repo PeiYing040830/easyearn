@@ -3,6 +3,9 @@ import {
   fetchResume,
   fetchWorkHistory,
   fetchRatings,
+  fetchApplications,
+  fetchJobs,
+  fetchPaymentByApplication,
   calcAverageRating,
   getInitials,
   observeAuth
@@ -56,6 +59,21 @@ import {
     const amount = Number(value);
     if (!Number.isFinite(amount)) return 'RM0';
     return `RM${amount.toLocaleString('en-MY', { maximumFractionDigits: 0 })}`;
+  }
+
+  // ── Same status/payment helpers as work-history.js, kept in sync ─────────
+  function normalizeStatus(value) {
+    const raw = String(value || '').toLowerCase();
+    if (raw.includes('completion') && raw.includes('pend')) return 'completion_pending';
+    if (raw.includes('complete')) return 'completed';
+    if (raw.includes('accept')) return 'accepted';
+    if (raw.includes('reject')) return 'rejected';
+    if (raw.includes('review')) return 'reviewed';
+    return 'pending';
+  }
+
+  function isPaymentConfirmed(payment) {
+    return !!(payment?.seeker_confirmed_at || payment?.status === 'confirmed' || payment?.payee_confirmed);
   }
 
   function updateHeaderName(name, photoSrc = '', attempt = 0) {
@@ -317,6 +335,7 @@ import {
     }
   }
 
+  // ── Load resume data, filtered to only payment-confirmed work history ────
   async function loadResumeData(user) {
     const [profile, history, ratingsData] = await Promise.all([
       fetchProfile(user.id, user),
@@ -324,9 +343,44 @@ import {
       fetchRatings(user.id)
     ]);
 
+    let confirmedHistory = history || [];
+
+    try {
+      const [applications, jobs] = await Promise.all([
+        fetchApplications(user.id),
+        fetchJobs()
+      ]);
+
+      const applicationStatusById = new Map(
+        (applications || []).map((app) => [app.id, normalizeStatus(app.status)])
+      );
+      const completedApps = (applications || []).filter(
+        (app) => normalizeStatus(app.status) === 'completed'
+      );
+
+      const paymentResults = await Promise.all(
+        completedApps.map((app) => fetchPaymentByApplication(app.id).catch(() => null))
+      );
+      const confirmedApplicationIds = new Set(
+        completedApps
+          .filter((app, index) => isPaymentConfirmed(paymentResults[index]))
+          .map((app) => app.id)
+      );
+
+      confirmedHistory = (history || []).filter((item) => {
+        // Manually-added records (no applicationId) still show, same as work-history.js
+        if (!item.applicationId) return true;
+        return applicationStatusById.get(item.applicationId) === 'completed'
+          && confirmedApplicationIds.has(item.applicationId);
+      });
+    } catch (error) {
+      console.warn('Resume payment-confirmation filter failed, falling back to raw history:', error);
+      confirmedHistory = history || [];
+    }
+
     renderProfile(user, profile);
-    renderWorkHistory(history);
-    renderStats(history, ratingsData);
+    renderWorkHistory(confirmedHistory);
+    renderStats(confirmedHistory, ratingsData);
   }
 
   if (els.downloadBtn) {
