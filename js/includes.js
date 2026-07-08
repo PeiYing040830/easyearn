@@ -79,6 +79,12 @@ function normalizeFooterLinks(basePath) {
   });
 }
 
+function normalizeLogoPath(basePath) {
+  const logoImg = document.querySelector('#site-header .nav-logo');
+  if (!logoImg) return;
+  logoImg.setAttribute('src', `${basePath}images/logo.png`);
+}
+
 document.addEventListener('DOMContentLoaded', () => {
   const basePath = window.EASYEARN_BASE_PATH || '';
   const headerPath = window.EASYEARN_HEADER_PATH || `${basePath}partials/header.html`;
@@ -90,6 +96,7 @@ document.addEventListener('DOMContentLoaded', () => {
     loadPartial('site-header', headerPath),
     loadPartial('site-footer', footerPath)
   ]).then(() => {
+    normalizeLogoPath(basePath);
     normalizeFooterLinks(basePath);
     highlightCurrentNav();
     initHamburgerMenu();

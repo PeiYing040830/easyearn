@@ -172,7 +172,7 @@ import {
     donutChart = new Chart(canvas, {
       type: 'doughnut',
       data: { labels, datasets: [{ data: values, backgroundColor: colors, borderWidth: 0 }] },
-      options: { responsive: true, cutout: '70%', plugins: { legend: { display: false } } }
+      options: { responsive: true, maintainAspectRatio: false, cutout: '70%', plugins: { legend: { display: false } } }
     });
   }
 

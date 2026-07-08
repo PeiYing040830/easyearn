@@ -195,8 +195,10 @@ import {
         .slice()
         .sort((a, b) => new Date(b.completedOn || b.completedDate || 0) - new Date(a.completedOn || a.completedDate || 0))
         .filter(item => {
-          const key = (item.company || '').trim().toLowerCase();
-          if (!key || seen.has(key)) return false;
+          const company = (item.company || '').trim().toLowerCase();
+          const title = (item.title || item.jobTitle || '').trim().toLowerCase();
+          const key = `${company}|${title}`;
+          if (!company || seen.has(key)) return false;
           seen.add(key);
           return true;
         })
