@@ -355,7 +355,6 @@ import {
     const all = applications.filter((a) => !a.deleted_at);
     if (activeFilter === 'all') return all;
     if (activeFilter === 'active') return all.filter((a) => ['accepted','completion_pending'].includes(normalizeStatus(a.status)));
-    if (activeFilter === 'completed') return all.filter((a) => normalizeStatus(a.status) === 'completed');
     if (activeFilter === 'rejected') return all.filter((a) => normalizeStatus(a.status) === 'rejected');
     return all;
   }
@@ -416,10 +415,10 @@ import {
 
   // ── Filter Buttons ─────────────────────────────────────────────────────────
 
-  ['filter-all', 'filter-active', 'filter-completed', 'filter-rejected'].forEach((id) => {
+  ['filter-all', 'filter-active', 'filter-rejected'].forEach((id) => {
     document.getElementById(id)?.addEventListener('click', (e) => {
       activeFilter = id.replace('filter-', '');
-      document.querySelectorAll('#filter-all,#filter-active,#filter-completed,#filter-rejected').forEach((btn) => {
+      document.querySelectorAll('#filter-all,#filter-active,#filter-rejected').forEach((btn) => {
         btn.className = btn.id === id ? 'btn-primary' : 'btn-outline';
       });
       renderApplications();
