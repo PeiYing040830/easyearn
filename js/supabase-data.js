@@ -375,6 +375,7 @@ export function normalizeWorkHistoryRow(row = {}) {
     completedOn: row.completed_on || row.completedOn || '',
     period: row.period || ((row.start_date || row.end_date) ? [row.start_date, row.end_date].filter(Boolean).join(' - ') : ''),
     earnings: Number(row.earnings || 0),
+    hoursWorked: Number(row.hours_worked || row.total_hours || row.hours || 0),
     rating: row.rating == null ? null : Number(row.rating),
     highlights: normalizeArray(row.highlights),
     createdAt: row.created_at || row.createdAt || '',
@@ -1242,6 +1243,20 @@ export async function fetchRatingsForReviewees(revieweeIds = []) {
     .from(TABLES.ratings)
     .select('*')
     .in('reviewee_id', ids)
+    .order('created_at', { ascending: false, nullsFirst: false });
+
+  if (error) throw error;
+  return data || [];
+}
+
+export async function fetchRatingsByApplications(applicationIds = []) {
+  const ids = Array.from(new Set((applicationIds || []).filter(Boolean)));
+  if (!ids.length) return [];
+
+  const { data, error } = await supabase
+    .from(TABLES.ratings)
+    .select('*')
+    .in('application_id', ids)
     .order('created_at', { ascending: false, nullsFirst: false });
 
   if (error) throw error;

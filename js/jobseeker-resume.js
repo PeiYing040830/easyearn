@@ -1,11 +1,11 @@
 import {
   fetchProfile,
-  fetchResume,
   fetchWorkHistory,
-  fetchRatings,
   fetchApplications,
   fetchJobs,
   fetchPaymentByApplication,
+  fetchRatings,
+  fetchRatingsByApplications,
   calcAverageRating,
   getInitials,
   observeAuth
@@ -26,8 +26,8 @@ import {
     availability: document.getElementById('resume-availability-list'),
     workList: document.getElementById('resume-work-list'),
     gigs: document.getElementById('resume-stat-gigs'),
-    earnings: document.getElementById('resume-stat-earnings'),
     rating: document.getElementById('resume-stat-rating'),
+    recentReview: document.getElementById('resume-stat-recent-review'),
     education: document.getElementById('resume-education-list'),
     references: document.getElementById('resume-references-list'),
     downloadBtn: document.getElementById('resume-download-btn'),
@@ -53,12 +53,6 @@ import {
       return value.split(',').map((item) => item.trim()).filter(Boolean);
     }
     return [];
-  }
-
-  function formatCurrency(value) {
-    const amount = Number(value);
-    if (!Number.isFinite(amount)) return 'RM0';
-    return `RM${amount.toLocaleString('en-MY', { maximumFractionDigits: 0 })}`;
   }
 
   // ── Same status/payment helpers as work-history.js, kept in sync ─────────
@@ -237,14 +231,42 @@ import {
     }
   }
 
-  function renderStats(items, ratingsData = []) {
-    const totalEarnings = items.reduce((sum, item) => sum + Number(item.earnings || 0), 0);
-    const avg = calcAverageRating(ratingsData);
-    const averageRating = avg !== null ? `${avg.toFixed(1)}/5` : 'N/A';
+  function summarizeReview(value) {
+    const text = String(value || '').trim().replace(/\s+/g, ' ');
+    if (!text) return 'No review yet';
+    return text.length > 72 ? `${text.slice(0, 69).trim()}...` : text;
+  }
+
+  function mergeRatings(...ratingGroups) {
+    const seen = new Set();
+    return ratingGroups
+      .flat()
+      .filter((rating) => {
+        if (!rating) return false;
+        const key = rating.id || [
+          rating.application_id || '',
+          rating.reviewer_id || '',
+          rating.reviewee_id || '',
+          rating.created_at || '',
+          rating.review || ''
+        ].join('|');
+        if (seen.has(key)) return false;
+        seen.add(key);
+        return true;
+      })
+      .sort((a, b) => new Date(b.created_at || 0) - new Date(a.created_at || 0));
+  }
+
+  function renderStats(items, ratings = []) {
+    const averageRating = calcAverageRating(ratings);
+    const recentReview = (ratings || []).find((rating) => {
+      return String(rating.reviewer_role || '').toLowerCase() === 'employer'
+        && String(rating.review || '').trim();
+    }) || (ratings || []).find((rating) => String(rating.review || '').trim());
 
     if (els.gigs) els.gigs.textContent = String(items.length);
-    if (els.earnings) els.earnings.textContent = formatCurrency(totalEarnings);
-    if (els.rating) els.rating.textContent = averageRating;
+    if (els.rating) els.rating.textContent = averageRating ? `${averageRating.toFixed(1)}/5` : 'N/A';
+    if (els.recentReview) els.recentReview.textContent = summarizeReview(recentReview?.review);
   }
 
   async function downloadPdf() {
@@ -337,13 +359,17 @@ import {
 
   // ── Load resume data, filtered to only payment-confirmed work history ────
   async function loadResumeData(user) {
-    const [profile, history, ratingsData] = await Promise.all([
+    const [profile, history, directRatings] = await Promise.all([
       fetchProfile(user.id, user),
       fetchWorkHistory(user.id),
-      fetchRatings(user.id)
+      fetchRatings(user.id).catch((error) => {
+        console.warn('Resume ratings load failed:', error);
+        return [];
+      })
     ]);
 
     let confirmedHistory = history || [];
+    let ratings = directRatings || [];
 
     try {
       const [applications, jobs] = await Promise.all([
@@ -373,6 +399,19 @@ import {
         return applicationStatusById.get(item.applicationId) === 'completed'
           && confirmedApplicationIds.has(item.applicationId);
       });
+
+      const applicationRatings = await fetchRatingsByApplications(
+        completedApps.map((app) => app.id)
+      ).catch((error) => {
+        console.warn('Resume application ratings load failed:', error);
+        return [];
+      });
+      ratings = mergeRatings(
+        directRatings,
+        applicationRatings.filter((rating) => {
+          return String(rating.reviewer_role || '').toLowerCase() === 'employer';
+        })
+      );
     } catch (error) {
       console.warn('Resume payment-confirmation filter failed, falling back to raw history:', error);
       confirmedHistory = history || [];
@@ -380,7 +419,7 @@ import {
 
     renderProfile(user, profile);
     renderWorkHistory(confirmedHistory);
-    renderStats(confirmedHistory, ratingsData);
+    renderStats(confirmedHistory, ratings);
   }
 
   if (els.downloadBtn) {

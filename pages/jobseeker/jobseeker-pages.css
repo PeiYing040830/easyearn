@@ -1811,6 +1811,16 @@ body.theme-dark .resume-shell {
   color: #0f172a;
 }
 
+.resume-result-card .resume-result-summary {
+  display: -webkit-box;
+  min-height: 40px;
+  overflow: hidden;
+  font-size: 15px;
+  line-height: 1.35;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+}
+
 .resume-result-card span {
   color: #64748b;
   line-height: 1.5;
@@ -2161,6 +2171,12 @@ body.theme-dark .resume-result-card {
     margin-bottom: 4px !important;
     font-size: 18px !important;
     color: #0f172a !important;
+  }
+
+  .resume-result-card .resume-result-summary {
+    min-height: 0 !important;
+    font-size: 11px !important;
+    line-height: 1.35 !important;
   }
 
   .resume-empty-entry {
