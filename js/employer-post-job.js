@@ -97,6 +97,15 @@ import {
     return Number.isFinite(parsed) && parsed > 0 ? parsed : 1;
   }
 
+  function isPastDate(value) {
+    if (!value) return false;
+    const date = new Date(value);
+    if (Number.isNaN(date.getTime())) return false;
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+    return date < today;
+  }
+
   function fillForm(data = {}) {
     if (fields.title) fields.title.value = data.title || '';
     if (fields.category) fields.category.value = data.category || fields.category.value;
@@ -247,21 +256,63 @@ import {
   }
 
   function validateForm() {
-    if (!fields.title?.value.trim()) {
+    const title = fields.title?.value.trim() || '';
+    const location = fields.location?.value.trim() || '';
+    const payRate = parsePayRate(fields.payRate?.value);
+    const openings = Number.parseInt(String(fields.openings?.value || ''), 10);
+    const description = fields.description?.value.trim() || '';
+
+    if (!title) {
       setStatus('Please enter a job title.', 'is-error');
       fields.title?.focus();
       return false;
     }
 
-    if (!fields.location?.value.trim()) {
+    if (title.length < 3) {
+      setStatus('Job title must be at least 3 characters.', 'is-error');
+      fields.title?.focus();
+      return false;
+    }
+
+    if (!fields.category?.value) {
+      setStatus('Please select a job category.', 'is-error');
+      fields.category?.focus();
+      return false;
+    }
+
+    if (!location) {
       setStatus('Please select a state and enter the job area/district.', 'is-error');
       // Focus the visible state dropdown instead of the hidden input
       document.getElementById('job-location-state')?.focus();
       return false;
     }
 
-    if (!fields.description?.value.trim()) {
+    if (!payRate || payRate <= 0) {
+      setStatus('Please enter a valid positive pay rate, for example RM14/hour.', 'is-error');
+      fields.payRate?.focus();
+      return false;
+    }
+
+    if (!Number.isInteger(openings) || openings < 1 || openings > 100) {
+      setStatus('Openings must be a whole number between 1 and 100.', 'is-error');
+      fields.openings?.focus();
+      return false;
+    }
+
+    if (isPastDate(fields.expiryDate?.value)) {
+      setStatus('Expiry date cannot be in the past.', 'is-error');
+      fields.expiryDate?.focus();
+      return false;
+    }
+
+    if (!description) {
       setStatus('Please enter a job description.', 'is-error');
+      fields.description?.focus();
+      return false;
+    }
+
+    if (description.length < 20) {
+      setStatus('Job description must be at least 20 characters.', 'is-error');
       fields.description?.focus();
       return false;
     }

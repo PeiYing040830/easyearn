@@ -205,6 +205,10 @@ import { fetchProfile, observeAuth, updateEmployerVerification } from './supabas
   async function prepareFile(key) {
     const file = selectedFiles[key];
     if (!file) return savedPackage[key];
+    const allowedTypes = ['application/pdf', 'image/png', 'image/jpeg', 'image/webp'];
+    if (!allowedTypes.includes(file.type)) {
+      throw new Error('Verification files must be PDF, PNG, JPG, or WebP.');
+    }
     if (file.size > 2 * 1024 * 1024) {
       throw new Error('Each file must be 2MB or smaller.');
     }
@@ -241,6 +245,12 @@ import { fetchProfile, observeAuth, updateEmployerVerification } from './supabas
         return;
       }
 
+      if (savedPackage.ssmNumber.length < 6) {
+        setSubmitStatus('SSM registration number must be at least 6 characters.', 'is-error');
+        details.ssmNumber?.focus();
+        return;
+      }
+
       if (!savedPackage.businessType) {
         setSubmitStatus('Please select the business type.', 'is-error');
         details.businessType?.focus();
@@ -249,6 +259,12 @@ import { fetchProfile, observeAuth, updateEmployerVerification } from './supabas
 
       if (!savedPackage.businessAddress) {
         setSubmitStatus('Please enter the registered business address.', 'is-error');
+        details.businessAddress?.focus();
+        return;
+      }
+
+      if (savedPackage.businessAddress.length < 10) {
+        setSubmitStatus('Registered business address must be at least 10 characters.', 'is-error');
         details.businessAddress?.focus();
         return;
       }

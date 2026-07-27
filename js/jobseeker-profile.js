@@ -429,6 +429,26 @@ import {
     };
   }
 
+  function isValidPhone(value) {
+    if (!value) return true;
+    return /^\+?[0-9][0-9\s-]{7,18}$/.test(value);
+  }
+
+  function validateProfilePayload(payload) {
+    if (!payload.name) return { message: 'Please enter your full name before saving.', field: fields.name };
+    if (payload.name.length < 2) return { message: 'Full name must be at least 2 characters.', field: fields.name };
+    if (payload.phone && !isValidPhone(payload.phone)) return { message: 'Please enter a valid phone number.', field: fields.phone };
+    if (payload.location && payload.location.length < 2) return { message: 'Location must be at least 2 characters.', field: fields.location };
+    if (payload.headline && payload.headline.length < 8) return { message: 'Professional headline must be at least 8 characters.', field: fields.headline };
+    if (payload.headline.length > 120) return { message: 'Professional headline must be 120 characters or less.', field: fields.headline };
+    if (payload.bio && payload.bio.length < 20) return { message: 'Short bio must be at least 20 characters.', field: fields.bio };
+    if (payload.bio.length > 600) return { message: 'Short bio must be 600 characters or less.', field: fields.bio };
+    if (payload.experience_years !== null && (!Number.isFinite(payload.experience_years) || payload.experience_years < 0 || payload.experience_years > 60)) {
+      return { message: 'Experience years must be between 0 and 60.', field: fields.experienceYears };
+    }
+    return null;
+  }
+
   function buildResumeSnapshot(profileData) {
     const availability = [
       ...(profileData.availability_days || []),
@@ -551,9 +571,11 @@ import {
     commitPendingSkillInput();
     renderCompleteness();
 
-    if (!fields.name.value.trim()) {
-      setStatus('Please enter your full name before saving.', true);
-      fields.name.focus();
+    const payload = buildPayload();
+    const validationError = validateProfilePayload(payload);
+    if (validationError) {
+      setStatus(validationError.message, true);
+      validationError.field?.focus();
       return;
     }
 
@@ -570,7 +592,6 @@ import {
         setPhotoStatus(photoWarning, 'error');
       }
 
-      const payload = buildPayload();
       const resumePayload = buildResumeSnapshot(payload);
 
       await Promise.all([

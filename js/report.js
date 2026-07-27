@@ -46,6 +46,26 @@ import { observeAuth, fetchProfile, createReport } from './supabase-data.js';
     el.style.color = isError ? '#d14343' : '#1f8f46';
   }
 
+  function isValidEmail(value) {
+    return /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/i.test(String(value || '').trim());
+  }
+
+  function isValidOptionalUrl(value) {
+    if (!value) return true;
+    try {
+      const url = new URL(value.startsWith('http') ? value : `https://${value}`);
+      return Boolean(url.hostname.includes('.'));
+    } catch {
+      return false;
+    }
+  }
+
+  function isAllowedEvidenceFile(file) {
+    if (!file) return true;
+    const allowedTypes = ['application/pdf', 'image/png', 'image/jpeg', 'image/webp'];
+    return allowedTypes.includes(file.type);
+  }
+
   function buildDescription() {
     const role = getField('report-role')?.value?.trim() || 'Other';
     const link = getField('report-link')?.value?.trim() || '';
@@ -61,10 +81,36 @@ import { observeAuth, fetchProfile, createReport } from './supabase-data.js';
   function validateForm() {
     const name = getField('report-name')?.value?.trim();
     const email = getField('report-email')?.value?.trim();
+    const link = getField('report-link')?.value?.trim();
     const description = getField('report-desc')?.value?.trim();
+    const file = getField('report-file')?.files?.[0] || null;
 
     if (!name || !email || !description) {
       return 'Please fill in name, email, and description.';
+    }
+
+    if (name.length < 2) {
+      return 'Full name must be at least 2 characters.';
+    }
+
+    if (!isValidEmail(email)) {
+      return 'Please enter a valid email address.';
+    }
+
+    if (!isValidOptionalUrl(link)) {
+      return 'Please enter a valid listing or profile link.';
+    }
+
+    if (description.length < 20) {
+      return 'Description must be at least 20 characters.';
+    }
+
+    if (file && file.size > 3 * 1024 * 1024) {
+      return 'Evidence file must be 3MB or smaller.';
+    }
+
+    if (!isAllowedEvidenceFile(file)) {
+      return 'Evidence must be a PDF, PNG, JPG, or WebP file.';
     }
 
     return '';

@@ -14,6 +14,10 @@ function showError(msg) {
   }
 }
 
+function isValidEmail(value) {
+  return /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/i.test(String(value || '').trim());
+}
+
 function setupPasswordToggles() {
   const SHOW_EMOJI = String.fromCodePoint(0x1f440);
   const HIDE_EMOJI = String.fromCodePoint(0x1f648);
@@ -169,6 +173,11 @@ async function handleLogin() {
     return;
   }
 
+  if (!isValidEmail(email)) {
+    showError('Please enter a valid email address.');
+    return;
+  }
+
   const { data, error } = await supabase.auth.signInWithPassword({
     email,
     password
@@ -199,8 +208,23 @@ async function handleRegister() {
     return;
   }
 
+  if (name.length < 2) {
+    showError('Full name must be at least 2 characters.');
+    return;
+  }
+
+  if (!isValidEmail(email)) {
+    showError('Please enter a valid email address.');
+    return;
+  }
+
   if (password.length < 6) {
     showError('Password must be at least 6 characters.');
+    return;
+  }
+
+  if (!/[A-Za-z]/.test(password) || !/\d/.test(password)) {
+    showError('Password must contain at least one letter and one number.');
     return;
   }
 

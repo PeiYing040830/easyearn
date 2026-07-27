@@ -266,15 +266,31 @@ import {
       start_date: null,
       end_date: fields.completedDate.value,
       earnings: fields.earnings.value ? Number(fields.earnings.value) : 0,
+      rating: fields.rating?.value ? Number(fields.rating.value) : null,
       created_at: new Date().toISOString()
     };
   }
 
+  function isFutureDate(value) {
+    if (!value) return false;
+    const date = new Date(value);
+    if (Number.isNaN(date.getTime())) return false;
+    const today = new Date();
+    today.setHours(23, 59, 59, 999);
+    return date > today;
+  }
+
   function validatePayload(payload) {
     if (!payload.job_title) return 'Please enter the job title.';
+    if (payload.job_title.length < 3) return 'Job title must be at least 3 characters.';
     if (!payload.employer_name) return 'Please enter the company name.';
+    if (payload.employer_name.length < 2) return 'Company name must be at least 2 characters.';
     if (!payload.end_date) return 'Please choose the completed date.';
-    if (!payload.earnings) return 'Please enter the total earnings.';
+    if (isFutureDate(payload.end_date)) return 'Completed date cannot be in the future.';
+    if (!Number.isFinite(payload.earnings) || payload.earnings <= 0) return 'Total earnings must be greater than 0.';
+    if (payload.rating !== null && (!Number.isFinite(payload.rating) || payload.rating < 0 || payload.rating > 5)) {
+      return 'Rating must be between 0 and 5.';
+    }
     return '';
   }
 

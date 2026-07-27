@@ -106,6 +106,37 @@ import {
     };
   }
 
+  function isValidEmail(value) {
+    return /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/i.test(String(value || '').trim());
+  }
+
+  function isValidPhone(value) {
+    if (!value) return true;
+    return /^\+?[0-9][0-9\s-]{7,18}$/.test(value);
+  }
+
+  function isValidUrl(value) {
+    if (!value) return true;
+    try {
+      const url = new URL(value.startsWith('http') ? value : `https://${value}`);
+      return Boolean(url.hostname.includes('.'));
+    } catch {
+      return false;
+    }
+  }
+
+  function validatePayload(payload) {
+    if (!payload.companyName) return { message: 'Please enter a company name.', field: fields.companyName };
+    if (payload.companyName.length < 2) return { message: 'Company name must be at least 2 characters.', field: fields.companyName };
+    if (!payload.email) return { message: 'Please enter a contact email.', field: fields.contactEmail };
+    if (!isValidEmail(payload.email)) return { message: 'Please enter a valid contact email.', field: fields.contactEmail };
+    if (payload.phone && !isValidPhone(payload.phone)) return { message: 'Please enter a valid phone number.', field: fields.phone };
+    if (payload.website && !isValidUrl(payload.website)) return { message: 'Please enter a valid website URL.', field: fields.website };
+    if (payload.companyOverview && payload.companyOverview.length < 20) return { message: 'Company overview must be at least 20 characters.', field: fields.overview };
+    if (payload.companyOverview.length > 800) return { message: 'Company overview must be 800 characters or less.', field: fields.overview };
+    return null;
+  }
+
   function getInitials(name) {
     return String(name || 'Employer')
       .split(' ')
@@ -249,15 +280,10 @@ import {
 
     const payload = readPayload();
 
-    if (!payload.companyName) {
-      setStatus('Please enter a company name.', 'is-error');
-      fields.companyName?.focus();
-      return;
-    }
-
-    if (!payload.email) {
-      setStatus('Please enter a contact email.', 'is-error');
-      fields.contactEmail?.focus();
+    const validationError = validatePayload(payload);
+    if (validationError) {
+      setStatus(validationError.message, 'is-error');
+      validationError.field?.focus();
       return;
     }
 
