@@ -132,7 +132,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (!document.getElementById('easyearn-enhancements')) {
       const script = document.createElement('script');
       script.id = 'easyearn-enhancements';
-      script.src = `${basePath}js/enhancements.js`;
+      script.src = `${basePath}js/enhancements.js?v=20260727a`;
       script.defer = true;
       document.body.appendChild(script);
     }
