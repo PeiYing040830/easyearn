@@ -48,6 +48,7 @@
     const slides = Array.from(document.querySelectorAll('.hero-photo .hero-slide'));
     if (slides.length <= 1) return;
 
+    // Rotate the active hero background so the CSS opacity transition can fade slides.
     let activeIndex = slides.findIndex((slide) => slide.classList.contains('active'));
     if (activeIndex < 0) {
       activeIndex = 0;
