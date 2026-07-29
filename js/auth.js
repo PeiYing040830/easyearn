@@ -149,17 +149,16 @@ async function getRoleForUser(user) {
 async function redirectByRole(user) {
   const role = await getRoleForUser(user);
 
-  if (role === 'employer') {
-    window.location.href = 'pages/employer/dashboard.html';
-    return;
-  }
+  let url = 'pages/jobseeker/dashboard.html';
+  if (role === 'employer') url = 'pages/employer/dashboard.html';
+  if (role === 'admin') url = 'pages/admin/dashboard.html';
 
-  if (role === 'admin') {
-    window.location.href = 'pages/admin/dashboard.html';
-    return;
+  // Show the welcome loading overlay (login.html) before redirecting, if present
+  if (typeof window.showWelcomeOverlay === 'function') {
+    window.showWelcomeOverlay(url);
+  } else {
+    window.location.href = url;
   }
-
-  window.location.href = 'pages/jobseeker/dashboard.html';
 }
 
 async function handleLogin() {

@@ -1,0 +1,28 @@
+<!-- 加在 login.html 的 </body> 前 -->
+<div id="login-loading-overlay" style="
+  display:none; position:fixed; inset:0; z-index:9999;
+  background:rgba(238,249,252,0.94); backdrop-filter:blur(8px);
+  align-items:center; justify-content:center; flex-direction:column;
+">
+  <img src="images/spinning-cat.gif" alt="loading cat"
+    style="width:120px; height:120px; object-fit:contain;
+    filter:drop-shadow(0 4px 14px rgba(8,145,178,.18));">
+  <p style="margin-top:20px; font-family:'Manrope',sans-serif;
+    font-weight:700; font-size:18px; color:#0e7490;">
+    Welcome back!
+  </p>
+  <p style="margin-top:4px; font-family:'Manrope',sans-serif;
+    font-weight:500; font-size:13px; color:#475569;">
+    Getting your dashboard ready...
+  </p>
+</div>
+
+<script>
+  // 登录成功后调用这个函数，再跳转
+  function showWelcomeOverlay(redirectUrl) {
+    document.getElementById('login-loading-overlay').style.display = 'flex';
+    setTimeout(() => {
+      window.location.href = redirectUrl;
+    }, 900); // 给猫转够一小段时间再跳转，太快看不到动画
+  }
+</script>
