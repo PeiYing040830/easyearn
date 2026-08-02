@@ -215,11 +215,19 @@ import {
     navBadge.textContent = getInitials(name || 'Job Seeker', 'JS');
   }
 
+  function notifyStatus(message, isError = false) {
+    const text = String(message || '');
+    const shouldShow = isError || /\b(saved|submitted|updated|success|unable|failed|error|wrong|required|cannot)\b/i.test(text);
+    if (!shouldShow) return;
+    window.EasyEarnToast?.show(text, isError || /\b(unable|failed|error|wrong|required|cannot)\b/i.test(text) ? 'error' : 'success');
+  }
+
   function setStatus(message, isError = false) {
     if (!statusEl) return;
     statusEl.textContent = message;
     statusEl.classList.toggle('is-error', isError);
     statusEl.classList.toggle('is-success', !isError && message.toLowerCase().includes('saved'));
+    notifyStatus(message, isError);
   }
 
   function setSavingState(saving) {

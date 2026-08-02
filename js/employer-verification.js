@@ -54,11 +54,20 @@ import { fetchProfile, observeAuth, updateEmployerVerification } from './supabas
     reviewNotes: ''
   };
 
+  function notifyStatus(message, type = '') {
+    const text = String(message || '');
+    const shouldShow = type || /\b(saved|submitted|approved|rejected|success|unable|failed|error|required|cannot)\b/i.test(text);
+    if (!shouldShow) return;
+    const toastType = type === 'is-error' ? 'error' : type === 'is-success' ? 'success' : /\b(unable|failed|error|required|cannot)\b/i.test(text) ? 'error' : 'success';
+    window.EasyEarnToast?.show(text, toastType);
+  }
+
   function setSubmitStatus(message, type = '') {
     if (!submitStatusEl) return;
     submitStatusEl.textContent = message;
     submitStatusEl.classList.remove('is-success', 'is-error');
     if (type) submitStatusEl.classList.add(type);
+    notifyStatus(message, type);
   }
 
   function setFieldStatus(key, message, type = '') {
@@ -66,7 +75,7 @@ import { fetchProfile, observeAuth, updateEmployerVerification } from './supabas
     if (!el) return;
     el.textContent = message;
     el.classList.remove('is-success', 'is-error');
-    if (type) el.classList.add(type);
+    if (type === 'error') el.classList.add('is-error');
   }
 
   function setBusy(button, busy) {
@@ -287,8 +296,7 @@ import { fetchProfile, observeAuth, updateEmployerVerification } from './supabas
         registrationDocName: savedPackage.registration?.name || '',
         registrationDocData: savedPackage.registration?.content || '',
         contactDocName: savedPackage.contact?.name || '',
-        contactDocData: savedPackage.contact?.content || '',
-        isVerified: false
+        contactDocData: savedPackage.contact?.content || ''
       });
       const profile = await fetchProfile(currentUser.id, currentUser);
       updateDashboard(profile);

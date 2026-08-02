@@ -26,11 +26,20 @@ import {
     closed: document.getElementById('jobs-closed-note')
   };
 
+  function notifyStatus(message, type = '') {
+    const text = String(message || '');
+    const shouldShow = type || /\b(saved|published|updated|success|unable|failed|error|cannot)\b/i.test(text);
+    if (!shouldShow) return;
+    const toastType = type === 'is-error' ? 'error' : type === 'is-success' ? 'success' : /\b(unable|failed|error|cannot)\b/i.test(text) ? 'error' : 'success';
+    window.EasyEarnToast?.show(text, toastType);
+  }
+
   function setStatus(message, type = '') {
     if (!statusEl) return;
     statusEl.textContent = message;
     statusEl.classList.remove('is-success', 'is-error');
     if (type) statusEl.classList.add(type);
+    notifyStatus(message, type);
   }
 
   function formatExpiry(dateValue) {

@@ -56,6 +56,66 @@
   justify-items: start;
   padding: 36px;
   background: url("../images/welcome.jpg") center / cover no-repeat;
+  position: relative;
+  overflow: hidden;
+}
+
+.dashboard-hero-mascot {
+  position: absolute;
+  width: clamp(82px, 10vw, 128px);
+  aspect-ratio: 1;
+  object-fit: contain;
+  filter: drop-shadow(0 14px 24px rgba(15, 23, 42, 0.22));
+  pointer-events: none;
+  animation: dashboardMascotFloat 5s ease-in-out infinite;
+}
+
+.dashboard-hero-mascot.mascot-right-bottom {
+  right: clamp(22px, 4vw, 54px);
+  bottom: 26px;
+}
+
+.dashboard-hero-mascot.mascot-right-top {
+  right: clamp(34px, 7vw, 112px);
+  top: 24px;
+  opacity: 0.92;
+  animation: dashboardMascotPulse 3.8s ease-in-out infinite;
+}
+
+.dashboard-hero-mascot.mascot-top-right-small {
+  right: clamp(28px, 5vw, 72px);
+  bottom: auto;
+  top: 26px;
+  width: clamp(54px, 6vw, 82px);
+  opacity: 0.88;
+  animation: dashboardMascotWave 4.4s ease-in-out infinite;
+}
+
+@keyframes dashboardMascotFloat {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-8px);
+  }
+}
+
+@keyframes dashboardMascotPulse {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.06);
+  }
+}
+
+@keyframes dashboardMascotWave {
+  0%, 100% {
+    transform: translateY(0) rotate(-2deg);
+  }
+  50% {
+    transform: translateY(-7px) rotate(3deg);
+  }
 }
 
 .dashboard-hero-snapshot {
@@ -510,6 +570,11 @@ main > .section:first-child {
     padding: 24px 20px;
   }
 
+  .dashboard-hero-mascot.mascot-right-top,
+  .dashboard-hero-mascot.mascot-top-right-small {
+    display: none;
+  }
+
   main {
     padding: 30px var(--js-page-gutter) var(--js-footer-gap);
   }
@@ -545,6 +610,10 @@ main > .section:first-child {
 
 body.theme-dark .dashboard-hero {
   background: #07131a;
+}
+
+body.theme-dark .dashboard-hero-mascot {
+  filter: drop-shadow(0 16px 28px rgba(0, 0, 0, 0.36));
 }
 
 body.theme-dark .dashboard-hero-snapshot {
@@ -756,9 +825,10 @@ body.theme-dark .dashboard-hero .btn-outline {
 }
 
 body.theme-dark .dashboard-hero .hero-badge {
-  background: rgba(22, 163, 74, 0.18);
-  color: #86efac;
-  border-color: rgba(22, 163, 74, 0.35);
+  background: rgba(20, 83, 45, 0.92);
+  color: #dcfce7;
+  border-color: rgba(134, 239, 172, 0.72);
+  box-shadow: 0 10px 24px rgba(20, 83, 45, 0.28);
 }
 
 body.theme-dark .section-tag {
@@ -909,4 +979,58 @@ body.theme-dark .jobseeker-navbar .theme-toggle:hover {
 body.theme-dark .jobseeker-navbar .nav-brand,
 body.theme-dark .jobseeker-navbar .nav-brand span {
   color: #4ade80 !important;
+}
+
+/* Final dark-mode dashboard button motion: visible hover without white backgrounds. */
+body.theme-dark .dashboard-hero .btn-primary,
+body.theme-dark .dashboard-hero .btn-outline,
+body.theme-dark .dashboard-card .btn-primary,
+body.theme-dark .dashboard-card .btn-outline,
+body.theme-dark .section .btn-primary,
+body.theme-dark .section .btn-outline,
+body.theme-dark .card-actions .btn-primary,
+body.theme-dark .card-actions .btn-outline {
+  transition: transform 0.22s ease, box-shadow 0.22s ease, border-color 0.22s ease, background 0.22s ease, color 0.22s ease;
+}
+
+body.theme-dark .dashboard-hero .btn-primary:hover,
+body.theme-dark .dashboard-hero .btn-primary:focus-visible,
+body.theme-dark .dashboard-card .btn-primary:hover,
+body.theme-dark .dashboard-card .btn-primary:focus-visible,
+body.theme-dark .section .btn-primary:hover,
+body.theme-dark .section .btn-primary:focus-visible,
+body.theme-dark .card-actions .btn-primary:hover,
+body.theme-dark .card-actions .btn-primary:focus-visible {
+  background: linear-gradient(135deg, #22c55e 0%, #16a34a 100%) !important;
+  border-color: #4ade80 !important;
+  color: #f0fdf4 !important;
+  transform: translateY(-3px) scale(1.015);
+  box-shadow: 0 18px 34px rgba(34, 197, 94, 0.34) !important;
+}
+
+body.theme-dark .dashboard-hero .btn-outline:hover,
+body.theme-dark .dashboard-hero .btn-outline:focus-visible,
+body.theme-dark .dashboard-card .btn-outline:hover,
+body.theme-dark .dashboard-card .btn-outline:focus-visible,
+body.theme-dark .section .btn-outline:hover,
+body.theme-dark .section .btn-outline:focus-visible,
+body.theme-dark .card-actions .btn-outline:hover,
+body.theme-dark .card-actions .btn-outline:focus-visible {
+  background: rgba(34, 197, 94, 0.18) !important;
+  border-color: #4ade80 !important;
+  color: #bbf7d0 !important;
+  transform: translateY(-3px) scale(1.015);
+  box-shadow: 0 16px 30px rgba(34, 197, 94, 0.24) !important;
+}
+
+body.theme-dark .dashboard-hero .btn-primary:active,
+body.theme-dark .dashboard-hero .btn-outline:active,
+body.theme-dark .dashboard-card .btn-primary:active,
+body.theme-dark .dashboard-card .btn-outline:active,
+body.theme-dark .section .btn-primary:active,
+body.theme-dark .section .btn-outline:active,
+body.theme-dark .card-actions .btn-primary:active,
+body.theme-dark .card-actions .btn-outline:active {
+  transform: translateY(0) scale(0.985);
+  box-shadow: 0 8px 18px rgba(34, 197, 94, 0.18) !important;
 }

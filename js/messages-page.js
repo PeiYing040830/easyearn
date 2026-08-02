@@ -33,9 +33,34 @@ import {
   let fileInput = null;
   let imagePreviewEl = null;
   let counterpartRatingsById = new Map();
+  let counterpartRolesById = new Map();
 
   if (inputEl) inputEl.disabled = true;
   if (sendBtn) sendBtn.disabled = true;
+
+  function normalizeRole(value) {
+    const roleValue = String(value || '').trim().toLowerCase();
+    if (roleValue === 'jobseeker' || roleValue === 'job seeker') return 'seeker';
+    return roleValue;
+  }
+
+  function expectedRole() {
+    if (role === 'admin') return 'admin';
+    if (role === 'employer') return 'employer';
+    return 'seeker';
+  }
+
+  function redirectByRole(actualRole) {
+    if (actualRole === 'admin') {
+      window.location.href = '../admin/dashboard.html';
+      return;
+    }
+    if (actualRole === 'employer') {
+      window.location.href = '../employer/dashboard.html';
+      return;
+    }
+    window.location.href = '../jobseeker/dashboard.html';
+  }
 
   function escapeHtml(value) {
     return String(value ?? '')
@@ -61,8 +86,13 @@ import {
   }
 
   function getCounterpartRating(counterpartId) {
+    const counterpartRole = counterpartRolesById.get(counterpartId) || '';
+    if (counterpartRole === 'admin') return 'Admin support';
+
     const ratingSummary = counterpartRatingsById.get(counterpartId) || null;
     if (!ratingSummary || !ratingSummary.count) {
+      if (counterpartRole === 'employer') return 'New employer';
+      if (counterpartRole === 'seeker') return 'New job seeker';
       if (role === 'employer') return 'New job seeker';
       if (role === 'admin') return 'EasyEarn user';
       return 'New employer';
@@ -221,7 +251,10 @@ import {
       await markChatThreadAsRead(currentUser.id, thread.counterpartId, thread.jobId || '');
       const messages = await fetchChatMessages(currentUser.id, thread.counterpartId, thread.jobId || '');
       renderMessages(messages);
-      threads = await fetchChatThreads(currentUser.id);
+      threads = threads.map(function(item) {
+        const sameThread = item.counterpartId === thread.counterpartId && String(item.jobId || '') === String(thread.jobId || '');
+        return sameThread ? Object.assign({}, item, { unreadCount: 0 }) : item;
+      });
       renderThreadList();
     } catch (error) {
       console.error('Failed to open messages thread:', error);
@@ -238,6 +271,9 @@ import {
 
     try {
       const counterpartProfiles = await fetchProfilesByIds(counterpartIds);
+      counterpartRolesById = new Map(counterpartProfiles.map(function(profile) {
+        return [profile.id, normalizeRole(profile.role)];
+      }));
       const namesById = new Map(counterpartProfiles.map(function(profile) {
         return [profile.id, profile.name || profile.full_name || ''];
       }));
@@ -253,6 +289,7 @@ import {
           : thread;
       });
     } catch (error) {
+      counterpartRolesById = new Map();
       console.warn('Counterpart profile names load failed:', error);
     }
 
@@ -352,9 +389,19 @@ import {
     buildChatExtras();
     try {
       currentProfile = await fetchProfile(user.id, user);
+      const actualRole = normalizeRole(currentProfile.role || user.user_metadata?.role);
+      if (actualRole && actualRole !== expectedRole()) {
+        redirectByRole(actualRole);
+        return;
+      }
       await loadThreads();
     } catch (error) {
       console.error('Failed to load messages page:', error);
+      const fallbackRole = normalizeRole(user.user_metadata?.role);
+      if (fallbackRole && fallbackRole !== expectedRole()) {
+        redirectByRole(fallbackRole);
+        return;
+      }
       setStatus('Unable to load messages right now.', 'is-error');
       renderThreadList();
     }

@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>EasyEarn - Jobs</title>
   <link rel="stylesheet" href="../../css/landing.css">
-  <link rel="stylesheet" href="jobseeker-pages.css">
+  <link rel="stylesheet" href="jobseeker-pages.css?v=20260802q">
   <style>
     .tab-bar {
       display: flex;
@@ -29,6 +29,20 @@
       color: #16a34a;
       border-bottom-color: #16a34a;
     }
+    body.theme-dark .tab-bar {
+      border-bottom-color: rgba(148, 163, 184, 0.55);
+    }
+    body.theme-dark .tab-btn {
+      color: #cbd5e1;
+    }
+    body.theme-dark .tab-btn:hover,
+    body.theme-dark .tab-btn:focus-visible {
+      color: #bbf7d0;
+    }
+    body.theme-dark .tab-btn.active {
+      color: #4ade80;
+      border-bottom-color: #22c55e;
+    }
     .tab-panel { display: none; }
     .tab-panel.active { display: block; }
   </style>
@@ -41,6 +55,8 @@
       <div class="hero-badge">Jobs</div>
       <h1>Browse &amp; manage your jobs</h1>
       <p>Find new gigs, save favourites, and track everything in one place.</p>
+      <img class="jobseeker-hero-mascot mascot-left" src="../../images/jobseeker.gif" alt="" aria-hidden="true">
+      <img class="jobseeker-hero-mascot mascot-top-right mascot-small mascot-sway" src="../../images/jobseeker2.gif" alt="" aria-hidden="true">
     </div>
 
     <!-- Tab Bar -->
@@ -249,7 +265,7 @@
     });
   </script>
   <script src="../../js/translate.js" defer></script>
-  <script src="../../js/includes.js" defer></script>
+  <script src="../../js/includes.js?v=20260802a" defer></script>
   <script type="module" src="../../js/jobseeker-jobs.js?v=20260413"></script>
   <script type="module" src="../../js/jobseeker-saved-jobs.js?v=20260413"></script>
   <script type="module">

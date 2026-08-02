@@ -49,6 +49,21 @@ import { fetchProfile, getInitials, observeAuth, signOutUser } from './supabase-
     });
   }
 
+  function normalizeRole(role) {
+    const value = String(role || '').trim().toLowerCase();
+    if (value === 'jobseeker' || value === 'job seeker') return 'seeker';
+    return value;
+  }
+
+  function redirectNonEmployer(role) {
+    if (role === 'admin') {
+      window.location.href = '../admin/dashboard.html';
+      return;
+    }
+
+    window.location.href = '../jobseeker/dashboard.html';
+  }
+
   observeAuth(async (user) => {
     currentUser = user;
     bindLogout();
@@ -60,14 +75,11 @@ import { fetchProfile, getInitials, observeAuth, signOutUser } from './supabase-
 
     try {
       const profile = await fetchProfile(user.id, user);
-      const profileRole = String(profile.role || user.user_metadata?.role || '').toLowerCase();
+      const profileRole = normalizeRole(profile.role || user.user_metadata?.role);
 
       if (profileRole && profileRole !== 'employer') {
         updateHeader('Employer');
-        window.location.href =
-          profileRole === 'admin'
-            ? '../admin/dashboard.html'
-            : '../jobseeker/dashboard.html';
+        redirectNonEmployer(profileRole);
         return;
       }
 
@@ -88,6 +100,12 @@ import { fetchProfile, getInitials, observeAuth, signOutUser } from './supabase-
       } catch (e) {}
     } catch (error) {
       console.error('Failed to load employer header data:', error);
+      const fallbackRole = normalizeRole(user.user_metadata?.role);
+      if (fallbackRole && fallbackRole !== 'employer') {
+        updateHeader('Employer');
+        redirectNonEmployer(fallbackRole);
+        return;
+      }
       updateHeader(user.user_metadata?.name || user.email || 'Employer');
     }
   });

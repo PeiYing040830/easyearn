@@ -57,6 +57,27 @@
     body.theme-dark .auth-heading h1 { color: #67e8f9; }
     body.theme-dark .auth-heading p  { color: #9ca3af; }
 
+    body.theme-dark #login-loading-overlay {
+      background: rgba(11, 18, 32, 0.96) !important;
+      backdrop-filter: blur(10px);
+    }
+
+    body.theme-dark #login-loading-overlay > p:first-of-type {
+      color: #67e8f9 !important;
+    }
+
+    body.theme-dark #login-loading-overlay > p:nth-of-type(2) {
+      color: #cbd5e1 !important;
+    }
+
+    body.theme-dark #login-loading-overlay > div {
+      background: #164e63 !important;
+    }
+
+    body.theme-dark #login-loading-percent {
+      color: #67e8f9 !important;
+    }
+
     /* wider box for register tab */
     .auth-box { transition: max-width 0.25s ease; }
     .auth-box.wide { max-width: 480px; }

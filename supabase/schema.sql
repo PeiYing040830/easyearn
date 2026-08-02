@@ -790,6 +790,55 @@ to authenticated
 using (exists (select 1 from public.users u where u.id = auth.uid() and u.role = 'admin'))
 with check (exists (select 1 from public.users u where u.id = auth.uid() and u.role = 'admin'));
 
+create or replace function public.prevent_self_admin_field_updates()
+returns trigger
+language plpgsql
+security definer
+set search_path = public
+as $$
+declare
+  actor_is_admin boolean;
+begin
+  select exists (
+    select 1
+    from public.users u
+    where u.id = auth.uid()
+      and u.role = 'admin'
+  ) into actor_is_admin;
+
+  if actor_is_admin then
+    return new;
+  end if;
+
+  if auth.uid() = old.id then
+    if new.role is distinct from old.role then
+      raise exception 'Only admins can change user roles.' using errcode = '42501';
+    end if;
+
+    if new.account_status is distinct from old.account_status then
+      raise exception 'Only admins can change account status.' using errcode = '42501';
+    end if;
+
+    if new.is_verified is distinct from old.is_verified then
+      raise exception 'Only admins can change employer verification approval.' using errcode = '42501';
+    end if;
+
+    if new.verification_status is distinct from old.verification_status
+       and coalesce(new.verification_status, '') not in ('', 'pending', 'submitted') then
+      raise exception 'Only admins can approve, reject, or request recheck for employer verification.' using errcode = '42501';
+    end if;
+  end if;
+
+  return new;
+end;
+$$;
+
+drop trigger if exists prevent_self_admin_field_updates on public.users;
+create trigger prevent_self_admin_field_updates
+before update on public.users
+for each row
+execute function public.prevent_self_admin_field_updates();
+
 -- Job listings
 create policy job_listings_public_read
 on public.job_listings for select

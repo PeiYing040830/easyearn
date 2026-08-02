@@ -303,7 +303,7 @@ body.theme-dark .job-footer {
 }
 
 .nav-login:hover {
-  color: #0f5e2f !important;
+  color: #0891b2 !important;
 }
 
 .nav-register {
@@ -402,6 +402,10 @@ body.theme-dark .nav-links a.is-active {
   color: #67e8f9;
   background: rgba(8, 145, 178, 0.18);
   border-color: rgba(6, 182, 212, 0.28);
+}
+
+body.theme-dark .marketing-navbar .nav-login:hover {
+  color: #67e8f9 !important;
 }
 
 body.theme-dark .nav-logout {
@@ -2693,21 +2697,23 @@ body.theme-dark .pub-section-card {
   .pub-section-card { padding: 24px 16px; border-radius: 14px; }
 }
 /* ── Hamburger dropdown: dark mode background ── */
-body.theme-dark .marketing-navbar .nav-links,
-body.theme-dark .app-navbar .nav-links {
-  background-color: #1e293b;
-  border-color: #334155;
-}
+@media (max-width: 1024px) {
+  body.theme-dark .marketing-navbar .nav-links,
+  body.theme-dark .app-navbar .nav-links {
+    background-color: #1e293b;
+    border-color: #334155;
+  }
 
-body.theme-dark .marketing-navbar .nav-links a,
-body.theme-dark .app-navbar .nav-links a {
-  color: #cbd5e1;
-}
+  body.theme-dark .marketing-navbar .nav-links a,
+  body.theme-dark .app-navbar .nav-links a {
+    color: #cbd5e1;
+  }
 
-body.theme-dark .marketing-navbar .nav-links a:hover,
-body.theme-dark .app-navbar .nav-links a:hover {
-  background-color: #0f172a;
-  color: #38bdf8;
+  body.theme-dark .marketing-navbar .nav-links a:hover,
+  body.theme-dark .app-navbar .nav-links a:hover {
+    background-color: #0f172a;
+    color: #38bdf8;
+  }
 }
 
 /* ── nav-register inside hamburger dropdown: remove button style ── */

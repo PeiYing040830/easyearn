@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>EasyEarn - Employer Profile</title>
   <link rel="stylesheet" href="../../css/landing.css">
-  <link rel="stylesheet" href="employer-pages.css">
+  <link rel="stylesheet" href="employer-pages.css?v=20260802k">
 </head>
 <body>
   <div id="site-header"></div>
@@ -14,6 +14,8 @@
       <div class="employer-badge">Employer Profile</div>
       <h1>Build employer trust</h1>
       <p>Your company profile helps job seekers understand who you are before they apply.</p>
+      <img class="employer-hero-mascot employer-mascot-top-right employer-mascot-sway" src="../../images/employer1.gif" alt="" aria-hidden="true">
+      <img class="employer-hero-mascot employer-mascot-bottom-left employer-mascot-pulse" src="../../images/employer4.gif" alt="" aria-hidden="true">
     </section>
 
     <section class="employer-grid split">
@@ -40,10 +42,14 @@
                 <span class="employer-upload-title">Choose image</span>
                 <small>PNG, JPG, or WebP. Max 2MB.</small>
               </label>
+              <small id="employer-logo-status" class="employer-inline-status">No logo selected.</small>
             </div>
             <label class="employer-field full"><span>Company overview</span><textarea id="employer-overview" placeholder="Introduce your company, your hiring needs, and what job seekers can expect."></textarea></label>
           </div>
-          <div class="employer-form-actions"><button class="btn-primary" id="employer-save-profile-btn" type="submit">Save Profile</button></div>
+          <div class="employer-form-actions employer-action-with-status">
+            <button class="btn-primary" id="employer-save-profile-btn" type="submit">Save Profile</button>
+            <p class="employer-inline-status action-status-message" id="employer-profile-status">Save result will appear here.</p>
+          </div>
         </form>
       </article>
 
@@ -89,7 +95,7 @@
     window.EASYEARN_HEADER_PATH = '../../partials/header-employer.html';
   </script>
   <script src="../../js/translate.js" defer></script>
-  <script src="../../js/includes.js?v=20260611b" defer></script>
-  <script type="module" src="../../js/employer-profile.js?v=20260611b"></script>
+  <script src="../../js/includes.js?v=20260802a" defer></script>
+  <script type="module" src="../../js/employer-profile.js?v=20260802a"></script>
 </body>
 </html>

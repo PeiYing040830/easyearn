@@ -33,6 +33,21 @@ import { fetchProfile, getInitials, observeAuth, signOutUser } from './supabase-
     });
   }
 
+  function normalizeRole(role) {
+    const value = String(role || '').trim().toLowerCase();
+    if (value === 'jobseeker' || value === 'job seeker') return 'seeker';
+    return value;
+  }
+
+  function redirectNonJobseeker(role) {
+    if (role === 'admin') {
+      window.location.href = '../admin/dashboard.html';
+      return;
+    }
+
+    window.location.href = '../employer/dashboard.html';
+  }
+
   observeAuth(async (user) => {
     bindLogout();
 
@@ -43,16 +58,13 @@ import { fetchProfile, getInitials, observeAuth, signOutUser } from './supabase-
 
     try {
       const profile = await fetchProfile(user.id, user);
-      const profileRole = String(profile.role || user.user_metadata?.role || '').toLowerCase();
+      const profileRole = normalizeRole(profile.role || user.user_metadata?.role);
 
       // Redirect non-seekers away from jobseeker pages, mirroring the check
       // that employer-header.js already performs for employer pages.
       if (profileRole && profileRole !== 'seeker' && profileRole !== 'jobseeker') {
         updateHeader('Job Seeker');
-        window.location.href =
-          profileRole === 'admin'
-            ? '../admin/dashboard.html'
-            : '../employer/dashboard.html';
+        redirectNonJobseeker(profileRole);
         return;
       }
 
@@ -65,6 +77,12 @@ import { fetchProfile, getInitials, observeAuth, signOutUser } from './supabase-
       } catch (e) {}
     } catch (error) {
       console.error('Failed to load job seeker header data:', error);
+      const fallbackRole = normalizeRole(user.user_metadata?.role);
+      if (fallbackRole && fallbackRole !== 'seeker') {
+        updateHeader('Job Seeker');
+        redirectNonJobseeker(fallbackRole);
+        return;
+      }
       updateHeader(user.user_metadata?.name || user.email || 'Job Seeker');
     }
   });

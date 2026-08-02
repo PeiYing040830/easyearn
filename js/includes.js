@@ -137,6 +137,22 @@ document.addEventListener('DOMContentLoaded', () => {
       document.body.appendChild(script);
     }
 
+    if (!document.getElementById('easyearn-feedback')) {
+      const script = document.createElement('script');
+      script.id = 'easyearn-feedback';
+      script.src = `${basePath}js/feedback.js?v=20260802a`;
+      script.defer = true;
+      document.body.appendChild(script);
+    }
+
+    if (!document.getElementById('easyearn-role-guard')) {
+      const script = document.createElement('script');
+      script.id = 'easyearn-role-guard';
+      script.type = 'module';
+      script.src = `${basePath}js/role-guard.js?v=20260802a`;
+      document.body.appendChild(script);
+    }
+
     if (isJobSeekerHeader && !document.getElementById('easyearn-jobseeker-header')) {
       const script = document.createElement('script');
       script.id = 'easyearn-jobseeker-header';

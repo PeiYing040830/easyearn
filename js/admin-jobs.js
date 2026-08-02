@@ -1,4 +1,4 @@
-import { observeAuth, fetchJobs, fetchProfilesByIds, updateJobListingStatus } from './supabase-data.js';
+﻿import { observeAuth, fetchJobs, fetchProfilesByIds, updateJobListingStatus } from './supabase-data.js';
 
 (function () {
   'use strict';
@@ -52,13 +52,13 @@ import { observeAuth, fetchJobs, fetchProfilesByIds, updateJobListingStatus } fr
     tabs.id = 'admin-jobs-filter-tabs';
     tabs.style.cssText = 'display:flex;gap:.5rem;flex-wrap:wrap;margin-bottom:1rem;';
     [
-      { key: 'pending',  label: '⏳ Pending Review' },
-      { key: 'approved', label: '✅ Approved' },
-      { key: 'flagged',  label: '🚩 Flagged' },
-      { key: 'removed',  label: '🗑 Removed' },
-      { key: 'closed',   label: '🔒 Closed' },
-      { key: 'expired',  label: '⌛ Expired' },
-      { key: 'all',      label: '🔍 All Jobs' }
+      { key: 'pending',  label: 'Pending Review' },
+      { key: 'approved', label: 'Approved' },
+      { key: 'flagged',  label: 'Flagged' },
+      { key: 'removed',  label: 'Removed' },
+      { key: 'closed',   label: 'Closed' },
+      { key: 'expired',  label: 'Expired' },
+      { key: 'all',      label: 'All Jobs' }
     ].forEach(({ key, label }) => {
       const btn = document.createElement('button');
       btn.type = 'button';
@@ -185,14 +185,14 @@ import { observeAuth, fetchJobs, fetchProfilesByIds, updateJobListingStatus } fr
           <p>${job.description || 'No job description added yet.'}</p>
           <div class="admin-action-row">
             ${review.status !== 'approved'
-              ? `<button type="button" class="btn-primary" data-action="approve" data-job-id="${job.id}">✅ Approve</button>`
-              : `<button type="button" class="btn-outline" disabled style="opacity:.5;cursor:default;">✅ Approved</button>`}
+              ? `<button type="button" class="btn-primary" data-action="approve" data-job-id="${job.id}">Approve</button>`
+              : `<button type="button" class="btn-outline" disabled style="opacity:.5;cursor:default;">Approved</button>`}
             ${review.status !== 'flagged'
-              ? `<button type="button" class="btn-outline" data-action="flag" data-job-id="${job.id}">🚩 Flag</button>`
-              : `<button type="button" class="btn-outline" disabled style="opacity:.5;cursor:default;">🚩 Flagged</button>`}
+              ? `<button type="button" class="btn-outline" data-action="flag" data-job-id="${job.id}">Flag</button>`
+              : `<button type="button" class="btn-outline" disabled style="opacity:.5;cursor:default;">Flagged</button>`}
             ${review.status !== 'removed'
-              ? `<button type="button" class="btn-outline" data-action="remove" data-job-id="${job.id}">🗑 Remove</button>`
-              : `<button type="button" class="btn-outline" disabled style="opacity:.5;cursor:default;">🗑 Removed</button>`}
+              ? `<button type="button" class="btn-outline" data-action="remove" data-job-id="${job.id}">Remove</button>`
+              : `<button type="button" class="btn-outline" disabled style="opacity:.5;cursor:default;">Removed</button>`}
           </div>
         </article>`;
     }));

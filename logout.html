@@ -32,6 +32,16 @@
       color: var(--ink);
     }
 
+    body.theme-dark {
+      --card: #111827;
+      --ink: #f8fafc;
+      --ink-soft: #cbd5e1;
+      --ink-muted: #94a3b8;
+      background:
+        linear-gradient(rgba(2, 6, 23, 0.68), rgba(2, 6, 23, 0.68)),
+        url('images/logout.png') center / cover no-repeat fixed;
+    }
+
     /* ── background accents ── */
     .bg-blob { display: none; }
 
@@ -59,6 +69,12 @@
       text-align: center;
       box-shadow: 0 20px 60px rgba(14, 116, 144, 0.18), 0 2px 8px rgba(255,255,255,0.5) inset;
       animation: cardIn .6s cubic-bezier(.22,1,.36,1) both;
+    }
+
+    body.theme-dark .card-box {
+      background: rgba(17, 24, 39, 0.88);
+      border-color: rgba(51, 65, 85, 0.82);
+      box-shadow: 0 24px 70px rgba(2, 6, 23, 0.5), 0 1px 0 rgba(255,255,255,0.04) inset;
     }
     @keyframes cardIn {
       from { opacity:0; transform: translateY(32px) scale(.97); }
@@ -244,6 +260,22 @@
       transform: translateY(-1px);
     }
 
+    body.theme-dark .btn-primary:hover {
+      background: #164e63;
+      color: #e0faff;
+      border-color: #22d3ee;
+    }
+
+    body.theme-dark .btn-ghost {
+      background: transparent;
+      color: #67e8f9;
+      border-color: #22d3ee;
+    }
+
+    body.theme-dark .btn-ghost:hover {
+      background: rgba(8, 145, 178, 0.18);
+    }
+
     /* ── footer note ── */
     .footer-note {
       margin-top: 24px;
@@ -283,6 +315,14 @@
   </style>
 </head>
 <body>
+
+<script>
+  try {
+    const savedTheme = localStorage.getItem('easyearn_theme');
+    const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+    document.body.classList.toggle('theme-dark', savedTheme ? savedTheme === 'dark' : prefersDark);
+  } catch (e) {}
+</script>
 
 <div class="bg-blob bg-blob-1"></div>
 <div class="bg-blob bg-blob-2"></div>

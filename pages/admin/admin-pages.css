@@ -146,11 +146,76 @@ body.theme-dark {
   background: url("../../images/admin header.jpg") center / cover no-repeat;
   border: 1px solid var(--admin-border);
   box-shadow: 0 16px 32px rgba(76, 29, 149, 0.1);
+  position: relative;
+  overflow: hidden;
+}
+
+.admin-header > :not(.admin-hero-mascot),
+.admin-page-header > :not(.admin-hero-mascot) {
+  position: relative;
+  z-index: 2;
+}
+
+.admin-hero-mascot {
+  position: absolute;
+  width: clamp(58px, 6vw, 84px);
+  aspect-ratio: 1;
+  object-fit: contain;
+  z-index: 1;
+  opacity: 0.9;
+  filter: drop-shadow(0 12px 20px rgba(76, 29, 149, 0.22));
+  pointer-events: none;
+}
+
+.admin-mascot-top-left {
+  left: clamp(18px, 3vw, 42px);
+  top: 16px;
+}
+
+.admin-mascot-top-right {
+  right: clamp(18px, 3vw, 42px);
+  top: 16px;
+}
+
+.admin-mascot-bottom-left {
+  left: clamp(18px, 3vw, 42px);
+  bottom: 12px;
+}
+
+.admin-mascot-bottom-right {
+  right: clamp(18px, 3vw, 42px);
+  bottom: 12px;
+}
+
+.admin-mascot-sway {
+  animation: adminMascotSway 4.6s ease-in-out infinite;
+}
+
+.admin-mascot-pulse {
+  animation: adminMascotPulse 3.8s ease-in-out infinite;
+}
+
+@keyframes adminMascotSway {
+  0%, 100% {
+    transform: translateY(0) rotate(-2deg);
+  }
+  50% {
+    transform: translateY(-6px) rotate(3deg);
+  }
+}
+
+@keyframes adminMascotPulse {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
 }
 
 .admin-header h1 {
   font-size: 40px;
-  color: #0f172a;
+  color: #5b21b6;
   margin-bottom: 10px;
 }
 
@@ -597,14 +662,41 @@ body.theme-dark {
 .admin-inline-status {
   margin: 0 0 18px;
   color: #64748b;
+  border-radius: 10px;
+  padding: 10px 13px;
+  border: 1px solid rgba(148, 163, 184, 0.22);
+  background: rgba(248, 250, 252, 0.78);
+  line-height: 1.45;
 }
 
 .admin-inline-status.is-success {
-  color: #7e22ce;
+  color: #15803d;
+  border-color: rgba(34, 197, 94, 0.28);
+  background: rgba(34, 197, 94, 0.12);
+  font-weight: 700;
 }
 
 .admin-inline-status.is-error {
-  color: #be185d;
+  color: #be123c;
+  border-color: rgba(244, 63, 94, 0.28);
+  background: rgba(244, 63, 94, 0.12);
+  font-weight: 700;
+}
+
+.admin-status-compact {
+  margin: 10px 0 0;
+}
+
+.admin-action-with-status {
+  display: grid;
+  grid-template-columns: max-content;
+  gap: 12px;
+  justify-items: start;
+}
+
+.admin-action-with-status .admin-inline-status {
+  margin: 0;
+  min-width: min(420px, 100%);
 }
 
 .admin-request-head {
@@ -631,6 +723,20 @@ body.theme-dark {
 
 .admin-doc-list a:hover {
   color: var(--admin-berry);
+}
+
+body.theme-dark .admin-doc-list a,
+body.theme-dark .admin-item a,
+body.theme-dark .admin-card a:not(.btn-primary):not(.btn-outline) {
+  color: #67e8f9;
+  text-decoration-color: rgba(103, 232, 249, 0.62);
+}
+
+body.theme-dark .admin-doc-list a:hover,
+body.theme-dark .admin-item a:hover,
+body.theme-dark .admin-card a:not(.btn-primary):not(.btn-outline):hover {
+  color: #a5f3fc;
+  text-decoration-color: #a5f3fc;
 }
 
 .admin-action-row {
@@ -1140,11 +1246,13 @@ body.theme-dark .admin-header {
 }
 
 body.theme-dark .admin-header h1 {
-  color: #0f172a;
+  color: #5b21b6;
+  text-shadow: 0 2px 12px rgba(255, 255, 255, 0.72);
 }
 
 body.theme-dark .admin-header p {
-  color: var(--admin-accent-strong);
+  color: #334155;
+  text-shadow: 0 1px 10px rgba(255, 255, 255, 0.72);
 }
 
 body.theme-dark .admin-card {
@@ -1160,6 +1268,31 @@ body.theme-dark .admin-card:hover,
 body.theme-dark .admin-card:focus-within {
   border-color: rgba(196, 181, 253, 0.45);
   box-shadow: 0 22px 38px rgba(2, 6, 23, 0.34);
+}
+
+body.theme-dark .admin-inline-status,
+body.theme-dark .messages-status {
+  background: #111827;
+  border-color: #334155;
+  color: #cbd5e1;
+}
+
+body.theme-dark .admin-inline-status.is-success,
+body.theme-dark .messages-status.is-success,
+body.theme-dark .admin-shell.messages-shell .messages-status.is-success {
+  background: rgba(34, 197, 94, 0.14);
+  border-color: rgba(74, 222, 128, 0.34);
+  color: #bbf7d0;
+  box-shadow: 0 12px 24px rgba(2, 6, 23, 0.18);
+}
+
+body.theme-dark .admin-inline-status.is-error,
+body.theme-dark .messages-status.is-error,
+body.theme-dark .admin-shell.messages-shell .messages-status.is-error {
+  background: rgba(190, 18, 60, 0.18);
+  border-color: rgba(253, 164, 175, 0.34);
+  color: #fecdd3;
+  box-shadow: 0 12px 24px rgba(2, 6, 23, 0.18);
 }
 
 body.theme-dark .admin-readiness-note {
@@ -1200,6 +1333,16 @@ body.theme-dark .admin-item:focus-within {
 body.theme-dark .admin-hero-copy {
   background: url("../../images/admin.png") center / cover no-repeat;
   border-color: #1f2937;
+}
+
+body.theme-dark .admin-hero-copy h1 {
+  color: #20113f;
+  text-shadow: 0 2px 10px rgba(255, 255, 255, 0.72);
+}
+
+body.theme-dark .admin-hero-copy p {
+  color: #4c1d95;
+  text-shadow: 0 1px 8px rgba(255, 255, 255, 0.7);
 }
 
 body.theme-dark .admin-hero-side {
@@ -1365,9 +1508,13 @@ body.theme-dark .admin-shell .btn-outline:hover,
 body.theme-dark .admin-shell button:not(.theme-toggle):not(.nav-logout):hover,
 body.theme-dark .admin-shell button:not(.theme-toggle):not(.nav-logout):focus,
 body.theme-dark .admin-shell button:not(.theme-toggle):not(.nav-logout):focus-visible {
-  background: #ffffff !important;
-  border-color: #7c3aed !important;
-  color: #5b21b6 !important;
+  background: linear-gradient(135deg, #9333ea, #6d28d9) !important;
+  border-color: #a78bfa !important;
+  color: #ffffff !important;
+  transform: translateY(-3px) scale(1.015);
+  box-shadow:
+    0 0 0 3px rgba(167, 139, 250, 0.18),
+    0 18px 34px rgba(124, 58, 237, 0.34) !important;
 }
 
 /* ── Compact page header (replaces the huge hero section) ── */
@@ -1385,6 +1532,16 @@ body.theme-dark .admin-shell button:not(.theme-toggle):not(.nav-logout):focus-vi
   border: 1px solid var(--admin-border);
   box-shadow: 0 12px 28px rgba(109, 40, 217, 0.10);
   margin-bottom: 0;
+  position: relative;
+  overflow: hidden;
+}
+
+.admin-shell.messages-shell .admin-page-header {
+  background: url("../../images/admin header.jpg") center / cover no-repeat;
+}
+
+body.theme-dark .admin-shell.messages-shell .admin-page-header {
+  background: url("../../images/admin header.jpg") center / cover no-repeat;
 }
 
 .admin-page-header-left {
@@ -1455,11 +1612,13 @@ body.theme-dark .admin-page-header {
 }
 
 body.theme-dark .admin-page-header-left h1 {
-  color: #f8fafc;
+  color: #5b21b6;
+  text-shadow: 0 2px 12px rgba(255, 255, 255, 0.72);
 }
 
 body.theme-dark .admin-page-header-left p {
-  color: #94a3b8;
+  color: #334155;
+  text-shadow: 0 1px 10px rgba(255, 255, 255, 0.72);
 }
 
 @media (max-width: 900px) {
@@ -1467,6 +1626,15 @@ body.theme-dark .admin-page-header-left p {
     flex-direction: column;
     align-items: flex-start;
     padding: 22px 24px;
+  }
+
+  .admin-hero-mascot {
+    width: 58px;
+  }
+
+  .admin-mascot-bottom-left,
+  .admin-mascot-bottom-right {
+    display: none;
   }
 
   .admin-page-header-actions {
@@ -2081,16 +2249,25 @@ body.theme-dark .messages-form textarea:disabled {
 
 .messages-status {
   margin: 0;
-  opacity: 0.82;
+  opacity: 1;
+  border-radius: 14px;
+  padding: 12px 14px;
+  border: 1px solid rgba(148, 163, 184, 0.22);
+  background: rgba(248, 250, 252, 0.78);
 }
 
 .messages-status.is-success {
-  color: #6d28d9;
+  color: #15803d;
+  border-color: rgba(34, 197, 94, 0.28);
+  background: rgba(34, 197, 94, 0.12);
   font-weight: 700;
 }
 
 .messages-status.is-error {
   color: #be123c;
+  border-color: rgba(244, 63, 94, 0.28);
+  background: rgba(255, 241, 242, 0.9);
+  font-weight: 700;
 }
 
 .messages-toolbar {
@@ -2680,10 +2857,16 @@ body.theme-dark .messages-bubble.is-duitnow.is-theirs {
   margin: 0;
   color: var(--messages-muted);
   font-size: 0.86rem;
+  padding: 12px 14px;
+  border-radius: 14px;
+  border: 1px solid rgba(148, 163, 184, 0.22);
+  background: rgba(248, 250, 252, 0.78);
 }
 
 .admin-shell.messages-shell .messages-status.is-success {
-  color: var(--messages-accent);
+  color: #15803d;
+  border-color: rgba(34, 197, 94, 0.28);
+  background: rgba(34, 197, 94, 0.12);
   font-weight: 700;
 }
 
@@ -2796,6 +2979,17 @@ body.theme-dark .messages-bubble.is-duitnow.is-theirs {
     width: 100%;
   }
 
+  .admin-shell.messages-shell .admin-page-header {
+    min-height: 0;
+  }
+
+  .admin-shell.messages-shell .admin-page-header-actions {
+    position: relative;
+    right: auto;
+    bottom: auto;
+    width: 100%;
+  }
+
   .admin-shell.messages-shell .messages-toolbar {
     grid-area: toolbar;
   }
@@ -2834,10 +3028,11 @@ body.theme-dark .messages-bubble.is-duitnow.is-theirs {
   place-items: center;
   gap: 14px;
   text-align: center;
-  padding: 30px 32px;
+  padding: 34px 32px;
   border-radius: 28px;
   margin-bottom: 0;
   background: url("../../images/admin header.jpg") center / cover no-repeat;
+  min-height: 220px;
 }
 
 .admin-shell.messages-shell .admin-page-header-left {
@@ -2854,12 +3049,14 @@ body.theme-dark .messages-bubble.is-duitnow.is-theirs {
 
 .admin-shell.messages-shell .admin-page-header-left h1 {
   font-size: 40px;
+  color: #5b21b6;
   width: 100%;
   text-align: center;
   justify-self: center;
 }
 
 .admin-shell.messages-shell .admin-page-header-left p {
+  color: #334155;
   max-width: 760px;
   margin: 0 auto;
   width: min(760px, 100%);
@@ -2874,13 +3071,19 @@ body.theme-dark .messages-bubble.is-duitnow.is-theirs {
 }
 
 .admin-shell.messages-shell .admin-page-header-actions {
-  grid-column: 1 / -1;
-  justify-self: stretch;
-  width: 100%;
+  position: absolute;
+  right: 32px;
+  bottom: 28px;
+  width: auto;
   display: flex;
   justify-content: center;
   align-items: center;
   text-align: center;
+  z-index: 3;
+}
+
+.admin-shell.messages-shell .admin-page-header-actions .btn-outline {
+  min-width: 180px;
 }
 
 .admin-shell.messages-shell .messages-layout {
@@ -2994,6 +3197,121 @@ body.theme-dark .messages-bubble.is-duitnow.is-theirs {
 
 .admin-shell.messages-shell .messages-form-actions {
   justify-content: flex-end;
+}
+
+body.theme-dark .admin-shell.messages-shell .admin-page-header-left h1 {
+  color: #5b21b6;
+  text-shadow: 0 2px 12px rgba(255, 255, 255, 0.72);
+}
+
+body.theme-dark .admin-shell.messages-shell .admin-page-header-left p {
+  color: #334155;
+  text-shadow: 0 1px 10px rgba(255, 255, 255, 0.72);
+}
+
+body.theme-dark .admin-shell.messages-shell .messages-sidebar,
+body.theme-dark .admin-shell.messages-shell .messages-panel {
+  background: #0f172a;
+  border-color: #1f2937;
+  box-shadow: 0 18px 45px rgba(2, 6, 23, 0.34);
+}
+
+body.theme-dark .admin-shell.messages-shell .admin-section-head h2 {
+  color: #f8fafc;
+}
+
+body.theme-dark .admin-shell.messages-shell .admin-section-head p {
+  color: #cbd5e1;
+}
+
+body.theme-dark .admin-shell.messages-shell .messages-thread-btn {
+  background: #111827;
+  border-color: #1f2937;
+  color: #e5e7eb;
+}
+
+body.theme-dark .admin-shell.messages-shell .messages-thread-btn strong {
+  color: #f8fafc;
+}
+
+body.theme-dark .admin-shell.messages-shell .messages-thread-btn span,
+body.theme-dark .admin-shell.messages-shell .messages-thread-btn small,
+body.theme-dark .admin-shell.messages-shell .messages-thread-btn em {
+  color: #cbd5e1;
+}
+
+body.theme-dark .admin-shell.messages-shell .messages-thread-btn:hover,
+body.theme-dark .admin-shell.messages-shell .messages-thread-btn:focus-visible,
+body.theme-dark .admin-shell.messages-shell .messages-thread-btn.is-active {
+  background: linear-gradient(135deg, #7c3aed, #5b21b6);
+  border-color: transparent;
+  box-shadow: 0 18px 40px rgba(124, 58, 237, 0.28);
+}
+
+body.theme-dark .admin-shell.messages-shell .messages-thread-rating {
+  background: rgba(237, 233, 254, 0.14) !important;
+  border-color: rgba(196, 181, 253, 0.28) !important;
+  color: #ddd6fe !important;
+}
+
+body.theme-dark .admin-shell.messages-shell .messages-thread-btn.is-active .messages-thread-rating {
+  background: rgba(255, 255, 255, 0.92) !important;
+  color: #5b21b6 !important;
+}
+
+body.theme-dark .admin-shell.messages-shell .messages-bubble.is-mine,
+body.theme-dark .admin-shell.messages-shell .messages-bubble.is-duitnow.is-mine {
+  background: rgba(124, 58, 237, 0.2);
+  border-color: rgba(196, 181, 253, 0.32);
+  color: #f5f3ff;
+}
+
+body.theme-dark .admin-shell.messages-shell .messages-bubble.is-theirs,
+body.theme-dark .admin-shell.messages-shell .messages-bubble.is-duitnow.is-theirs {
+  background: #111827;
+  border-color: #1f2937;
+  color: #e5e7eb;
+}
+
+body.theme-dark .admin-shell .btn-primary:not(:disabled):not(.btn-disabled):hover,
+body.theme-dark .admin-shell .btn-primary:not(:disabled):not(.btn-disabled):focus-visible,
+body.theme-dark .admin-shell .btn-outline:not(:disabled):not(.btn-disabled):hover,
+body.theme-dark .admin-shell .btn-outline:not(:disabled):not(.btn-disabled):focus-visible,
+body.theme-dark .admin-shell button:not(.theme-toggle):not(.nav-logout):not(:disabled):hover,
+body.theme-dark .admin-shell button:not(.theme-toggle):not(.nav-logout):not(:disabled):focus-visible {
+  background: linear-gradient(135deg, #9333ea, #6d28d9) !important;
+  border-color: #a78bfa !important;
+  color: #ffffff !important;
+  transform: translateY(-3px) scale(1.015);
+  box-shadow:
+    0 0 0 3px rgba(167, 139, 250, 0.18),
+    0 18px 34px rgba(124, 58, 237, 0.34) !important;
+}
+
+body.theme-dark .admin-shell .admin-inline-status,
+body.theme-dark .admin-shell .messages-status,
+body.theme-dark .admin-shell.messages-shell .messages-status {
+  background: #111827 !important;
+  border: 1px solid #334155 !important;
+  color: #cbd5e1 !important;
+  border-radius: 14px;
+  padding: 12px 14px;
+}
+
+body.theme-dark .admin-shell .admin-inline-status.is-success,
+body.theme-dark .admin-shell .messages-status.is-success,
+body.theme-dark .admin-shell.messages-shell .messages-status.is-success {
+  background: rgba(34, 197, 94, 0.14) !important;
+  border-color: rgba(74, 222, 128, 0.34) !important;
+  color: #bbf7d0 !important;
+}
+
+body.theme-dark .admin-shell .admin-inline-status.is-error,
+body.theme-dark .admin-shell .messages-status.is-error,
+body.theme-dark .admin-shell.messages-shell .messages-status.is-error {
+  background: rgba(190, 18, 60, 0.18) !important;
+  border-color: rgba(253, 164, 175, 0.34) !important;
+  color: #fecdd3 !important;
 }
 
 @media (max-width: 980px) {

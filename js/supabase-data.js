@@ -6,6 +6,9 @@ export const TABLES = {
   workHistory: 'work_history',
   applications: 'applications',
   jobs: 'job_listings',
+  // Legacy/planned admin table names kept for compatibility. The current FYP
+  // employer verification flow stores requests on the users table instead, so
+  // missing-table errors are handled gracefully by the related helpers below.
   jobModeration: 'job_moderation',
   reports: 'reports',
   reportReviews: 'report_reviews',
@@ -18,6 +21,11 @@ export const TABLES = {
   analytics: 'analytics',
   verificationRequests: 'verification_requests'
 };
+
+function isMissingOptionalTableError(error) {
+  const message = String(error?.message || '').toLowerCase();
+  return error?.code === '42P01' || message.includes('could not find the table') || message.includes('does not exist');
+}
 
 export function normalizeArray(value) {
   if (Array.isArray(value)) return value.filter(Boolean);
@@ -650,6 +658,7 @@ export async function fetchReportReviews() {
     .select('*')
     .order('updated_at', { ascending: false, nullsFirst: false });
 
+  if (isMissingOptionalTableError(error)) return [];
   if (error) throw error;
   return data || [];
 }
@@ -660,6 +669,7 @@ export async function fetchJobModeration() {
     .select('*')
     .order('updated_at', { ascending: false, nullsFirst: false });
 
+  if (isMissingOptionalTableError(error)) return [];
   if (error) throw error;
   return data || [];
 }
@@ -670,6 +680,7 @@ export async function fetchVerificationRequests() {
     .select('*')
     .order('updated_at', { ascending: false, nullsFirst: false });
 
+  if (isMissingOptionalTableError(error)) return [];
   if (error) throw error;
   return data || [];
 }

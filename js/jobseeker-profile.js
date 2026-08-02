@@ -221,6 +221,13 @@ import {
   let selectedPhotoFile = null;
   let isSaving = false;
 
+  function notifyStatus(message, isError = false) {
+    const text = String(message || '');
+    const shouldShow = isError || /\b(saved|submitted|updated|success|unable|failed|error|wrong|required|cannot)\b/i.test(text);
+    if (!shouldShow) return;
+    window.EasyEarnToast?.show(text, isError || /\b(unable|failed|error|wrong|required|cannot)\b/i.test(text) ? 'error' : 'success');
+  }
+
   function normalizeList(value) {
     return String(value || '')
       .split(',')
@@ -231,7 +238,13 @@ import {
   function setStatus(message, isError = false) {
     if (!statusMessage) return;
     statusMessage.textContent = message;
-    statusMessage.style.color = isError ? '#be123c' : '';
+    statusMessage.classList.remove('is-success', 'is-error');
+    if (isError) {
+      statusMessage.classList.add('is-error');
+    } else if (/\b(saved|success|submitted|updated)\b/i.test(String(message || ''))) {
+      statusMessage.classList.add('is-success');
+    }
+    notifyStatus(message, isError);
   }
 
   function setPhotoStatus(message, state = '') {
