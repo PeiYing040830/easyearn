@@ -2227,3 +2227,132 @@ body.theme-dark .employer-trust-checklist {
 body.theme-dark .employer-trust-checklist li {
   color: #94a3b8;
 }
+
+/* Employer header decoration. Dashboard split header is excluded. */
+.employer-shell:not(.employer-dashboard) .employer-page-header:not(.employer-page-header--split),
+.employer-header {
+  min-height: 320px !important;
+  padding: 54px 32px 112px !important;
+  justify-content: center;
+  isolation: isolate;
+  overflow: hidden;
+}
+
+.employer-shell:not(.employer-dashboard) .employer-page-header:not(.employer-page-header--split) > *,
+.employer-header > * {
+  position: relative;
+  z-index: 30;
+}
+
+.employer-shell:not(.employer-dashboard) .employer-page-header:not(.employer-page-header--split)::before,
+.employer-header::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -6px;
+  height: 120px;
+  z-index: 40;
+  pointer-events: none;
+  background-image: url("../../images/employer-flower-cutout.png");
+  background-repeat: repeat-x;
+  background-position: left bottom;
+  background-size: auto 120px;
+  filter: saturate(1.15) drop-shadow(0 -8px 14px rgba(120, 53, 15, 0.16));
+}
+
+.employer-shell:not(.employer-dashboard) .employer-page-header:not(.employer-page-header--split)::after,
+.employer-header::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 10;
+  pointer-events: none;
+  background-image:
+    url("../../images/jobseeker-butterfly.png"),
+    url("../../images/jobseeker-butterfly.png"),
+    url("../../images/jobseeker-butterfly.png"),
+    url("../../images/jobseeker-butterfly.png"),
+    url("../../images/jobseeker-butterfly.png");
+  background-repeat: no-repeat;
+  background-size:
+    clamp(42px, 5vw, 78px) auto,
+    clamp(32px, 4vw, 58px) auto,
+    clamp(38px, 4.4vw, 70px) auto,
+    clamp(26px, 3.4vw, 48px) auto,
+    clamp(30px, 3.8vw, 54px) auto;
+  background-position:
+    7% 22%,
+    18% 13%,
+    83% 18%,
+    72% 35%,
+    93% 45%;
+  animation: employerButterflyDrift 9s ease-in-out infinite;
+  opacity: 0.95;
+  filter: drop-shadow(0 10px 12px rgba(15, 23, 42, 0.18));
+}
+
+@keyframes employerButterflyDrift {
+  0% {
+    background-position: 7% 22%, 18% 13%, 83% 18%, 72% 35%, 93% 45%;
+  }
+  28% {
+    background-position: 9% 18%, 16% 17%, 81% 14%, 74% 39%, 91% 40%;
+  }
+  64% {
+    background-position: 5% 25%, 21% 10%, 85% 21%, 69% 31%, 95% 48%;
+  }
+  100% {
+    background-position: 8% 20%, 17% 15%, 82% 17%, 73% 36%, 92% 43%;
+  }
+}
+
+body.theme-dark .employer-shell:not(.employer-dashboard) .employer-page-header:not(.employer-page-header--split)::before,
+body.theme-dark .employer-header::before {
+  opacity: 1;
+  filter:
+    brightness(1.45)
+    saturate(1.25)
+    contrast(0.98)
+    drop-shadow(0 -8px 16px rgba(251, 191, 36, 0.18));
+}
+
+body.theme-dark .employer-shell:not(.employer-dashboard) .employer-page-header:not(.employer-page-header--split)::after,
+body.theme-dark .employer-header::after {
+  opacity: 1;
+  filter:
+    drop-shadow(0 0 8px rgba(255, 247, 237, 0.5))
+    drop-shadow(0 10px 12px rgba(0, 0, 0, 0.32));
+}
+
+@media (max-width: 960px) {
+  .employer-shell:not(.employer-dashboard) .employer-page-header:not(.employer-page-header--split),
+  .employer-header {
+    min-height: 330px !important;
+    padding: 42px 24px 112px !important;
+  }
+
+  .employer-shell:not(.employer-dashboard) .employer-page-header:not(.employer-page-header--split)::before,
+  .employer-header::before {
+    height: 96px;
+    background-size: auto 96px;
+  }
+
+  .employer-shell:not(.employer-dashboard) .employer-page-header:not(.employer-page-header--split)::after,
+  .employer-header::after {
+    background-size: 48px auto, 36px auto, 44px auto, 30px auto, 34px auto;
+    animation-name: employerButterflyDriftTablet;
+  }
+}
+
+@keyframes employerButterflyDriftTablet {
+  0% {
+    background-position: 8% 18%, 24% 12%, 82% 16%, 72% 32%, 90% 44%;
+  }
+  45% {
+    background-position: 11% 15%, 21% 16%, 79% 13%, 75% 36%, 88% 40%;
+  }
+  100% {
+    background-position: 6% 21%, 26% 10%, 84% 19%, 70% 30%, 92% 46%;
+  }
+}

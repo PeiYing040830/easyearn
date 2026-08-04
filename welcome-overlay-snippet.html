@@ -1,28 +1,82 @@
-<!-- 加在 login.html 的 </body> 前 -->
+<!-- Add before login.html </body> -->
+<style>
+  .growth-mascot {
+    position: relative;
+    width: 260px;
+    height: 260px;
+    margin-bottom: 20px;
+    display: grid;
+    place-items: center;
+    border-radius: 50%;
+    background:
+      radial-gradient(circle at 50% 45%, rgba(255,255,255,.92) 0 45%, rgba(236,253,245,.72) 64%, rgba(34,197,94,.16) 100%);
+    box-shadow:
+      0 22px 44px rgba(8, 145, 178, 0.18),
+      inset 0 0 0 1px rgba(34, 197, 94, 0.16);
+    animation: logoMascotFloat 2.8s ease-in-out infinite;
+    overflow: hidden;
+  }
+
+  .growth-mascot::after {
+    content: "";
+    position: absolute;
+    inset: 16px;
+    border-radius: inherit;
+    background: linear-gradient(135deg, rgba(255,255,255,.45), transparent 48%);
+    pointer-events: none;
+  }
+
+  .growth-mascot img {
+    width: 218px;
+    height: 218px;
+    object-fit: contain;
+    border-radius: 50%;
+    transform: none;
+    filter: drop-shadow(0 12px 18px rgba(15, 118, 110, 0.16));
+  }
+
+  @keyframes logoMascotFloat {
+    0%, 100% { transform: translateY(0) scale(1); }
+    50% { transform: translateY(-8px) scale(1.02); }
+  }
+</style>
+
 <div id="login-loading-overlay" style="
   display:none; position:fixed; inset:0; z-index:9999;
   background:rgba(238,249,252,0.94); backdrop-filter:blur(8px);
   align-items:center; justify-content:center; flex-direction:column;
+  overflow:hidden;
 ">
-  <img src="images/spinning-cat.gif" alt="loading cat"
-    style="width:120px; height:120px; object-fit:contain;
-    filter:drop-shadow(0 4px 14px rgba(8,145,178,.18));">
-  <p style="margin-top:20px; font-family:'Manrope',sans-serif;
-    font-weight:700; font-size:18px; color:#0e7490;">
-    Welcome back!
-  </p>
-  <p style="margin-top:4px; font-family:'Manrope',sans-serif;
-    font-weight:500; font-size:13px; color:#475569;">
-    Getting your dashboard ready...
-  </p>
+  <div aria-hidden="true" style="
+    position:absolute; inset:0;
+    background-image:url('images/loading.gif');
+    background-repeat:repeat;
+    background-position:center;
+    background-size:432px 240px;
+    opacity:.62;
+    pointer-events:none;
+  "></div>
+  <div style="position:relative; z-index:1; display:flex; align-items:center;
+    justify-content:center; flex-direction:column;">
+    <div class="growth-mascot" aria-hidden="true">
+      <img src="images/logo.gif" alt="">
+    </div>
+    <p style="margin-top:0; font-family:'Manrope',sans-serif;
+      font-weight:700; font-size:18px; color:#0e7490;">
+      Welcome back!
+    </p>
+    <p style="margin-top:4px; font-family:'Manrope',sans-serif;
+      font-weight:500; font-size:13px; color:#475569;">
+      Getting your dashboard ready...
+    </p>
+  </div>
 </div>
 
 <script>
-  // 登录成功后调用这个函数，再跳转
   function showWelcomeOverlay(redirectUrl) {
     document.getElementById('login-loading-overlay').style.display = 'flex';
     setTimeout(() => {
       window.location.href = redirectUrl;
-    }, 900); // 给猫转够一小段时间再跳转，太快看不到动画
+    }, 3800);
   }
 </script>

@@ -60,6 +60,12 @@
   overflow: hidden;
 }
 
+.dashboard-hero-copy > :not(.dashboard-hero-mascot),
+.dashboard-hero-snapshot > :not(.dashboard-hero-mascot) {
+  position: relative;
+  z-index: 2;
+}
+
 .dashboard-hero-mascot {
   position: absolute;
   width: clamp(82px, 10vw, 128px);
@@ -73,6 +79,18 @@
 .dashboard-hero-mascot.mascot-right-bottom {
   right: clamp(22px, 4vw, 54px);
   bottom: 26px;
+}
+
+.dashboard-hero-mascot.mascot-left {
+  left: clamp(34px, 5vw, 90px);
+  bottom: 12px;
+  width: clamp(220px, 20vw, 330px);
+  opacity: 1;
+  z-index: 4;
+  filter:
+    drop-shadow(0 0 3px rgba(255, 255, 255, 0.95))
+    drop-shadow(0 18px 28px rgba(15, 23, 42, 0.32))
+    drop-shadow(0 0 24px rgba(22, 163, 74, 0.38));
 }
 
 .dashboard-hero-mascot.mascot-right-top {

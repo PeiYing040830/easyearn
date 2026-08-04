@@ -3349,3 +3349,146 @@ body.theme-dark .admin-shell.messages-shell .messages-status.is-error {
     max-width: 100%;
   }
 }
+
+/* Admin header decoration. Dashboard hero is excluded. */
+.admin-header,
+.admin-page-header {
+  min-height: 320px !important;
+  padding: 54px 32px 112px !important;
+  justify-content: center;
+  isolation: isolate;
+  overflow: hidden;
+}
+
+.admin-header > *,
+.admin-page-header > * {
+  position: relative;
+  z-index: 30;
+}
+
+.admin-header::before,
+.admin-page-header::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -6px;
+  height: 118px;
+  z-index: 40;
+  pointer-events: none;
+  background-image: url("../../images/admin-flower-cutout.png");
+  background-repeat: repeat-x;
+  background-position: left bottom;
+  background-size: auto 118px;
+  filter: saturate(1.12) drop-shadow(0 -8px 14px rgba(67, 56, 202, 0.14));
+}
+
+.admin-header::after,
+.admin-page-header::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 10;
+  pointer-events: none;
+  background-image:
+    url("../../images/admin-butterfly.gif"),
+    url("../../images/admin-butterfly.gif");
+  background-repeat: no-repeat;
+  background-size:
+    clamp(230px, 20vw, 400px) auto,
+    clamp(230px, 20vw, 400px) auto;
+  background-position:
+    6% 24%,
+    94% 24%;
+  animation: adminButterflyDrift 9s ease-in-out infinite;
+  opacity: 0.95;
+  filter: drop-shadow(0 10px 12px rgba(15, 23, 42, 0.18));
+}
+
+@keyframes adminButterflyDrift {
+  0% {
+    background-position: 6% 24%, 94% 24%;
+  }
+  28% {
+    background-position: 8% 19%, 92% 19%;
+  }
+  64% {
+    background-position: 4% 29%, 96% 29%;
+  }
+  100% {
+    background-position: 7% 22%, 93% 22%;
+  }
+}
+
+body.theme-dark .admin-header::before,
+body.theme-dark .admin-page-header::before {
+  opacity: 1;
+  filter:
+    brightness(1.35)
+    saturate(1.2)
+    contrast(0.98)
+    drop-shadow(0 -8px 16px rgba(199, 210, 254, 0.18));
+}
+
+body.theme-dark .admin-header::after,
+body.theme-dark .admin-page-header::after {
+  opacity: 1;
+  filter:
+    drop-shadow(0 0 8px rgba(238, 242, 255, 0.5))
+    drop-shadow(0 10px 12px rgba(0, 0, 0, 0.32));
+}
+
+@media (max-width: 960px) {
+  .admin-header,
+  .admin-page-header {
+    min-height: 330px !important;
+    padding: 42px 24px 112px !important;
+  }
+
+  .admin-header::before,
+  .admin-page-header::before {
+    height: 96px;
+    background-size: auto 96px;
+  }
+
+  .admin-header::after,
+  .admin-page-header::after {
+    background-size: 180px auto, 180px auto;
+    animation-name: adminButterflyDriftTablet;
+  }
+}
+
+@keyframes adminButterflyDriftTablet {
+  0% {
+    background-position: 4% 20%, 96% 20%;
+  }
+  45% {
+    background-position: 7% 16%, 93% 16%;
+  }
+  100% {
+    background-position: 3% 24%, 97% 24%;
+  }
+}
+
+.admin-shell.messages-shell .admin-page-header-actions {
+  position: absolute;
+  left: 50%;
+  top: calc(50% + 64px);
+  transform: translateX(-50%);
+  z-index: 60;
+  margin: 0;
+}
+
+.admin-shell.messages-shell .admin-page-header-actions .btn-outline {
+  position: relative;
+  z-index: 61;
+}
+
+@media (max-width: 960px) {
+  .admin-shell.messages-shell .admin-page-header-actions {
+    left: 50%;
+    top: auto;
+    transform: translateX(-50%);
+    bottom: 112px;
+  }
+}

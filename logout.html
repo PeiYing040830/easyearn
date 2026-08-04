@@ -27,9 +27,18 @@
     html, body {
       min-height: 100%;
       font-family: "Manrope", "Segoe UI", Tahoma, sans-serif;
-      background:
-        url('images/logout.png') center / cover no-repeat fixed;
+      background: linear-gradient(rgba(238,249,252,0.92), rgba(238,249,252,0.92));
       color: var(--ink);
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      z-index: 1;
+      pointer-events: none;
+      background: url('images/loading.gif') center / 432px 240px repeat;
+      opacity: .72;
     }
 
     body.theme-dark {
@@ -37,10 +46,10 @@
       --ink: #f8fafc;
       --ink-soft: #cbd5e1;
       --ink-muted: #94a3b8;
-      background:
-        linear-gradient(rgba(2, 6, 23, 0.68), rgba(2, 6, 23, 0.68)),
-        url('images/logout.png') center / cover no-repeat fixed;
+      background: linear-gradient(rgba(11, 18, 32, 0.90), rgba(11, 18, 32, 0.90));
     }
+
+    body.theme-dark::before { opacity: .22; }
 
     /* ── background accents ── */
     .bg-blob { display: none; }
@@ -58,6 +67,8 @@
     }
 
     .card-box {
+      position: relative;
+      overflow: hidden;
       background: rgba(255, 255, 255, 0.78);
       backdrop-filter: blur(18px);
       -webkit-backdrop-filter: blur(18px);
@@ -69,6 +80,21 @@
       text-align: center;
       box-shadow: 0 20px 60px rgba(14, 116, 144, 0.18), 0 2px 8px rgba(255,255,255,0.5) inset;
       animation: cardIn .6s cubic-bezier(.22,1,.36,1) both;
+    }
+
+    .card-box::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+      background: url('images/loading.gif') center / 360px 214px repeat;
+      opacity: .22;
+    }
+
+    .card-box > * {
+      position: relative;
+      z-index: 1;
     }
 
     body.theme-dark .card-box {
@@ -105,40 +131,73 @@
 
     /* ── bye scene ── */
     .bye-scene {
-      display: flex;
-      align-items: flex-end;
-      justify-content: center;
-      gap: 0;
+      display: block;
       margin: 0 auto 28px;
       position: relative;
-      width: fit-content;
+      width: 390px;
+      max-width: 100%;
+      height: 216px;
     }
 
-    .cat-wrap {
-      position: relative;
-      width: 140px;
+    .logout-mascot-wrap {
+      position: absolute;
+      left: 8px;
+      bottom: 26px;
+      width: 214px;
+      height: 190px;
       flex-shrink: 0;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      margin-right: -16px;
-      z-index: 2;
-      animation: catBob 2.4s ease-in-out infinite;
-    }
-    @keyframes catBob {
-      0%,100% { transform: translateY(0px); }
-      50%      { transform: translateY(-6px); }
-    }
-    .cat-gif {
-      width: 140px; height: 140px;
-      object-fit: contain;
-      filter: drop-shadow(0 4px 14px rgba(8,145,178,.18));
       display: block;
+      z-index: 2;
+      animation: mascotBob 2.6s ease-in-out infinite;
+    }
+    @keyframes mascotBob {
+      0%,100% { transform: translateY(0); }
+      50% { transform: translateY(-5px); }
+    }
+    .bye-plant-gif {
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      width: 192px;
+      height: 192px;
+      object-fit: contain;
+      display: block;
+      filter: drop-shadow(0 8px 16px rgba(8,145,178,.16));
+      z-index: 1;
+    }
+    .bye-hand-gif {
+      position: absolute;
+      right: -2px;
+      top: 8px;
+      width: 96px;
+      height: 92px;
+      overflow: hidden;
+      border-radius: 18px;
+      transform-origin: 24px 48px;
+      filter: drop-shadow(0 5px 10px rgba(245,158,11,.22));
+      z-index: 3;
+      animation: handQuickWave .72s ease-in-out infinite;
+    }
+    .bye-hand-gif::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background-image: url("images/hand.gif");
+      background-repeat: no-repeat;
+      background-position: center 16%;
+      background-size: 235px 235px;
+      transform: scale(1.1);
+    }
+    @keyframes handQuickWave {
+      0%, 100% { transform: rotate(-10deg) translateY(0); }
+      50% { transform: rotate(18deg) translateY(-2px); }
     }
 
     /* ── profile circle ── */
     .gif-wrap {
-      position: relative;
+      position: absolute;
+      right: 72px;
+      bottom: 24px;
       width: 96px; height: 96px;
       flex-shrink: 0;
     }
@@ -309,8 +368,12 @@
     @media (max-width: 480px) {
       .card-box { padding: 28px 18px 26px; border-radius: 20px; }
       .title    { font-size: clamp(22px, 8vw, 28px); }
-      .cat-wrap { width: 110px; }
-      .cat-gif  { width: 110px; height: 110px; }
+      .bye-scene { width: 300px; height: 164px; margin-bottom: 24px; }
+      .logout-mascot-wrap { width: 156px; height: 138px; left: 4px; bottom: 20px; }
+      .bye-plant-gif { width: 144px; height: 144px; }
+      .gif-wrap { width: 78px; height: 78px; right: 58px; bottom: 18px; }
+      .gif-inner { width: 78px; height: 78px; }
+      .bye-hand-gif { width: 68px; height: 64px; top: 8px; right: -2px; }
     }
   </style>
 </head>
@@ -337,11 +400,11 @@
       <span class="logo-text">EasyEarn</span>
     </a>
 
-    <!-- Bye-bye scene: cat waving at profile -->
+    <!-- Logout scene: EasyEarn mascot beside profile -->
     <div class="bye-scene">
-      <!-- Cat waving -->
-      <div class="cat-wrap">
-        <img class="cat-gif" src="images/waving-cat.gif" alt="waving cat">
+      <div class="logout-mascot-wrap">
+        <img class="bye-plant-gif" src="images/waving.gif" alt="EasyEarn waving mascot">
+        <span class="bye-hand-gif" aria-hidden="true"></span>
       </div>
 
       <!-- Profile circle -->
