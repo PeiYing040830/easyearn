@@ -3350,7 +3350,7 @@ body.theme-dark .admin-shell.messages-shell .messages-status.is-error {
   }
 }
 
-/* Admin header decoration. Dashboard hero is excluded. */
+/* Admin header decoration. Dashboard hero is excluded so the dashboard stays simpler. */
 .admin-header,
 .admin-page-header {
   min-height: 320px !important;
@@ -3366,6 +3366,7 @@ body.theme-dark .admin-shell.messages-shell .messages-status.is-error {
   z-index: 30;
 }
 
+/* Bottom flower layer. The high z-index places flowers in front of the background. */
 .admin-header::before,
 .admin-page-header::before {
   content: "";
@@ -3383,6 +3384,7 @@ body.theme-dark .admin-shell.messages-shell .messages-status.is-error {
   filter: saturate(1.12) drop-shadow(0 -8px 14px rgba(67, 56, 202, 0.14));
 }
 
+/* Butterfly layer. Two GIF backgrounds are placed on the left and right sides. */
 .admin-header::after,
 .admin-page-header::after {
   content: "";
@@ -3406,6 +3408,7 @@ body.theme-dark .admin-shell.messages-shell .messages-status.is-error {
 }
 
 @keyframes adminButterflyDrift {
+  /* The GIFs animate themselves; this keyframe only drifts their positions. */
   0% {
     background-position: 6% 24%, 94% 24%;
   }

@@ -317,6 +317,11 @@ body.theme-dark .form-group input {
   box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.03);
 }
 
+body.theme-dark .form-group input:hover {
+  background: #172033;
+  border-color: #475569;
+}
+
 body.theme-dark .form-group input::placeholder {
   color: #9ca3af;
 }
@@ -325,6 +330,20 @@ body.theme-dark .form-group input:focus {
   background: #111827;
   border-color: #06b6d4;
   box-shadow: 0 0 0 3px rgba(6, 182, 212, 0.2);
+}
+
+body.theme-dark .auth-box .btn-primary:hover,
+body.theme-dark .auth-box .btn-primary:focus-visible {
+  background: #0e7490;
+  color: #ffffff;
+  box-shadow: 0 8px 24px rgba(6, 182, 212, 0.28);
+  transform: translateY(-1px);
+}
+
+body.theme-dark .auth-box .link-text a:hover,
+body.theme-dark .auth-box .link-text a:focus-visible {
+  color: #67e8f9;
+  text-decoration: underline;
 }
 
 body.theme-dark .password-toggle {

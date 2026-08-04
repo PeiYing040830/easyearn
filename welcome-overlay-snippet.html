@@ -1,5 +1,6 @@
 <!-- Add before login.html </body> -->
 <style>
+  /* Welcome overlay mascot. logo.gif replaces the cute character with the app mascot. */
   .growth-mascot {
     position: relative;
     width: 260px;
@@ -17,6 +18,7 @@
     overflow: hidden;
   }
 
+  /* Soft highlight layer over the mascot circle. It is decorative only. */
   .growth-mascot::after {
     content: "";
     position: absolute;
@@ -26,6 +28,7 @@
     pointer-events: none;
   }
 
+  /* object-fit: contain keeps the GIF inside the circle without cropping it. */
   .growth-mascot img {
     width: 218px;
     height: 218px;
@@ -47,6 +50,7 @@
   align-items:center; justify-content:center; flex-direction:column;
   overflow:hidden;
 ">
+  <!-- loading.gif is a decorative pattern layer behind the mascot and text. -->
   <div aria-hidden="true" style="
     position:absolute; inset:0;
     background-image:url('images/loading.gif');
@@ -56,6 +60,7 @@
     opacity:.62;
     pointer-events:none;
   "></div>
+  <!-- This content layer is above the loading.gif pattern. -->
   <div style="position:relative; z-index:1; display:flex; align-items:center;
     justify-content:center; flex-direction:column;">
     <div class="growth-mascot" aria-hidden="true">

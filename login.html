@@ -54,6 +54,12 @@
     body.theme-dark .auth-tabs { background: #1f2937; }
     body.theme-dark .auth-tab { color: #9ca3af; }
     body.theme-dark .auth-tab.active { background: #111827; color: #67e8f9; box-shadow: 0 2px 8px rgba(6,182,212,0.14); }
+    body.theme-dark .auth-tab:hover:not(.active),
+    body.theme-dark .auth-tab:focus-visible:not(.active) {
+      background: rgba(8, 145, 178, 0.14);
+      color: #a5f3fc;
+      box-shadow: inset 0 0 0 1px rgba(34, 211, 238, 0.18);
+    }
     body.theme-dark .auth-heading h1 { color: #67e8f9; }
     body.theme-dark .auth-heading p  { color: #9ca3af; }
 
@@ -83,6 +89,7 @@
       color: #67e8f9 !important;
     }
 
+    /* Welcome overlay mascot. logo.gif replaces the cute character with the app mascot. */
     .growth-mascot {
       position: relative;
       width: 260px;
@@ -100,6 +107,7 @@
       overflow: hidden;
     }
 
+    /* Soft highlight layer over the mascot circle. It is decorative only. */
     .growth-mascot::after {
       content: "";
       position: absolute;
@@ -109,6 +117,7 @@
       pointer-events: none;
     }
 
+    /* object-fit: contain keeps the GIF inside the circle without cropping it. */
     .growth-mascot img {
       width: 218px;
       height: 218px;
@@ -255,6 +264,7 @@
     align-items:center; justify-content:center; flex-direction:column;
     overflow:hidden;
   ">
+    <!-- loading.gif is a decorative pattern layer behind the mascot and text. -->
     <div class="login-loading-pattern" aria-hidden="true" style="
       position:absolute; inset:0;
       background-image:url('images/loading.gif');
@@ -264,6 +274,7 @@
       opacity:.62;
       pointer-events:none;
     "></div>
+    <!-- This content layer is above the loading.gif pattern. -->
     <div style="position:relative; z-index:1; display:flex; align-items:center;
       justify-content:center; flex-direction:column;">
       <div class="growth-mascot" aria-hidden="true">

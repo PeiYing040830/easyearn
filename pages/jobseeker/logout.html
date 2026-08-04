@@ -28,6 +28,7 @@
       overflow: hidden;
     }
 
+    /* Page-level loading.gif pattern. It sits above the flat background. */
     body::before {
       content: "";
       position: fixed;
@@ -109,6 +110,7 @@
       animation: cardIn .7s cubic-bezier(.22,1,.36,1) both;
     }
 
+    /* Card-level pattern. Content uses z-index:1 so the pattern never covers text. */
     .card-box::before {
       content: "";
       position: absolute;
@@ -124,12 +126,30 @@
       z-index: 1;
     }
 
+    body.theme-dark {
+      background: linear-gradient(rgba(11, 18, 32, 0.90), rgba(11, 18, 32, 0.90));
+    }
+
+    body.theme-dark::before { opacity: .34; }
+
+    /* Match the login page dark mode: dark glass card with cyan accents. */
+    body.theme-dark .card-box {
+      background: rgba(17,24,39,.92);
+      border-color: rgba(51,65,85,.86);
+      box-shadow:
+        0 26px 76px rgba(2,6,23,.58),
+        inset 0 1px 0 rgba(255,255,255,.05);
+    }
+
+    body.theme-dark .card-box::before { opacity: .18; }
+
     @keyframes cardIn {
       from { opacity:0; transform: translateY(40px) scale(.96); }
       to   { opacity:1; transform: translateY(0)   scale(1); }
     }
 
     /* ── bye-bye scene ── */
+    /* Logout bye scene: one centered stage holds the plant, hand, and profile photo. */
     .bye-scene {
       display: block;
       margin: 0 auto 28px;
@@ -140,6 +160,7 @@
     }
 
     /* ── mascot ── */
+    /* Plant mascot is lifted so the hand feels like waving near the profile photo. */
     .logout-mascot-wrap {
       position: absolute;
       left: 8px;
@@ -179,6 +200,7 @@
       z-index: 3;
       animation: handQuickWave .72s ease-in-out infinite;
     }
+    /* The visible hand comes from hand.gif, clipped inside this small hand box. */
     .bye-hand-gif::before {
       content: "";
       position: absolute;
@@ -195,6 +217,7 @@
     }
 
     /* ── gif container ── */
+    /* Profile circle is positioned manually so it lines up with the waving hand. */
     .gif-wrap {
       position: absolute;
       right: 72px;
@@ -344,6 +367,36 @@
     .footer-note a:hover { text-decoration: underline; }
 
     /* ── logo ── */
+    body.theme-dark .title {
+      color: #f8fafc;
+    }
+
+    body.theme-dark .subtitle,
+    body.theme-dark .footer-note {
+      color: #cbd5e1;
+    }
+
+    body.theme-dark .btn-ghost {
+      background: transparent;
+      color: #67e8f9;
+      border-color: rgba(34, 211, 238, 0.55);
+    }
+
+    body.theme-dark .btn-primary:hover,
+    body.theme-dark .btn-primary:focus-visible {
+      background: linear-gradient(135deg, var(--teal-400) 0%, var(--teal-600) 100%);
+      color: #ffffff;
+      box-shadow: 0 8px 28px rgba(34, 211, 238, 0.34);
+    }
+
+    body.theme-dark .btn-ghost:hover,
+    body.theme-dark .btn-ghost:focus-visible {
+      background: rgba(8, 145, 178, 0.18);
+      color: #a5f3fc;
+      border-color: rgba(34, 211, 238, 0.72);
+      box-shadow: 0 8px 22px rgba(34, 211, 238, 0.18);
+    }
+
     .logo {
       display: flex;
       align-items: center;
@@ -400,6 +453,14 @@
   </style>
 </head>
 <body>
+
+<script>
+  try {
+    const savedTheme = localStorage.getItem('easyearn_theme');
+    const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+    document.body.classList.toggle('theme-dark', savedTheme ? savedTheme === 'dark' : prefersDark);
+  } catch (e) {}
+</script>
 
 <div class="bg"></div>
 

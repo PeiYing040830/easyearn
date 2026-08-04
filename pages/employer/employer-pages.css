@@ -2238,12 +2238,14 @@ body.theme-dark .employer-trust-checklist li {
   overflow: hidden;
 }
 
+/* Keep dashboard clean, but decorate the other employer page headers. */
 .employer-shell:not(.employer-dashboard) .employer-page-header:not(.employer-page-header--split) > *,
 .employer-header > * {
   position: relative;
   z-index: 30;
 }
 
+/* Bottom flower layer. repeat-x makes one flower image tile across the header. */
 .employer-shell:not(.employer-dashboard) .employer-page-header:not(.employer-page-header--split)::before,
 .employer-header::before {
   content: "";
@@ -2261,6 +2263,7 @@ body.theme-dark .employer-trust-checklist li {
   filter: saturate(1.15) drop-shadow(0 -8px 14px rgba(120, 53, 15, 0.16));
 }
 
+/* Butterfly layer sits behind the text but above the painted header background. */
 .employer-shell:not(.employer-dashboard) .employer-page-header:not(.employer-page-header--split)::after,
 .employer-header::after {
   content: "";
@@ -2293,6 +2296,7 @@ body.theme-dark .employer-trust-checklist li {
 }
 
 @keyframes employerButterflyDrift {
+  /* Moving background-position creates a floating effect without moving layout boxes. */
   0% {
     background-position: 7% 22%, 18% 13%, 83% 18%, 72% 35%, 93% 45%;
   }

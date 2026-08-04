@@ -4641,7 +4641,7 @@ body.theme-dark .jobs-browse-hero p {
     }
 }
 
-/* Final jobseeker header decoration: flower bed at bottom, butterflies above. */
+/* Jobseeker header decoration: create a floral scene without adding extra HTML. */
 .jobseeker-header,
 body:not(.theme-dark) .jobseeker-header {
   min-height: 320px !important;
@@ -4651,12 +4651,13 @@ body:not(.theme-dark) .jobseeker-header {
   overflow: hidden;
 }
 
+/* Keep the real header text above the decorative image layers. */
 .jobseeker-header > :not(.jobseeker-hero-mascot):not(.jobs-hero-mascot) {
   position: relative;
   z-index: 30;
 }
 
-/* Shared decoration layer: flowers and butterflies use the same z-index. */
+/* Bottom flower layer. The repeated PNG fills the whole bottom edge. */
 .jobseeker-header::before {
   content: "";
   position: absolute;
@@ -4673,7 +4674,7 @@ body:not(.theme-dark) .jobseeker-header {
   filter: saturate(1.15) drop-shadow(0 -8px 14px rgba(22, 101, 52, 0.12));
 }
 
-/* Shared decoration layer: flowers and butterflies use the same z-index. */
+/* Butterfly layer. Multiple background images let each butterfly move separately. */
 .jobseeker-header::after {
   content: "";
   position: absolute;
@@ -4705,6 +4706,7 @@ body:not(.theme-dark) .jobseeker-header {
 }
 
 @keyframes jobseekerButterflyDrift {
+  /* Only the background-position changes, so the animation is lightweight. */
   0% {
     background-position:
       7% 22%,

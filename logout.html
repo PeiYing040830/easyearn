@@ -31,6 +31,7 @@
       color: var(--ink);
     }
 
+    /* Page-level loading.gif pattern. It sits above the flat background. */
     body::before {
       content: "";
       position: fixed;
@@ -82,6 +83,7 @@
       animation: cardIn .6s cubic-bezier(.22,1,.36,1) both;
     }
 
+    /* Card-level pattern. Content uses z-index:1 so the pattern never covers text. */
     .card-box::before {
       content: "";
       position: absolute;
@@ -98,10 +100,12 @@
     }
 
     body.theme-dark .card-box {
-      background: rgba(17, 24, 39, 0.88);
-      border-color: rgba(51, 65, 85, 0.82);
-      box-shadow: 0 24px 70px rgba(2, 6, 23, 0.5), 0 1px 0 rgba(255,255,255,0.04) inset;
+      background: rgba(17, 24, 39, 0.92);
+      border-color: rgba(51, 65, 85, 0.86);
+      box-shadow: 0 26px 76px rgba(2, 6, 23, 0.58), 0 1px 0 rgba(255,255,255,0.05) inset;
     }
+
+    body.theme-dark .card-box::before { opacity: .18; }
     @keyframes cardIn {
       from { opacity:0; transform: translateY(32px) scale(.97); }
       to   { opacity:1; transform: translateY(0) scale(1); }
@@ -130,6 +134,7 @@
     }
 
     /* ── bye scene ── */
+    /* Logout bye scene: one centered stage holds the plant, hand, and profile photo. */
     .bye-scene {
       display: block;
       margin: 0 auto 28px;
@@ -139,6 +144,7 @@
       height: 216px;
     }
 
+    /* Plant mascot is lifted so the hand feels like waving near the profile photo. */
     .logout-mascot-wrap {
       position: absolute;
       left: 8px;
@@ -178,6 +184,7 @@
       z-index: 3;
       animation: handQuickWave .72s ease-in-out infinite;
     }
+    /* The visible hand comes from hand.gif, clipped inside this small hand box. */
     .bye-hand-gif::before {
       content: "";
       position: absolute;
@@ -194,6 +201,7 @@
     }
 
     /* ── profile circle ── */
+    /* Profile circle is positioned manually so it lines up with the waving hand. */
     .gif-wrap {
       position: absolute;
       right: 72px;
@@ -319,10 +327,12 @@
       transform: translateY(-1px);
     }
 
-    body.theme-dark .btn-primary:hover {
+    body.theme-dark .btn-primary:hover,
+    body.theme-dark .btn-primary:focus-visible {
       background: #164e63;
       color: #e0faff;
       border-color: #22d3ee;
+      box-shadow: 0 8px 24px rgba(34, 211, 238, 0.26);
     }
 
     body.theme-dark .btn-ghost {
@@ -331,8 +341,11 @@
       border-color: #22d3ee;
     }
 
-    body.theme-dark .btn-ghost:hover {
+    body.theme-dark .btn-ghost:hover,
+    body.theme-dark .btn-ghost:focus-visible {
       background: rgba(8, 145, 178, 0.18);
+      color: #a5f3fc;
+      box-shadow: 0 8px 22px rgba(34, 211, 238, 0.18);
     }
 
     /* ── footer note ── */
