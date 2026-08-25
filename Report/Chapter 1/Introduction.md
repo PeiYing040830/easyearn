@@ -1,14 +1,14 @@
-# Chapter 1: Introduction
+# Chapter 1: Project Introduction
 
 ## Introduction
 
 The gig economy has changed the way that people work in the 21st century. According to the World Bank (2023), there are more than 545 gig platforms and between 154 million and 435 million workers worldwide engaged in online gig work. This transformation has impacted traditional work by unleashing flexible and multiple earning opportunities, and has gained momentum since the smartphone and internet became commonplace (International Labour Organisation, 2021). Informal and temporary work has been an increased source of income, particularly for higher education students, housewives and those who have several sources of income in addition to their main income in Southeast Asia (World Bank, 2023).
 
-During COVID-19, this new gig economy has risen to a significant force in Malaysia as workers have sought to find alternative ways to earn a living, as jobs were cut or shifted to work-from-home arrangements, as labour markets have been affected, and as wages have declined (Abd Samad et al., 2023). The number of own-account workers also grew, to 3.09 million, or about 25.1 per cent of the total labour force in the country, by 2024 (Department of Statistics Malaysia, 2024; Kalai Vani & Foo, 2024). Demographically, 97.71 per cent of ride-hailing workers are between 19 and 30 years old and earn RM1,500 to RM2,500 a month and 45 per cent of Malaysians have said they are gig workers at some point (Department of Statistics Malaysia, 2023; Pillai & Paul, 2023). Students, housewives, and jobless people are attracted to gig work because of its flexible working hours, the possibility of additional income and minimal participation requirements (Abd Samad et al., 2023; Siti Nurazira et al., 2024). According to the Malaysia Digital Economy Corporation (MDEC, 2023), the gig economy market size in Malaysia was RM1.33 billion, and the number of new people joining gig platforms exceeded 1 million in Q3 2023.
+During the coronavirus disease 2019 (COVID-19) pandemic, this new gig economy has risen to a significant force in Malaysia as workers have sought to find alternative ways to earn a living, as jobs were cut or shifted to work-from-home arrangements, as labour markets have been affected, and as wages have declined (Abd Samad et al., 2023). The number of own-account workers also grew, to 3.09 million, or about 25.1 per cent of the total labour force in the country, by 2024 (Department of Statistics Malaysia, 2024; Kalai Vani & Foo, 2024). Demographically, 97.71 per cent of ride-hailing workers are between 19 and 30 years old and earn RM1,500 to RM2,500 a month and 45 per cent of Malaysians have said they are gig workers at some point (Department of Statistics Malaysia, 2023; Pillai & Paul, 2023). Students, housewives, and jobless people are attracted to gig work because of its flexible working hours, the possibility of additional income and minimal participation requirements (Abd Samad et al., 2023; Siti Nurazira et al., 2024). According to the Malaysia Digital Economy Corporation (MDEC, 2023), the gig economy market size in Malaysia was RM1.33 billion, and the number of new people joining gig platforms exceeded 1 million in Q3 2023.
 
 Though the demand has increased, organised platforms like GoGet and Troopers are still limited to big cities like Kuala Lumpur, Penang and Johor Bahru, and lack of organised gig platforms in smaller towns like Ipoh, Kangar, Alor Setar, Kota Bharu and Kuala Terengganu (MDEC, 2023; GoGet, 2024; Troopers, 2024). Without dedicated platforms, workers in such areas use unverifiable social media channels, like Facebook groups and Instagram communities, where they are exposed to fraud and where they cannot develop a verifiable work history (Pillai & Paul, 2023; Malaysian Communications and Multimedia Commission [MCMC], 2023). Gig work is not catered for by the traditional online portals such as JobStreet and RiceBowl, which focus on permanent or contract positions, making a crucial gap in services in the smaller towns of Malaysia (MDEC, 2023).
 
-EasyEarn is suggested to address this gap with a web-based job matching site utilising HTML, CSS, JavaScript and Supabase. It also has safety and trust features, a multi-language user interface with Google Translate, and a work history profile with automatic resume generation. EasyEarn aims to reduce the disparity between cities and smaller towns in Malaysia and help Malaysia achieve economic inclusion and overall efforts in the digital economy (MDEC, 2023).
+EasyEarn is suggested to address this gap with a web-based job matching site utilising HyperText Markup Language (HTML), Cascading Style Sheets (CSS), JavaScript and Supabase. It also has safety and trust features, a multi-language user interface with Google Translate, and a work history profile with automatic resume generation. EasyEarn aims to reduce the disparity between cities and smaller towns in Malaysia and help Malaysia achieve economic inclusion and overall efforts in the digital economy (MDEC, 2023).
 
 ## Problem Statement
 
@@ -20,15 +20,15 @@ The organised gig platforms are concentrated in the major cities, with little pr
 
 Problem 2: Prevalence of Social Media Job Scams
 
-If there are no registered gig platforms, it is the temporary job seekers who turn to Facebook groups, Instagram posts or WhatsApp job groups, which are none of these verified, have no accountability by the employer and are not formally reported on. The number of job ads on social media has increased by 34 per cent in 2022, with the most vulnerable groups being students and housewives, according to the Malaysian Communications and Multimedia Commission (MCMC, 2023). There is a large gap in protection on the informal sector, with only 222,876 gig workers registered with the Social Security Organisation (SOCSO) as of August 2023 (Department of Statistics Malaysia 2023). This is because there is no formal verification on informal channels, as Gefen et al. (2003) observe.
+If there are no registered gig platforms, it is temporary job seekers who turn to Facebook groups, Instagram posts or WhatsApp job groups, which are none of these verified, have no accountability from the employer and are not formally reported on. The number of job ads on social media has increased by 34 per cent in 2022, with the most vulnerable groups being students and housewives, according to the Malaysian Communications and Multimedia Commission (MCMC, 2023). There is a large gap in protection on the informal sector, with only 222,876 gig workers registered with the Social Security Organisation (SOCSO) as of August 2023 (Department of Statistics Malaysia, 2023). This is because there is no formal verification on informal channels, as Gefen et al. (2003) observe.
 
 Problem 3: Lack of Verifiable Work History for Gig Workers
 
-There is no established mechanism in Malaysia to document and validate the work experience of the gig workers, which poses a challenge in proving their experience or in negotiating a better compensation package (Pillai & Paul, 2023). This also makes it hard for employers to assess the applicants' suitability, which puts employers at higher risk for hiring the wrong people or those whose qualifications you do not know (Abd Samad et al., 2023). Platform workers in emerging markets still face a persistent structural disadvantage and a lack of development of a professional identity, according to Graham et al. (2017).
+There is no established mechanism in Malaysia to document and validate the work experience of gig workers, which poses a challenge in proving their experience or in negotiating a better compensation package (Pillai & Paul, 2023). This also makes it hard for employers to assess the applicants' suitability, which puts employers at higher risk of hiring the wrong people or those whose qualifications they do not know (Abd Samad et al., 2023). Platform workers in emerging markets still face a persistent structural disadvantage and a lack of development of a professional identity, according to Graham et al. (2017).
 
 Problem 4: Inefficient Recruitment Process for Employers
 
-For Small and Medium Enterprise (SMEs) and individual employers seeking short-term workforces, they have to rely on informal means such as posting on social media and on word of mouth, which are time-consuming and do not involve any formal screening of job candidates. Kalai Vani and Foo (2024) reported that in Malaysia, there is no centralised system to support small businesses to recruit in the short term, which forces the small businesses to tackle high recruitment expenses. Poor hiring decisions are exacerbated when the source of the information about the applicant is not trustworthy (Kuek et al., 2015), which is especially a challenge for SME in less developed countries, lacking digital hiring tools, as highlighted by the Organisation for Economic Co-operation and Development (OECD) (2019).
+For Small and Medium Enterprises (SMEs) and individual employers seeking short-term workforces, they have to rely on informal means such as posting on social media and on word of mouth, which are time-consuming and do not involve any formal screening of job candidates. Kalai Vani and Foo (2024) reported that in Malaysia, there is no centralised system to support small businesses to recruit in the short term, which forces small businesses to tackle high recruitment expenses. Poor hiring decisions are exacerbated when the source of the information about the applicant is not trustworthy (Kuek et al., 2015), which is especially a challenge for SME in less developed countries, lacking digital hiring tools, as highlighted by the Organisation for Economic Co-operation and Development (OECD) (2019).
 
 Problem 5: No platform for flexible workers
 
@@ -36,45 +36,45 @@ There is a lack of platforms that cater to the needs of university students, hou
 
 Problem 6: Language Barrier on Existing Platforms
 
-The majority of Malaysian gig platforms are based in English, which limits the accessibility for users who speak other languages such as Bahasa Melayu, Mandarin and Tamil. According to the United Nations Capital Development Fund (UNCDF), 2019), most of the users of GoGet come from low and middle-income groups, with the majority being natives who speak the local language of Bahasa Melayu, despite the overall GoGet interface being in English. Not so in the smaller towns where English is not widely used, in which case a large percentage of the local population cannot be utilised. UNCDF (2019) indicated that language inclusivity is the key to access to digital jobs in Southeast Asia.
+The majority of Malaysian gig platforms are based in English, which limits accessibility for users who speak other languages such as Bahasa Melayu, Mandarin and Tamil. According to the United Nations Capital Development Fund (UNCDF, 2019), most of the users of GoGet come from low and middle-income groups, with the majority being natives who speak the local language of Bahasa Melayu, despite the overall GoGet interface being in English. Not so in the smaller towns where English is not widely used, in which case a large percentage of the local population cannot be utilised. UNCDF (2019) indicated that language inclusivity is the key to access to digital jobs in Southeast Asia.
 
-All six problems have pointed out a systemic gap in the gig economy infrastructure in Malaysia. Many Malaysians are economically marginalised, defrauded and unable to switch to a better career development due to a lack of a dedicated, accessible and secure job-matching platform, in particular those in less serviced areas. EasyEarn is suggested to be an integrated solution, structured and web-based through a job-seeker / job-provider matching portal all over Malaysia. EasyEarn is not only relevant because the Gig Workers Act 2025 (Act 872) was just launched to formalise the structural gaps and lacunae, but also due to the need to act to fill these gaps (Ministry of Human Resources Malaysia, 2025).
+All six problems have pointed out a systemic gap in the gig economy infrastructure in Malaysia. Many Malaysians are economically marginalised, defrauded and unable to switch to better career development due to a lack of a dedicated, accessible and secure job-matching platform, particularly those in less-serviced areas. EasyEarn is suggested to be an integrated solution, structured and web-based through a job-seeker / job-provider matching portal all over Malaysia. EasyEarn is not only relevant because the Gig Workers Act 2025 (Act 872) was just launched to formalise the structural gaps and lacunae, but also due to the need to act to fill these gaps (Ministry of Human Resources Malaysia, 2025).
 
 EasyEarn addresses 6 core issues presented in Figure 1.1, ranging from geographical exclusion to the absence of verifiable gig workers' work histories.
 
 ![Figure 1](Diagram/figure-01.png)
 
-Figure 1.1: Problem Statement
+Figure 1.1: Problem Statement of EasyEarn
 
 ## Research Objectives
 
-This project aims to develop and design EasyEarn. Accessed online, the job-matching platform will facilitate job seekers and employers to find short-term, part-time and freelance jobs in Malaysia and in specific areas that are little-recognised, such as Ipoh, Kangar, Alor Setar, Kuala Terengganu and Kota Bharu (MDEC, 2023; Pillai & Paul, 2023).
+This project aims to develop and design EasyEarn. Accessed online, the job-matching platform will facilitate job seekers and employers in finding short-term, part-time and freelance jobs in Malaysia and in specific areas that are little-recognised, such as Ipoh, Kangar, Alor Setar, Kuala Terengganu and Kota Bharu (MDEC, 2023; Pillai & Paul, 2023).
 
 The objectives of EasyEarn are as follows:
 
-- To develop a full-fledged multi-user-based web job matching platform, where users seeking employment can receive job offers from employers and apply for the jobs using the job matching services offered, such as job-specific dashboards, job posting and management with full CRUD facilities, location-wise job search and filtering, and 24/7 job seeker support by a rule-based chatbot.
+- To develop a full-fledged multi-user-based web job matching platform, where users seeking employment can receive job offers from employers and apply for the jobs using the job matching services offered, such as job-specific dashboards, job posting and management with full Create, Read, Update, and Delete (CRUD) facilities, location-wise job search and filtering, and 24/7 job seeker support by a rule-based chatbot.
 
 - To establish a strong platform safety and trust verification system, setting up a bidirectional rating and review system, building a report and a flag function, developing an employer verification badge, and preventing the emergence of fake job postings and providing a fair, transparent, and accountable job search and hiring environment for job seekers and employers.
 
 - To develop a verifiable digital work history profile for gig workers, enabling them to document their gigs, tips earned and skills acquired, such as an Auto-Generate Resume feature that will generate a downloadable Portable Document Format (PDF) resume based on data captured from gig workers' work history profiles, which is not currently standardised to record employment history in the informal sector in Malaysia.
 
-- To further enhance multilingual access on the platform, by incorporating Google Translate to facilitate access in various languages such as Bahasa Melayu, Mandarin and Tamil, and to allow smaller communities around Malaysia to access the platform.
+- To further enhance multilingual access on the platform by incorporating Google Translate to facilitate access in various languages such as Bahasa Melayu, Mandarin and Tamil, and to allow smaller communities around Malaysia to access the platform.
 
 The four research objectives of EasyEarn are outlined in Figure 1.2, which include development of the platform, safety and trust, verifiable work history and multilingual accessibility.
 
 ![Figure 2](Diagram/figure-02.png)
 
-Figure 1.2: Objectives
+Figure 1.2: Objectives of EasyEarn
 
 ## Scope of Project
 
-EasyEarn is an online job matching service which links job seekers and employers in an easy-to-use, secure and efficient platform. The system caters to three main user types: Job Seeker, Employer, and Administrator, with each having its own set of features and access levels to suit their needs. The project involves all the development of EasyEarn, including user management, job posting and management of applications, safety and trust verification, work history monitoring, and multi-language support for accessibility.
+EasyEarn is an online job matching service which links job seekers and employers in an easy-to-use, secure and efficient platform. The system caters to three main user types: Job Seeker, Employer, and Administrator, with each having its own set of features and access levels to suit their needs. The project involves the full development of EasyEarn, including user management, job posting and management of applications, safety and trust verification, work history monitoring, and multi-language support for accessibility.
 
 ### 1.4.1 Project Coverage
 
 EasyEarn is designed as a multi-user Web-based portal that allows various categories of users with various permissions and functions.
 
-Job seekers (university students, housewives and unemployed) can register and upload their profiles with skill tags, browse and filter job postings by category and location, apply for jobs, follow up on job applications, save jobs to wishlist, view their history dashboard, auto-generate a PDF resume from their job history, and use the chatbot for platform support.
+Job seekers (university students, housewives and unemployed) can register and upload their profiles with skill tags, browse and filter job postings by category and location, apply for jobs, follow up on job applications, save jobs to a wishlist, view their history dashboard, auto-generate a PDF resume from their job history, and use the chatbot for platform support.
 
 - Employers (SMEs and individual hirers) can register, get a Verification Badge, post job listings and manage them with expiry dates, review and manage applicant submissions, approve/reject applicants, and rate the job seekers after the job.
 
@@ -84,7 +84,7 @@ Figure 1.3 shows that there are three primary groups of users of EasyEarn: Job S
 
 ![Figure 3](Diagram/figure-03.png)
 
-Figure 1.3: Project Coverage
+Figure 1.3: Project Coverage of EasyEarn
 
 ### 1.4.2 Complete Features List
 
@@ -124,7 +124,7 @@ Table 1.2: Optional Features
 | 3 | Skills Tag | Job seekers add their skills to their profile. |
 | 4 | Profile Completeness | Progress bar showing how much of the user profile is complete. |
 | 5 | Analytics Dashboard | Earnings charts of job seekers; statistics about employers&#x27; recruitment; statistics of the administration platform. |
-| 6 | Payment Confirmation &amp; Dispute | When the transfer is made via DuitNow, employers confirm in-system and job seekers upload their DuitNow QR code and confirm the receipt and either party can have the payment dispute reviewed by the admin. |
+| 6 | Payment Confirmation &amp; Dispute | When the transfer is made via DuitNow, employers confirm in-system and job seekers upload their DuitNow Quick Response (QR) code and confirm the receipt and either party can have the payment dispute reviewed by the admin. |
 
 The full list of the main and optional features of the EasyEarn platform is shown in Figure 1.4.
 
@@ -138,11 +138,11 @@ The following features are not part of the current project phase because of time
 
 - Online payment gateway
 
-Financial transactions are carried out offline, using traditional methods like cash and DuitNow transfer. A job seeker can use the DuitNow Quick Response (QR) code to receive payment offline by the employer. Payment processors like the DuitNow Application Programming Interface (API), Touch 'n go or credit card processors will not be connected with the platform at this stage.
+Financial transactions are carried out offline, using traditional methods like cash and DuitNow transfer. A job seeker can use the DuitNow Quick Response (QR) code to receive payment offline from the employer. Payment processors like the DuitNow Application Programming Interface (API), Touch 'n Go, or credit card processors will not be connected with the platform at this stage.
 
 - Real-Time Chat Messaging
 
-This is not the messaging phase since real-time messaging is not enabled. When it comes to the live chat, both the user and the person he/she is chatting with should be online at the same time, which is not feasible with a part-time job platform with an unpredictable schedule. Instead, a rule-based chatbot is used to offer 24/7 automated assistance, without the need for another user to be there.
+This is not the messaging phase since real-time messaging is not enabled. When it comes to live chat, both the user and the person he/she is chatting with should be online at the same time, which is not feasible with a part-time job platform with an unpredictable schedule. Instead, a rule-based chatbot is used to offer 24/7 automated assistance, without the need for another user to be there.
 
 - Native Mobile Application
 
@@ -156,7 +156,7 @@ This stage does not have automated email verification. The Employer Verification
 
 During this stage, the platform will not be integrating with government databases such as SOCSO, Employees Provident Fund (EPF) and MySejahtera. The information links to Pertubuhan Keselamatan Sosial (PERKESO)’s Self-Employment Social Security Scheme (SESS) will instead be made available to users for reference.
 
-- AI Job Matching Algorithm
+- Artificial Intelligence (AI) Job Matching Algorithm
 
 Technical complexity in automated Artificial Intelligence-based (AI-based) job recommendation will not be possible in this phase, and the project is restricted to this due to scope limitations.
 
@@ -188,11 +188,11 @@ As a form of consumer protection, the Report and Flag System and Employer Verifi
 
 - Employment Act 1955 (Reference Only)
 
-The platform offers information guidelines in line with the Employment Act to encourage and help provide fair practices in job posting and clarify responsibilities for the users. This project does not cover direct compliance enforcement because it is an academic prototype called EasyEarn.
+The platform offers informational guidelines in line with the Employment Act to encourage and help provide fair practices in job posting and clarify responsibilities for the users. This project does not cover direct compliance enforcement because it is an academic prototype called EasyEarn.
 
 - Gig Workers Act 2025 (Act 872)
 
-This Act, which will come into effect on 31 March 2026, is the first legislative structure to formalise the gig workers in Malaysia. It requires transparency in service contracts, guarantees freedom from discrimination and access to dispute-resolution procedures. EasyEarn's Employer Verification Badge, Rating and Review System, and Work History Profile were created to meet the transparency and trust requirements stipulated by this Act (Ministry of Human Resources Malaysia, 2025), as a job-matching site between gig workers and employers.
+This Act, which will come into effect on 31 March 2026, is the first legislative framework to formalise gig workers in Malaysia. It requires transparency in service contracts, guarantees freedom from discrimination and access to dispute-resolution procedures. EasyEarn's Employer Verification Badge, Rating and Review System, and Work History Profile were created to meet the transparency and trust requirements stipulated by this Act (Ministry of Human Resources Malaysia, 2025), as a job-matching site between gig workers and employers.
 
 The five regulatory regimes under which EasyEarn operates and handles data are outlined in Figure 1.6.
 
@@ -206,7 +206,7 @@ To ensure users' data security and platform integrity, EasyEarn adopts some tech
 
 - Supabase Authentication
 
-Authenticating user accounts is done via Supabase Authentication, which secures passwords and user sessions. Also, to better manage access to sensitive functions in a system and to limit unauthorised access, token-based authentication is employed.
+User account authentication is done via Supabase Authentication, which secures passwords and user sessions. Also, to better manage access to sensitive functions in a system and to limit unauthorised access, token-based authentication is employed.
 
 - Role-Based Access Control (RBAC)
 
@@ -234,13 +234,13 @@ EasyEarn is expected to have a tangible and quantifiable impact on various stake
 
 Benefits to Job Seekers
 
-EasyEarn gives job seekers in underserved areas of Malaysia a secure and structured platform to access and apply for short-term, part-time and freelance jobs, without the dangers of unregulated social media platforms. According to Pillai and Paul (2023), those who use dedicated gig platforms can find employment in 40 per cent less time than those who rely on informal methods, leading to higher economic productivity for users, including students in universities, housewives, the unemployed.
+EasyEarn gives job seekers in underserved areas of Malaysia a secure and structured platform to access and apply for short-term, part-time and freelance jobs, without the dangers of unregulated social media platforms. According to Pillai and Paul (2023), those who use dedicated gig platforms can find employment in 40 per cent less time than those who rely on informal methods, leading to higher economic productivity for users, including students in universities, housewives, and the unemployed.
 
-The platform's Work History Dashboard and Auto-Generate Resume also help to rectify a structural weakness mentioned by Graham et al. (2017) of the lack of building an easily replicable and verifiable professional identity for platform workers in emergent economies. Further, Google Translate integration makes the platform accessible to users who do not speak English, especially in smaller towns where, to date, English-only platforms have largely ignored a large proportion of the labour force (UNCDF, 2019).
+The platform's Work History Dashboard and Auto-Generate Resume also help to rectify a structural weakness mentioned by Graham et al. (2017): the lack of building an easily replicable and verifiable professional identity for platform workers in emergent economies. Further, Google Translate integration makes the platform accessible to users who do not speak English, especially in smaller towns where, to date, English-only platforms have largely ignored a large proportion of the labour force (UNCDF, 2019).
 
 Benefits to Employers
 
-EasyEarn is a one-stop solution for employers, especially SMEs and individual employers in smaller towns, to post job ads, access verified profiles of applicants, and handle the entire recruitment process in one place. According to Kalai Vani and Foo (2024), the lack of a platform specialising in posting short-term jobs in Malaysia is causing time and cost burdens for small businesses. The Employer Verification Badge also adds to a growing applicant trust and helps create a better hiring environment, in line with OECD (2019) research, which showed that structured digital recruitment tools cut hiring costs and boost the quality of job matches for SMEs in developing markets.
+EasyEarn is a one-stop solution for employers, especially SMEs and individual employers in smaller towns, to post job ads, access verified profiles of applicants, and handle the entire recruitment process in one place. According to Kalai Vani and Foo (2024), the lack of a platform specialising in posting short-term jobs in Malaysia is causing time and cost burdens for small businesses. The Employer Verification Badge also adds to growing applicant trust and helps create a better hiring environment, in line with OECD (2019) research, which showed that structured digital recruitment tools cut hiring costs and boost the quality of job matches for SMEs in developing markets.
 
 Benefits to Society and the Economy
 
@@ -268,7 +268,7 @@ This is an architectural style that is of particular interest in the academic an
 
 Socioeconomic and Policy Significance
 
-EasyEarn is not only important because of its benefits for its direct target groups but also as a technological solution to the structural socioeconomic problems in Malaysia. The platform is geared towards three priority areas identified by the national policy, which are geographic underrepresentation, employment fraud and digital exclusion, reflecting the focus of Malaysia's Digital Economy Blueprint and the Twelfth Malaysia Plan on inclusive digital participation and equitable economic development across all regions of Malaysia (MDEC, 2023). Moreover, the government has made a commitment to safeguard gig workers through the Gig Workers Act 2025 (Act 872), which formalised its commitment in the law, and platforms like EasyEarn do this at the grassroots, making them policy relevant.
+EasyEarn is not only important because of its benefits for its direct target groups but also as a technological solution to the structural socioeconomic problems in Malaysia. The platform is geared towards three priority areas identified by the national policy, which are geographic underrepresentation, employment fraud and digital exclusion, reflecting the focus of Malaysia's Digital Economy Blueprint and the Twelfth Malaysia Plan on inclusive digital participation and equitable economic development across all regions of Malaysia (MDEC, 2023). Moreover, the government has made a commitment to safeguard gig workers through the Gig Workers Act 2025 (Act 872), which formalised its commitment in law, and platforms like EasyEarn do this at the grassroots, making them policy-relevant.
 
 EasyEarn serves as evidence that a locally designed gig economy platform can have a meaningful impact on underserved communities by helping to address their needs, and that targeted, community-focused digital platforms can be potent tools for social and economic inclusion. This not only makes EasyEarn a study but also a model that could be scaled up in the future to help design public-private partnerships to increase the participation of workers in the gig economy outside of urban centres in Malaysia. The EasyEarn platform is academically, technologically, and socio-economically important, as indicated in Figure 1.9.
 
@@ -277,6 +277,8 @@ EasyEarn serves as evidence that a locally designed gig economy platform can hav
 Figure 1.9: Significance of EasyEarn
 
 ## Milestone and Deliverable
+
+This section outlines the main milestones and deliverables of the EasyEarn project during the 26-week span of the Final Year Project. A Work Breakdown Structure (WBS), a project schedule, a Gantt Chart, project milestones and sprint-based deliverables are used to organize the project activities. These planning components are used to help structure the monitoring of project progress and the completion of required development and documentation activities within the planned timeline.
 
 ### 1.6.1 Work Breakdown Structure (WBS)
 
@@ -311,11 +313,11 @@ Table 1.3: Project Schedule Summary
 
 ### 1.6.3 Gantt Chart
 
-The Gantt Chart offers a visual timeline display of all project activities, which helps the project team plan, coordinate and monitor progress against scheduled deadlines (PMI, 2021). It is evident from the chart that the waterfall-driven planning phase in FYP1 was followed by the 6 agile development sprints in FYP2, and the highlighted critical path runs from Sprint 1 through the end of the development process to submission for deployment. The Gantt Chart is constantly updated and it is a living document at the end of each sprint, to show actual progress towards the planned schedule.
+The Gantt Chart offers a visual timeline display of all project activities, which helps the project team plan, coordinate and monitor progress against scheduled deadlines (PMI, 2021). It is evident from the chart that the waterfall-driven planning phase in FYP1 was followed by the 6 agile development sprints in FYP2, and the highlighted critical path runs from Sprint 1 through the end of the development process to submission for deployment. The Gantt Chart is constantly updated and it is a living document at the end of each sprint to show actual progress towards the planned schedule.
 
 The following are important events which are tracked on the Gantt Chart: FYP1 Proposal Defence (Week 3), FYP1 Midsem Checkpoint (Week 6), FYP1 Final Presentation (Week 8), FYP2 Midsem Checkpoint (Week 16) and FYP2 Final Presentation and Submission (Week 26).
 
-The EasyEarn project has a total of 26 weeks for development, and the Gantt Chart of the project is shown in the following figures (Figures 1.11-1.15) as visual representation of all activities along the project development time line.
+The EasyEarn project has a total of 26 weeks for development, and the Gantt Chart of the project is shown in the following figures (Figures 1.11-1.15) as a visual representation of all activities along the project development timeline.
 
 ![Figure 11](Diagram/figure-11.png)
 
@@ -361,7 +363,7 @@ Table 1.5: Sprint Breakdown and Deliverables
 
 | Sprint | Timeline | Objective | Deliverable |
 | --- | --- | --- | --- |
-| Sprint 1: Authentication &amp; User Management | Week 9-10 | Registration, authentication, login and roles setup of user. | Functional user management module and sprint report. |
+| Sprint 1: Authentication &amp; User Management | Week 9-10 | Registration, authentication, login and user role setup. | Functional user management module and sprint report. |
 | Sprint 2: Job Posting &amp; Application Module | Week 11-12 | Create, read, update, delete job posts, search for jobs, filter, and submit and track applications. | Functional job module and sprint report. |
 | Sprint 3: Safety &amp; Trust System | Week 13-14 | Bidirectional rating &amp; review module, employer verification badge, report and flag system. | Functional safety module and sprint report. |
 | Sprint 4: Work History &amp; Auto Resume | Week 15-16 | Work history dashboard, notification and alert system, auto-generate resume using jsPDF, and M4 checkpoint. | Functional work history module and sprint report. |
@@ -389,7 +391,7 @@ The milestones, sprint deliverables and final submissions provided in Section 1.
 
 This thesis consists of five chapters to provide a coherent narrative of the development, design and assessment of EasyEarn, an online job-matching platform created to fill some of the gaps in the gig economy in Malaysia.
 
-The base of the study is laid in Chapter 1. It provides an overview of the Malaysian gig economy, six major issues that led to EasyEarn, the aims of the research, the scope of the project, the information security framework and the work regarding information policy compliance, and the importance of EasyEarn for job seekers, employers, and the overall economy in Malaysia.
+The basis of the study is laid in Chapter 1. It provides an overview of the Malaysian gig economy, six major issues that led to EasyEarn, the aims of the research, the scope of the project, the information security framework and the work regarding information policy compliance, and the importance of EasyEarn for job seekers, employers, and the overall economy in Malaysia.
 
 The literature review is included in Chapter 2. It starts with a theoretical discussion based on the Technology Acceptance Model (TAM) and then examines the literature on the gig economy, employment fraud, work history documentation, language barriers and underserved demographics in an empirical way. The chapter also examines the existing technologies, tools and platforms selected, as well as similar existing systems, and suggests a framework that builds upon the literature.
 
