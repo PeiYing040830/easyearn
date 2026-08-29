@@ -562,7 +562,11 @@ begin
     new.id,
     new.email,
     coalesce(new.raw_user_meta_data->>'full_name', ''),
-    coalesce(new.raw_user_meta_data->>'role', 'seeker'),
+    case
+      when coalesce(new.raw_user_meta_data->>'role', 'seeker') in ('employer', 'seeker', 'jobseeker') then
+        case when new.raw_user_meta_data->>'role' = 'jobseeker' then 'seeker' else new.raw_user_meta_data->>'role' end
+      else 'seeker'
+    end,
     now()
   )
   on conflict (id) do nothing;
@@ -877,7 +881,13 @@ using (public.is_admin_user(auth.uid()));
 create policy users_insert_own
 on public.users for insert
 to authenticated
-with check (auth.uid() = id);
+with check (
+  auth.uid() = id
+  and (
+    role in ('seeker', 'jobseeker', 'employer')
+    or public.is_admin_user(auth.uid())
+  )
+);
 
 create policy users_update_own
 on public.users for update

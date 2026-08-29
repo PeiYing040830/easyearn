@@ -124,11 +124,6 @@ async function upsertProfile(user, overrides = {}) {
 async function getRoleForUser(user) {
   if (!user?.id) return 'seeker';
 
-  const rawMetaRole = user.user_metadata?.role;
-  if (rawMetaRole && rawMetaRole !== 'seeker' && rawMetaRole !== 'jobseeker') {
-    return normalizeRole(rawMetaRole);
-  }
-
   try {
     const { data, error } = await supabase
       .from(PROFILE_TABLE)
@@ -143,7 +138,7 @@ async function getRoleForUser(user) {
     console.warn('Role lookup skipped:', lookupError);
   }
 
-  return 'seeker';
+  return normalizeRole(user.user_metadata?.role || 'seeker');
 }
 
 async function redirectByRole(user) {
