@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>EasyEarn - Chatbot Knowledge</title>
+  <link rel="icon" type="image/png" href="../../images/logo.png">
+  <link rel="stylesheet" href="../../css/landing.css">
+  <link rel="stylesheet" href="admin-pages.css?v=20260803h">
+</head>
+<body>
+  <div id="site-header"></div>
+  <main class="admin-shell">
+    <div class="admin-header">
+      <div class="admin-badge">Chatbot</div>
+      <h1>Chatbot knowledge seed</h1>
+      <p>Seed the approved EasyEarn chatbot FAQ entries into the knowledge base.</p>
+    </div>
+
+    <section class="admin-card">
+      <div class="admin-section-head">
+        <div>
+          <div class="admin-badge">Admin Tool</div>
+          <h2>Seed knowledge base</h2>
+          <p>This action writes the prepared Q&amp;A entries into the Supabase chatbot_knowledge table. Database policy allows this action for admin accounts only.</p>
+        </div>
+      </div>
+      <div class="admin-action-row">
+        <button class="btn-primary" id="seed-btn" type="button">Seed 52 Q&amp;A</button>
+        <a class="btn-outline" href="../../chatbot.html">Open Chatbot</a>
+      </div>
+      <div class="seed-log admin-inline-status" id="seed-log">Ready.</div>
+    </section>
+  </main>
+
+  <script>window.EASYEARN_BASE_PATH='../../';window.EASYEARN_HEADER_PATH='../../partials/header-admin.html';</script>
+  <script src="../../js/translate.js" defer></script>
+  <script src="../../js/includes.js?v=20260802a" defer></script>
+  <script type="module" src="../../js/seed-chatbot.js?v=20260505a"></script>
+</body>
+</html>
