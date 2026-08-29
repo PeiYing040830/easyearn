@@ -801,6 +801,8 @@ drop policy if exists ratings_insert_own on public.ratings;
 drop policy if exists reports_admin_update on public.reports;
 drop policy if exists chatbot_knowledge_public_read on public.chatbot_knowledge;
 drop policy if exists chatbot_knowledge_admin_insert on public.chatbot_knowledge;
+drop policy if exists chatbot_knowledge_admin_update on public.chatbot_knowledge;
+drop policy if exists chatbot_knowledge_admin_delete on public.chatbot_knowledge;
 drop policy if exists chatbot_knowledge_insert_public_seed on public.chatbot_knowledge;
 drop policy if exists chatbot_logs_insert_authenticated on public.chatbot_logs;
 drop policy if exists chatbot_logs_select_admin on public.chatbot_logs;
@@ -1113,6 +1115,17 @@ create policy chatbot_knowledge_admin_insert
 on public.chatbot_knowledge for insert
 to authenticated
 with check (public.is_admin_user(auth.uid()));
+
+create policy chatbot_knowledge_admin_update
+on public.chatbot_knowledge for update
+to authenticated
+using (public.is_admin_user(auth.uid()))
+with check (public.is_admin_user(auth.uid()));
+
+create policy chatbot_knowledge_admin_delete
+on public.chatbot_knowledge for delete
+to authenticated
+using (public.is_admin_user(auth.uid()));
 
 create policy chatbot_logs_insert_authenticated
 on public.chatbot_logs for insert

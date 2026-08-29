@@ -835,6 +835,26 @@ body.theme-dark .admin-card a:not(.btn-primary):not(.btn-outline):hover {
   min-height: 130px;
 }
 
+.chatbot-knowledge-actions {
+  margin-top: 2px;
+}
+
+.chatbot-knowledge-actions .btn-outline {
+  min-width: 120px;
+}
+
+.chatbot-knowledge-delete {
+  border-color: rgba(244, 63, 94, 0.35) !important;
+  color: #be123c !important;
+}
+
+.chatbot-knowledge-delete:hover,
+.chatbot-knowledge-delete:focus-visible {
+  background: #be123c !important;
+  border-color: #be123c !important;
+  color: #ffffff !important;
+}
+
 body.theme-dark .chatbot-knowledge-count {
   background: #111827;
   border-color: #334155;
@@ -845,6 +865,11 @@ body.theme-dark .chatbot-knowledge-keywords span {
   background: rgba(124, 58, 237, 0.18);
   border-color: rgba(196, 181, 253, 0.28);
   color: #ddd6fe;
+}
+
+body.theme-dark .chatbot-knowledge-delete {
+  border-color: rgba(253, 164, 175, 0.38) !important;
+  color: #fecdd3 !important;
 }
 
 @media (max-width: 720px) {
