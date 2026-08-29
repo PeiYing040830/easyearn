@@ -750,6 +750,10 @@ body.theme-dark .admin-card a:not(.btn-primary):not(.btn-outline):hover {
   min-width: 170px;
 }
 
+.admin-action-row + .seed-log {
+  margin-top: 18px;
+}
+
 .chatbot-knowledge-toolbar {
   display: grid;
   grid-template-columns: minmax(0, 1fr) auto;
