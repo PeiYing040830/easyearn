@@ -133,11 +133,12 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     }
 
-    if (!document.getElementById('easyearn-floating-chatbot')) {
+    const isChatbotKnowledgePage = window.location.pathname.endsWith('/pages/admin/chatbot-knowledge.html');
+    if (!isChatbotKnowledgePage && !document.getElementById('easyearn-floating-chatbot')) {
       const script = document.createElement('script');
       script.id = 'easyearn-floating-chatbot';
       script.type = 'module';
-      script.src = `${basePath}js/floating-chatbot.js?v=20260522a`;
+      script.src = `${basePath}js/floating-chatbot.js?v=20260829a`;
       document.body.appendChild(script);
     }
 

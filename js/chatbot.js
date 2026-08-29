@@ -418,6 +418,7 @@ async function handleSend(messageOverride = '') {
     setTimeout(resolve, 500);
   });
 
+  await loadKnowledgeBase();
   removeTypingIndicator(typingIndicator);
   const matched = Boolean(findKnowledgeReply(message));
   const reply = findCannedReply(message);

@@ -522,6 +522,7 @@ async function handleSend(forcedText = '') {
     setTimeout(resolve, 350);
   });
 
+  await loadKnowledgeBase();
   const matched = Boolean(findKnowledgeReply(text));
   const reply = buildReply(text);
   appendMessage('bot', reply);

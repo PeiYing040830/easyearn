@@ -99,7 +99,7 @@ document.addEventListener('DOMContentLoaded', () => {
       const script = document.createElement('script');
       script.id = 'easyearn-floating-chatbot';
       script.type = 'module';
-      script.src = `${basePath}js/floating-chatbot.js?v=20260522a`;
+      script.src = `${basePath}js/floating-chatbot.js?v=20260829a`;
       document.body.appendChild(script);
     }
 
