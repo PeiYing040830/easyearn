@@ -6,7 +6,7 @@
   <title>EasyEarn - Chatbot Knowledge</title>
   <link rel="icon" type="image/png" href="../../images/logo.png">
   <link rel="stylesheet" href="../../css/landing.css">
-  <link rel="stylesheet" href="admin-pages.css?v=20260803h">
+  <link rel="stylesheet" href="admin-pages.css?v=20260829b">
 </head>
 <body>
   <div id="site-header"></div>
@@ -31,11 +31,30 @@
       </div>
       <div class="seed-log admin-inline-status" id="seed-log">Ready.</div>
     </section>
+
+    <section class="admin-card chatbot-knowledge-card">
+      <div class="admin-section-head">
+        <div>
+          <div class="admin-badge">Knowledge Base</div>
+          <h2>All chatbot Q&amp;A</h2>
+          <p>Review stored chatbot answers and search by question, keyword, answer, or category.</p>
+        </div>
+        <button class="btn-outline" id="knowledge-refresh-btn" type="button">Refresh</button>
+      </div>
+      <div class="chatbot-knowledge-toolbar">
+        <label class="admin-field" for="knowledge-search">
+          <span>Search</span>
+          <input id="knowledge-search" type="search" placeholder="Search question, keyword, answer, or category">
+        </label>
+        <div class="chatbot-knowledge-count" id="knowledge-count">Loading...</div>
+      </div>
+      <div class="chatbot-knowledge-list" id="knowledge-list"></div>
+    </section>
   </main>
 
   <script>window.EASYEARN_BASE_PATH='../../';window.EASYEARN_HEADER_PATH='../../partials/header-admin.html';</script>
   <script src="../../js/translate.js" defer></script>
   <script src="../../js/includes.js?v=20260802a" defer></script>
-  <script type="module" src="../../js/seed-chatbot.js?v=20260505a"></script>
+  <script type="module" src="../../js/seed-chatbot.js?v=20260829b"></script>
 </body>
 </html>
