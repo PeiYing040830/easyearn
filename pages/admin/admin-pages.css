@@ -756,6 +756,31 @@ body.theme-dark .admin-card a:not(.btn-primary):not(.btn-outline):hover {
   margin-top: 18px;
 }
 
+.chatbot-knowledge-shell {
+  max-width: 1440px;
+  margin-inline: auto;
+}
+
+.chatbot-knowledge-shell > .admin-card:first-of-type {
+  max-width: 100%;
+}
+
+.chatbot-knowledge-workspace {
+  display: grid;
+  grid-template-columns: minmax(360px, 0.86fr) minmax(0, 1.14fr);
+  gap: 28px;
+  align-items: start;
+}
+
+.chatbot-knowledge-workspace .admin-card {
+  min-width: 0;
+}
+
+.chatbot-knowledge-manage-card {
+  position: sticky;
+  top: 104px;
+}
+
 .chatbot-knowledge-toolbar {
   display: grid;
   grid-template-columns: minmax(0, 1fr) auto;
@@ -781,7 +806,7 @@ body.theme-dark .admin-card a:not(.btn-primary):not(.btn-outline):hover {
 .chatbot-knowledge-list {
   display: grid;
   gap: 16px;
-  max-height: 720px;
+  max-height: min(760px, calc(100vh - 168px));
   overflow-y: auto;
   padding-right: 6px;
 }
@@ -833,6 +858,10 @@ body.theme-dark .admin-card a:not(.btn-primary):not(.btn-outline):hover {
   grid-column: 1 / -1;
 }
 
+.chatbot-knowledge-form {
+  grid-template-columns: 1fr;
+}
+
 .chatbot-knowledge-form textarea {
   min-height: 130px;
 }
@@ -874,6 +903,22 @@ body.theme-dark .chatbot-knowledge-delete {
   color: #fecdd3 !important;
 }
 
+@media (max-width: 1180px) {
+  .chatbot-knowledge-workspace {
+    grid-template-columns: 1fr;
+  }
+
+  .chatbot-knowledge-manage-card {
+    position: static;
+  }
+
+  .chatbot-knowledge-list {
+    max-height: none;
+    overflow-y: visible;
+    padding-right: 0;
+  }
+}
+
 @media (max-width: 720px) {
   .chatbot-knowledge-toolbar {
     grid-template-columns: 1fr;
@@ -886,6 +931,40 @@ body.theme-dark .chatbot-knowledge-delete {
   .chatbot-knowledge-count {
     width: 100%;
     text-align: left;
+  }
+
+  .chatbot-knowledge-shell .admin-action-row,
+  .chatbot-knowledge-actions {
+    display: grid;
+    grid-template-columns: 1fr;
+  }
+
+  .chatbot-knowledge-shell .admin-action-row .btn-outline,
+  .chatbot-knowledge-shell .admin-action-row .btn-primary,
+  .chatbot-knowledge-actions .btn-outline {
+    width: 100%;
+    min-width: 0;
+  }
+}
+
+@media (max-width: 560px) {
+  .chatbot-knowledge-workspace {
+    gap: 22px;
+  }
+
+  .chatbot-knowledge-shell .admin-header p,
+  .chatbot-knowledge-shell .admin-section-head p,
+  .chatbot-knowledge-answer,
+  .chatbot-knowledge-toolbar input {
+    overflow-wrap: anywhere;
+  }
+
+  .chatbot-knowledge-keywords {
+    gap: 7px;
+  }
+
+  .chatbot-knowledge-keywords span {
+    max-width: 100%;
   }
 }
 
