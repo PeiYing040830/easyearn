@@ -690,7 +690,7 @@ body.theme-dark {
 .admin-action-with-status {
   display: grid;
   grid-template-columns: max-content;
-  gap: 12px;
+  gap: 16px;
   justify-items: start;
 }
 
@@ -742,7 +742,7 @@ body.theme-dark .admin-card a:not(.btn-primary):not(.btn-outline):hover {
 .admin-action-row {
   display: flex;
   flex-wrap: wrap;
-  gap: 12px;
+  gap: 16px;
 }
 
 .admin-action-row .btn-outline,
@@ -750,7 +750,9 @@ body.theme-dark .admin-card a:not(.btn-primary):not(.btn-outline):hover {
   min-width: 170px;
 }
 
-.admin-action-row + .seed-log {
+.admin-action-row + .admin-inline-status,
+.admin-card-actions + .admin-inline-status,
+.admin-form-grid + .admin-inline-status {
   margin-top: 18px;
 }
 

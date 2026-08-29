@@ -657,7 +657,7 @@
   display: flex;
   flex-wrap: wrap;
   justify-content: flex-end;
-  gap: 12px;
+  gap: 16px;
 }
 
 .jobs-hub-grid,
@@ -848,8 +848,14 @@
 .action-with-status {
   display: grid;
   grid-template-columns: max-content;
-  gap: 12px;
+  gap: 16px;
   justify-items: start;
+}
+
+.profile-actions-row + .profile-inline-status,
+.card-actions + .profile-inline-status,
+.jobs-filter-actions + .profile-inline-status {
+  margin-top: 18px;
 }
 .action-with-status .action-status-message {
   margin: 0;
