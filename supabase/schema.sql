@@ -577,10 +577,7 @@ stable
 set search_path = public
 as $function$
   select actor_id = auth.uid()
-    and (
-      coalesce(auth.jwt() -> 'app_metadata' ->> 'role', '') = 'admin'
-      or coalesce(auth.jwt() -> 'user_metadata' ->> 'role', '') = 'admin'
-    );
+    and coalesce(auth.jwt() -> 'app_metadata' ->> 'role', '') = 'admin';
 $function$;
 
 create or replace function public.sync_job_openings_from_application()
@@ -703,6 +700,62 @@ where deleted_at is null
   and coalesce(account_status, 'active') = 'active';
 
 grant select on public.public_profiles to anon, authenticated;
+
+create or replace function public.get_employer_applicant_profiles(applicant_ids uuid[] default null)
+returns table (
+  id uuid,
+  email text,
+  full_name text,
+  role text,
+  location text,
+  bio text,
+  profile_pic text,
+  skill_tags text[],
+  headline text,
+  preferred_categories text[],
+  experience_years integer,
+  expected_rate text,
+  availability_days text[],
+  availability_time text,
+  work_mode text,
+  account_status text,
+  created_at timestamp with time zone
+)
+language sql
+stable
+security definer
+set search_path = public
+as $function$
+  select distinct
+    u.id,
+    u.email,
+    u.full_name,
+    u.role,
+    u.location,
+    u.bio,
+    u.profile_pic,
+    u.skill_tags,
+    u.headline,
+    u.preferred_categories,
+    u.experience_years,
+    u.expected_rate,
+    u.availability_days,
+    u.availability_time,
+    u.work_mode,
+    u.account_status,
+    u.created_at
+  from public.users u
+  join public.applications a on a.seeker_id = u.id
+  join public.job_listings j on j.id = a.job_id
+  where auth.uid() is not null
+    and j.employer_id = auth.uid()
+    and u.deleted_at is null
+    and coalesce(u.account_status, 'active') = 'active'
+    and (applicant_ids is null or u.id = any(applicant_ids));
+$function$;
+
+revoke all on function public.get_employer_applicant_profiles(uuid[]) from public;
+grant execute on function public.get_employer_applicant_profiles(uuid[]) to authenticated;
 
 -- ---------------------------------------------------------------------------
 -- RLS

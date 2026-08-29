@@ -199,6 +199,18 @@ export async function fetchPublicProfilesByIds(userIds = []) {
   return (data || []).map((row) => normalizeProfileRow(row, null));
 }
 
+export async function fetchApplicantProfilesForEmployer(userIds = []) {
+  const ids = Array.from(new Set((userIds || []).filter(Boolean)));
+  if (!ids.length) return [];
+
+  const { data, error } = await supabase.rpc('get_employer_applicant_profiles', {
+    applicant_ids: ids
+  });
+
+  if (error) throw error;
+  return (data || []).map((row) => normalizeProfileRow(row, null));
+}
+
 export async function fetchAllProfiles() {
   const { data, error } = await supabase
     .from(TABLES.profiles)
@@ -634,7 +646,7 @@ export async function fetchEmployerApplications(employerId) {
 
   let applicantsById = new Map();
   try {
-    const applicants = await fetchProfilesByIds(seekerIds);
+    const applicants = await fetchApplicantProfilesForEmployer(seekerIds);
     applicantsById = new Map(applicants.map((profile) => [profile.id, profile]));
   } catch (profileError) {
     console.error('Failed to load applicant profiles for employer view:', profileError);
