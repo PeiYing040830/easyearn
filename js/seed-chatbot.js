@@ -1,4 +1,9 @@
-import { fetchKnowledgeBase, seedKnowledgeBase } from './supabase-data.js';
+import {
+  deleteKnowledgeEntry,
+  fetchKnowledgeBase,
+  seedKnowledgeBase,
+  updateKnowledgeEntry
+} from './supabase-data.js';
 
 const seedData = [
   { keywords: ['register', 'sign up', 'create account'], answer: 'Go to Register, choose Job Seeker or Employer, then complete your profile.' },
@@ -71,6 +76,7 @@ const clearBtn = document.getElementById('knowledge-clear-btn');
 const insertStatusEl = document.getElementById('knowledge-insert-status');
 
 let knowledgeEntries = [];
+let editingEntryId = '';
 
 function log(text) {
   if (!logEl) return;
@@ -111,6 +117,8 @@ function setInsertStatus(message, type = '') {
 
 function clearInsertForm() {
   if (insertForm) insertForm.reset();
+  editingEntryId = '';
+  if (saveBtn) saveBtn.textContent = 'Save Q&A';
   setInsertStatus('Ready to add a new entry.');
 }
 
@@ -161,6 +169,25 @@ function renderKnowledgeList() {
       entry.keywords.forEach((keyword) => appendText(keywords, 'span', '', keyword));
       card.appendChild(keywords);
     }
+
+    const actions = document.createElement('div');
+    actions.className = 'admin-action-row chatbot-knowledge-actions';
+
+    const editBtn = document.createElement('button');
+    editBtn.className = 'btn-outline';
+    editBtn.type = 'button';
+    editBtn.textContent = 'Edit';
+    editBtn.dataset.entryId = entry.id;
+    actions.appendChild(editBtn);
+
+    const deleteBtn = document.createElement('button');
+    deleteBtn.className = 'btn-outline chatbot-knowledge-delete';
+    deleteBtn.type = 'button';
+    deleteBtn.textContent = 'Delete';
+    deleteBtn.dataset.entryId = entry.id;
+    actions.appendChild(deleteBtn);
+
+    card.appendChild(actions);
 
     listEl.appendChild(card);
   });
@@ -233,14 +260,53 @@ async function insertKnowledgeEntry(event) {
   setInsertStatus('Saving Q&A...');
 
   try {
-    await seedKnowledgeBase([{ question, keywords, answer, category }]);
-    clearInsertForm();
-    setInsertStatus('Q&A saved successfully.', 'success');
+    if (editingEntryId) {
+      await updateKnowledgeEntry(editingEntryId, { question, keywords, answer, category });
+      clearInsertForm();
+      setInsertStatus('Q&A updated successfully.', 'success');
+    } else {
+      await seedKnowledgeBase([{ question, keywords, answer, category }]);
+      clearInsertForm();
+      setInsertStatus('Q&A saved successfully.', 'success');
+    }
     await loadKnowledgeBase();
   } catch (error) {
     setInsertStatus(`Failed to save Q&A: ${error.message}`, 'error');
   } finally {
     if (saveBtn) saveBtn.disabled = false;
+  }
+}
+
+function startEditEntry(entryId) {
+  const entry = knowledgeEntries.find((item) => item.id === entryId);
+  if (!entry) return;
+
+  editingEntryId = entry.id;
+  if (questionInput) questionInput.value = entry.question || '';
+  if (categoryInput) categoryInput.value = entry.category || '';
+  if (keywordsInput) keywordsInput.value = (entry.keywords || []).join(', ');
+  if (answerInput) answerInput.value = entry.answer || '';
+  if (saveBtn) saveBtn.textContent = 'Update Q&A';
+  setInsertStatus('Editing selected Q&A.');
+  insertForm?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+}
+
+async function removeEntry(entryId) {
+  const entry = knowledgeEntries.find((item) => item.id === entryId);
+  if (!entry) return;
+
+  const confirmed = window.confirm(`Delete "${entry.question || 'this Q&A'}"?`);
+  if (!confirmed) return;
+
+  setInsertStatus('Deleting Q&A...');
+
+  try {
+    await deleteKnowledgeEntry(entryId);
+    if (editingEntryId === entryId) clearInsertForm();
+    setInsertStatus('Q&A deleted successfully.', 'success');
+    await loadKnowledgeBase();
+  } catch (error) {
+    setInsertStatus(`Failed to delete Q&A: ${error.message}`, 'error');
   }
 }
 
@@ -258,6 +324,20 @@ if (insertForm) {
 
 if (clearBtn) {
   clearBtn.addEventListener('click', clearInsertForm);
+}
+
+if (listEl) {
+  listEl.addEventListener('click', (event) => {
+    const button = event.target.closest('button[data-entry-id]');
+    if (!button) return;
+
+    if (button.classList.contains('chatbot-knowledge-delete')) {
+      removeEntry(button.dataset.entryId);
+      return;
+    }
+
+    startEditEntry(button.dataset.entryId);
+  });
 }
 
 loadKnowledgeBase();

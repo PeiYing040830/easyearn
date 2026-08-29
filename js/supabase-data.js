@@ -929,6 +929,35 @@ export async function seedKnowledgeBase(items) {
   if (error) throw error;
 }
 
+export async function updateKnowledgeEntry(entryId, payload) {
+  const row = {
+    question: payload.question || normalizeArray(payload.keywords)[0] || 'General question',
+    keywords: normalizeArray(payload.keywords),
+    answer: payload.answer || '',
+    category: payload.category || null
+  };
+
+  const { data, error } = await supabase
+    .from(TABLES.chatbotKnowledge)
+    .update(row)
+    .eq('id', entryId)
+    .select()
+    .maybeSingle();
+
+  if (error) throw error;
+  return data;
+}
+
+export async function deleteKnowledgeEntry(entryId) {
+  const { error } = await supabase
+    .from(TABLES.chatbotKnowledge)
+    .delete()
+    .eq('id', entryId);
+
+  if (error) throw error;
+  return true;
+}
+
 export async function logChatbotInteraction(payload = {}) {
   let userId = payload.user_id || null;
 
