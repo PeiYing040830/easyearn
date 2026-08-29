@@ -757,32 +757,7 @@ body.theme-dark .admin-card a:not(.btn-primary):not(.btn-outline):hover {
 }
 
 .chatbot-knowledge-shell {
-  max-width: 1440px;
-  margin-inline: auto;
-  padding-top: 104px;
-  padding-bottom: 56px;
-}
-
-.chatbot-knowledge-shell .admin-header {
-  min-height: 280px !important;
-  margin-bottom: 28px;
-  padding: 42px 32px 94px !important;
-  display: grid;
-  align-content: center;
-  justify-items: center;
-  gap: 12px;
-}
-
-.chatbot-knowledge-shell .admin-header h1 {
-  margin: 0;
-}
-
-.chatbot-knowledge-shell .admin-header p {
-  margin: 0;
-}
-
-.chatbot-knowledge-shell .admin-header-actions {
-  margin-top: 8px;
+  width: 100%;
 }
 
 .chatbot-knowledge-shell > .admin-card:first-of-type {
@@ -944,15 +919,6 @@ body.theme-dark .chatbot-knowledge-delete {
 }
 
 @media (max-width: 720px) {
-  .chatbot-knowledge-shell {
-    padding-top: 96px;
-  }
-
-  .chatbot-knowledge-shell .admin-header {
-    min-height: 300px !important;
-    padding: 38px 22px 98px !important;
-  }
-
   .chatbot-knowledge-toolbar {
     grid-template-columns: 1fr;
   }
@@ -981,15 +947,6 @@ body.theme-dark .chatbot-knowledge-delete {
 }
 
 @media (max-width: 560px) {
-  .chatbot-knowledge-shell {
-    padding-inline: 14px;
-    padding-bottom: 44px;
-  }
-
-  .chatbot-knowledge-shell .admin-header {
-    margin-bottom: 24px;
-  }
-
   .chatbot-knowledge-workspace {
     gap: 22px;
   }
