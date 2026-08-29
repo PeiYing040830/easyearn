@@ -92,7 +92,7 @@ function ensureFavicon(basePath) {
   const icon = document.createElement('link');
   icon.rel = 'icon';
   icon.type = 'image/png';
-  icon.href = `${basePath}images/logo.png`;
+  icon.href = `${basePath}images/logo.png?v=20260829`;
   document.head.appendChild(icon);
 }
 
