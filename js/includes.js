@@ -85,6 +85,17 @@ function normalizeLogoPath(basePath) {
   logoImg.setAttribute('src', `${basePath}images/logo.png`);
 }
 
+function ensureFavicon(basePath) {
+  const existingIcon = document.querySelector('link[rel~="icon"]');
+  if (existingIcon) return;
+
+  const icon = document.createElement('link');
+  icon.rel = 'icon';
+  icon.type = 'image/png';
+  icon.href = `${basePath}images/logo.png`;
+  document.head.appendChild(icon);
+}
+
 document.addEventListener('DOMContentLoaded', () => {
   const basePath = window.EASYEARN_BASE_PATH || '';
   const headerPath = window.EASYEARN_HEADER_PATH || `${basePath}partials/header.html`;
@@ -96,6 +107,7 @@ document.addEventListener('DOMContentLoaded', () => {
     loadPartial('site-header', headerPath),
     loadPartial('site-footer', footerPath)
   ]).then(() => {
+    ensureFavicon(basePath);
     normalizeLogoPath(basePath);
     normalizeFooterLinks(basePath);
     highlightCurrentNav();
