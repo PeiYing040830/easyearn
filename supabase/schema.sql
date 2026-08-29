@@ -573,16 +573,14 @@ $function$;
 create or replace function public.is_admin_user(actor_id uuid)
 returns boolean
 language sql
-security definer
 stable
 set search_path = public
 as $function$
-  select exists (
-    select 1
-    from public.users u
-    where u.id = actor_id
-      and u.role = 'admin'
-  );
+  select actor_id = auth.uid()
+    and (
+      coalesce(auth.jwt() -> 'app_metadata' ->> 'role', '') = 'admin'
+      or coalesce(auth.jwt() -> 'user_metadata' ->> 'role', '') = 'admin'
+    );
 $function$;
 
 create or replace function public.sync_job_openings_from_application()
@@ -820,20 +818,6 @@ on public.users for select
 to authenticated
 using (public.is_admin_user(auth.uid()));
 
-create policy users_select_applicant_for_employer
-on public.users for select
-to authenticated
-using (
-  role = 'seeker'
-  and exists (
-    select 1
-    from public.applications a
-    join public.job_listings j on j.id = a.job_id
-    where a.seeker_id = users.id
-      and j.employer_id = auth.uid()
-  )
-);
-
 create policy users_insert_own
 on public.users for insert
 to authenticated
@@ -925,8 +909,8 @@ using (auth.uid() = employer_id);
 create policy job_listings_admin_update
 on public.job_listings for update
 to authenticated
-using (exists (select 1 from public.users u where u.id = auth.uid() and u.role = 'admin'))
-with check (exists (select 1 from public.users u where u.id = auth.uid() and u.role = 'admin'));
+using (public.is_admin_user(auth.uid()))
+with check (public.is_admin_user(auth.uid()));
 
 -- Applications
 create policy applications_select_own
@@ -945,7 +929,7 @@ using (exists (
 create policy applications_admin_select
 on public.applications for select
 to authenticated
-using (exists (select 1 from public.users u where u.id = auth.uid() and u.role = 'admin'));
+using (public.is_admin_user(auth.uid()));
 
 create policy applications_insert_own
 on public.applications for insert
@@ -1022,7 +1006,7 @@ using (
     where a.id = payments.application_id
       and (a.seeker_id = auth.uid() or j.employer_id = auth.uid())
   )
-  or exists (select 1 from public.users u where u.id = auth.uid() and u.role = 'admin')
+  or public.is_admin_user(auth.uid())
 );
 
 create policy payments_update_related_users
@@ -1031,12 +1015,12 @@ to authenticated
 using (
   auth.uid() = payer_id
   or auth.uid() = payee_id
-  or exists (select 1 from public.users u where u.id = auth.uid() and u.role = 'admin')
+  or public.is_admin_user(auth.uid())
 )
 with check (
   auth.uid() = payer_id
   or auth.uid() = payee_id
-  or exists (select 1 from public.users u where u.id = auth.uid() and u.role = 'admin')
+  or public.is_admin_user(auth.uid())
 );
 
 -- Ratings
@@ -1070,13 +1054,13 @@ with check (auth.uid() = reporter_id);
 create policy reports_admin_select
 on public.reports for select
 to authenticated
-using (exists (select 1 from public.users u where u.id = auth.uid() and u.role = 'admin'));
+using (public.is_admin_user(auth.uid()));
 
 create policy reports_admin_update
 on public.reports for update
 to authenticated
-using (exists (select 1 from public.users u where u.id = auth.uid() and u.role = 'admin'))
-with check (exists (select 1 from public.users u where u.id = auth.uid() and u.role = 'admin'));
+using (public.is_admin_user(auth.uid()))
+with check (public.is_admin_user(auth.uid()));
 
 -- Saved jobs
 create policy saved_jobs_select_own
@@ -1137,23 +1121,23 @@ with check (true);
 create policy chatbot_logs_select_admin
 on public.chatbot_logs for select
 to authenticated
-using (exists (select 1 from public.users u where u.id = auth.uid() and u.role = 'admin'));
+using (public.is_admin_user(auth.uid()));
 
 create policy analytics_admin_select
 on public.analytics for select
 to authenticated
-using (exists (select 1 from public.users u where u.id = auth.uid() and u.role = 'admin'));
+using (public.is_admin_user(auth.uid()));
 
 create policy analytics_admin_insert
 on public.analytics for insert
 to authenticated
-with check (exists (select 1 from public.users u where u.id = auth.uid() and u.role = 'admin'));
+with check (public.is_admin_user(auth.uid()));
 
 create policy analytics_admin_update
 on public.analytics for update
 to authenticated
-using (exists (select 1 from public.users u where u.id = auth.uid() and u.role = 'admin'))
-with check (exists (select 1 from public.users u where u.id = auth.uid() and u.role = 'admin'));
+using (public.is_admin_user(auth.uid()))
+with check (public.is_admin_user(auth.uid()));
 
 -- Chatbot knowledge seed
 insert into public.chatbot_knowledge (question, keywords, answer, category)
