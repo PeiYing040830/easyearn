@@ -4,7 +4,7 @@ import {
   fetchSavedJobsCount,
   fetchSavedJobIds,
   fetchProfile,
-  fetchProfilesByIds,
+  fetchPublicProfilesByIds,
   fetchRatingsForReviewees,
   createApplication,
   deleteApplication,
@@ -624,7 +624,7 @@ import {
     const employerIds = Array.from(new Set((jobsRaw || []).map((job) => job.employer_id).filter(Boolean)));
 
     try {
-      const employerProfiles = await fetchProfilesByIds(employerIds);
+      const employerProfiles = await fetchPublicProfilesByIds(employerIds);
       employerProfilesById = employerProfiles.reduce((map, employerProfile) => {
         if (employerProfile.id) map.set(employerProfile.id, employerProfile);
         return map;
