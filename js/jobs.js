@@ -1,6 +1,6 @@
 // jobs page scripts
 import { supabase } from './supabase-config.js';
-import { fetchProfilesByIds } from './supabase-data.js';
+import { fetchPublicProfilesByIds } from './supabase-data.js';
 
 (function () {
   'use strict';
@@ -277,7 +277,7 @@ import { fetchProfilesByIds } from './supabase-data.js';
       allJobs = await fetchJobs();
       const employerIds = Array.from(new Set(allJobs.map((job) => job.employer_id).filter(Boolean)));
       try {
-        const employerProfiles = await fetchProfilesByIds(employerIds);
+        const employerProfiles = await fetchPublicProfilesByIds(employerIds);
         employerProfilesById = employerProfiles.reduce((map, profile) => {
           if (profile.id) map.set(profile.id, profile);
           return map;

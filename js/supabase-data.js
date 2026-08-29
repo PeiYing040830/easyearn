@@ -2,6 +2,7 @@ import { supabase } from './supabase-config.js';
 
 export const TABLES = {
   profiles: 'users',
+  publicProfiles: 'public_profiles',
   resumes: 'users',
   workHistory: 'work_history',
   applications: 'applications',
@@ -178,6 +179,19 @@ export async function fetchProfilesByIds(userIds = []) {
 
   const { data, error } = await supabase
     .from(TABLES.profiles)
+    .select('*')
+    .in('id', ids);
+
+  if (error) throw error;
+  return (data || []).map((row) => normalizeProfileRow(row, null));
+}
+
+export async function fetchPublicProfilesByIds(userIds = []) {
+  const ids = Array.from(new Set((userIds || []).filter(Boolean)));
+  if (!ids.length) return [];
+
+  const { data, error } = await supabase
+    .from(TABLES.publicProfiles)
     .select('*')
     .in('id', ids);
 
