@@ -758,15 +758,21 @@ body.theme-dark .admin-card a:not(.btn-primary):not(.btn-outline):hover {
 
 .chatbot-knowledge-shell {
   width: 100%;
+  max-width: none;
 }
 
-.chatbot-knowledge-shell > .admin-card:first-of-type {
+.chatbot-knowledge-shell .admin-header,
+.chatbot-knowledge-shell > .admin-card:first-of-type,
+.chatbot-knowledge-workspace {
+  width: 100%;
   max-width: 100%;
+  margin-left: 0;
+  margin-right: 0;
 }
 
 .chatbot-knowledge-workspace {
   display: grid;
-  grid-template-columns: minmax(360px, 0.86fr) minmax(0, 1.14fr);
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 28px;
   align-items: start;
 }
