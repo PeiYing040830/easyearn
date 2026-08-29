@@ -61,6 +61,14 @@ const searchInput = document.getElementById('knowledge-search');
 const refreshBtn = document.getElementById('knowledge-refresh-btn');
 const countEl = document.getElementById('knowledge-count');
 const listEl = document.getElementById('knowledge-list');
+const insertForm = document.getElementById('knowledge-insert-form');
+const questionInput = document.getElementById('knowledge-question');
+const categoryInput = document.getElementById('knowledge-category');
+const keywordsInput = document.getElementById('knowledge-keywords');
+const answerInput = document.getElementById('knowledge-answer');
+const saveBtn = document.getElementById('knowledge-save-btn');
+const clearBtn = document.getElementById('knowledge-clear-btn');
+const insertStatusEl = document.getElementById('knowledge-insert-status');
 
 let knowledgeEntries = [];
 
@@ -92,6 +100,18 @@ function appendText(parent, tagName, className, text) {
   element.textContent = text;
   parent.appendChild(element);
   return element;
+}
+
+function setInsertStatus(message, type = '') {
+  if (!insertStatusEl) return;
+  insertStatusEl.textContent = message;
+  insertStatusEl.classList.toggle('is-success', type === 'success');
+  insertStatusEl.classList.toggle('is-error', type === 'error');
+}
+
+function clearInsertForm() {
+  if (insertForm) insertForm.reset();
+  setInsertStatus('Ready to add a new entry.');
 }
 
 function renderKnowledgeList() {
@@ -193,12 +213,51 @@ if (seedBtn) {
   seedBtn.addEventListener('click', seedChatbot);
 }
 
+async function insertKnowledgeEntry(event) {
+  event.preventDefault();
+
+  const question = String(questionInput?.value || '').trim();
+  const keywords = String(keywordsInput?.value || '')
+    .split(',')
+    .map((keyword) => keyword.trim())
+    .filter(Boolean);
+  const answer = String(answerInput?.value || '').trim();
+  const category = String(categoryInput?.value || '').trim();
+
+  if (!question || !keywords.length || !answer) {
+    setInsertStatus('Question, keywords, and answer are required.', 'error');
+    return;
+  }
+
+  if (saveBtn) saveBtn.disabled = true;
+  setInsertStatus('Saving Q&A...');
+
+  try {
+    await seedKnowledgeBase([{ question, keywords, answer, category }]);
+    clearInsertForm();
+    setInsertStatus('Q&A saved successfully.', 'success');
+    await loadKnowledgeBase();
+  } catch (error) {
+    setInsertStatus(`Failed to save Q&A: ${error.message}`, 'error');
+  } finally {
+    if (saveBtn) saveBtn.disabled = false;
+  }
+}
+
 if (searchInput) {
   searchInput.addEventListener('input', renderKnowledgeList);
 }
 
 if (refreshBtn) {
   refreshBtn.addEventListener('click', loadKnowledgeBase);
+}
+
+if (insertForm) {
+  insertForm.addEventListener('submit', insertKnowledgeEntry);
+}
+
+if (clearBtn) {
+  clearBtn.addEventListener('click', clearInsertForm);
 }
 
 loadKnowledgeBase();

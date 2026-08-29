@@ -50,11 +50,44 @@
       </div>
       <div class="chatbot-knowledge-list" id="knowledge-list"></div>
     </section>
+
+    <section class="admin-card chatbot-knowledge-card">
+      <div class="admin-section-head">
+        <div>
+          <div class="admin-badge">Insert</div>
+          <h2>Add chatbot Q&amp;A</h2>
+          <p>Create a new approved chatbot answer for future user questions.</p>
+        </div>
+      </div>
+      <form class="admin-form-grid chatbot-knowledge-form" id="knowledge-insert-form">
+        <label class="admin-field">
+          <span>Question</span>
+          <input id="knowledge-question" type="text" placeholder="Example: How do I apply?" required>
+        </label>
+        <label class="admin-field">
+          <span>Category</span>
+          <input id="knowledge-category" type="text" placeholder="Example: applications">
+        </label>
+        <label class="admin-field full">
+          <span>Keywords</span>
+          <input id="knowledge-keywords" type="text" placeholder="Separate keywords with commas, example: apply, application, resume" required>
+        </label>
+        <label class="admin-field full">
+          <span>Answer</span>
+          <textarea id="knowledge-answer" placeholder="Answer shown by the chatbot" required></textarea>
+        </label>
+        <div class="admin-action-row full">
+          <button class="btn-primary" id="knowledge-save-btn" type="submit">Save Q&amp;A</button>
+          <button class="btn-outline" id="knowledge-clear-btn" type="button">Clear</button>
+        </div>
+      </form>
+      <div class="admin-inline-status" id="knowledge-insert-status">Ready to add a new entry.</div>
+    </section>
   </main>
 
   <script>window.EASYEARN_BASE_PATH='../../';window.EASYEARN_HEADER_PATH='../../partials/header-admin.html';</script>
   <script src="../../js/translate.js" defer></script>
   <script src="../../js/includes.js?v=20260802a" defer></script>
-  <script type="module" src="../../js/seed-chatbot.js?v=20260829b"></script>
+  <script type="module" src="../../js/seed-chatbot.js?v=20260829c"></script>
 </body>
 </html>
