@@ -244,6 +244,12 @@ async function detectRole() {
     const profile = await fetchProfile(user.id, user);
     currentRole = normalizeRole(profile?.role || user.user_metadata?.role);
   } catch (error) {
+    const message = String(error?.message || error?.name || '').toLowerCase();
+    if (message.includes('auth session missing')) {
+      currentRole = 'guest';
+      return;
+    }
+
     console.warn('Unable to detect floating chatbot role:', error);
     currentRole = 'guest';
   }
