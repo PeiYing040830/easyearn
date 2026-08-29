@@ -1,4 +1,4 @@
-import { seedKnowledgeBase } from './supabase-data.js';
+import { fetchKnowledgeBase, seedKnowledgeBase } from './supabase-data.js';
 
 const seedData = [
   { keywords: ['register', 'sign up', 'create account'], answer: 'Go to Register, choose Job Seeker or Employer, then complete your profile.' },
@@ -57,10 +57,116 @@ const seedData = [
 
 const logEl = document.getElementById('seed-log');
 const seedBtn = document.getElementById('seed-btn');
+const searchInput = document.getElementById('knowledge-search');
+const refreshBtn = document.getElementById('knowledge-refresh-btn');
+const countEl = document.getElementById('knowledge-count');
+const listEl = document.getElementById('knowledge-list');
+
+let knowledgeEntries = [];
 
 function log(text) {
   if (!logEl) return;
   logEl.textContent += `\n${text}`;
+}
+
+function formatDate(value) {
+  if (!value) return 'No date';
+  const date = new Date(value);
+  if (Number.isNaN(date.getTime())) return 'No date';
+  return date.toLocaleString('en-MY', { dateStyle: 'medium', timeStyle: 'short' });
+}
+
+function matchesSearch(entry, term) {
+  if (!term) return true;
+  return [
+    entry.question,
+    entry.answer,
+    entry.category,
+    ...(entry.keywords || [])
+  ].some((value) => String(value || '').toLowerCase().includes(term));
+}
+
+function appendText(parent, tagName, className, text) {
+  const element = document.createElement(tagName);
+  if (className) element.className = className;
+  element.textContent = text;
+  parent.appendChild(element);
+  return element;
+}
+
+function renderKnowledgeList() {
+  if (!listEl) return;
+
+  const term = String(searchInput?.value || '').trim().toLowerCase();
+  const visible = knowledgeEntries.filter((entry) => matchesSearch(entry, term));
+
+  listEl.textContent = '';
+  if (countEl) {
+    countEl.textContent = term
+      ? `${visible.length}/${knowledgeEntries.length} entries`
+      : `${knowledgeEntries.length} entries`;
+  }
+
+  if (!visible.length) {
+    const empty = document.createElement('article');
+    empty.className = 'admin-item chatbot-knowledge-empty';
+    appendText(empty, 'strong', '', term ? 'No matching Q&A found' : 'No chatbot Q&A yet');
+    appendText(empty, 'p', '', term ? 'Try another search term.' : 'Use the seed button to add prepared entries.');
+    listEl.appendChild(empty);
+    return;
+  }
+
+  visible.forEach((entry) => {
+    const card = document.createElement('article');
+    card.className = 'admin-item chatbot-knowledge-item';
+
+    const head = document.createElement('div');
+    head.className = 'chatbot-knowledge-item-head';
+    appendText(head, 'strong', '', entry.question || 'General question');
+    appendText(head, 'span', 'admin-status-pill', entry.category || 'General');
+    card.appendChild(head);
+
+    appendText(card, 'p', 'chatbot-knowledge-answer', entry.answer || 'No answer saved.');
+
+    const meta = document.createElement('div');
+    meta.className = 'admin-item-meta chatbot-knowledge-meta';
+    appendText(meta, 'span', '', `${(entry.keywords || []).length} keyword(s)`);
+    appendText(meta, 'span', '', `Used ${entry.usageCount || 0} time(s)`);
+    appendText(meta, 'span', '', formatDate(entry.createdAt));
+    card.appendChild(meta);
+
+    if (entry.keywords?.length) {
+      const keywords = document.createElement('div');
+      keywords.className = 'chatbot-knowledge-keywords';
+      entry.keywords.forEach((keyword) => appendText(keywords, 'span', '', keyword));
+      card.appendChild(keywords);
+    }
+
+    listEl.appendChild(card);
+  });
+}
+
+async function loadKnowledgeBase() {
+  if (refreshBtn) refreshBtn.disabled = true;
+  if (countEl) countEl.textContent = 'Loading...';
+
+  try {
+    knowledgeEntries = await fetchKnowledgeBase();
+    renderKnowledgeList();
+  } catch (error) {
+    knowledgeEntries = [];
+    if (countEl) countEl.textContent = 'Unable to load';
+    if (listEl) {
+      listEl.textContent = '';
+      const item = document.createElement('article');
+      item.className = 'admin-item chatbot-knowledge-empty';
+      appendText(item, 'strong', '', 'Unable to load chatbot Q&A');
+      appendText(item, 'p', '', error.message || 'Please check the database policy and connection.');
+      listEl.appendChild(item);
+    }
+  } finally {
+    if (refreshBtn) refreshBtn.disabled = false;
+  }
 }
 
 async function seedChatbot() {
@@ -75,6 +181,7 @@ async function seedChatbot() {
     await seedKnowledgeBase(rows);
     rows.forEach((row) => log(`Saved ${row.id}`));
     log(`Done. ${rows.length}/${rows.length} saved.`);
+    await loadKnowledgeBase();
   } catch (error) {
     log(`Seeding failed: ${error.message}`);
   } finally {
@@ -85,3 +192,13 @@ async function seedChatbot() {
 if (seedBtn) {
   seedBtn.addEventListener('click', seedChatbot);
 }
+
+if (searchInput) {
+  searchInput.addEventListener('input', renderKnowledgeList);
+}
+
+if (refreshBtn) {
+  refreshBtn.addEventListener('click', loadKnowledgeBase);
+}
+
+loadKnowledgeBase();

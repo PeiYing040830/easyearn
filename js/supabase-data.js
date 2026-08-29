@@ -899,14 +899,18 @@ export async function removeSavedJob(userId, jobId) {
 export async function fetchKnowledgeBase() {
   const { data, error } = await supabase
     .from(TABLES.chatbotKnowledge)
-    .select('*');
+    .select('*')
+    .order('created_at', { ascending: false, nullsFirst: false });
 
   if (error) throw error;
   return (data || []).map((row) => ({
     id: row.id,
     question: typeof row.question === 'string' ? row.question : '',
     keywords: normalizeArray(row.keywords),
-    answer: typeof row.answer === 'string' ? row.answer : ''
+    answer: typeof row.answer === 'string' ? row.answer : '',
+    category: typeof row.category === 'string' ? row.category : '',
+    usageCount: Number(row.usage_count || 0),
+    createdAt: row.created_at || ''
   }));
 }
 
