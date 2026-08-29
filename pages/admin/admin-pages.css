@@ -827,6 +827,14 @@ body.theme-dark .admin-card a:not(.btn-primary):not(.btn-outline):hover {
   text-align: center;
 }
 
+.chatbot-knowledge-form .full {
+  grid-column: 1 / -1;
+}
+
+.chatbot-knowledge-form textarea {
+  min-height: 130px;
+}
+
 body.theme-dark .chatbot-knowledge-count {
   background: #111827;
   border-color: #334155;

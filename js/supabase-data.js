@@ -918,7 +918,8 @@ export async function seedKnowledgeBase(items) {
   const rows = items.map((item) => ({
     question: item.question || normalizeArray(item.keywords)[0] || 'General question',
     keywords: normalizeArray(item.keywords),
-    answer: item.answer || ''
+    answer: item.answer || '',
+    category: item.category || null
   }));
 
   const { error } = await supabase
