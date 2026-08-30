@@ -4,7 +4,7 @@
 
 The gig economy has changed the way that people work in the 21st century. According to the World Bank (2023), there are more than 545 gig platforms and between 154 million and 435 million workers worldwide engaged in online gig work. This transformation has impacted traditional work by unleashing flexible and multiple earning opportunities, and has gained momentum since the smartphone and internet became commonplace (International Labour Organisation, 2021). Informal and temporary work has been an increased source of income, particularly for higher education students, housewives and those who have several sources of income in addition to their main income in Southeast Asia (World Bank, 2023).
 
-During the coronavirus disease 2019 (COVID-19) pandemic, this new gig economy has risen to a significant force in Malaysia as workers have sought to find alternative ways to earn a living, as jobs were cut or shifted to work-from-home arrangements, as labour markets have been affected, and as wages have declined (Abd Samad et al., 2023). The number of own-account workers also grew, to 3.09 million, or about 25.1 per cent of the total labour force in the country, by 2024 (Department of Statistics Malaysia, 2024; Kalai Vani & Foo, 2024). Demographically, 97.71 per cent of ride-hailing workers are between 19 and 30 years old and earn RM1,500 to RM2,500 a month and 45 per cent of Malaysians have said they are gig workers at some point (Department of Statistics Malaysia, 2023; Pillai & Paul, 2023). Students, housewives, and jobless people are attracted to gig work because of its flexible working hours, the possibility of additional income and minimal participation requirements (Abd Samad et al., 2023; Siti Nurazira et al., 2024). According to the Malaysia Digital Economy Corporation (MDEC, 2023), the gig economy market size in Malaysia was RM1.33 billion, and the number of new people joining gig platforms exceeded 1 million in Q3 2023.
+During the coronavirus disease 2019 (COVID-19) pandemic, this new gig economy has risen to a significant force in Malaysia as workers have sought to find alternative ways to earn a living, as jobs were cut or shifted to work-from-home arrangements, as labour markets have been affected, and as wages have declined (Abd Samad et al., 2023). The number of own-account workers also grew, to 3.09 million, or about 25.1 per cent of the total labour force in the country, by 2024 (Department of Statistics Malaysia, 2024; Kalai Vani & Foo, 2024). Demographically, 97.71 per cent of ride-hailing workers are between 19 and 30 years old and earn RM1,500 to RM2,500 a month and 45 per cent of Malaysians have said they are gig workers at some point (Department of Statistics Malaysia, 2023; Pillai & Paul, 2023). Students, housewives, and jobless people are attracted to gig work because of its flexible working hours, the possibility of additional income and minimal participation requirements (Abd Samad et al., 2023; Mohd Hed & Rosli, 2026). According to the Malaysia Digital Economy Corporation (MDEC, 2023), the gig economy market size in Malaysia was RM1.33 billion, and the number of new people joining gig platforms exceeded 1 million in Q3 2023.
 
 Though the demand has increased, organised platforms like GoGet and Troopers are still limited to big cities like Kuala Lumpur, Penang and Johor Bahru, and lack of organised gig platforms in smaller towns like Ipoh, Kangar, Alor Setar, Kota Bharu and Kuala Terengganu (MDEC, 2023; GoGet, 2024; Troopers, 2024). Without dedicated platforms, workers in such areas use unverifiable social media channels, like Facebook groups and Instagram communities, where they are exposed to fraud and where they cannot develop a verifiable work history (Pillai & Paul, 2023; Malaysian Communications and Multimedia Commission [MCMC], 2023). Gig work is not catered for by the traditional online portals such as JobStreet and RiceBowl, which focus on permanent or contract positions, making a crucial gap in services in the smaller towns of Malaysia (MDEC, 2023).
 
@@ -32,7 +32,7 @@ For Small and Medium Enterprises (SMEs) and individual employers seeking short-t
 
 Problem 5: No platform for flexible workers
 
-There is a lack of platforms that cater to the needs of university students, housewives, and unemployed people who need short-term, flexible employment. There are also several longer-term job sites like JobStreet and RiceBowl that do not offer short-term positions, and a handful of local sites like GoGet and Troopers, which are only available in major cities. In smaller town areas, there are not many platforms that target the needs of the younger population, as flexi time and extra income are their primary motivations for participating in gig activities that limit their economic involvement and income security (Abd Samad et al., 2023; Siti Nurazira et al., 2024).
+There is a lack of platforms that cater to the needs of university students, housewives, and unemployed people who need short-term, flexible employment. There are also several longer-term job sites like JobStreet and RiceBowl that do not offer short-term positions, and a handful of local sites like GoGet and Troopers, which are only available in major cities. In smaller town areas, there are not many platforms that target the needs of the younger population, as flexi time and extra income are their primary motivations for participating in gig activities that limit their economic involvement and income security (Abd Samad et al., 2023; Mohd Hed & Rosli, 2026).
 
 Problem 6: Language Barrier on Existing Platforms
 
@@ -98,14 +98,14 @@ Table 1.1: Core Features
 
 | No | Features | Description |
 | --- | --- | --- |
-| 1 | User Registration &amp; Login | Role-based Job Seeker, Employer and Admin Registration/Login. |
-| 2 | Job Posting &amp; Application | Employers advertise jobs and job seekers apply for jobs, with application management within the platform. |
-| 3 | Job Category &amp; Filter | Search for jobs based on categories, such as F&amp;B, Event, Delivery, and Tutor. |
+| 1 | User Registration & Login | Role-based Job Seeker, Employer and Admin Registration/Login. |
+| 2 | Job Posting & Application | Employers advertise jobs and job seekers apply for jobs, with application management within the platform. |
+| 3 | Job Category & Filter | Search for jobs based on categories, such as F&B, Event, Delivery, and Tutor. |
 | 4 | Location Filter | Search for jobs in Malaysia by city/region. |
 | 5 | Application Status Timeline | Visual tracker with Pending, Reviewed, Interview, Accepted, Completion Pending, Completed, and Rejected stages. |
 | 6 | Employer Verification Badge | Employers with verified accounts have a trust badge in their profile. |
 | 7 | Report/ Flag System | Users are asked to inform Admin about suspicious or non-paying employers or of fraudulently posted listings. |
-| 8 | Rating &amp; Review System | A two-way rating system of 1 to 5 stars and written feedback between employers and job seekers. |
+| 8 | Rating & Review System | A two-way rating system of 1 to 5 stars and written feedback between employers and job seekers. |
 | 9 | Work History Dashboard | Records finished work, income generated and the distribution of jobs by type. |
 | 10 | Auto-Generate Resume | Completely automates PDF resume generation from job information. |
 | 11 | Google Translate Integration | Redirects to Google Translate to access the platform in several languages. |
@@ -123,8 +123,8 @@ Table 1.2: Optional Features
 | 2 | Job Expiry Date | Job postings will expire and close automatically after the expiration period. |
 | 3 | Skills Tag | Job seekers add their skills to their profile. |
 | 4 | Profile Completeness | Progress bar showing how much of the user profile is complete. |
-| 5 | Analytics Dashboard | Earnings charts of job seekers; statistics about employers&#x27; recruitment; statistics of the administration platform. |
-| 6 | Payment Confirmation &amp; Dispute | When the transfer is made via DuitNow, employers confirm in-system and job seekers upload their DuitNow Quick Response (QR) code and confirm the receipt and either party can have the payment dispute reviewed by the admin. |
+| 5 | Analytics Dashboard | Earnings charts of job seekers; statistics about employers' recruitment; statistics of the administration platform. |
+| 6 | Payment Confirmation & Dispute | When the transfer is made via DuitNow, employers confirm in-system and job seekers upload their DuitNow Quick Response (QR) code and confirm the receipt and either party can have the payment dispute reviewed by the admin. |
 
 The full list of the main and optional features of the EasyEarn platform is shown in Figure 1.4.
 
@@ -137,28 +137,22 @@ Figure 1.4: Features of EasyEarn
 The following features are not part of the current project phase because of time, resources and technical constraints:
 
 - Online payment gateway
-
-Financial transactions are carried out offline, using traditional methods like cash and DuitNow transfer. A job seeker can use the DuitNow Quick Response (QR) code to receive payment offline from the employer. Payment processors like the DuitNow Application Programming Interface (API), Touch 'n Go, or credit card processors will not be connected with the platform at this stage.
+- Financial transactions are carried out offline, using traditional methods like cash and DuitNow transfer. A job seeker can use the DuitNow Quick Response (QR) code to receive payment offline from the employer. Payment processors like the DuitNow Application Programming Interface (API), Touch 'n Go, or credit card processors will not be connected with the platform at this stage.
 
 - Real-Time Chat Messaging
-
-This is not the messaging phase since real-time messaging is not enabled. When it comes to live chat, both the user and the person he/she is chatting with should be online at the same time, which is not feasible with a part-time job platform with an unpredictable schedule. Instead, a rule-based chatbot is used to offer 24/7 automated assistance, without the need for another user to be there.
+- This is not the messaging phase since real-time messaging is not enabled. When it comes to live chat, both the user and the person he/she is chatting with should be online at the same time, which is not feasible with a part-time job platform with an unpredictable schedule. Instead, a rule-based chatbot is used to offer 24/7 automated assistance, without the need for another user to be there.
 
 - Native Mobile Application
-
-EasyEarn is a web application. It excludes a native mobile application in the current phase. The platform will, instead, use responsive web design to make it mobile-friendly.
+- EasyEarn is a web application. It excludes a native mobile application in the current phase. The platform will, instead, use responsive web design to make it mobile-friendly.
 
 - Email Verification
-
-This stage does not have automated email verification. The Employer Verification Badge and the Rating and Review System are both means of establishing user trust.
+- This stage does not have automated email verification. The Employer Verification Badge and the Rating and Review System are both means of establishing user trust.
 
 - Government Database Integration
-
-During this stage, the platform will not be integrating with government databases such as SOCSO, Employees Provident Fund (EPF) and MySejahtera. The information links to Pertubuhan Keselamatan Sosial (PERKESO)’s Self-Employment Social Security Scheme (SESS) will instead be made available to users for reference.
+- During this stage, the platform will not be integrating with government databases such as SOCSO, Employees Provident Fund (EPF) and MySejahtera. The information links to Pertubuhan Keselamatan Sosial (PERKESO)’s Self-Employment Social Security Scheme (SESS) will instead be made available to users for reference.
 
 - Artificial Intelligence (AI) Job Matching Algorithm
-
-Technical complexity in automated Artificial Intelligence-based (AI-based) job recommendation will not be possible in this phase, and the project is restricted to this due to scope limitations.
+- Technical complexity in automated Artificial Intelligence-based (AI-based) job recommendation will not be possible in this phase, and the project is restricted to this due to scope limitations.
 
 The six features that were not included in the current phase of EasyEarn because of time, resource and technical limitations are shown in Figure 1.5.
 
@@ -168,31 +162,26 @@ Figure 1.5: Excluded Features of EasyEarn
 
 ### 1.4.4 Information Security and Policies
 
-EasyEarn handles personal data from both job seekers and employers, and the platform is secured with a variety of technical security measures, safeguarding user information and ensuring the integrity of the platform (Supabase, 2024).
+EasyEarn handles personal data from both job seekers and employers, and the platform is secured with a variety of technical security measures, safeguarding user information and ensuring the integrity of the platform (Supabase, 2023).
 
 #### 1.4.4.1 Regulatory Framework
 
 EasyEarn's personal data is subject to the following Malaysian regulatory frameworks:
 
 - Personal Data Protection Act (PDPA) 2010
-
-The main piece of legislation that regulates the processing of personal data in Malaysia is known as PDPA 2010. Reasonable steps are implemented to ensure that the security of personal data is maintained so that it cannot be lost, misused, altered or accessed without permission. Names, contacts, work history and more are all stored securely in the Supabase PostgreSQL database. When users register, they are informed of the reason for the collection of the data, and there is no sharing with third parties without authorisation.
+- The main piece of legislation that regulates the processing of personal data in Malaysia is known as PDPA 2010. Reasonable steps are implemented to ensure that the security of personal data is maintained so that it cannot be lost, misused, altered or accessed without permission. Names, contacts, work history and more are all stored securely in the Supabase PostgreSQL database. When users register, they are informed of the reason for the collection of the data, and there is no sharing with third parties without authorisation.
 
 - Computer Crimes Act 1997
-
-This legislation regulates and addresses the unauthorised use of computer systems and information. To ensure that users cannot access other users' information or system resources without permission, the platform uses role-based access control and Supabase Authentication. All data is sent via Hypertext Transfer Protocol Secure (HTTPS).
+- This legislation regulates and addresses the unauthorised use of computer systems and information. To ensure that users cannot access other users' information or system resources without permission, the platform uses role-based access control and Supabase Authentication. All data is sent via Hypertext Transfer Protocol Secure (HTTPS).
 
 - Consumer Protection Act 1999
-
-As a form of consumer protection, the Report and Flag System and Employer Verification Badge prevent users from being fooled by bogus job postings and non-paying employers.
+- As a form of consumer protection, the Report and Flag System and Employer Verification Badge prevent users from being fooled by bogus job postings and non-paying employers.
 
 - Employment Act 1955 (Reference Only)
-
-The platform offers informational guidelines in line with the Employment Act to encourage and help provide fair practices in job posting and clarify responsibilities for the users. This project does not cover direct compliance enforcement because it is an academic prototype called EasyEarn.
+- The platform offers informational guidelines in line with the Employment Act to encourage and help provide fair practices in job posting and clarify responsibilities for the users. This project does not cover direct compliance enforcement because it is an academic prototype called EasyEarn.
 
 - Gig Workers Act 2025 (Act 872)
-
-This Act, which will come into effect on 31 March 2026, is the first legislative framework to formalise gig workers in Malaysia. It requires transparency in service contracts, guarantees freedom from discrimination and access to dispute-resolution procedures. EasyEarn's Employer Verification Badge, Rating and Review System, and Work History Profile were created to meet the transparency and trust requirements stipulated by this Act (Ministry of Human Resources Malaysia, 2025), as a job-matching site between gig workers and employers.
+- This Act, which will come into effect on 31 March 2026, is the first legislative framework to formalise gig workers in Malaysia. It requires transparency in service contracts, guarantees freedom from discrimination and access to dispute-resolution procedures. EasyEarn's Employer Verification Badge, Rating and Review System, and Work History Profile were created to meet the transparency and trust requirements stipulated by this Act (Ministry of Human Resources Malaysia, 2025), as a job-matching site between gig workers and employers.
 
 The five regulatory regimes under which EasyEarn operates and handles data are outlined in Figure 1.6.
 
@@ -205,20 +194,16 @@ Figure 1.6: Regulatory Framework of EasyEarn
 To ensure users' data security and platform integrity, EasyEarn adopts some technical security measures:
 
 - Supabase Authentication
-
-User account authentication is done via Supabase Authentication, which secures passwords and user sessions. Also, to better manage access to sensitive functions in a system and to limit unauthorised access, token-based authentication is employed.
+- User account authentication is done via Supabase Authentication, which secures passwords and user sessions. Also, to better manage access to sensitive functions in a system and to limit unauthorised access, token-based authentication is employed.
 
 - Role-Based Access Control (RBAC)
-
-Access to system functions is limited based on user roles. The different permissions and functions are given to the Job Seekers, Employers and Administrators depending on their role in the platform. Only the Admin role has administrative access, and role-based access controls minimise cross-role access.
+- Access to system functions is limited based on user roles. The different permissions and functions are given to the Job Seekers, Employers and Administrators depending on their role in the platform. Only the Admin role has administrative access, and role-based access controls minimise cross-role access.
 
 - HTTPS Encryption
-
-All data sent between the user's browser and Supabase's backend is encrypted using HTTPS. This ensures the data is encrypted while being transmitted and minimises the chance of data interception or eavesdropping.
+- All data sent between the user's browser and Supabase's backend is encrypted using HTTPS. This ensures the data is encrypted while being transmitted and minimises the chance of data interception or eavesdropping.
 
 - Supabase Row Level Security (RLS)
-
-Supabase RLS policies are employed to enforce policies when accessing the database depending on roles and record ownership. These policies offer an extra degree of security by limiting certain read and write operations at the database level. The effectiveness of those individual RLS policies, however, will depend on how they are configured; any remaining access control limitations will be assessed during Security Testing in Chapter 4.
+- Supabase RLS policies are employed to enforce policies when accessing the database depending on roles and record ownership. These policies offer an extra degree of security by limiting certain read and write operations at the database level. The effectiveness of those individual RLS policies, however, will depend on how they are configured; any remaining access control limitations will be assessed during Security Testing in Chapter 4.
 
 Four technical security measures are adopted in EasyEarn to provide user data protection, access control and integrity of the platform as illustrated in Figure 1.7.
 
@@ -262,7 +247,7 @@ In addition, the development process used in the development of EasyEarn, which 
 
 Technological Significance
 
-EasyEarn, from a technological perspective, is a practical proof that a client-side web application can be created on a Backend-as-a-Service (BaaS) architecture and provide a feature-rich, multi-user platform with much less complexity and infrastructure than traditional server-based applications. The use of Supabase for database management and authentication, Chart.js for data visualisation, and jsPDF for dynamic document generation demonstrates the effectiveness of open-source and cloud-native tools to create a scalable, maintainable, and cost-efficient solution (Supabase, 2024).
+EasyEarn, from a technological perspective, is a practical proof that a client-side web application can be created on a Backend-as-a-Service (BaaS) architecture and provide a feature-rich, multi-user platform with much less complexity and infrastructure than traditional server-based applications. The use of Supabase for database management and authentication, Chart.js for data visualisation, and jsPDF for dynamic document generation demonstrates the effectiveness of open-source and cloud-native tools to create a scalable, maintainable, and cost-efficient solution (Supabase, 2023).
 
 This is an architectural style that is of particular interest in the academic and early-stage commercial development space, where budget and access to dedicated server infrastructure often become constraints. EasyEarn shows that a BaaS-based architecture is technically feasible, can provide for complex multi-role workflows, support real-time data operations and user management securely, and is a useful reference for developers and researchers creating similar platforms in resource-constrained environments.
 
@@ -276,7 +261,7 @@ EasyEarn serves as evidence that a locally designed gig economy platform can hav
 
 Figure 1.9: Significance of EasyEarn
 
-## Milestone and Deliverable
+## Milestones and Deliverables
 
 This section outlines the main milestones and deliverables of the EasyEarn project during the 26-week span of the Final Year Project. A Work Breakdown Structure (WBS), a project schedule, a Gantt Chart, project milestones and sprint-based deliverables are used to organize the project activities. These planning components are used to help structure the monitoring of project progress and the completion of required development and documentation activities within the planned timeline.
 
@@ -299,13 +284,13 @@ Table 1.3: Project Schedule Summary
 | Phase | Timeline | Key Activities | Deliverable |
 | --- | --- | --- | --- |
 | Project Initiation | Week 1-2 (FYP1) | Topic selection, scope definition, stakeholder identification, and selection of the technology stack. | Project proposal draft |
-| Research &amp; Requirements | Week 2-4 (FYP1) | Literature review, competitor analysis, functional/non-functional requirements, and use case development. | Requirements specification document |
+| Research & Requirements | Week 2-4 (FYP1) | Literature review, competitor analysis, functional/non-functional requirements, and use case development. | Requirements specification document |
 | System Design | Week 5-6 (FYP1) | System architecture design, Entity-Relationship Diagram (ERD), wireframes, API endpoint documentation. | System design artefacts |
 | FYP1 Submission | Week 7-8 (FYP1) | Development of prototypes, preparation of documents, preparation of final presentation and submission of M3. | FYP1 report and prototype |
 | Sprint 1 | Week 9-10 (FYP2) | User Registration, User login, RBAC, User profile setup and Supervisor review. | Functional user management module |
 | Sprint 2 | Week 11-12 (FYP2) | Job posting (CRUD), job searching, filtering and submission and tracking of job applications. | Functional job module |
 | Sprint 3 | Week 13-14 (FYP2) | Verification badge by employer, report/flag system, bi-directional rating/review system. | Functional safety module |
-| Sprint 4 &amp; M4 | Week 15-16 (FYP2) | Work history dashboard, notification system, auto-generate resume (jsPDF), M4 Midsem Checkpoint. | Functional work history module |
+| Sprint 4 & M4 | Week 15-16 (FYP2) | Work history dashboard, notification system, auto-generate resume (jsPDF), M4 Midsem Checkpoint. | Functional work history module |
 | Sprint 5 | Week 17-18 (FYP2) | Admin dashboard and analytics with Chart.js, mobile responsiveness polish and Supervisor review. | Functional admin module |
 | Sprint 6 | Week 19-20 (FYP2) | Full system integration, Usability testing, Performance testing, Security assessment, Bug fixing. | Fully tested integrated system |
 | Deployment | Week 21-22 (FYP2) | Live deployment to GitHub Pages, production configuration and overall system integration testing. | Live-deployed system and test reports |
@@ -349,9 +334,9 @@ Table 1.4: Project Milestones
 | --- | --- | --- | --- |
 | M1 | Proposal Defence | Week 3 | Project proposal presented to the assessment panel for approval before proceeding to the design phase. |
 | M2 | FYP1 Midsem Checkpoint | Week 6 | Progress on system design documentation, use case diagrams, wireframes, and ERD was presented to the panel. |
-| M3 | FYP1 Final Presentation &amp; Report Submission | Week 8 | Submission of the FYP1 interim report and prototype demonstration, marking the end of the first semester. |
+| M3 | FYP1 Final Presentation & Report Submission | Week 8 | Submission of the FYP1 interim report and prototype demonstration, marking the end of the first semester. |
 | M4 | FYP2 Midsem Checkpoint | Week 16 | Completed Sprints 1 to 4 demonstrated to the assessment panel, along with a development progress report. |
-| M5 | FYP2 Final Presentation &amp; Report Submission | Week 26 | Final system presented to the assessment panel; all project deliverables formally submitted. |
+| M5 | FYP2 Final Presentation & Report Submission | Week 26 | Final system presented to the assessment panel; all project deliverables formally submitted. |
 
 Sprint completion reviews are held at the end of each sprint in FYP2 to ensure development is on track and that supervisor feedback is captured for use in future sprints. Sprint 1 will be reviewed at the end of Week 10, Sprint 2 will be reviewed at the end of Week 12, Sprint 3 will be reviewed at the end of Week 14, Sprint 4 will be reviewed at the end of Week 16, Sprint 5 will be reviewed at the end of Week 18, and Sprint 6 will be reviewed at the end of Week 20. The system deployment, preparation and compilation of the system final report, and preparation for the final presentation are completed in the Project Closing Phase from Week 21 to Week 26, culminating in the final M5 presentation and submission at the end of Week 26.
 
@@ -363,12 +348,12 @@ Table 1.5: Sprint Breakdown and Deliverables
 
 | Sprint | Timeline | Objective | Deliverable |
 | --- | --- | --- | --- |
-| Sprint 1: Authentication &amp; User Management | Week 9-10 | Registration, authentication, login and user role setup. | Functional user management module and sprint report. |
-| Sprint 2: Job Posting &amp; Application Module | Week 11-12 | Create, read, update, delete job posts, search for jobs, filter, and submit and track applications. | Functional job module and sprint report. |
-| Sprint 3: Safety &amp; Trust System | Week 13-14 | Bidirectional rating &amp; review module, employer verification badge, report and flag system. | Functional safety module and sprint report. |
-| Sprint 4: Work History &amp; Auto Resume | Week 15-16 | Work history dashboard, notification and alert system, auto-generate resume using jsPDF, and M4 checkpoint. | Functional work history module and sprint report. |
+| Sprint 1: Authentication & User Management | Week 9-10 | Registration, authentication, login and user role setup. | Functional user management module and sprint report. |
+| Sprint 2: Job Posting & Application Module | Week 11-12 | Create, read, update, delete job posts, search for jobs, filter, and submit and track applications. | Functional job module and sprint report. |
+| Sprint 3: Safety & Trust System | Week 13-14 | Bidirectional rating & review module, employer verification badge, report and flag system. | Functional safety module and sprint report. |
+| Sprint 4: Work History & Auto Resume | Week 15-16 | Work history dashboard, notification and alert system, auto-generate resume using jsPDF, and M4 checkpoint. | Functional work history module and sprint report. |
 | Sprint 5: System Enhancements | Week 17-18 | Admin dashboard and analytics through Chart.js, a rule-based chatbot and mobile responsiveness polish. | Functional admin module and sprint report. |
-| Sprint 6: Integration &amp; Final Testing | Week 19-20 | Full system integration, usability testing, performance testing and concurrency checks, security assessment and bug fixing. | Fully tested and integrated system; final sprint report. |
+| Sprint 6: Integration & Final Testing | Week 19-20 | Full system integration, usability testing, performance testing and concurrency checks, security assessment and bug fixing. | Fully tested and integrated system; final sprint report. |
 
 ### 1.6.6 Final Deliverables
 
@@ -379,7 +364,7 @@ Table 1.6: Final Deliverables
 | No | Deliverable | Description |
 | --- | --- | --- |
 | 1 | Web-Based Job Matching Portal | A fully operational EasyEarn portal deployed on GitHub Pages, incorporating all core features, including user management, job matching, safety verification, work history, auto-generated resume, and Google Translate integration. |
-| 2 | Auto-Generated PDF Resume | A system-generated, downloadable resume produced from the job seeker&#x27;s work history, ratings, and skills data using jsPDF. |
+| 2 | Auto-Generated PDF Resume | A system-generated, downloadable resume produced from the job seeker's work history, ratings, and skills data using jsPDF. |
 | 3 | Comprehensive Documentation | All project documentation, such as the project proposal, system design diagrams, database schema, test reports and user manuals. |
 | 4 | Annotated Source Code | Formatted and commented HTML, CSS, and JavaScript codebase along with Supabase configuration files, organised for clarity and maintainability. |
 | 5 | Testing and Evaluation Report | Functional tests, security assessment, usability evaluation and system performance analysis are documented in detail. |
@@ -396,3 +381,107 @@ The basis of the study is laid in Chapter 1. It provides an overview of the Mala
 The literature review is included in Chapter 2. It starts with a theoretical discussion based on the Technology Acceptance Model (TAM) and then examines the literature on the gig economy, employment fraud, work history documentation, language barriers and underserved demographics in an empirical way. The chapter also examines the existing technologies, tools and platforms selected, as well as similar existing systems, and suggests a framework that builds upon the literature.
 
 The methodology used in this project is explained in Chapter 3. It explains the Hybrid Agile-Waterfall Development Approach, System Architecture, Database Design, and Project Management Framework, along with their Work Breakdown Structure and Sprint Planning.
+
+Chapter 4 reports the findings and results of the system development and user testing, explaining the features implemented, the results of testing and the performance of the system in relation to the defined objectives.
+
+The findings of this thesis are presented in the context of the research aims and previous research in Chapter 5, the success of EasyEarn as a platform, and the main contribution of this project to the field of gig economy platforms in Malaysia. It also highlights the current implementation weaknesses and suggests further developments beyond this Final Year Project.
+
+## Constraints and Limitations
+
+EasyEarn is developed under bounded conditions due to the nature of the academic environment, the project timeline, and the technology stack, as well as known limitations of the system, which could be solved in future stages.
+
+### 1.8.1 Project Constraints
+
+Time Constraint
+
+The project will be of a fixed duration, comprising 26 weeks in total, to be completed in two phases: FYP1 (20 April to 12 June 2026) and FYP2 (15 June to 16 October 2026). This constraint is controlled by the Hybrid Agile-Waterfall methodology: a blend of structured planning with iterative development. Those features that cannot be developed during the sprints are either saved for the next sprints, or they are not included in the scope of the project (Sommerville, 2016).
+
+Resource Constraint
+
+EasyEarn is not developed by a dedicated development team, separate Quality Assurance (QA) team, or enterprise-level infrastructure, but by a single student. This means that only a certain degree of parallel development, testing coverage and optimisation can be achieved during the project period. Thus, it is important to prioritise core functions of the system carefully to make sure that a functional and testable system can be built within the limited resources at hand (Pressman & Maxim, 2020).
+
+Technology Constraint
+
+It is built with HTML, CSS and JavaScript, with Supabase offering BaaS functions and GitHub Pages for the deployment of the static frontend. The technology stack was chosen for its accessibility, its suitability for an academic project, and not needing dedicated application-server infrastructure. However, as GitHub Pages is a static front-end, EasyEarn is built on client-side JavaScript, Supabase backend services and some selected back-end business logic, such as RLS policies and PostgreSQL triggers. Additionally, Supabase's free tier usage limits may affect resources like databases, storage, and other services depending on platform usage (Supabase, 2023).
+
+Regulatory Constraint
+
+EasyEarn processes personal information and will be developed in accordance with the current personal data protection laws and regulations in Malaysia, in particular, the PDPA 2010, Computer Crimes Act 1997 and Consumer Protection Act 1999. Supabase offers RLS policies and HTTPS data transmission, while Role-Based Access Control (RBAC) can be used to limit access based on a user's role. These controls provide support in protecting user data, but are not a formal certification of legal or regulatory compliance. A formal compliance and legal review would be needed before general production.
+
+To summarise, EasyEarn has 4 main project constraints: A fixed academic timeline of 26 weeks, A single developer resource constraint, A web-based architecture with a static front end, GitHub Pages and Supabase BaaS services, and regulatory concerns on personal data and gig work. These restrictions are used to limit the development scope and testing depth, as well as the manufacturability of the product. The constraints have been taken into account by making design decisions like phased feature development, prioritisation of essential functions, and using a Hybrid Agile-Waterfall methodology.
+
+Table 1.7 below provides a summary of the four key project constraints, their effect on the current project stage and the recommended future actions.
+
+Table 1.7: Summary of Constraints
+
+| Type | Issues | Impact | Future Recommendation |
+| --- | --- | --- | --- |
+| Time<br>Constraint | Established a fixed 26-week academic project deadline | Restricts the development, testing and refinement that can be achieved during the life of the project. | Continues development in phases for features or improvements not within the scope of the project. |
+| Resource<br>Constraint | A single-developer project with no designated development or QA team. | Limits parallel development, independent review, testing coverage and optimisation. | Create a small development and testing team for future enhancements and larger deployment. |
+| Technology<br>Constraint | A static frontend with Supabase's architecture as a backend, built on GitHub Pages. | Restricts dedicated application-server processing and relies on the services' capabilities and limits of the chosen BaaS platform. | Expand database-level controls, and if needed, the future requirements call for more server-side processing, consider using Supabase Edge Functions or a dedicated backend. |
+| Regulatory Constraint | Compliance with legal and regulatory aspects of personal data, computer misuse, consumer protection and gig work. | Production would need to be assessed by a formal legal and compliance review before being used for wider production. | Conduct a formal PDPA and legal review, including relevant requirements under the Gig Workers Act 2025, before wider production use. |
+
+The remaining four constraints of the project are summarised in EasyEarn and the effect the project has on the current development phase is summarised in Figure 1.16.
+
+![Figure 16](Diagram/figure-16.png)
+
+Figure 1.16: Project Constraints of EasyEarn
+
+### 1.8.2 System Limitations
+
+This section provides details on the current restrictions on the EasyEarn Job Matching Portal. The constraints are primarily about payment processing, real-time communication, mobile platform availability, and the size of the acceptance testing. While these restrictions do not hinder the system's core capabilities, they serve as a guide for future development to make the system more functional, accessible, and user-friendly.
+
+No Integrated Payment Gateway
+
+Financial transactions are currently outside EasyEarn, with cash or DuitNow transfers used. The platform does not have an integrated payment gateway; rather, it facilitates payment confirmation and dispute resolution. Integration with a regulated payment service can be explored in a future phase, subject to technical, regulatory and cost considerations (Bank Negara Malaysia, 2022).
+
+No Real-Time Direct Messaging
+
+EasyEarn supports asynchronous messaging between Job Seekers and Employers, while real-time messaging or live chat is not implemented. The messages are stored and retrieved via the current messaging function, not using a real-time communication service. The existing messaging functionality can be enhanced with Supabase Realtime or another appropriate messaging service in the future.
+
+No Native Mobile Application
+
+EasyEarn is at the moment a responsive web application and there isn't any dedicated native mobile app. The platform can be accessed via mobile browsers, but there may be mobile-specific functions that can be offered with a native iOS or Android app, such as push notifications, offline access, and better mobile interaction. In Phase 2, therefore, it may be appropriate to consider the development of a native app for mobile devices (Apple Developer Program, 2023; Google Play Console, 2023).
+
+Limited User Acceptance Testing
+
+Five users participated in User Acceptance Testing (UAT) across 36 functional test cases using designated user accounts and test data stored in Supabase. While the main workflows were successfully tested, the number of testers was too small compared to the number of intended users in several underserved towns in Malaysia. Future evaluation should involve larger-scale field testing with a more representative group of end users.
+
+No Automated Identity Verification
+
+EasyEarn currently uses employer-submitted verification documents, the Employer Verification Badge and Admin review to support employer credibility. But the system doesn't support a formal automated identity verification system or government identity database. An appropriate identity verification service could be integrated in the future to enhance the employer verification process.
+
+Multilingual Support via Redirection
+
+Multilingual access currently is available on the EasyEarn site via Google Translate website translation service (and not via the Google in-app translation API). This provides access to several languages, but offers less control over translation accuracy, consistency and interface integration. EasyEarn may be able to benefit from a native translation API like Google Cloud Translation in an upcoming version to offer an integrated multilingual user experience (Google Cloud, 2023).
+
+In conclusion, there are six major drawbacks of the current EasyEarn system: there is no embedded payment gateway, real-time direct messaging, mobile app integration, automated identity verification, and the limited scale of UAT, in addition to website redirection instead of a native translation API from Google. These restrictions are primarily due to the scope, time, resource and technical constraints of the academic project. Each limitation offers a tangible direction for the next steps of development in Phase 2 and helps define the proposed Phase 2 development roadmap.
+
+Table 1.8 shows a summary of the 6 system limitations, their effect on the current version of EasyEarn and the suggested enhancements for future releases.
+
+Table 1.8: Summary of Limitations
+
+| Type | Issues | Impact | Future Recommendation |
+| --- | --- | --- | --- |
+| Limitation |  | Payments are made outside the platform, but payments can still be recorded and managed in EasyEarn, and confirmations and disputes can be recorded. | Consider integrating a regulated payment service, such as DuitNow, in a future phase. |
+| Limitation | No real-time direct messaging | Job Seekers and Employers interact asynchronously. | Make the current messaging feature more powerful by leveraging Supabase Realtime or another appropriate real-time messaging service. |
+| Limitation | No native mobile application | Mobile users use the responsive Web interface and don't have access to mobile-specific features. | Create and build native iOS or Android app including push notifications and offline support. |
+| Limitation | Limited UAT sample | The UAT was performed with five testers and may not have captured the broader view of the target group. | Perform extended UAT and field testing to a larger number of users from various target towns and backgrounds. |
+| Limitation | No automated identity verification | Employer verification is based on documents submitted and Admin review, not automated identity verification. | In future development, consider a formal identity verification service. |
+| Limitation | Multilingual support via redirection | Google Translate website service is required for translation, and is not as integrated as a native translation API. | Consider upgrading to a native translation API such as Google Cloud Translation. |
+
+To design a better system in the future, the EasyEarn system has six limitations, which are presented in Figure 1.17 and the solutions are recommended.
+
+![Figure 17](Diagram/figure-17.png)
+
+Figure 1.17: System Limitations of EasyEarn
+
+1.9 Conclusion
+
+This chapter has provided the background, motivation and direction for the development of EasyEarn, a web-based job-matching system for both job seekers and employers in underserved areas in Malaysia. Even though the national workforce of own-account workers has reached 3.09 million in 2024, or around 25.1 per cent of the national workforce, access to organised gig platforms is still limited to major urban areas, with smaller towns like Ipoh, Kangar and Kota Bharu being underserved (Department of Statistics Malaysia, 2024; MDEC, 2023).
+
+The gap was identified in section 1.2 as being underpinned by six interconnected problems: Firstly, a lack of a specialised short-term labour platform for smaller towns; Secondly, an increase in social media job scams by 34 per cent in 2022; Thirdly, the absence of verifiable work histories for gig workers; Fourthly, inefficient SME recruitment; Fifthly, limited targeting of flexible worker demographics; Sixthly, English-only platform interfaces (UNCDF, 2019).
+
+In response, Section 1.3 set four research objectives: Multi-user Portal with role-based access control, Safety and Trust Verification System, Developing a Work History Profile with an auto-generated PDF resume and Multilingual Accessibility through Google Translate. It is created in HTML, CSS, and JS, deployed via GitHub Pages, in a 26-week Hybrid Agile-Waterfall framework, built on Supabase. In Section 1.4, further details of the information security and compliance of information policies adopted were highlighted to ensure that EasyEarn complies with the PDPA (2010), Computer Crimes Act (1997) and Consumer Protection Act (1999).
+
+In Section 1.5, the role of the platform in the job search, employer and Malaysian society was confirmed, especially in driving economic inclusion and preventing employment fraud.

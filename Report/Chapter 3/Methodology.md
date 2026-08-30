@@ -2,7 +2,7 @@
 
 ## 3.1 Introduction
 
-The research and system development methods used in the development of the EasyEarn Job Matching Portal are described in this chapter. The research methodology encompasses the method of data collection and analysis of user requirements such as research approach, research design, population and sampling, questionnaire design, data analysis, validity, reliability and research ethics. The results of the user requirement survey are also shared with the users to aid in the identification and prioritisation of system requirements.
+The research and system development methods used in the development of the EasyEarn Job Matching Portal are described in this chapter. The research methodology encompasses the method of data collection and analysis of user requirements such as research approach, research design, population and sampling, questionnaire design, data analysis, validity, reliability and research ethics. The results of the user requirement survey are also presented and used to support the identification and prioritisation of system requirements.
 
 The chapter then describes the Hybrid Agile-Waterfall methodology adopted in the 26 weeks of the Final Year Project to develop the project EasyEarn. Later sections will discuss the phases of the project as well as the sprints, tools and technologies used, planning and risk management, hardware and software needed, system design, and wireframes and the resulting user interface.
 
@@ -10,39 +10,94 @@ The chapter then describes the Hybrid Agile-Waterfall methodology adopted in the
 
 This section outlines the research methodology used in the identification and support of the user requirements for the EasyEarn Job Matching Portal to be validated. It includes the research approach, research design, population and sampling, data collection method, research instrument, data analysis procedure, validity, reliability and research ethics. The results of the user requirements survey are also summarised to illustrate the contribution of the responses gathered in identifying and prioritising system requirements. The system development methodology used to develop EasyEarn is presented separately in Section 3.3.
 
-### 3.2.1 Research Approach
+### 3.2.1 Research Questions
 
-This study is based on the research objectives stated in Section 1.3 where the requirements of the user of gig job-matching system in Malaysia are to be identified before the development of the system. To meet this goal, this study is based on the positivist paradigm, which considers user needs and feature preferences as measurable and subjectively verifiable facts, which can be gathered through structured data collection (Creswell, 2014). A deductive method was used, whereby existing empirical research findings and themes and dimensions of the problem identified in Chapter 2 were used to structure a questionnaire rather than using open-ended, exploratory questions to discover themes (Creswell, 2014).
+The research questions were derived from the research problems that were identified in Section 1.2 and the research objectives identified in Section 1.3. Research questions help provide direction for the selection of research methods, data collection and analysis procedures (Creswell, 2014; Saunders et al., 2019). The following questions will be used to explore the core challenges EasyEarn is seeking to solve: access to short-term jobs, safety and trust, digital work history, and multilingual accessibility. To ensure consistency throughout the research process, each research question is connected to the relevant research problems and research objectives.
 
-For this analysis, the overall research approach is largely quantitative research in order to identify the needs of the EasyEarn Job Matching Portal users. The survey responses were obtained using a structured online survey and included measurable responses from potential users about their experience with job searching or hiring, as well as the features that they find important in a short-term job-matching platform. Closed questions, which included multiple-choice questions, checkboxes, a five-point scale and a multiple-choice grid were used for most of the questionnaire items; frequencies, percentages and rating distributions were used to summarise the responses. Also, there was an optional open-ended question included to give respondents the chance to include any other suggestions for the system.
+- RQ1: What are the essential requirements for a web-based job-matching platform that supports short-term, part-time and freelance employment between Job Seekers and Employers in Malaysia?
 
-The quantitative approach was chosen because it allows the study to determine the most common needs of the users and to see how much importance they gave to the features of EasyEarn (Creswell, 2014). The outcomes are leveraged to inform system needs for location-based job search, safety and trust, work history, multilingual access and short-term job management.
+- This research question covers aspects of the lack of a specialist short-term labour platform, inefficient recruitment processes for employers and fewer platforms for flexible workers, which are associated with Problem 1, Problem 4 and Problem 5.
 
-### 3.2.2 Research Design
+- RQ2: What type of safety and trust elements should be incorporated into the platform to minimise the danger of fake job postings and maximise trust between the Job Seekers and the Employers?
 
-This study employed a cross-sectional descriptive survey design to collect user requirements for the EasyEarn Job Matching Portal (Saunders et al., 2019). The survey asked potential users for feedback in a specific timeframe to gain insights into their current experiences, concerns and preferences regarding the short-term, part-time and freelance job search and hiring process.
+- This research question is related to Problem 2, which is about the prevalence of social media job scams and the absence of trust and verification mechanisms in informal channels of job searching.
 
-This study was non-experimental since there was no manipulation of variables, nor was there an attempt to test cause-and-effect relationships. Rather, the survey was used to characterise the needs and preferences of prospective Job Seekers and Employers. This design allowed for user feedback to be gathered and used to determine which functions were deemed important in the proposed system, which made it appropriate for EasyEarn.
+- RQ3: How can a digital work history and auto-generated resume support gig workers in documenting and presenting their completed work experience?
 
-### 3.2.3 Population and Sampling
+- This research question raises the issue of the lack of verifiable work history among gig workers, which is related to Problem 3.
+- RQ4: What are the possible ways of making EasyEarn more accessible to those with varying language preferences using multilingual access?
 
-The target population of this study were people in Malaysia who might look for or be looking at part-time, short-term or freelance work. This includes potential Job Seekers and Employers / Hirers who may wish to use a job-matching platform to look for employment or hire labour.
+- This research question is related to Problem 6, which is about language barriers in existing platforms.
 
-A non-probability convenience sampling technique was used in this study. Convenience sampling is a method used to select the participants who are easily accessible and agree to participate in the study (Etikan et al., 2016). The survey was sent out via personal contact, social media and messaging apps and was voluntary.
+The research questions determine the research approach, research participants, questionnaire items and data analysis procedures utilised in this study. The results from the user requirement survey are interpreted in relation to these research questions to help identify and prioritise user requirements for the development of the EasyEarn Job Matching Portal. The four research questions are summarised and are presented with their respective research problems in Figure 3.1.
 
-30 legitimate answers were obtained. As convenience sampling was used instead of random sampling, the findings cannot be generalised to the entire Malaysian population. Thus, the survey documentation was primarily employed to confirm the identification of user needs and prioritisation of the EasyEarn features.
+![Figure 1](Diagram/figure-01.png)
 
-### 3.2.4 Data Collection Method
+Figure 3.1: Research Questions of EasyEarn
 
-A Google Forms online questionnaire tool was used to gather data as this was appropriate for obtaining a standardised answer from more than one person (Saunders et al., 2019). The questionnaire link was sent out electronically via social media, messenger and personal networks to those who were relevant to the target group.
+### 3.2.2 Research Approach
 
-They were allowed to access and complete the questionnaire when they preferred. All responses were automatically recorded and the time of response was logged in Google Forms, making it easy to organise the data gathered for analysis. The decision was made to use online data collection because of its low cost, convenience and its ability to get responses from people from a variety of geographical areas, without having to go face-to-face with them. Appendix 6.1 contains the Google Form for the user requirement survey that was used with the EasyEarn users.
+The research objectives outlined in Section 1.3 are the requirements of the user for a gig job-matching system in Malaysia before building the system. The study uses a positivist paradigm because the users' needs and feature preferences are seen as measurable and objectively verifiable data that can be obtained from the participants using structured data collection (Creswell, 2014). The positivist paradigm was chosen because, in this study, user experiences, needs and feature preferences are measured, and numerical data is used to summarise them.
 
-### 3.2.5 Research Instrument: Questionnaire Design
+A deductive approach was used in which existing empirical findings, research problems and problem dimensions revealed in the second chapter were used to structure the questionnaire rather than it being used as a primarily open-ended and exploratory questionnaire to discover new themes (Creswell, 2014). It was decided that this approach was appropriate as the study started with the existing problems and literature findings, and then gathered the user responses to analyse and validate the EasyEarn requirements.
 
-The research instrument used for this study is a structured questionnaire to gather user requirements of the EasyEarn Job Matching Portal. The questionnaire was designed to meet the research goals, the 6 problem dimensions found in Chapter 2 and the suggested functions of EasyEarn. The questions were not only kept simple but also focused on the information that the respondents are expected to provide (Saunders et al., 2019).
+For this study, the overall research approach is mainly quantitative to identify the needs of potential users of the EasyEarn Job Matching Portal. The questions used a structured online questionnaire and produced measurable responses regarding job search/hiring experiences and problems faced, language preferences and the importance of proposed EasyEarn features. The majority of the items on the questionnaire were closed-ended, such as multiple-choice questions, checkboxes, a 5-point scale and a multiple-choice grid. Frequencies, percentages, mean scores and rating distributions were used to summarise the responses. In addition, an open-ended question was added to give the respondents the chance to submit any other recommendations for the system.
 
-A 13-question questionnaire was structured into four sections. The first part gathered the background details and the intended use of the platform. The first part gathered the background details and intended use of the platform. The second section focused on respondents' experience of searching for and hiring a job in the short term, including the sources they used to search for and hire a job and the issues they encountered and were worried about. The third section was devoted to user requirements such as preferred languages, the significance of proposed EasyEarn features and the most significant factor when working on a short-term job-matching platform. The final question was an open-ended question where participants could make additional suggestions or feedback. A summary of the organisation of the questionnaire is given in Table 3.1.
+The quantitative approach was chosen because it helps the study uncover common needs of the users and the importance that they place on the proposed EasyEarn features (Creswell, 2014). The findings that were analysed were then used to support system requirement identification and prioritisation, such as location-based job search, safety and trust, work history, multilingual access, and short-term job management.
+
+The research method used in the research was positivist, deductive and quantitative data collection, descriptive analysis and system requirement identification, which is summarised in Figure 3.2.
+
+![Figure 2](Diagram/figure-02.png)
+
+Figure 3.2: Research Approach Flow of the Study
+
+### 3.2.3 Research Design
+
+A cross-sectional descriptive survey was used in this study to gather user requirements for the EasyEarn Job Matching Portal (Saunders et al., 2019). The survey solicited feedback from potential users over a defined period of time to help inform their experiences, concerns and preferences about the short-term, part-time and freelance job search and hiring landscape.
+
+The cross-sectional study design was used because the study did not involve measuring changes over an extended timeframe, but rather it sought to obtain the current needs and preferences of potential users. A descriptive survey design was also appropriate in that the study aimed to summarise the experiences of users, the problems that they faced and the significance that they attached to the features that were proposed in the EasyEarn system (Saunders et al., 2019).
+
+This study was not an experimental study as there was no manipulation of variables and no attempt to test cause and effect relationships. Rather, the survey was used to describe the current needs and preferences of prospective Job Seekers and Employers. This design was thus felt to be appropriate for EasyEarn as it involved identifying and prioritising the user requirements in the study, instead of testing causal relationships between the variables.
+
+The research design for the EasyEarn study is shown in Figure 3.3, and is based on a cross-sectional descriptive survey, non-experimental approach to identify and prioritise user requirements.
+
+![Figure 3](Diagram/figure-03.png)
+
+Figure 3.3: Research Design of the Study
+
+### 3.2.4 Population and Sampling
+
+This study targeted people in Malaysia who may search for or offer part-time, short-term or freelance jobs. This encompassed potential Job Seekers who might be looking for jobs on a job-matching platform, as well as potential Employers / Hirers who may be recruiting workers through a job-matching platform.
+
+Given the design of EasyEarn to match short-term, part-time and freelance jobs in Malaysia, this population was chosen. For this reason, the participants who were experienced or interested in the topic of job searching and hiring were deemed relevant, as they could provide valuable feedback on existing issues, user needs and the proposed EasyEarn features.
+
+This study employed a non-probability sampling technique, which is convenience sampling. Convenience sampling is a method of selecting participants who are easily accessible and willing to participate in the study (Etikan et al., 2016). This was preferred because of the time and resource constraints for this study to be conducted within the limited time and resources of a Final Year Project and it also ensured that responses could be gathered efficiently from potential users. The survey was sent via personal contacts, social media and messaging apps, and was voluntary.
+
+Thirty (30) valid responses were received. The responses were mainly used to find out the common user needs and prioritise the proposed EasyEarn features. Convenience sampling is a non-probability sampling technique, which means that the results from the sample cannot be generalised to the entire Malaysian population (Saunders et al., 2019). The sample was found to be useful for identifying user requirements for the EasyEarn Job Matching Portal.
+
+The population and sampling process used in this study is shown in Figure 3.4, from the identification of potential Job Seekers and Employers / Hirers to the collection of 30 valid responses through convenience sampling.
+
+![Figure 4](Diagram/figure-04.png)
+
+Figure 3.4: Population and Sampling Process of the Study
+
+### 3.2.5 Data Collection Method
+
+Data were collected using a Google Forms online questionnaire, which was appropriate for obtaining standardised responses from several participants (Saunders et al., 2019). The questionnaire link was sent via social media and messaging communications, as well as personal networks, to a target population of individuals relevant to the study.
+
+Participants had the opportunity and time to access and complete a questionnaire as needed. The answers were all automatically entered into Google Forms and the time of submission was also recorded. This helped in the organisation of collected data, and in preparing responses for analysis.
+
+The decision to use online data collection was made because it was low cost, convenient and would enable those undertaking the research to obtain responses from participants from across geographical areas without having to meet them in person. It was also suitable for this study since the group of people involved were Job Seekers as well as Employers / Hirers from various parts of Malaysia.
+
+The questionnaire and response options were kept consistent for all participants to achieve consistency in data collection. The gathered answers were then analysed descriptively to determine the common experiences, problems, preferences and key EasyEarn attributes. The EasyEarn user requirement survey is available in the Google Form in Appendix 6.1.
+
+### 3.2.6 Research Instrument: Questionnaire Design
+
+In this research, a structured questionnaire was used as a research instrument to collect user requirements for the EasyEarn Job Matching Portal. The questionnaire was designed on the basis of the research objectives and the identified 6 research problem dimensions in Chapter 2 as well as the proposed EasyEarn features. The questions were kept simple and focused on information that was readily available and easily provided by the respondents (Saunders et al., 2019).
+
+A structured questionnaire was deemed appropriate for this research as the majority of the desired data could be obtained by utilising pre-established question sets and answer options. This enabled comparisons between the different participants' responses and summarisation with descriptive statistics. The questionnaire also helped answer the four research questions by gathering information on three categories of short-term job searching and hiring, safety and trust, digital work history, and multilingual accessibility.
+
+The questionnaire had 13 questions that were grouped into four sections. The first asked for background information, consent, role and location of the respondents. The second part examined the experiences of the respondents in short-term job hunting or recruitment, such as the sources of information they utilised, challenges they faced and their level of difficulty. The third section sought insights into users' requirements, such as language preferences, the significance of proposed EasyEarn features and the factors deemed most crucial by users when utilising a brief time work-match platform. There was an optional open-ended question at the end of the section where participants could add further suggestions or feedback. Table 3.1 shows a summary of the structure of the questionnaire.
 
 Table 3.1: Structure of the User Requirement Questionnaire
 
@@ -53,15 +108,7 @@ Table 3.1: Structure of the User Requirement Questionnaire
 | User Requirements | Q10-Q12 | Determine language preferences, feature importance and overall priorities. |
 | Additional Feedback | Q13 | Gather further feature ideas from participants. |
 
-Figure 3.1 shows the user requirement questionnaire which was developed and sent using Google Forms.
-
-![Figure 1](Diagram/figure-01.png)
-
-![Figure 2](Diagram/figure-02.png)
-
-![Figure 3](Diagram/figure-03.png)
-
-![Figure 4](Diagram/figure-04.png)
+Figure 3.5 shows the user requirement questionnaire which was developed and sent using Google Forms.
 
 ![Figure 5](Diagram/figure-05.png)
 
@@ -83,87 +130,115 @@ Figure 3.1 shows the user requirement questionnaire which was developed and sent
 
 ![Figure 14](Diagram/figure-14.png)
 
-Figure 3.1: EasyEarn User Requirement Survey Questionnaire
-
-The questionnaire contained various types of questions, and the type of question was dependent on the type of information that was being sought. Multiple choice was used for the questions regarding background characteristics of the respondents and general preferences, while checkbox questions were used to highlight more than one alternative for the following questions: job search/hiring channel, problem, and preferred language. The level of difficulty in finding suitable short-term jobs or workers was measured using a five-point scale. A multiple-choice grid was also used to measure the importance of ten proposed EasyEarn features using a five-point scale ranging from 1 – Not Important to 5 – Very Important. The last question was open-ended and optional, so that the students could add other suggestions not listed in the options.
-
-### 3.2.6 Data Analysis
-
-Descriptive statistics such as frequencies, percentages and mean scores were used to summarise the responses and to determine commonalities in the data gathered from the questionnaire (Creswell, 2014).
-
-The responses to the closed-ended questions were auto-organised and summary charts were generated by Google Forms. The data were collected and analysed to see what respondents' background information was and how they had experienced their search and application for employment processes, or how they had tried to hire a person with whom they had to communicate in the process, what languages they preferred to use and what problems they had encountered or what importance the EasyEarn features held for them.
-
-The multiple-choice questions were analysed by frequencies and percentages. If multiple responses were possible for a question, the number and percentage of respondents who chose each response were noted. Answer distributions and average scores were used to examine the five-point rating questions, in order to find out the general difficulty level of the questions and the importance of the features in each proposed question.
-
-The optional open-ended answers were examined and additional suggestions and comments were added that extend the system requirements. Selected tables, charts and descriptive summaries of the analysed findings are presented in Section 3.2.8.
-
-### 3.2.7 Validity, Reliability and Research Ethics
-
-This section outlines the validity and reliability of the questionnaire and the ethical considerations that were used in the data collection process. These aspects were taken into account so that the questionnaire is relevant to the study, applied consistently and conducted appropriately and responsibly.
-
-Validity:
-
-Content validity is how well the items on a questionnaire reflect the topics the study will cover (Creswell, 2014). In this study, the questionnaire items were formulated based on the research goals, problem dimensions from the empirical survey and the required system properties of EasyEarn. The questions included the following: Background information of the respondents, their experiences during the job search process or the hiring process, their experiences of perceived issues, their preferred languages, and the significance of the proposed system features.
-
-The questions on the questionnaire were also linked to the key issues raised in Chapter 2, such as geographic exclusion, employment fraud, lack of documented work experience, language barriers, restrictive flexible working arrangements and poor short-term recruitment. This facilitated the relevance of the gathered answers to the aim of finding and prioritising the user needs of EasyEarn. No pretest was conducted prior to the distribution of the questionnaire.
-
-Reliability:
-
-The consistency of a research instrument and the data collection process is emphasised as it relates to reliability (Creswell, 2014). The online questionnaire was created using Google Forms and was sent to all respondents with the same wording of questions, the same responses and rating scales, so as to ensure consistency. Responses were also collected online and processed and analysed in the same way.
-
-A formal statistical reliability test was not performed since the questionnaire was not being used to measure a single psychological construct with a multi-item scale, but rather was being used as a primary tool to gather user requirements. Consistency was therefore mostly maintained by using a standardised questionnaire and data collection process.
-
-Research Ethics:
-
-According to Saunders et al. (2019), research ethics demands proper information for participants, voluntary participation of the participants and the responsible handling of their information. The EasyEarn User Requirement Survey was conducted on a voluntary basis and the respondents had to give their consent before they could fill out the survey.
-
-The gathered responses were kept confidential and made use of solely for academic reasons, for the development and evaluation of EasyEarn. The data from the surveys were reported in an aggregated form (frequencies, percentages and summary statistics) rather than in individual responses. Participants were also given an open-ended question where they could add their own comments.
-
-### 3.2.8 Summary of User Requirement Survey Findings
-
-Feedback through the user requirement survey included their experience with searching for and finding short-term jobs, as well as their hopes for EasyEarn. There were 30 valid responses received from 22 to 23 April 2026.
-
-The 30 respondents identified as Job Seekers (63.3%), Employers / Hirers (10.0%) and both Job Seekers and Employers / Hirers (26.7%). The respondents were from 14 different states in Malaysia. Figure 3.2 presents respondents' intended platform role.
-
 ![Figure 15](Diagram/figure-15.png)
-
-Figure 3.2: Distribution of Respondents by Intended Platform Role
-
-All respondents had looked for or provided short-term, part-time or freelance employment (100.0%). Of these, 24 respondents (80.0%) reported doing so frequently, 4 respondents (13.3%) occasionally, and 2 respondents (6.7%) once or twice.
-
-27 respondents (90.0%) rated the difficulty of finding suitable short-term jobs or workers in their area as Very Difficult, while 3 respondents (10.0%) selected Difficult. The average difficulty score was 4.90 out of 5, meaning that the respondents generally felt that suitable short-term jobs or workers were very difficult to find in their area. The answers are shown in Figure 3.3.
-
-Figure 3.3: Difficulty in Finding Suitable Short-Term Jobs or Workers
 
 ![Figure 16](Diagram/figure-16.png)
 
-All 30 respondents (100.0%) indicated that managing job applications was a difficulty. The other concerns, such as finding jobs or workers locally, fake or suspicious postings, employers that are not verified, unclear job information, reliability of applicants, lack of work history, language barriers and short-term and flexible jobs, were each endorsed by 29 respondents (96.7%). These findings are summarised in Figure 3.4.
-
-Figure 3.4: Problems in Short-Term Job Search and Hiring
-
 ![Figure 17](Diagram/figure-17.png)
-
-A preference for multilingual accessibility was also revealed in the survey. The majority of the respondents, 24 (80.0%), chose English, 22 (73.3%) chose Bahasa Melayu, 20 (66.7%) chose Mandarin and 6 (20.0%) chose Tamil. Percentages exceed 100% due to multiple selections of preferred languages by respondents. These findings suggest that having access to multiple languages for EasyEarn users would be helpful.
-
-All of the proposed EasyEarn features were rated highly. Job Search by Location, Job Search by Category, Application Status Tracking, Employer Verification Badge, Report and Flag System, Work History Profile, Auto-Generated PDF Resume, and Multilingual Access all scored a 5.00 out of 5.00. Two-way Rating and Review System and Rule-Based Chatbot Support both had a mean rating of 4.97/5.00. The results are shown in Figure 3.5.
 
 ![Figure 18](Diagram/figure-18.png)
 
+Figure 3.5: EasyEarn User Requirement Survey Questionnaire
+
+The questionnaire contained various types of questions, and the type of question was dependent on the type of information that was being sought. Multiple choice was used for the questions regarding background characteristics of the respondents and general preferences, while checkbox questions were used to highlight more than one alternative for the following questions: job search/hiring channel, problem, and preferred language. The level of difficulty in finding suitable short-term jobs or workers was measured using a five-point scale. A multiple-choice grid was also used to measure the importance of ten proposed EasyEarn features using a five-point scale ranging from 1 – Not Important to 5 – Very Important. The last question was open-ended and optional, so that the students could add other suggestions not listed in the options.
+
+### 3.2.7 Data Analysis
+
+This study had research objectives and research questions that were focused on summarising the experiences of the respondents, identifying problems that were common and determining the perceived importance of the proposed EasyEarn features, not on testing hypotheses or testing variables and relationships (Creswell, 2014; Saunders et al., 2019).
+
+The data analysis process was carried out in several steps. The answers to the questions which were obtained from Google Forms were first checked to ensure that only valid answers were analysed. A total of 30 valid responses were used.
+
+Second, the closed-ended answers were arranged by the type of question. Google Forms automatically organised the responses and created summary charts to support the analysis of background information of the respondents, job searching experiences, hiring experiences, problems encountered, language preferences, and the importance of the features EasyEarn is proposing.
+
+Third, data analysis of multiple-choice questions was done by frequencies and percentages. For questions that allowed multiple responses, the number and percentage of people who answered each were noted.
+
+Fourth, the data from the five-point rating questions were analysed by the distribution of responses and mean scores. These findings were employed to determine the general difficulty faced by respondents and their perceived importance of each of the proposed EasyEarn features.
+
+Fifth, the results obtained were analysed and compared to determine the common issues, preferences and highly rated features of the users. The results of these findings were used to assist in identifying and prioritising user requirements for the EasyEarn Job Matching Portal.
+
+The optional open-ended responses were examined separately to see if there were any other suggestions and comments that were not included in the predefined options to the questionnaire. These suggestions were used as additional feedback to supplement the system requirements. The results of the analyses are summarised in a number of tables, charts and descriptive summaries, which were selected for presentation in Section 3.2.8.
+
+The data analysis process of this study is shown in Figure 3.6, starting from reviewing the questionnaire responses, identifying common patterns, and prioritising the needs of users of the EasyEarn Job Matching Portal.
+
 ![Figure 19](Diagram/figure-19.png)
+
+Figure 3.6: Data Analysis Process of the Study
+
+### 3.2.8 Validity, Reliability and Research Ethics
+
+The present study was mostly quantitative in nature, so a measure of validity and reliability was applied to ensure that the questionnaire was measuring the intended user requirements in the same way. A research ethics was also given importance during the process of data collection, analysis and reporting.
+
+Validity:
+
+Content validity is when the items used in a research instrument are representative of the area that the researcher wants to study (Creswell, 2014). The items of the questionnaire were prepared by taking into consideration the research problem and the research problem findings discussed in Chapter 2 and the features of the EasyEarn Job Matching Portal that was proposed. The following questions were asked for background information of the respondents, Job Searching and Hiring experiences, job search-related problems, Preferred languages and the perceived importance of proposed system features.
+
+The items on the questionnaire were also connected with the identified key issues presented in Chapter 2, such as geographic restriction, employment scams, lack of documented work history, language barriers, and limited access to flexible work and inefficient short-term recruitment. This helped to ensure that the responses collected were relevant to the purpose and to identify and prioritise EasyEarn user requirements. But, no formal pre-test or pilot test was done prior to distributing the questionnaire.
+
+Reliability:
+
+Reliability is the consistency of the data collection instrument and/or the process used to collect data (Creswell, 2014). The online questionnaire used in this study was created with Google Forms and all respondents were asked the same questions, with the same answers to choose from and rating scales. Responses were also gathered online and analysed in the same way as above, to ensure consistency.
+
+A formal statistical reliability test did not take place as the questionnaire was not specifically constructed to measure a single psychological construct with a multi-item scale. Rather, it was primarily employed to gather various kinds of user requirements, experiences and preferences for features. Thus, reliability was achieved primarily by the application of a standardised questionnaire and the consistent data collection and analysis process.
+
+Research Ethics:
+
+Research ethics is about giving the right information to participants, getting their consent and responsibly dealing with the information that is gathered (Saunders et al., 2019). The EasyEarn User Requirement Survey was conducted on a voluntary basis and participants had to give their consent prior to completing the survey.
+
+The responses collected were treated confidentially and made use of solely for academic reasons, encompassing the event of creating the EasyEarn Job Matching Portal and assessing it. The findings of the surveys were presented as frequencies and percentages, mean scores and summary charts, but not as individual respondents. There was also an open-ended question at the end for participants to add their comments and suggestions.
+
+The questionnaire was not overly sensitive and did not include questions that might have been confrontational to the respondents. The data gathered were not changed or fabricated in the analysis and reporting process. Academic sources were also cited throughout the study in relation to it and to ensure academic honesty and integrity.
+
+The survey responses were also taken into account for data protection. Only the researcher could access the collected responses and the data would only be used in the Final Year Project. The answers were not made available in a public document along with personal information. Figure 3.7 provides a summary of the measures taken to ensure the validity, reliability, and ethical considerations in designing the questionnaire, collecting data and analysing it in this study.
 
 ![Figure 20](Diagram/figure-20.png)
 
-Figure 3.5: Importance Ratings of Proposed EasyEarn Features
+Figure 3.7: Validity, Reliability and Research Ethics of the Study
 
-The top factor listed when using a short-term job platform was Easy Application / Applicant Management, with 9 respondents (30.0%) marking this as their top choice, followed by Easy-to-Use Interface with 7 respondents (23.3%). 5 respondents (16.7%) opted for Safety and Employer Verification, and 4 respondents (13.3%) selected Work History and Resume Features. Two respondents (6.7%) selected Flexible Job Opportunities, 2 respondents (6.7%) selected Jobs Available in my Location, and 1 respondent (3.3%) selected Multilingual Support. The results are shown in Figure 3.6.
+### 3.2.9 Summary of User Requirement Survey Findings
+
+The user requirement survey gathered feedback on respondents' experiences with searching for or offering short-term jobs, as well as their expectations for EasyEarn. A total of 30 valid responses were collected from 22 to 23 April 2026.
+
+The 30 respondents identified as Job Seekers (63.3%), Employers / Hirers (10.0%) and both Job Seekers and Employers / Hirers (26.7%). The respondents were from 14 different states in Malaysia. Figure 3.8 presents respondents' intended platform role.
 
 ![Figure 21](Diagram/figure-21.png)
 
-Figure 3.6: Most Important Factor When Using a Short-Term Job Platform
+Figure 3.8: Distribution of Respondents by Intended Platform Role
 
-The open-ended answers also provided additional ideas for EasyEarn, including job and application alerts, filters and salary options, scheduling and reminders, increased security features, better profile and resume tools, saved search options, and accessibility options. Suggestions have been made which could be included as future additions, depending on the project scope, development time and resources available.
+All respondents had looked for or provided short-term, part-time or freelance employment (100.0%). Of these, 24 respondents (80.0%) reported doing so frequently, 4 respondents (13.3%) occasionally, and 2 respondents (6.7%) once or twice.
 
-In general, the results of the survey reflected the primary needs of EasyEarn, such as searching for jobs from a particular location, safety and trust, application management, work history, multilingual accessibility and ease of use. The results of these were taken into account in defining the system requirements and prioritising them, as detailed in Chapter 2.
+27 respondents (90.0%) rated the difficulty of finding suitable short-term jobs or workers in their area as Very Difficult, while 3 respondents (10.0%) selected Difficult. The average difficulty score was 4.90 out of 5, meaning that the respondents generally felt that suitable short-term jobs or workers were very difficult to find in their area. The answers are shown in Figure 3.9.
+
+![Figure 22](Diagram/figure-22.png)
+
+Figure 3.9: Difficulty in Finding Suitable Short-Term Jobs or Workers
+
+All 30 respondents (100.0%) indicated that managing job applications was a difficulty. The other concerns, such as finding jobs or workers locally, fake or suspicious postings, employers that are not verified, unclear job information, reliability of applicants, lack of work history, language barriers and short-term and flexible jobs, were each endorsed by 29 respondents (96.7%). These findings are summarised in Figure 3.10.
+
+![Figure 23](Diagram/figure-23.png)
+
+Figure 3.10: Problems in Short-Term Job Search and Hiring
+
+A preference for multilingual accessibility was also revealed in the survey. The majority of the respondents, 24 (80.0%), chose English, 22 (73.3%) chose Bahasa Melayu, 20 (66.7%) chose Mandarin and 6 (20.0%) chose Tamil. Percentages exceed 100% due to multiple selections of preferred languages by respondents. These findings suggest that having access to multiple languages for EasyEarn users would be helpful.
+
+All of the proposed EasyEarn features were rated highly. Job Search by Location, Job Search by Category, Application Status Tracking, Employer Verification Badge, Report and Flag System, Work History Profile, Auto-Generated PDF Resume, and Multilingual Access all scored a 5.00 out of 5.00. Two-way Rating and Review System and Rule-Based Chatbot Support both had a mean rating of 4.97/5.00. The results are shown in Figure 3.11.
+
+![Figure 24](Diagram/figure-24.png)
+
+![Figure 25](Diagram/figure-25.png)
+
+![Figure 26](Diagram/figure-26.png)
+
+Figure 3.11: Importance Ratings of Proposed EasyEarn Features
+
+The top factor listed when using a short-term job platform was Easy Application / Applicant Management, with 9 respondents (30.0%) marking this as their top choice, followed by Easy-to-Use Interface with 7 respondents (23.3%). 5 respondents (16.7%) opted for Safety and Employer Verification, and 4 respondents (13.3%) selected Work History and Resume Features. Two respondents (6.7%) selected Flexible Job Opportunities, 2 respondents (6.7%) selected Jobs Available in my Location, and 1 respondent (3.3%) selected Multilingual Support. The results are shown in Figure 3.12.
+
+![Figure 27](Diagram/figure-27.png)
+
+Figure 3.12: Most Important Factor When Using a Short-Term Job Platform
+
+The open-ended answers also provided additional ideas for EasyEarn, including job and application alerts, filters and salary options, scheduling and reminders, increased security features, better profile and resume tools, saved search options, and accessibility options. These suggestions may be considered as future enhancements depending on the project scope, development time and available resources.
+
+In general, the results of the survey reflected the primary needs of EasyEarn, such as searching for jobs from a particular location, safety and trust, application management, work history, multilingual accessibility and ease of use. These findings were taken into account when identifying and prioritising the system requirements for EasyEarn.
 
 ## 3.3 System Development Methodology
 
@@ -173,42 +248,34 @@ EasyEarn was built with a Hybrid Agile-Waterfall methodology, a combination of t
 
 EasyEarn development methodology is based on a Hybrid Agile-Waterfall approach, which is an iterative, flexible methodology combined with structured planning of the Waterfall. The Waterfall structure applies to the early planning and design activities (Weeks 1-8) and to the final deployment and review activities (Weeks 23-26), so as to ensure that academic documentation requirements and project milestones are organised and sequenced. The Agile component leads the six development sprints in Weeks 9-20, where each two-week sprint produces a usable system module that is tested, reviewed and iterated before the next sprint. This entity enables the project to keep to an academic timetable and still accommodate the technical issues raised in development.
 
-Figure 3.7 depicts the overall methodology of Hybrid Agile-Waterfall for EasyEarn, comprising the structured Waterfall phases in FYP1 and iterative Agile sprints in FYP2.
+Figure 3.13 depicts the overall methodology of Hybrid Agile-Waterfall for EasyEarn, comprising the structured Waterfall phases in FYP1 and iterative Agile sprints in FYP2.
 
-![Figure 22](Diagram/figure-22.png)
+![Figure 28](Diagram/figure-28.png)
 
-Figure 3.7: Hybrid Agile-Waterfall Methodology Diagram
+Figure 3.13: Hybrid Agile-Waterfall Methodology Diagram
 
 ### 3.3.2 Rationale for Adopting a Hybrid Development Approach
 
-The development of EasyEarn will be done in a Hybrid Agile-Waterfall approach for the following reasons:
+The development of EasyEarn was conducted using a Hybrid Agile-Waterfall approach for the following reasons:
 
 - Academic and Assessment Requirements
-
-FYP assessment framework demands that there are well-spelt-out goals, formal documents, and deliverables at certain intervals. The waterfall method has the potential for systematic documentation, through which supervisor assessment and compliance with academic norms can be performed.
-
+- Final Year Project (FYP) assessment framework demands that there are well-spelt-out goals, formal documents, and deliverables at certain intervals. The waterfall method has the potential for systematic documentation, through which supervisor assessment and compliance with academic norms can be performed.
 - Project Timeline
-
-The project is going to be in two semesters, which have a total period of 26 weeks. One advantage of waterfall planning is that it provides a firm schedule at the outset and achievable milestones during both FYP1 and FYP2. Agile iterations can be used in each sprint to adjust and control the course of the sprint in case of unwanted technical issues, without affecting the deadlines.
+- The project was conducted over two semesters, which have a total period of 26 weeks. One advantage of waterfall planning is that it provides a firm schedule at the outset and achievable milestones during both FYP1 and FYP2. Agile iterations can be used in each sprint to adjust and control the course of the sprint in case of unwanted technical issues, without affecting the deadlines.
 
 - Technical Complexity
-
-The system also comprises several interdependent modules such as Supabase integration, Chart.js analytics, jsPDF resume generation and a multi-role access system. The advantages of these components are the possibilities of development in iterative cycles and continuous testing, which are the main ideas of Agile methodologies.
+- The system also comprises several interdependent modules such as Supabase integration, Chart.js analytics, jsPDF resume generation and a multi-role access system. The advantages of these components are the possibilities of development in iterative cycles and continuous testing, which are the main ideas of Agile methodologies.
 
 - Documentation and Compliance Standards
-
-Waterfall provides good documentation of academic deliverables such as a proposal, system design documentation and final report. Also, Agile encourages incremental additions or enhancements to the functionality, and this would allow for earlier verification of functional additions.
+- Waterfall provides good documentation of academic deliverables such as a proposal, system design documentation and final report. Also, Agile encourages incremental additions or enhancements to the functionality, and this would allow for earlier verification of functional additions.
 
 ### 3.3.3 Waterfall Phase (FYP1, Weeks 1-8)
 
-The waterfall model is a step-by-step process model that consists of distinct phases in the model development process that must be completed in order (Royce, 1970). This structured characteristic makes it suitable for the requirements elicitation and documentation part of EasyEarn, as the requirements have to be formally elicited and approved before any development activity can begin (Sommerville, 2016). The Waterfall component manages FYP1 and will make sure that the system architecture, database schema, use case diagrams and wireframes are fully reviewed and approved before the Agile sprints start. For the Waterfall phase, key activities include:
+The waterfall model is a step-by-step process model that consists of distinct phases in the model development process that must be completed in order (Royce, 1970). This structured characteristic makes it suitable for the requirements elicitation and documentation part of EasyEarn, as the requirements have to be formally elicited and approved before any development activity can begin (Sommerville, 2016). The Waterfall component ensured that the system architecture, database schema, use case diagrams and wireframes were fully reviewed and approved before the Agile sprints started. The key activities in the Waterfall phase included:
 
 - Identifying the topic, how it will be covered and who will be involved (Weeks 1-2)
-
 - A literature review and competitor analysis, as well as requirements gathering (Weeks 3 - 4)
-
 - System architecture design, database schema (ERD), User Interface (UI)/ User Experience (UX) wireframe prototyping and API endpoint documentation (Weeks 5-6)
-
 - Prototype development, FYP1 documentation compilation and final FYP1 presentation (Week 7)
 
 ### 3.3.4 Agile Phase (FYP2, Weeks 9-20)
@@ -216,22 +283,17 @@ The waterfall model is a step-by-step process model that consists of distinct ph
 The Agile methodology, according to the Manifesto for Agile Software Development (Beck et al., 2001), favours the iterative delivery of software, the co-creation with the customer, and the ability to adapt to change over upfront planning. These are followed by 6 structured 2-week development sprints in FYP2. A new sprint provides a fully operational system module, allowing issues to be discovered and addressed before other system modules are developed (Schwaber & Sutherland, 2020). In Sprint reviews, the supervisor reviews the sprint and gets input for the next sprint. The 6 Agile sprints are organised like this:
 
 - Sprint 1 (Weeks 9-10): Authentication and User Management
-
 - Sprint 2 (Weeks 11-12): Job Posting and Application Module
-
 - Sprint 3 (Weeks 13-14): Safety and Trust System
-
 - Sprint 4 (Weeks 15-16): Work History and Auto Resume
-
 - Sprint 5 (Weeks 17-18): System Enhancements (Admin Dashboard, Chatbot, Mobile Responsiveness)
-
 - Sprint 6 (Weeks 19-20): Integration and Final Testing
 
-System deployment on GitHub Pages is completed in Weeks 21-22, and final system documentation and submission of FYP2 are completed in Weeks 23- 26. This blended model will allow EasyEarn to meet the strict documentation requirements of the academic process and will also be responsive to any changes in the technical requirements that may occur during the development process (Boehm & Turner, 2004). The overall Hybrid Agile-Waterfall Methodology used for EasyEarn is shown in Figure 3.7.
+System deployment on GitHub Pages is completed in Weeks 21-22, and final system documentation and submission of FYP2 are completed in Weeks 23- 26. This blended model allowed EasyEarn to meet the strict documentation requirements of the academic process and will also be responsive to any changes in the technical requirements that may occur during the development process (Boehm & Turner, 2004). The overall Hybrid Agile-Waterfall Methodology used for EasyEarn is shown in Figure 3.13.
 
 ### 3.3.5 Hybrid Model Workflow
 
-The project will be spread over two semesters, namely FYP1 (Weeks 1-8, 20 April - 12 June 2026) and FYP2 (Weeks 9-26, 15 June - 16 October 2026), in six major phases. FYP1 will focus on planning, design and prototype development, while FYP2 outlines all six Agile development sprints, system deployment and final submission.
+The project was conducted over two semesters, namely FYP1 (Weeks 1-8, 20 April - 12 June 2026) and FYP2 (Weeks 9-26, 15 June - 16 October 2026), in six major phases. FYP1 focused on planning, design and prototype development, while FYP2 outlines all six Agile development sprints, system deployment and final submission.
 
 The following Table 3.2 summarises the key activities and associated deliverables from each of the six phases of the Hybrid Model Workflow for EasyEarn as well as the timeline for each phase.
 
@@ -241,12 +303,12 @@ Table 3.2: Hybrid Model Workflow of EasyEarn
 | --- | --- | --- | --- |
 | Phase 1: Planning (FYP1) | Week 1-2 | Project preparation, defence, proposal writing and topic selection. | Approved proposal |
 | Phase 2:<br>Design (FYP1) | Week 3-8 | Literature search, competitor analysis, requirement analysis, system design, database design, wireframe design, API documentation and prototype development. | ERD, wireframes, prototype |
-| FYP1 Assessment | Week 6 &amp; Week 8 | FYP1 Midsem Checkpoint (Week 6), FYP1 Final Presentation &amp; Report Submission (Week 8). | FYP1 report, presentation |
+| FYP1 Assessment | Week 6 & Week 8 | FYP1 Midsem Checkpoint (Week 6), FYP1 Final Presentation & Report Submission (Week 8). | FYP1 report, presentation |
 | Phase 3: Development (FYP2) | Week 9 - Week 20 | Every FYP2 Agile sprint will present functional modules in a minuscule form. | Functional modules, sprint reports |
 | FYP2 Assessment | Week 16 | FYP2 Midsem Checkpoint System demonstration with finished sprints 1-4. | Working system demo |
 | Phase 4: Testing (FYP2) | Week 19 - Week 20 | The usability testing, performance testing, security testing, bug fixing and code refactoring. | Test reports, defect logs |
 | Phase 5: Deployment (FYP2) | Week 21-22 | Deployment of GitHub Pages Hosting, validation and integration of the final system. | Live-deployed system |
-| Phase 6: Review &amp; Submission (FYP2) | Week 23 - Week 26 | Compiling final documentation, writing reports, preparing presentations and FYP2 final submission. | Final report, FYP2 presentation, and system demonstrations. |
+| Phase 6: Review & Submission (FYP2) | Week 23 - Week 26 | Compiling final documentation, writing reports, preparing presentations and FYP2 final submission. | Final report, FYP2 presentation, and system demonstrations. |
 
 ### 3.3.6 Sprint Structure
 
@@ -268,72 +330,57 @@ Table 3.3: Sprint Structure of EasyEarn
 To make sure that the hybrid methodology is put into practice, the following sprint management practices are embraced:
 
 - Weekly Progress Tracking
-
-A formal log is used to record progress in development every week. Tasks which have been done and problems which have been faced are recorded as a reference for the supervisors.
+- A formal log is used to record progress in development every week. Tasks which have been done and problems which have been faced are recorded as a reference for the supervisors.
 
 - Sprint Planning Sessions
-
-Each sprint commences with the definition of goals and distribution of the tasks to underline responsibilities and facilitate the process.
+- Each sprint commences with the definition of goals and distribution of the tasks to underline responsibilities and facilitate the process.
 
 - Sprint Review Sessions
-
-The sprint review will be held at the end of every sprint, which shows the supervisor what has been accomplished. Feedback is documented in order to make better improvements in subsequent sprints.
+- The sprint review will be held at the end of every sprint, which shows the supervisor what has been accomplished. Feedback is documented in order to make better improvements in subsequent sprints.
 
 - Issue Tracking
-
-Bugs and technical problems are handled in a local tracking log. There are also feature requests that are recorded to ensure clarity and organisation.
+- Bugs and technical problems are handled in a local tracking log. There are also feature requests that are recorded to ensure clarity and organisation.
 
 - Version Management
-
-Project files are arranged into well-systematic folders on GitHub Pages to keep track of traceability and provide ease in incorporating new functionalities across the sprints.
+- Project files are arranged into well-systematic folders on GitHub Pages to keep track of traceability and provide ease in incorporating new functionalities across the sprints.
 
 ### 3.3.8 Risk Mitigation Through the Hybrid Approach
 
 The hybrid model assists in mitigating the main project risks following the development and validation of the organisation:
 
 - Early Development of Core Features (Sprints 1-3)
-
-Core features like user authentication, job posting, and the safety and trust system will be developed early on to have a working baseline system in FYP2.
+- Core features like user authentication, job posting, and the safety and trust system will be developed early on to have a working baseline system in FYP2.
 
 - Enhancements and Testing Deferred to Later Sprints (Sprints 4-6)
-
-Enhancements like work history, system integration testing, and system administration analytics are not done until the development of core modules has been finished; otherwise, the functionality later developed depends on the higher-quality functionality.
+- Enhancements like work history, system integration testing, and system administration analytics are not done until the development of core modules has been finished; otherwise, the functionality later developed depends on the higher-quality functionality.
 
 - Regular Academic Validation
-
-Frequent reviews with supervisors ensure that the project is in line with the academic expectations. The feedback is implemented in a cyclical fashion in order to stay in line with the project objectives.
+- Frequent reviews with supervisors ensure that the project is in line with the academic expectations. The feedback is implemented in a cyclical fashion in order to stay in line with the project objectives.
 
 - Modular System Architecture
-
-The system is constructed to have self-contained Supabase tables and independent JavaScript modules to enable the development of the system in parallel and easier detection of defects.
+- The system is constructed to have self-contained Supabase tables and independent JavaScript modules to enable the development of the system in parallel and easier detection of defects.
 
 - Documented Decision-Making
-
-All key project decisions are recorded in sprint reports so that they have an apparent audit trail and prove compliance with academic standards.
+- All key project decisions are recorded in sprint reports so that they have an apparent audit trail and prove compliance with academic standards.
 
 ### 3.3.9 System Evaluation Methodology
 
 System evaluation is performed at a few validation points within the cycles of the sprints to confirm that the system is operational, reliable and oriented toward the project goals:
 
 - System Testing
-
-System testing is used to test the complete integrated system to see if it meets both functional and non-functional specifications (International Software Testing Qualifications Board [ISTQB], n.d.). Every functionality of the platform is tested end-to-end, such as the core modules of user sign-up, posting jobs, handling applications, rating and resume generation. This also helps to maintain consistency and integrity of the data across all modules and ensures they can be stored and retrieved properly in the Supabase database.
+- System testing is used to test the complete integrated system to see if it meets both functional and non-functional specifications (International Software Testing Qualifications Board [ISTQB], n.d.). Every functionality of the platform is tested end-to-end, such as the core modules of user sign-up, posting jobs, handling applications, rating and resume generation. This also helps to maintain consistency and integrity of the data across all modules and ensures they can be stored and retrieved properly in the Supabase database.
 
 - User Acceptance Testing (UAT)
-
-UAT is a test that validates the system by following real users in order to make sure that the system is appropriate for real-world users (ISTQB, n.d.). Realistic scenarios are tested with representative users of the three roles (Admin, Employer and Job Seeker) to validate that the system matches real user needs.
+- UAT is a test that validates the system by following real users in order to make sure that the system is appropriate for real-world users (ISTQB, n.d.). Realistic scenarios are tested with representative users of the three roles (Admin, Employer and Job Seeker) to validate that the system matches real user needs.
 
 - Usability Testing
-
-EasyEarn interfaces are evaluated by usability testing based on Nielsen's 10 Usability Heuristics to make sure that the interfaces are user-friendly, consistent and accessible (Nielsen, 1993). The interfaces that are chosen to be deployed for the three roles (Job Seeker, Employer and Admin) are reviewed by the project author, and the usability issues that are found are given severity ratings according to the severity rating scale by Nielsen.
+- EasyEarn interfaces are evaluated by usability testing based on Nielsen's 10 Usability Heuristics to make sure that the interfaces are user-friendly, consistent and accessible (Nielsen, 1993). The interfaces that are chosen to be deployed for the three roles (Job Seeker, Employer and Admin) are reviewed by the project author, and the usability issues that are found are given severity ratings according to the severity rating scale by Nielsen.
 
 - Security Testing
-
-Security testing identifies the weaknesses of the system, vulnerabilities and unauthorised access to the data (ISTQB, n.d.). Testing of Supabase Authentication, role-based access control, and Row Level Security (RLS) policies ensures the security of sensitive data that unauthorised users are unable to access.
+- Security testing identifies the weaknesses of the system, vulnerabilities and unauthorised access to the data (ISTQB, n.d.). Testing of Supabase Authentication, role-based access control, and RLS policies ensures the security of sensitive data that unauthorised users are unable to access.
 
 - Compatibility Testing
-
-EasyEarn is tested for its compatibility with various browsers, devices and viewports (ISTQB, n.d.). The devices that are available are used directly for testing Google Chrome, Mozilla Firefox and Microsoft Edge. Safari support is assumed based on web standards compatibility, but is not actually tested because of device availability. The usability of responsive design and other platform-specific features is also explored on a variety of screen sizes and interaction scenarios.
+- EasyEarn is tested for its compatibility with various browsers, devices and viewports (ISTQB, n.d.). The devices that are available are used directly for testing Google Chrome, Mozilla Firefox and Microsoft Edge. Safari support is assumed based on web standards compatibility, but is not actually tested because of device availability. The usability of responsive design and other platform-specific features is also explored on a variety of screen sizes and interaction scenarios.
 
 ## 3.4 Project Phases and Sprint Breakdown
 
@@ -347,24 +394,24 @@ Table 3.4: Project Phases and Sprint Breakdown of EasyEarn
 | --- | --- | --- | --- | --- |
 | Phase 1: Planning (FYP1) | Week 1-2 | Establish project scope, choose a project topic and get approval from the supervisor. | Topic selection, team formation, project preparation, proposal writing, and Proposal Defence. | Approved project proposal. Project timeline and risk overview. |
 | Phase 2: Design (FYP1) | Week 3-8 | Design a complete system and database before development. | Literature Review, Competitor Analysis, Requirement Gathering, Use Case Diagram, System Architecture Design, Database Schema Design, UI/UX Wireframe Design (on Canva), API Endpoint Documentation, and Making a Prototype. | ERD, wireframes, system architecture diagram, API documentation, prototype. |
-| FYP1 Assessment | Week 6&amp;8 | Present progress and submit FYP1 interim report. | FYP1 Midsem Checkpoint (Week 6), FYP1 Final Presentation and Report Submission (Week 8). | FYP1 report, presentation. |
-| Sprint 1: Authentication &amp; User Management | Week 9-10 | Develop secure user registration, login, and role-based access control. | Registration, login, role-based access control, profile setup and verification and Google Translate integration. | Functional user management module. Sprint report. |
-| Sprint 2: Job Posting &amp; Application Module | Week 11-12 | Implement job posting, search, and application management features. | Job posting with CRUD functionality, job search and filter by category and location, job application submission, application status timeline, and saved jobs. | Functional job module. Sprint report. |
-| Sprint 3: Safety &amp; Trust System | Week 13-14 | Build trust and safety mechanisms to protect users from fraud. | Employer verification badge, report and flag system, bidirectional rating and review module. | Functional safety module. Sprint report. |
-| Sprint 4: Work History &amp; Auto Resume | Week 15-16 | Develop work history tracking and automated resume generation. | Work history dashboard, notification and alert system, auto-generate resume feature using jsPDF. | Functional work history module. Sprint report. |
+| FYP1 Assessment | Week 6&8 | Present progress and submit FYP1 interim report. | FYP1 Midsem Checkpoint (Week 6), FYP1 Final Presentation and Report Submission (Week 8). | FYP1 report, presentation. |
+| Sprint 1: Authentication & User Management | Week 9-10 | Develop secure user registration, login, and role-based access control. | Registration, login, role-based access control, profile setup and verification and Google Translate integration. | Functional user management module. Sprint report. |
+| Sprint 2: Job Posting & Application Module | Week 11-12 | Implement job posting, search, and application management features. | Job posting with CRUD functionality, job search and filter by category and location, job application submission, application status timeline, and saved jobs. | Functional job module. Sprint report. |
+| Sprint 3: Safety & Trust System | Week 13-14 | Build trust and safety mechanisms to protect users from fraud. | Employer verification badge, report and flag system, bidirectional rating and review module. | Functional safety module. Sprint report. |
+| Sprint 4: Work History & Auto Resume | Week 15-16 | Develop work history tracking and automated resume generation. | Work history dashboard, notification and alert system, auto-generate resume feature using jsPDF. | Functional work history module. Sprint report. |
 | FYP2 Assessment | Week 16 | Establish an employment log and auto-completion resume feature. | FYP2 Midsem Checkpoint for system demonstration with finished Sprints 1-4 and progress report. | Working system demo. |
 | Sprint 5: System Enhancements | Week 17-18 | Implement admin dashboard, analytics, chatbot, and UI refinements. | Admin dashboard and analytics using Chart.js, rule-based chatbot, mobile responsiveness and UI polish. | Functional admin module. Sprint report. |
-| Sprint 6: Integration &amp; Final Testing | Week 19-20 | Test the system as a whole, integrate all modules. | System integration, usability testing, performance testing and concurrency checks, security and vulnerability assessment, bug fixing and code refactoring. | Fully tested and integrated system. Final sprint report. |
+| Sprint 6: Integration & Final Testing | Week 19-20 | Test the system as a whole, integrate all modules. | System integration, usability testing, performance testing and concurrency checks, security and vulnerability assessment, bug fixing and code refactoring. | Fully tested and integrated system. Final sprint report. |
 | Phase 4: Deployment (FYP2) | Week 21-22 | Deploy on GitHub Pages. | Supabase deployment, final system integration verification, and last round of system testing. | Live-deployed system. Deployment validation report. |
-| Phase 5: Review &amp; Submission (FYP2) | Week 23-26 | Finalise documentation and hand in all project deliverables. | Final documentation and report compilation, presentation slides and poster preparation, FYP2 Final Presentation and Report Submission. | Final report, FYP2 presentation, system demonstration. |
+| Phase 5: Review & Submission (FYP2) | Week 23-26 | Finalise documentation and hand in all project deliverables. | Final documentation and report compilation, presentation slides and poster preparation, FYP2 Final Presentation and Report Submission. | Final report, FYP2 presentation, system demonstration. |
 
 ## 3.5 Tools and Technologies
 
-EasyEarn is developed with a light Technology Stack that focuses on the client, with Supabase as the Backend-as-a-Service. Below are the tools and technologies chosen for their suitability for a solo academic project, ease of integration, and support for all core features within the time constraints. The technology stack of EasyEarn is visualised in Figure 3.8 and includes all frontend, backend, hosting and supporting libraries.
+EasyEarn is developed with a light Technology Stack that focuses on the client, with Supabase as the Backend-as-a-Service. Below are the tools and technologies chosen for their suitability for a solo academic project, ease of integration, and support for all core features within the time constraints. The technology stack of EasyEarn is visualised in Figure 3.14 and includes all frontend, backend, hosting and supporting libraries.
 
-![Figure 23](Diagram/figure-23.png)
+![Figure 29](Diagram/figure-29.png)
 
-Figure 3.8: Visual Overview of Technology Stack
+Figure 3.14: Visual Overview of Technology Stack
 
 Table 3.4 shows the tools and technologies chosen for EasyEarn and their category and use in building the platform.
 
@@ -377,7 +424,7 @@ Table 3.5: Tools and Technologies of EasyEarn
 | Authentication | Supabase Authentication | Safe user registration, user login, and user session management. |
 | Hosting | GitHub Pages | HTTPS support for all web applications and Content Delivery Network (CDN) delivery. |
 | Data Visualisation | Chart.js | Providing interactive charts in the analytics and work history dashboard. |
-| PDF Generation | jsPDF &amp; html2canvas | Capture the resume layout and generate a downloadable PDF resume based on the Job Seeker&#x27;s profile and work history data. |
+| PDF Generation | jsPDF & html2canvas | Capture the resume layout and generate a downloadable PDF resume based on the Job Seeker's profile and work history data. |
 | Translation | Google Translate Website | Support for multilingual accessibility via web diversion for non-English users. |
 | Code Editor | Visual Studio Code | Main development platform for HTML, CSS and JavaScript. |
 | Design | Canva | UI wireframe design, poster design and visual asset design. |
@@ -396,19 +443,19 @@ Table 3.6: Risk Management
 | No | Risk | Likelihood | Impact | Mitigation Strategy |
 | --- | --- | --- | --- | --- |
 | 1 | Timeline overrun. There is no flexibility for a delay in feature development or testing with the fixed 26-week academic schedule. | High | High | Use a Hybrid Agile-Waterfall approach with 2-week sprints. Overall timeline integrity; features deferred/excluded because not completed in allocated sprint (Sommerville, 2016). |
-| 2 | Limited development capability of a solo developer. Without a development team, parallel development, QA coverage and feature volume are limited. | High | Medium | Core features are prioritised and developed first (Sprints 1-3). Optional features are deferred to later sprints (Sprints 4-6) and may be excluded if time does not permit (Pressman &amp; Maxim, 2020). |
-| 3 | Free-tier restrictions or service uptime issues with Supabase. The platform depends entirely on Supabase for authentication, database, and storage. If there is a service outage or if the free tier resources are exceeded, the system would become unusable. | Low | High | All Supabase table schemas, Row Level Security (RLS) policies, and configurations are documented. Development and testing are carried out within free tier limits. The modular design enables migrating to another BaaS provider if needed (Supabase, 2024). |
-| 4 | Scope creep. As the project evolves or new feature ideas are introduced, the project scope may grow to a point where it exceeds the time available. | Medium | High | Core Features are not necessarily the same as Optional Features; there is a formal feature list that separates them. New feature requests are evaluated with regard to sprint capacity, prior to inclusion. Sprint reports keep an audit trail of all key project decisions (Boehm &amp; Turner, 2004). |
-| 5 | Data integrity and security failure. Personal information such as user profiles, contact details, and work history is all managed by EasyEarn, which could pose a risk of unauthorised access or data breach. | Low | High | Supabase Row Level Security (RLS) policies are enforced at the database level. Role-Based Access Control (RBAC) restricts data access by user role. All data is sent via HTTPS. These measures align with the requirements of the PDPA 2010 (PDPA, 2010). |
+| 2 | Limited development capability of a solo developer. Without a development team, parallel development, QA coverage and feature volume are limited. | High | Medium | Core features are prioritised and developed first (Sprints 1-3). Optional features are deferred to later sprints (Sprints 4-6) and may be excluded if time does not permit (Pressman & Maxim, 2020). |
+| 3 | Free-tier restrictions or service uptime issues with Supabase. The platform depends entirely on Supabase for authentication, database, and storage. If there is a service outage or if the free tier resources are exceeded, the system would become unusable. | Low | High | All Supabase table schemas, RLS policies, and configurations are documented. Development and testing are carried out within free tier limits. The modular design enables migrating to another BaaS provider if needed (Supabase, 2023). |
+| 4 | Scope creep. As the project evolves or new feature ideas are introduced, the project scope may grow to a point where it exceeds the time available. | Medium | High | Core Features are not necessarily the same as Optional Features; there is a formal feature list that separates them. New feature requests are evaluated with regard to sprint capacity, prior to inclusion. Sprint reports keep an audit trail of all key project decisions (Boehm & Turner, 2004). |
+| 5 | Data integrity and security failure. Personal information such as user profiles, contact details, and work history is all managed by EasyEarn, which could pose a risk of unauthorised access or data breach. | Low | High | Supabase RLS policies are enforced at the database level. Role-Based Access Control (RBAC) restricts data access by user role. All data is sent via HTTPS. These measures align with the requirements of the PDPA 2010 (PDPA, 2010). |
 | 6 | Regulatory non-compliance. A lack of understanding of relevant Malaysian laws could subject the system to a risk of law before or after it is deployed into the public sphere. | Low | Medium | The system complies with PDPA 2010, Computer Crimes Act 1997 and Consumer Protection Act 1999, as explained in Section 3.7.3. Before deploying the production beyond the academic prototype phase (PDPA, 2010), a formal compliance audit is recommended. |
 
 The six risks listed above are addressed mainly with the help of the structural discipline of the Hybrid Agile-Waterfall methodology, enforcing scope control at the sprint level and frequent academic validation. Its modular system architecture with self-contained Supabase tables and independent JavaScript modules also helps minimise risk by allowing parallel development and fault isolation. These risk measures, when combined, allow for EasyEarn's development to be consistent and work towards the project goals and academic requirements throughout the 26-week delivery period and applicable regulatory requirements.
 
-Figure 3.9 presents a visual overview of the identified risks, their likelihood and impact ratings, and the risk mitigation measures that were taken for the EasyEarn project.
+Figure 3.15 presents a visual overview of the identified risks, their likelihood and impact ratings, and the risk mitigation measures that were taken for the EasyEarn project.
 
-![Figure 24](Diagram/figure-24.png)
+![Figure 30](Diagram/figure-30.png)
 
-Figure 3.9: Risk Assessment and Mitigation Plan
+Figure 3.15: Risk Assessment Matrix
 
 ## 3.7 Hardware Requirements
 
@@ -425,7 +472,7 @@ Table 3.7: Hardware Requirements
 | Internet Connection | Broadband (5 Mbps) | Broadband (25 Mbps or above) |
 | Operating System | Windows 10, macOS 11, Ubuntu 20.04 | Windows 11, macOS 13, Ubuntu 22.04 |
 
-Because EasyEarn is hosted on GitHub Pages, and its Backend-as-a-Service (BaaS) provider is Supabase, there is no need for the user to set up specific server hardware for deployment (GitHub, 2023; Supabase, 2023). During the academic project phase, all server-side infrastructure is handled by Supabase in their cloud environment, without requiring any physical hardware.
+Because EasyEarn is hosted on GitHub Pages, and its  provider is Supabase, there is no need for the user to set up specific server hardware for deployment (GitHub, 2023; Supabase, 2023). During the academic project phase, all server-side infrastructure is handled by Supabase in their cloud environment, without requiring any physical hardware.
 
 ## 3.8 Software Requirements
 
@@ -439,19 +486,19 @@ Table 3.8: Functional Requirements
 
 | No. | User Role | Feature | Description |
 | --- | --- | --- | --- |
-| FR01 | All Users | User Registration &amp; Login | Role-based registration and login for Job Seeker, Employer, and Admin via Supabase Authentication. |
+| FR01 | All Users | User Registration & Login | Role-based registration and login for Job Seeker, Employer, and Admin via Supabase Authentication. |
 | FR02 | All Users | Role-Based Access Control | Access to system functions is limited by role; RLS prevents cross-role data access. |
 | FR03 | Job Seeker | Profile Setup | Individuals can add or remove skill tags, adjust their availability, preferred categories, and profile photo in their profile. |
-| FR04 | Job Seeker | Browse &amp; Filter Job Listings | Job seekers can browse active job listings and filter by category (e.g. F&amp;B, Event, Delivery) and location state. |
+| FR04 | Job Seeker | Browse & Filter Job Listings | Job seekers can browse active job listings and filter by category (e.g. F&B, Event, Delivery) and location state. |
 | FR05 | Job Seeker | Apply for Jobs | Job seekers can submit one-click applications to active job listings with status automatically set to Pending. |
 | FR06 | Job Seeker | Application Status Tracking | There is a visual timeline that tracks the application through all status stages: Pending, Reviewed, Interview, Accepted, Completion Pending (awaiting job seeker payment confirmation), Completed, and Rejected. |
 | FR07 | Job Seeker | Save Jobs / Wishlist | Job seekers can save job listings for later review and manage their saved job listings. |
 | FR08 | Job Seeker | Work History Dashboard | Completed jobs are automatically logged, and the dashboard shows the total number of jobs, cumulative earnings and job type distribution using Chart.js. |
-| FR09 | Job Seeker | Auto-Generate Resume | The job seeker&#x27;s work history, skills, and employer ratings are automatically used to generate a downloadable PDF resume via the jsPDF library with no manual effort. |
-| FR10 | Employer | Post &amp; Manage Job Listings | Employers are able to create, edit and delete jobs with job title, pay rate, job category, job location, job description, and job expiration date. |
-| FR11 | Employer | Review &amp; Manage Applicants | Employers can view all applicants for each job listing and update each applicant&#x27;s status. |
+| FR09 | Job Seeker | Auto-Generate Resume | The job seeker's work history, skills, and employer ratings are automatically used to generate a downloadable PDF resume via the jsPDF library with no manual effort. |
+| FR10 | Employer | Post & Manage Job Listings | Employers are able to create, edit and delete jobs with job title, pay rate, job category, job location, job description, and job expiration date. |
+| FR11 | Employer | Review & Manage Applicants | Employers can view all applicants for each job listing and update each applicant's status. |
 | FR12 | Employer | Employer Verification Badge | Employers can submit Know Your Business (KYB) documents for Admin review; approved employers receive a verified badge. |
-| FR13 | Job Seeker &amp; Employer | Bidirectional Rating and Review System | Upon job completion, Job Seekers and Employers can rate and review each other using a 1-5 star rating and written feedback. |
+| FR13 | Job Seeker & Employer | Bidirectional Rating and Review System | Upon job completion, Job Seekers and Employers can rate and review each other using a 1-5 star rating and written feedback. |
 | FR14 | All Users | Report / Flag System | Report / Flag System: Any users reporting suspicious job postings, non-paying employers, or fraudulent accounts may submit reports to the Administrator. |
 | FR15 | Admin | User Management | The Administrator can view, suspend, and restore all user accounts on the platform. |
 | FR16 | Admin | Job Listing Moderation | The Administrator may view, approve, flag and delete the job postings made by employers. |
@@ -466,13 +513,13 @@ Table 3.9: Non-Functional Requirements
 | --- | --- | --- | --- |
 | NFR01 | Performance | Page Load Time | The project targets a page load time of within three seconds for primary pages under a normal broadband connection. |
 | NFR02 | Security | HTTPS Encryption | All communication between the client and Supabase backend should use HTTPS to avoid data interception (Open Web Application Security Project [OWASP] Foundation, 2021). |
-| NFR03 | Security | Row Level Security (RLS) | Supabase RLS policies are used to restrict data access based on user roles and record ownership (Supabase, 2024). |
+| NFR03 | Security | RLS | Supabase RLS policies are used to restrict data access based on user roles and record ownership (Supabase, 2023). |
 | NFR04 | Security | Session Management | All user sessions should be secured by Supabase Authentication with token-based access (OWASP Foundation, 2021). |
 | NFR05 | Usability | Responsive Design | The platform should be completely usable on desktop and mobile browsers, without the need to install a native app (Nielsen, 2012). |
 | NFR06 | Usability | Accessibility | The UI should be simple and easy to use, with important tasks designed to be completed within approximately three main interaction steps where practical. |
-| NFR07 | Reliability | System Availability | The system aims to be highly available through Supabase backend services and static web hosting. Availability is considered a &quot;reasonable expectation&quot; of deployment, rather than an actual uptime guarantee, for the FYP scope (Supabase, 2024). |
-| NFR08 | Scalability | Concurrent Users | The system is built with Supabase and static client-side web architecture for small-scale concurrent usage. 100 concurrent users is considered a target capacity for the FYP scope and isn&#x27;t formally stress-tested, but rather is based on the selected Supabase-backed static web architecture. |
-| NFR09 | Maintainability | Code Modularity | To help with testing and future maintenance (Pressman &amp; Maxim, 2020), JavaScript modules should be logically broken up by feature (auth.js, jobs.js, resume.js). |
+| NFR07 | Reliability | System Availability | The system aims to be highly available through Supabase backend services and static web hosting. Availability is considered a "reasonable expectation" of deployment, rather than an actual uptime guarantee, for the FYP scope (Supabase, 2023). |
+| NFR08 | Scalability | Concurrent Users | The system is built with Supabase and static client-side web architecture for small-scale concurrent usage. 100 concurrent users is considered a target capacity for the FYP scope and isn't formally stress-tested, but rather is based on the selected Supabase-backed static web architecture. |
+| NFR09 | Maintainability | Code Modularity | To help with testing and future maintenance (Pressman & Maxim, 2020), JavaScript modules should be logically broken up by feature (auth.js, jobs.js, resume.js). |
 | NFR10 | Compliance | PDPA 2010 | Personal data handling follows principles in the PDPA 2010 (Act 709) of purpose limitation and secure storage (PDPA, 2010). |
 | NFR11 | Compatibility | Browser Compatibility | The platform should work properly in the latest release of Google Chrome, Mozilla Firefox, Microsoft Edge, and Safari (MDN Web Docs, 2023). |
 | NFR12 | Portability | Deployment Independence | The frontend should be able to be deployed as a static site on GitHub Pages and not require a dedicated application server (GitHub, 2023). |
@@ -483,7 +530,7 @@ EasyEarn's design was guided by pertinent Malaysian legislation and regulations 
 
 Personal Data Protection Act (PDPA) 2010
 
-In Malaysia, the main laws that regulate the collection, processing, storage and disclosure of personal data are the PDPA 2010. EasyEarn takes reasonable technical steps to prevent the loss, misuse, alteration or access to personal data without authorisation, in line with the Security Principle in the Act (PDPA, 2010). All personal data is kept in the Supabase PostgreSQL database with Row Level Security (RLS) policies that ensure that each user can only access data that they have been authorised to see. At registration, users are informed of the aim of the data collection, and there is no sharing of any personal data with third parties without the explicit consent of the users. The Auto-Generate Resume feature creates resume documents based on the information that the user enters into the system, and allows the user to control what is in the output.
+In Malaysia, the main laws that regulate the collection, processing, storage and disclosure of personal data are the PDPA 2010. EasyEarn takes reasonable technical steps to prevent the loss, misuse, alteration or access to personal data without authorisation, in line with the Security Principle in the Act (PDPA, 2010). All personal data is kept in the Supabase PostgreSQL database with RLS policies that ensure that each user can only access data that they have been authorised to see. At registration, users are informed of the aim of the data collection, and there is no sharing of any personal data with third parties without the explicit consent of the users. The Auto-Generate Resume feature creates resume documents based on the information that the user enters into the system, and allows the user to control what is in the output.
 
 Computer Crimes Act 1997
 
@@ -501,11 +548,11 @@ Gig Workers Act 2025 (Act 872)
 
 The Gig Workers Act 2025 (Act 872) is the law in Malaysia that safeguards gig workers and took effect on 31 March 2026. The Act requires that gig workers be covered by the rule of law, be protected against discrimination, and have access to dispute resolution mechanisms in service contracts. EasyEarn's Employer Verification Badge, Bidirectional Rating and Review System, and Work History Profile are created with a spirit of transparency and trust in mind. The features in EasyEarn are tailored based on the principles of transparency, trust and dispute resolution in the Act (Ministry of Human Resources Malaysia, 2025), as it is an academic prototype.
 
-Figure 3.10 shows the various Malaysian legislation governing the design and operation of EasyEarn, which includes the PDPA 2010, Computer Crimes Act 1997, Consumer Protection Act 1999, Employment Act 1955 and Gig Workers Act 2025.
+Figure 3.16 shows the various Malaysian legislation governing the design and operation of EasyEarn, which includes the PDPA 2010, Computer Crimes Act 1997, Consumer Protection Act 1999, Employment Act 1955 and Gig Workers Act 2025.
 
-![Figure 25](Diagram/figure-25.png)
+![Figure 31](Diagram/figure-31.png)
 
-Figure 3.10: Ethical and Legal Considerations
+Figure 3.16: Ethical and Legal Considerations
 
 ## 3.9 System Design
 
@@ -513,39 +560,39 @@ System design converts the requirements specification into a blueprint for build
 
 ### 3.9.1 Framework
 
-The framework for EasyEarn is built using vanilla HTML5, CSS3, and JavaScript on the front-end, and Supabase as the Backend-as-a-Service (BaaS) provider. This tech stack was chosen because it was widely available, free of licensing fees and appropriate for this academic-based student project.
+The framework for EasyEarn is built using vanilla HTML5, CSS3, and JavaScript on the front-end, and Supabase as the  provider. This tech stack was chosen because it was widely available, free of licensing fees and appropriate for this academic-based student project.
 
-All platform interfaces are built using HTML5 and CSS3, which provide the structure and presentation of all web pages for the platform, allowing them to be responsive and accessible without needing a ‘front-end framework' (MDN Web Docs, 2023). All client-side interactivity, form validation, and CRUD operations are done in vanilla JavaScript, using the Supabase JavaScript Client Library, along with module-level business logic (Supabase, 2024). Avoiding heavy frameworks like React or Angular avoids the complexity of dependencies and keeps code transparent, especially for an academic system built in a short time frame (Flanagan, 2020).
+All platform interfaces are built using HTML5 and CSS3, which provide the structure and presentation of all web pages for the platform, allowing them to be responsive and accessible without needing a ‘front-end framework' (MDN Web Docs, 2023). All client-side interactivity, form validation, and CRUD operations are done in vanilla JavaScript, using the Supabase JavaScript Client Library, along with module-level business logic (Supabase, 2023). Avoiding heavy frameworks like React or Angular avoids the complexity of dependencies and keeps code transparent, especially for an academic system built in a short time frame (Flanagan, 2020).
 
 Within its framework, supplementary libraries are added, such as Chart.js, used to generate interactive analytics charts on the Admin Dashboard and Work History Dashboard, or jsPDF, used to automatically produce PDFs of the resume feature, which is created by the program, so that there is no need for manual formatting on the client side (Chart.js, 2023; Hall, 2025). Google Translate is available throughout the website via the navigation bar widget, allowing multilingual access. The system is deployed and hosted on GitHub Pages, a free, simple and static site hosting service that deploys directly from the project's GitHub repository via HTTPS (GitHub, 2023).
 
 ### 3.9.2 System Architecture
 
-The client-server architecture based on a Backend-as-a-Service (BaaS) model lies at the core of EasyEarn. Instead of installing an application server, this approach reduces the need to do so by using managed backend services offered by Supabase (Supabase, 2024). Figure 3.11 shows that the system is divided into three layers: the Presentation Layer, the Business Logic Layer, and the Data Layer.
+The client-server architecture based on a  model lies at the core of EasyEarn. Instead of installing an application server, this approach reduces the need to do so by using managed backend services offered by Supabase (Supabase, 2023). Figure 3.17 shows that the system is divided into three layers: the Presentation Layer, the Business Logic Layer, and the Data Layer.
 
-The front-end interfaces, built with HTML/CSS/JS, are part of the Presentation Layer. This layer is in charge of rendering role-specific dashboards, interactive UI elements, Chart.js visualisations and the auto-generated resume preview and PDF export on the client side via html2canvas and jsPDF. Supabase JavaScript client library allows the frontend to communicate with Supabase backend services for authentication and database operations without having to use a separate application server (Supabase, 2024).
+The front-end interfaces, built with HTML/CSS/JS, are part of the Presentation Layer. This layer is in charge of rendering role-specific dashboards, interactive UI elements, Chart.js visualisations and the auto-generated resume preview and PDF export on the client side via html2canvas and jsPDF. Supabase JavaScript client library allows the frontend to communicate with Supabase backend services for authentication and database operations without having to use a separate application server (Supabase, 2023).
 
-JavaScript modules are the major components of the Business Logic Layer that are implemented on the client side, organised by feature domain, such as authentication management, job listing and application logic, safety and trust operations, work history processing, and handling chatbot responses. This modular structure aids in separating concerns throughout the application and in maintainability and testability throughout the sprint-based development process (Fowler, 2018). Furthermore, certain access control and data handling policies are implemented at the Supabase Row Level Security (RLS) policy and database level.
+JavaScript modules are the major components of the Business Logic Layer that are implemented on the client side, organised by feature domain, such as authentication management, job listing and application logic, safety and trust operations, work history processing, and handling chatbot responses. This modular structure aids in separating concerns throughout the application and in maintainability and testability throughout the sprint-based development process (Fowler, 2018). Furthermore, certain access control and data handling policies are implemented at the Supabase RLS policy and database level.
 
-Supabase provides the Data Layer, which consists of a Postgres relational database, authentication services including session management via tokens, Row Level Security (RLS) policies, and some of the database-level business logic (Supabase, 2024). These services enable secure data storage, user authentication, and access control to data based on their roles. That means the current EasyEarn architecture doesn't need an application server, as the needed backend services are managed by Supabase.
+Supabase provides the Data Layer, which consists of a Postgres relational database, authentication services including session management via tokens, RLS policies, and some of the database-level business logic (Supabase, 2023). These services enable secure data storage, user authentication, and access control to data based on their roles. That means the current EasyEarn architecture doesn't need an application server, as the needed backend services are managed by Supabase.
 
-EasyEarn's three-layer system architecture is shown in Figure 3.11, which depicts the relationship among the three layers in EasyEarn's system architecture: Presentation Layer, Business Logic Layer, and Data Layer.
+EasyEarn's three-layer system architecture is shown in Figure 3.17, which depicts the relationship among the three layers in EasyEarn's system architecture: Presentation Layer, Business Logic Layer, and Data Layer.
 
-![Figure 26](Diagram/figure-26.png)
+![Figure 32](Diagram/figure-32.png)
 
-Figure 3.11: System Architecture Diagram
+Figure 3.17: System Architecture Diagram
 
 ### 3.9.3 System Modules and Functionality
 
-EasyEarn is designed with seven key system modules to help solve different parts of the job-matching process. The relationship of modules and between modules are shown in Figure 3.12.
+EasyEarn is designed with seven key system modules to help solve different parts of the job-matching process. The relationship of modules and between modules are shown in Figure 3.18.
 
-![Figure 27](Diagram/figure-27.png)
+![Figure 33](Diagram/figure-33.png)
 
-Figure 3.12: System Module Diagram
+Figure 3.18: System Module Diagram
 
 User Management Module
 
-All three users are managed through the User Management Module, which is the entry point of EasyEarn and is responsible for the registration, login and role-based access control (RBAC) for all users. RBAC guarantees that each user is able to utilise only functions and data that are suitable for their role (Ferraiolo et al., 2003). Supabase Authentication automatically redirects users to their appropriate dashboards after successful authentication. Client-side role checks are used to help navigate the application based on the user's role; Supabase Row Level Security (RLS) policies enforce access control at the database level.
+All three users are managed through the User Management Module, which is the entry point of EasyEarn and is responsible for the registration, login and role-based access control (RBAC) for all users. RBAC guarantees that each user is able to utilise only functions and data that are suitable for their role (Ferraiolo et al., 2003). Supabase Authentication automatically redirects users to their appropriate dashboards after successful authentication. Client-side role checks are used to help navigate the application based on the user's role; Supabase RLS policies enforce access control at the database level.
 
 Job Posting and Application Module
 
@@ -573,7 +620,7 @@ The navigation bar includes a Google Translate widget that lets users translate 
 
 ### 3.9.4 Database Design
 
-The EasyEarn database is realised as a relational schema in the Supabase PostgreSQL system, with twelve tables, each of which holds all the platform data. Relational databases are designed to store data in a structured format with tables and relationships defined and validated by primary and foreign key constraints, ensuring data integrity and consistency (Date, 2019). The Entity-Relationship Diagram (ERD) shown in Figure 3.13 shows the relationships between the different tables, the primary keys (PK), and the foreign keys (FK).
+The EasyEarn database is realised as a relational schema in the Supabase PostgreSQL system, with twelve tables, each of which holds all the platform data. Relational databases are designed to store data in a structured format with tables and relationships defined and validated by primary and foreign key constraints, ensuring data integrity and consistency (Date, 2019). The Entity-Relationship Diagram (ERD) shown in Figure 3.19 shows the relationships between the different tables, the primary keys (PK), and the foreign keys (FK).
 
 The core table is users, which holds all user records, irrespective of role, such as personal information, role designation, verification status, skill tags, availability, account status, etc. The job_listings table contains every job posting by an employer and references back to the users table through the foreign key, employer_id and the field approved_by (Administrator reference). Job seekers are linked to job applications in the applications table, and the status of applications is monitored throughout their life cycle.
 
@@ -581,13 +628,13 @@ The ratings table is used to support a bidirectional rating system, referencing 
 
 There are supporting tables such as saved_jobs for the job wishlist feature, notifications for generated system alerts, analytics for aggregating platform-wide metrics, chatbot_knowledge for the rule-based chatbot knowledge base and chatbot_logs for the interaction history. All tables are primary keyed with Universally Unique Identifiers (UUIDs), which are globally unique and are resistant to enumeration attacks (Leach et al., 2005)
 
-Figure 3.13: Entity-Relationship Diagram (ER
+![Figure 34](Diagram/figure-34.png)
 
-![Figure 28](Diagram/figure-28.png)
+Figure 3.19: Entity-Relationship Diagram (ER
 
 ### 3.9.5 Data Dictionary
 
-The Data Dictionary offers a detailed description of each of the EasyEarn Supabase PostgreSQL database's columns. The column name, data type, constraints that can be applied to the column, and a description in plain English of what the column represents are all provided in each table entry. All primary keys are based on UUIDs created by gen_random_uuid(), and Row Level Security (RLS) is applied on all twelve tables to ensure that users can only access data for which they have permissions.
+The Data Dictionary offers a detailed description of each of the EasyEarn Supabase PostgreSQL database's columns. The column name, data type, constraints that can be applied to the column, and a description in plain English of what the column represents are all provided in each table entry. All primary keys are based on Universally Unique Identifiers (UUIDs) created by gen_random_uuid(), and RLS is applied on all twelve tables to ensure that users can only access data for which they have permissions.
 
 #### 3.9.5.1 users
 
@@ -598,13 +645,13 @@ Table 3.10: Data Dictionary - users
 | Column Name | Data Type | Constraint | Description |
 | --- | --- | --- | --- |
 | id | UUID | PK, NOT NULL | Unique identifier for every user record |
-| email | TEXT | NOT NULL | User&#x27;s login email address |
-| full_name | TEXT | NOT NULL | User&#x27;s full display name |
+| email | TEXT | NOT NULL | User's login email address |
+| full_name | TEXT | NOT NULL | User's full display name |
 | role | TEXT | NOT NULL | Account role: job_seeker / employer / admin |
 | phone | TEXT | NULL | Contact phone number |
-| location | TEXT | NULL | User&#x27;s state or city |
+| location | TEXT | NULL | User's state or city |
 | bio | TEXT | NULL | Short personal or company description |
-| profile_pic | TEXT | NULL | URL to the uploaded profile photo |
+| profile_pic | TEXT | NULL | Uniform Resource Locator (URL) to the uploaded profile photo |
 | is_verified | BOOLEAN | DEFAULT false | Employer verification flag |
 | skill_tags | TEXT[] | NULL | An array of skills for job matching |
 | headline | TEXT | NULL | Short professional headline |
@@ -614,7 +661,7 @@ Table 3.10: Data Dictionary - users
 | availability_days | TEXT[] | NULL | Available working days |
 | availability_time | TEXT | NULL | Available working time range |
 | work_mode | TEXT | NULL | Preferred work mode: remote/onsite |
-| education | JSONB | NULL | Education data in JSON format.Education Data in JSON format |
+| education | JSONB | NULL | Education data in JavaScript Object Notation (JSON) format. |
 | business_type | TEXT | NULL | Employer business type (employer only) |
 | website | TEXT | NULL | Company website URL (employer only) |
 | company_overview | TEXT | NULL | Company description (employer only) |
@@ -626,7 +673,7 @@ Table 3.10: Data Dictionary - users
 | contact_doc_name | TEXT | NULL | Contact person document file name |
 | contact_doc_data | TEXT | NULL | The contact person document is stored as base64 |
 | verification_notes | TEXT | NULL | Instructions for administering a note about the verification result |
-| account_status | TEXT | DEFAULT &#x27;active&#x27; | Account state: active / suspended |
+| account_status | TEXT | DEFAULT 'active' | Account state: active / suspended |
 | deleted_at | TIMESTAMP | NULL | Soft delete timestamp; NULL means active |
 | created_at | TIMESTAMP | DEFAULT now() | Account creation timestamp |
 
@@ -642,7 +689,7 @@ Table 3.11: Data Dictionary - job_listings
 | employer_id | UUID | FK → users.id | The employer who created the listing |
 | title | TEXT | NOT NULL | Job title displayed to job seekers |
 | description | TEXT | NULL | Full job description and requirements |
-| category | TEXT | NULL | Job category (e.g. F&amp;B, Events, Delivery) |
+| category | TEXT | NULL | Job category (e.g. F&B, Events, Delivery) |
 | location | TEXT | NOT NULL | Job location by state or city |
 | job_type | TEXT | NULL | Employment type: part-time / gig / flexible |
 | pay_rate | NUMERIC | NULL | Pay amount offered |
@@ -650,7 +697,7 @@ Table 3.11: Data Dictionary - job_listings
 | skill_tags | TEXT[] | NULL | Required skills for the role |
 | expiry_date | DATE | NULL | Application closing date |
 | openings_count | INTEGER | DEFAULT 1, ≥ 0 | Number of available vacancies |
-| status | TEXT | DEFAULT &#x27;open&#x27; | Listing status: open / closed |
+| status | TEXT | DEFAULT 'open' | Listing status: open / closed |
 | approved_by | UUID | FK → users.id | Admin who approved the listing |
 | approved_at | TIMESTAMP | NULL | Timestamp when the listing was approved |
 | deleted_at | TIMESTAMP | NULL | Soft delete timestamp; NULL means active |
@@ -667,7 +714,7 @@ Table 3.12: Data Dictionary - applications
 | id | UUID | PK, NOT NULL | Unique identifier for each application |
 | job_id | UUID | FK → job_listings.id | The job listing that was applied to |
 | seeker_id | UUID | FK → users.id | Job seeker who submitted the application |
-| status | TEXT | DEFAULT &#x27;pending&#x27; | Application status: pending/reviewed/interview/accepted/completion_pending/completed/rejected |
+| status | TEXT | DEFAULT 'pending' | Application status: pending/reviewed/interview/accepted/completion_pending/completed/rejected |
 | resume_url | TEXT | NULL | URL to the submitted resume file |
 | applied_at | TIMESTAMP | DEFAULT now() | Timestamp when the application was submitted |
 | interview_date | TIMESTAMP | NULL | Scheduled interview date and time |
@@ -689,9 +736,9 @@ Table 3.13: Data Dictionary -payments
 | payer_id | UUID | FK → users.id | The user who made the payment |
 | payee_id | UUID | FK → users.id | The user who received the payment |
 | amount | NUMERIC | NOT NULL | Payment amount in Malaysian Ringgit (MYR) |
-| method | TEXT | DEFAULT &#x27;DuitNow&#x27; | Payment method used |
+| method | TEXT | DEFAULT 'DuitNow' | Payment method used |
 | evidence_url | TEXT | NULL | URL to the uploaded payment proof screenshot |
-| status | TEXT | DEFAULT &#x27;pending&#x27; | The payment status is pending/confirmed/disputed/resolved |
+| status | TEXT | DEFAULT 'pending' | The payment status is pending/confirmed/disputed/resolved |
 | dispute_desc | TEXT | NULL | Description of the payment dispute |
 | admin_resolution | TEXT | NULL | Admin resolution note for the dispute |
 | payer_confirmed | BOOLEAN | DEFAULT false | Whether the payer confirmed the payment |
@@ -734,8 +781,8 @@ Table 3.15: Data Dictionary - reports
 | reported_user | UUID | FK → users.id | The user who is being reported |
 | report_type | TEXT | NULL | Type of report: scam / fake_listing / non_payment |
 | description | TEXT | NULL | Detailed description of the reported issue |
-| status | TEXT | DEFAULT &#x27;pending&#x27; | Report status: pending/reviewed/resolved |
-| admin_notes | TEXT | NULL | Admin&#x27;s investigation and action notes |
+| status | TEXT | DEFAULT 'pending' | Report status: pending/reviewed/resolved |
+| admin_notes | TEXT | NULL | Admin's investigation and action notes |
 | created_at | TIMESTAMP | DEFAULT now() | Timestamp when the report was submitted |
 
 #### 3.9.5.7 saved_jobs
@@ -764,7 +811,7 @@ Table 3.17: Data Dictionary - work_history
 | application_id | UUID | FK → applications.id | Create an application for this historical item |
 | job_title | TEXT | NOT NULL | Title of the completed job |
 | employer_name | TEXT | NULL | Name of the employer for this job |
-| category | TEXT | NULL | This entry&#x27;s category of jobs |
+| category | TEXT | NULL | This entry's category of jobs |
 | start_date | DATE | NULL | Date the job started |
 | end_date | DATE | NULL | Date the job ended |
 | earnings | NUMERIC | NULL | Total earnings from this completed job |
@@ -840,15 +887,15 @@ Table 3.21: Data Dictionary - analytics
 
 ### 3.9.6 Use Case Diagram
 
-A use case diagram is a behavioural diagram in the Unified Modelling Language (UML) that shows the interactions between the external actors and the functional use cases of the system (Rumbaugh et al., 2004). Figure 3.14 shows that there are three main actors: the Job Seeker, Employer and Admin and three different types of actors available in each module: the Job Seeker Use Cases, the Employer Use Cases, and the Admin Use Cases.
+A use case diagram is a behavioural diagram in the Unified Modelling Language (UML) that shows the interactions between the external actors and the functional use cases of the system (Rumbaugh et al., 2004). Figure 3.20 shows that there are three main actors: the Job Seeker, Employer and Admin and three different types of actors available in each module: the Job Seeker Use Cases, the Employer Use Cases, and the Admin Use Cases.
 
 The Job Seeker Module consists of 11 use cases: Browse and Search Jobs, Save Jobs, Apply for Jobs, Track Applications, View Interviews, Chatbot Assistance, Build Resume/Profile, View Work History, Messaging/Chat, Receive Notifications, and Rate Employer. The Employer Module contains 9 use cases: Post Job Listing, Manage Job Listings, View Applicants, Manage Hiring Pipeline, Company Profile, Messaging/Chat, Submit Verification Request, Rate Job Seekers, and Chatbot Assistance. The Admin Module has 6 use cases: User Management, Job Moderation, Approve Employer Verification, Platform Analytics, Handle Reports, and Chatbot Assistance. The <<notify>>, <<moderate>> and <<verify>> stereotype connectors show relationships between modules because of the cross-role dependencies in the platform's trust and safety architecture.
 
 The dedicated Interviews page is the implementation of the View Interviews use case, and is where Job Seekers can view scheduled interview appointments for upcoming, confirmed and completed interviews created by Employers. The Application Status Timeline also includes the status of applications for interviews.
 
-![Figure 29](Diagram/figure-29.png)
+![Figure 35](Diagram/figure-35.png)
 
-Figure 3.14: Use Case Diagram
+Figure 3.20: Use Case Diagram
 
 ### 3.9.7 System Flow
 
@@ -856,41 +903,41 @@ System flow diagrams show a logical sequence of operations, decision points, and
 
 Full System Workflow
 
-Figure 3.15 shows the overall workflow between all three user roles, called a Full System Workflow. Users visit EasyEarn, register and choose their role. The Job Seeker Portal is used to direct job seekers to look at and apply for jobs. Employers are referred to the Employer Portal, where they can post jobs and look at applicants. The Admin Portal enables administrators to check employers and to manage the reports. All three flows stream into the Job Matching and Application Module, an application lifecycle management module from submission to completion of the job. Once the job is finished, both parties agree on the payment and provide ratings, which completes the transactional cycle.
+Figure 3.21 shows the overall workflow between all three user roles, called a Full System Workflow. Users visit EasyEarn, register and choose their role. The Job Seeker Portal is used to direct job seekers to look at and apply for jobs. Employers are referred to the Employer Portal, where they can post jobs and look at applicants. The Admin Portal enables administrators to check employers and to manage the reports. All three flows stream into the Job Matching and Application Module, an application lifecycle management module from submission to completion of the job. Once the job is finished, both parties agree on the payment and provide ratings, which completes the transactional cycle.
 
-![Figure 30](Diagram/figure-30.png)
+![Figure 36](Diagram/figure-36.png)
 
-Figure 3.15: Full System Workflow
+Figure 3.21: Full System Workflow
 
 Job Seeker Workflow
 
 The Job Seeker Workflow starts with registering, then setting up their profile, such as skills, availability, photo, etc. The person who is looking for a job scans the job postings in different categories and locations. When the person seeking a job encounters a suitable listing, he or she applies for the position. The system waits to see what the employer says: If accepted, the job seeker goes to an interview and finishes the job. Once the work is completed, the employer will confirm the payment and the job seeker will confirm receipt. The work history is now updated and the person looking for a job can now rate the employer. If not selected, the person seeking a job can reapply for other positions.
 
-Figure 3.16 shows the Job Seeker workflow in EasyEarn, starting from registration and profile setup, and proceeding with the job application and job completion, up to the Employer rating.
+Figure 3.22 shows the Job Seeker workflow in EasyEarn, starting from registration and profile setup, and proceeding with the job application and job completion, up to the Employer rating.
 
-![Figure 31](Diagram/figure-31.png)
+![Figure 37](Diagram/figure-37.png)
 
-Figure 3.16: Job Seeker System Workflow
+Figure 3.22: Job Seeker System Workflow
 
 Employer Workflow
 
 Employer registration is done through an Employer Code and submission of Employer KYB documents (SSM number and Business documents) to the Administrator for review. The employer will be issued a Verification Badge upon approval. The employer then publishes jobs, checks applicants' profiles, accepts and rejects applicants, arranges interviews, records the attendance of the job seeker, uploads evidence of payment and rates the job seeker.
 
-Figure 3.17 shows the Employer workflow in EasyEarn, including the registration process, the submission of KYB documents, job posting, applicant management and payment confirmation.
+Figure 3.23 shows the Employer workflow in EasyEarn, including the registration process, the submission of KYB documents, job posting, applicant management and payment confirmation.
 
-![Figure 32](Diagram/figure-32.png)
+![Figure 38](Diagram/figure-38.png)
 
-Figure 3.17: Employer System Workflow
+Figure 3.23: Employer System Workflow
 
 Admin Workflow
 
 This is the Admin Workflow, which starts with secure login with an Admin code. Once the Administrator logs into the Admin Dashboard, he/she is presented with 3 paths from which to select a task to perform: Verify (to review the employer KYB documents and approve/reject); Reports (to triage received user reports and take action based on the same such as warning, suspend, or resolve); Users (to view, suspend, or restore user accounts). Once complete, the Administrator is able to review the platform analytics, which includes platform metrics, user and job information, and then decides whether to complete more tasks.
 
-The EasyEarn Admin workflow is detailed in Figure 3.18, with secure login, employer verification review, report management, user account management and platform analytics review.
+The EasyEarn Admin workflow is detailed in Figure 3.24, with secure login, employer verification review, report management, user account management and platform analytics review.
 
-![Figure 33](Diagram/figure-33.png)
+![Figure 39](Diagram/figure-39.png)
 
-Figure 3.18: Admin System Workflow
+Figure 3.24: Admin System Workflow
 
 ## 3.10 Wireframe
 
@@ -900,55 +947,55 @@ Wireframes are low-fidelity sketches of a user interface that outline the elemen
 
 The Landing Page (Index) is the front page of EasyEarn that is visible to everyone before logging in or registering. The page has a hero section that includes a prominent tagline, “Find Jobs. Hire Talent. EasyEarn,” and two main call-to-action buttons: “Find a Job” and “Post a Job”. The platform's value proposition, including the Why EasyEarn section that provides six key features (Verified Employers, Auto Resume, Location Filter, Instant Apply, Messaging, and Analytics), the Browse Opportunities section, a Project Scope and Modules summary, and a Functionalities and Security overview, is listed below the hero section. The page ends with a "Create Free Account" link and a footer with navigation links.
 
-Figure 3.19 shows the wireframe for the EasyEarn Landing Page, featuring the hero section, call to action buttons, and platform feature highlights.
+Figure 3.25 shows the wireframe for the EasyEarn Landing Page, featuring the hero section, call to action buttons, and platform feature highlights.
 
-![Figure 34](Diagram/figure-34.png)
+![Figure 40](Diagram/figure-40.png)
 
-![Figure 35](Diagram/figure-35.png)
+![Figure 41](Diagram/figure-41.png)
 
-Figure 3.19: Wireframe for Landing Page (Index)
+Figure 3.25: Wireframe for Landing Page (Index)
 
 ### 3.10.2 Registration Page
 
 The Register page allows new users to create an EasyEarn account by entering their full name, email, and a password that meets the minimum security requirement of at least 6 characters with one special character. Users need to choose their role, either Job Seeker, Employer or Admin, because this determines what will be available on their dashboard once they log in. If the Employer or Admin role is selected, then the conditional secure code field will appear, providing further access controls. The account is generated as soon as it is submitted, and the user is directed to their account dashboard.
 
-Figure 3.20 shows the wireframe of the Registration Page with fields for the Job Seeker and Employer registration forms.
+Figure 3.26 shows the wireframe of the Registration Page with fields for the Job Seeker and Employer registration forms.
 
-![Figure 36](Diagram/figure-36.png)
+![Figure 42](Diagram/figure-42.png)
 
-Figure 3.20: Wireframe for Registration Page
+Figure 3.26: Wireframe for Registration Page
 
 ### 3.10.3 Login Page
 
 The login page enables existing users to log in with their registered email and password. For convenience, there is a toggle button that shows/hides the password. Users without an account are directed to the Register page via the "Register here" link at the bottom.
 
-Figure 3.21 shows the wireframe of the Login Page that includes a role selection box, email and password text boxes.
+Figure 3.27 shows the wireframe of the Login Page that includes a role selection box, email and password text boxes.
 
-![Figure 37](Diagram/figure-37.png)
+![Figure 43](Diagram/figure-43.png)
 
-Figure 3.21: Wireframe for Login Page
+Figure 3.27: Wireframe for Login Page
 
 ### 3.10.4 Job Listing Page
 
 The Unified Job Listing Page gives authenticated job seekers access to all available job listings on the platform, or search for jobs by filtering them. The page features a search box to search by title, a filter dropdown to search by location, and an advanced filter button. Job postings are presented as a card listing the job title, the employer, the location, the salary, and the schedule. For wishlisting, there is a Save button on each card, and for immediate application submission, there is an Apply Now button (FR05). There is a Saved Jobs section below the active listings that lists and saves bookmarked jobs, and allows users to delete or directly apply to them (FR07).
 
-Figure 3.22 shows the wireframe for a Job Listing Page, featuring job cards that include search and filter functions, as well as save and apply functions.
+Figure 3.28 shows the wireframe for a Job Listing Page, featuring job cards that include search and filter functions, as well as save and apply functions.
 
-![Figure 38](Diagram/figure-38.png)
+![Figure 44](Diagram/figure-44.png)
 
-![Figure 39](Diagram/figure-39.png)
+![Figure 45](Diagram/figure-45.png)
 
-Figure 3.22: Wireframe for Job Listing Page
+Figure 3.28: Wireframe for Job Listing Page
 
 ### 3.10.5 Job Seeker Dashboard
 
 The Job Seeker Dashboard is an authenticated job seeker's personal hub. A welcome banner welcomes the user and shows their name, profile photo and what percentage of the profile is complete. The Overview Snapshot section provides summary data, such as profile completion, which includes a progress bar. Four action cards quickly take you to the key functions of the platform: Update Profile (includes the ability to add a headline, preferences, and skills), Review Applications (shows the status of your applications), Build Resume (auto-generates a PDF resume), and Check Work History (displays completed gigs and payments earned). The primary action buttons 'Open Jobs' and 'Edit Profile' are clearly visible in the banner to help the user navigate to them as per Nielsen's three-click principle (2012).
 
-The Job Seeker Dashboard's wireframe includes the welcome banner, a progress indicator for completing the profile, and four quick-action cards, as shown in Figure 3.23.
+The Job Seeker Dashboard's wireframe includes the welcome banner, a progress indicator for completing the profile, and four quick-action cards, as shown in Figure 3.29.
 
-![Figure 40](Diagram/figure-40.png)
+![Figure 46](Diagram/figure-46.png)
 
-Figure 3.23: Wireframe for Job Seeker Dashboard
+Figure 3.29: Wireframe for Job Seeker Dashboard
 
 ### 3.10.6 Job Seeker Resume Builder
 
@@ -956,67 +1003,67 @@ The Resume Builder page uses the Auto-Generate Resume feature (FR09) and uses th
 
 The auto-generated resume displays an A4 printable preview containing the contact details, location, work mode preferences, profile photo, job seeker name and headline. The resume is divided into 4 sections: Summary and Preferences, Skills (shown as tag chips filled with the skill_tags field from the users table), System Metrics Summary (automatically generated from the work_history and ratings tables, showing the number of gigs completed, amount of income tracked, and average job rating), and References (filled with verified employer feedback entries from the ratings table upon gig completion). The entire resume is dynamically created from real-time data from the database and always accurately reflects the job seeker's latest experience and credentials.
 
-Figure 3.24 shows the Job Seeker Resume Builder wireframe, which displays the template, including the automatic generation of an A4 PDF template preview and sections for skills, work experience, and employer ratings.
-
-![Figure 41](Diagram/figure-41.png)
-
-![Figure 42](Diagram/figure-42.png)
-
-Figure 3.24: Wireframe for Job Seeker Resume Builder (Auto-Generated)
-
-### 3.10.7 Employer Dashboard
-
-The Employer Dashboard gives employers a single view into their hiring activity. The page is split into two panels: the left panel ("Employer Dashboard") displays quick action buttons for Manage Jobs and Edit Profile, while the right panel ("Current Build") summarises the employer's connected workflow status. The Active Jobs, Pending Review, Total Applicants and Trust Verified status are shown in four statistics cards at a glance. The bottom section of the dashboard displays a Verification Status Check panel (indicating the Verification Status of the currently viewed application, and prompting to complete verification if any is pending) and an Application Share Breakdown doughnut chart (using Chart.js to display the percentages of Applied, Reviewed, Accepted, and Rejected applications across all job posts).
-
-Figure 3.25 provides the wireframe for the Employer Dashboard containing statistics cards, verification status and the application breakdown chart.
-
-![Figure 43](Diagram/figure-43.png)
-
-Figure 3.25: Wireframe for Employer Dashboard
-
-### 3.10.8 Employer Manage Jobs
-
-The Manage Jobs page allows the employer to add, edit and track all their job postings in one workspace. The left side shows a Post/Edit Job Listing form with a Publish Job/Save Changes button, and fields for Job Title, Hourly Rate (RM/Hr), State Category, Location State, Area Details, and Job Description. On the right, you will see a real-time list of Job Post Records that are active, with the title, category icon, posting date, location, and pay rate. Every listing card includes Edit and Applicants buttons for easy management. The Published, Pending Review, Total Applicants, and Completed Gigs counts are displayed at the top of the page as 4 different summary statistics.
-
-Figure 3.26 is a wireframe of the Employer Manage Jobs page where the job posting form is displayed and the active job listing records are displayed.
-
-![Figure 44](Diagram/figure-44.png)
-
-![Figure 45](Diagram/figure-45.png)
-
-Figure 3.26: Wireframe for Employer Manage Jobs
-
-### 3.10.9 Employer Applicants
-
-The Hiring Pipeline Queue is displayed on the Employer Applicants page and displays all of the applicants from the employer's open job postings. At the top of the page, there are four summary counters: Applied, Reviewed, Accepted, and Completed that show the counts for the current period. A view of each applied job entry in the queue will display the name of the applicant, the job title they applied for, a link to open their auto-generated Resume Summary, and a badge indicating their job's status (Applied, In Review, or Reviewed). There are four action buttons for each applicant: Accept Applicant, Message Seeker, Reject, and Mark as Completed. If the employer clicks on Mark as Completed, a Finalise Completion Details window appears and asks the employer to provide the Final Earnings Paid (RM) and Completed Date before it is finalised. This confirmation will cause the work history to be automatically updated, and the credential to be transferred to the job seeker's profile and update the auto-filled resume information.
-
-Figure 3.27 shows the Employer Applicants wireframe with the hiring pipeline queue and applicant action buttons.
-
-![Figure 46](Diagram/figure-46.png)
-
-Figure 3.27: Wireframe for Employer Applicants
-
-### 3.10.10 Admin Dashboard
-
-The Admin Dashboard gives the Administrator an overview of the platform. The four statistics cards at the top of the screen show the total number of Users, Reports, Verifications, and Jobs, and include a weekly change indicator. The two main buttons, "Open Reports" and "Review Verifications", are prominently displayed. The lower part of the dashboard breaks down into a Moderation Queue panel, which displays any reports, verifications or job listings that need attention from the admin, and a Database Distribution Metrics panel, which displays a doughnut chart generated using Chart.js that shows the relative distribution of platform data by Users, Reports, Verifications and Jobs.
-
-Figure 3.28 is the wireframe for the Admin Dashboard, which displays platform statistics cards, activity stream and the distribution chart of the database.
+Figure 3.30 shows the Job Seeker Resume Builder wireframe, which displays the template, including the automatic generation of an A4 PDF template preview and sections for skills, work experience, and employer ratings.
 
 ![Figure 47](Diagram/figure-47.png)
 
 ![Figure 48](Diagram/figure-48.png)
 
-Figure 3.28: Wireframe for Admin Dashboard
+Figure 3.30: Wireframe for Job Seeker Resume Builder (Auto-Generated)
+
+### 3.10.7 Employer Dashboard
+
+The Employer Dashboard gives employers a single view into their hiring activity. The page is split into two panels: the left panel ("Employer Dashboard") displays quick action buttons for Manage Jobs and Edit Profile, while the right panel ("Current Build") summarises the employer's connected workflow status. The Active Jobs, Pending Review, Total Applicants and Trust Verified status are shown in four statistics cards at a glance. The bottom section of the dashboard displays a Verification Status Check panel (indicating the Verification Status of the currently viewed application, and prompting to complete verification if any is pending) and an Application Share Breakdown doughnut chart (using Chart.js to display the percentages of Applied, Reviewed, Accepted, and Rejected applications across all job posts).
+
+Figure 3.31 provides the wireframe for the Employer Dashboard containing statistics cards, verification status and the application breakdown chart.
+
+![Figure 49](Diagram/figure-49.png)
+
+Figure 3.31: Wireframe for Employer Dashboard
+
+### 3.10.8 Employer Manage Jobs
+
+The Manage Jobs page allows the employer to add, edit and track all their job postings in one workspace. The left side shows a Post/Edit Job Listing form with a Publish Job/Save Changes button, and fields for Job Title, Hourly Rate (RM/Hr), State Category, Location State, Area Details, and Job Description. On the right, you will see a real-time list of Job Post Records that are active, with the title, category icon, posting date, location, and pay rate. Every listing card includes Edit and Applicants buttons for easy management. The Published, Pending Review, Total Applicants, and Completed Gigs counts are displayed at the top of the page as 4 different summary statistics.
+
+Figure 3.32 is a wireframe of the Employer Manage Jobs page where the job posting form is displayed and the active job listing records are displayed.
+
+![Figure 50](Diagram/figure-50.png)
+
+![Figure 51](Diagram/figure-51.png)
+
+Figure 3.32: Wireframe for Employer Manage Jobs
+
+### 3.10.9 Employer Applicants
+
+The Hiring Pipeline Queue is displayed on the Employer Applicants page and displays all of the applicants from the employer's open job postings. At the top of the page, there are four summary counters: Applied, Reviewed, Accepted, and Completed that show the counts for the current period. A view of each applied job entry in the queue will display the name of the applicant, the job title they applied for, a link to open their auto-generated Resume Summary, and a badge indicating their job's status (Applied, In Review, or Reviewed). There are four action buttons for each applicant: Accept Applicant, Message Seeker, Reject, and Mark as Completed. If the employer clicks on Mark as Completed, a Finalise Completion Details window appears and asks the employer to provide the Final Earnings Paid (RM) and Completed Date before it is finalised. This confirmation will cause the work history to be automatically updated, and the credential to be transferred to the job seeker's profile and update the auto-filled resume information.
+
+Figure 3.33 shows the Employer Applicants wireframe with the hiring pipeline queue and applicant action buttons.
+
+![Figure 52](Diagram/figure-52.png)
+
+Figure 3.33: Wireframe for Employer Applicants
+
+### 3.10.10 Admin Dashboard
+
+The Admin Dashboard gives the Administrator an overview of the platform. The four statistics cards at the top of the screen show the total number of Users, Reports, Verifications, and Jobs, and include a weekly change indicator. The two main buttons, "Open Reports" and "Review Verifications", are prominently displayed. The lower part of the dashboard breaks down into a Moderation Queue panel, which displays any reports, verifications or job listings that need attention from the admin, and a Database Distribution Metrics panel, which displays a doughnut chart generated using Chart.js that shows the relative distribution of platform data by Users, Reports, Verifications and Jobs.
+
+Figure 3.34 is the wireframe for the Admin Dashboard, which displays platform statistics cards, activity stream and the distribution chart of the database.
+
+![Figure 53](Diagram/figure-53.png)
+
+![Figure 54](Diagram/figure-54.png)
+
+Figure 3.34: Wireframe for Admin Dashboard
 
 ### 3.10.11 Admin Job Listing Moderation
 
 The Admin Job Listing Moderation page allows the Admin to view, approve, flag and remove all the job postings from the platform by the employers. There are three summary cards which show Live Jobs, Flagged Jobs and Removed listings. The Hiring Directory Records section offers a Status Filter drop-down and a Search Listings bar to easily moderate listings. A listing record will show the following information: Position Title, Employer Entity, Remuneration Pay-rate, Category Class, Employer ID, flagging reason, and current status badge. A listing has four moderation action buttons: Approve Posting, Flag Listing, Remove Post and View Live Application. This page is the main instrument to ensure high-quality content on the EasyEarn platform and to prevent fraudulent job offers.
 
-Figure 3.29 shows the wireframe for the Admin Job Listing Moderation page, which contains listing records and moderation action buttons.
+Figure 3.35 shows the wireframe for the Admin Job Listing Moderation page, which contains listing records and moderation action buttons.
 
-![Figure 49](Diagram/figure-49.png)
+![Figure 55](Diagram/figure-55.png)
 
-Figure 3.29: Wireframe for Admin Job Listing Moderation
+Figure 3.35: Wireframe for Admin Job Listing Moderation
 
 ## 3.11 User Interface
 
@@ -1024,19 +1071,7 @@ This section presents the key implemented user interface screens of the EasyEarn
 
 ### 3.11.1 Landing Page (Index)
 
-The Landing Page is the external profile of EasyEarn, which is accessible to everyone without a login. It includes a hero section with two call-to-action buttons ("Find a Job" and "Post a Job"), a platform highlights section, and a Google Translate widget on the navigation bar to make it multilingual. Figure 3.30 illustrates the Landing Page design implemented in EasyEarn, which includes the hero section, call-to-action buttons and a Google Translate widget.
-
-![Figure 50](Diagram/figure-50.png)
-
-![Figure 51](Diagram/figure-51.png)
-
-![Figure 52](Diagram/figure-52.png)
-
-![Figure 53](Diagram/figure-53.png)
-
-![Figure 54](Diagram/figure-54.png)
-
-![Figure 55](Diagram/figure-55.png)
+The Landing Page is the external profile of EasyEarn, which is accessible to everyone without a login. It includes a hero section with two call-to-action buttons ("Find a Job" and "Post a Job"), a platform highlights section, and a Google Translate widget on the navigation bar to make it multilingual. Figure 3.36 illustrates the Landing Page design implemented in EasyEarn, which includes the hero section, call-to-action buttons and a Google Translate widget.
 
 ![Figure 56](Diagram/figure-56.png)
 
@@ -1045,12 +1080,6 @@ The Landing Page is the external profile of EasyEarn, which is accessible to eve
 ![Figure 58](Diagram/figure-58.png)
 
 ![Figure 59](Diagram/figure-59.png)
-
-Figure 3.30: Landing Page (Index)
-
-### 3.11.2 About Us Page
-
-The About Us page communicates the purpose of EasyEarn to visitors and describes its mission, target users and development roadmap. It features a Hero banner, a Mission & Vision section that explains the problem being solved and the users of the platform, a development roadmap for FYP1 and FYP2, a series of flip/stacking highlight cards that feature three major platform benefits and an overview of the technology stack that was used to create EasyEarn.About Us Page design used in EasyEarn (Mission and Vision, Development Roadmap, Technology stack overview) is shown in Figure 3.31.
 
 ![Figure 60](Diagram/figure-60.png)
 
@@ -1064,13 +1093,13 @@ The About Us page communicates the purpose of EasyEarn to visitors and describes
 
 ![Figure 65](Diagram/figure-65.png)
 
+Figure 3.36: Landing Page (Index)
+
+### 3.11.2 About Us Page
+
+The About Us page communicates the purpose of EasyEarn to visitors and describes its mission, target users and development roadmap. It features a Hero banner, a Mission & Vision section that explains the problem being solved and the users of the platform, a development roadmap for FYP1 and FYP2, a series of flip/stacking highlight cards that feature three major platform benefits and an overview of the technology stack that was used to create EasyEarn.About Us Page design used in EasyEarn (Mission and Vision, Development Roadmap, Technology stack overview) is shown in Figure 3.37.
+
 ![Figure 66](Diagram/figure-66.png)
-
-Figure 3.31: About Us Page
-
-### 3.11.3 Help Center Page
-
-The Help Center page is a self-service resource for EasyEarn users, helping to minimise the need for direct contact with the service. It features an FAQ section with expandable accordion items that provide answers to questions about creating an account, employer verification, tracking applications, reporting suspicious listings, protecting data, and resume generation, and a Support section that guides users to use either a chatbot for instant assistance or a contact form with details on how to email and a link to the Report an Issue page. The Help Center Page design implemented in EasyEarn is shown in Figure 3.32, which consists of an FAQ accordion and Support / Contact options.
 
 ![Figure 67](Diagram/figure-67.png)
 
@@ -1078,23 +1107,17 @@ The Help Center page is a self-service resource for EasyEarn users, helping to m
 
 ![Figure 69](Diagram/figure-69.png)
 
-Figure 3.32: Help Center Page
-
-### 3.11.4 Browse Job Page
-
-The Browse Jobs page is the place where job seekers can explore and search to find gig opportunities that are available on EasyEarn. It comprises a search box to find jobs by keyword, category filter pills (Events, F&B, Education, Delivery) and a geolocation option (Near Me) to enable users to select a radius (5-50 km) to find jobs within their current location. Job postings are dynamically displayed in a grid, and loading and empty state indicators are displayed while fetching data and when no corresponding records are found. Figure 3.33 presents the Browse Jobs Page design in EasyEarn, which includes the search and filter toolbar, location-based radius filter and a dynamic listing of jobs in the grid.
-
 ![Figure 70](Diagram/figure-70.png)
 
 ![Figure 71](Diagram/figure-71.png)
 
-Figure 3.33: Browse Job Page
-
-### 3.11.5 Report Page
-
-Users can mark an employer, a job listing, or a payment problem as suspicious to maintain the security of the site. It contains a few fields such as: Reporter Name, Reporter E-mail, Reporter Title, Report Type (Suspicious Listing, Non-paying Employer, Fake Profile, Harassment or Abuse, Other), optional Listing/Profile Link, description field and optional Evidence Upload. A side panel explains how reporting works, what happens when a report is submitted and how to reach the reporting team if you have any questions about reporting, and a Reporting FAQ section provides answers to common questions about the process of reporting, including questions about confidentiality, evidence required to report, timelines for reviews, and questions about reporting without an account. The Report Page design used in EasyEarn is shown in Figure 3.34 and consists of the report submission form, informational side panel and reporting FAQ.
-
 ![Figure 72](Diagram/figure-72.png)
+
+Figure 3.37: About Us Page
+
+### 3.11.3 Help Center Page
+
+The Help Center page is a self-service resource for EasyEarn users, helping to minimise the need for direct contact with the service. It features an FAQ section with expandable accordion items that provide answers to questions about creating an account, employer verification, tracking applications, reporting suspicious listings, protecting data, and resume generation, and a Support section that guides users to use either a chatbot for instant assistance or a contact form with details on how to email and a link to the Report an Issue page. The Help Center Page design implemented in EasyEarn is shown in Figure 3.38, which consists of an FAQ accordion and Support / Contact options.
 
 ![Figure 73](Diagram/figure-73.png)
 
@@ -1102,77 +1125,101 @@ Users can mark an employer, a job listing, or a payment problem as suspicious to
 
 ![Figure 75](Diagram/figure-75.png)
 
-Figure 3.34: Report Page
+Figure 3.38: Help Center Page
 
-### 3.11.6 Security Page
+### 3.11.4 Browse Job Page
 
-The Security page explains the technical measures taken to protect the security of users and platform information in EasyEarn. It includes Authentication & Access, including Supabase authentication, role-based access control (Employer vs Job Seeker vs Admin) and account integrity (Employer verified badges, audit trails, etc). It also includes Data & Platform Integrity, where it discusses the use of HTTPS encryption, Row Level Security (RLS) policies scoping reads and writes per user role, and monitoring processes such as periodic security audits and admin review of reports. A Security FAQ section caps the page with short answers regarding data protection, report handling, data visibility between employers and job seekers, and how to mark suspicious listings. The design of the Security Page in EasyEarn is shown in Figure 3.35, which includes the authentication and access controls, data integrity measures and the security FAQ.
+The Browse Jobs page is the place where job seekers can explore and search to find gig opportunities that are available on EasyEarn. It comprises a search box to find jobs by keyword, category filter pills (Events, F&B, Education, Delivery) and a geolocation option (Near Me) to enable users to select a radius (5-50 km) to find jobs within their current location. Job postings are dynamically displayed in a grid, and loading and empty state indicators are displayed while fetching data and when no corresponding records are found. Figure 3.39 presents the Browse Jobs Page design in EasyEarn, which includes the search and filter toolbar, location-based radius filter and a dynamic listing of jobs in the grid.
 
 ![Figure 76](Diagram/figure-76.png)
 
 ![Figure 77](Diagram/figure-77.png)
 
+Figure 3.39: Browse Job Page
+
+### 3.11.5 Report Page
+
+Users can mark an employer, a job listing, or a payment problem as suspicious to maintain the security of the site. It contains a few fields such as: Reporter Name, Reporter E-mail, Reporter Title, Report Type (Suspicious Listing, Non-paying Employer, Fake Profile, Harassment or Abuse, Other), optional Listing/Profile Link, description field and optional Evidence Upload. A side panel explains how reporting works, what happens when a report is submitted and how to reach the reporting team if you have any questions about reporting, and a Reporting FAQ section provides answers to common questions about the process of reporting, including questions about confidentiality, evidence required to report, timelines for reviews, and questions about reporting without an account. The Report Page design used in EasyEarn is shown in Figure 3.40 and consists of the report submission form, informational side panel and reporting FAQ.
+
 ![Figure 78](Diagram/figure-78.png)
-
-Figure 3.35: Security Page
-
-### 3.11.7 Chatbot Page
-
-The Chatbot page gives a dedicated interface for the user to interact with the EasyEarn Assistant (a rule-based Chatbot) that guides the user on how to use the platform. It features a chat window with a welcome message, a text field and a send button for sending general questions, and quick reply buttons for common topics like sign-up, upload resume, post a job, and report a scam. EasyEarn uses the Chatbot Page design as shown in Figure 3.36, featuring the chat window, input for chatrooms and quick reply shortcuts.
 
 ![Figure 79](Diagram/figure-79.png)
 
-Figure 3.36: Chatbot Page
-
-### 3.11.8 Google Translate Website
-
-Google Translate Website has a language selector where users can see EasyEarn in various languages such as Bahasa Melayu, Mandarin, Tamil and English. If a language is chosen, the current EasyEarn page is redirected via Google Translate site translation service; the content on the page is translated without the need for having localised copies of each page. To extend users' access from different communities in Malaysia, the Google Translate Website is integrated into EasyEarn as in Figure 3.37.
-
 ![Figure 80](Diagram/figure-80.png)
-
-Figure 3.37: Google Translate Website
-
-### 3.11.9 Registration Page
-
-The Registration Page can be used by new users to register on EasyEarn. There are two sections of the form: Job Seeker and Employer, with the form fields adjusted dynamically based on the selection. In both cases, the form requests the user's complete name, email address, password, cellphone number and region or city. Employers are also required to enter the type of business (Individual or Company). If the registration form is successfully submitted, then a user account is created on Supabase with the role selected and the permissions associated with that role. The Terms and Conditions must be accepted before filling out the Registration Form. The collection and processing of personal information are based on the notice, consent and security principles in PDPA 2010. After successful registration, the user will be redirected to the Login Page. A Registration Page was implemented as shown in Figure 3.38, with sections split up according to the user's (Job Seeker/Emp) role in signing up for an account.
 
 ![Figure 81](Diagram/figure-81.png)
 
+Figure 3.40: Report Page
+
+### 3.11.6 Security Page
+
+The Security page explains the technical measures taken to protect the security of users and platform information in EasyEarn. It includes Authentication & Access, including Supabase authentication, role-based access control (Employer vs Job Seeker vs Admin) and account integrity (Employer verified badges, audit trails, etc). It also includes Data & Platform Integrity, where it discusses the use of HTTPS encryption, RLS policies scoping reads and writes per user role, and monitoring processes such as periodic security audits and admin review of reports. A Security FAQ section caps the page with short answers regarding data protection, report handling, data visibility between employers and job seekers, and how to mark suspicious listings. The design of the Security Page in EasyEarn is shown in Figure 3.41, which includes the authentication and access controls, data integrity measures and the security FAQ.
+
 ![Figure 82](Diagram/figure-82.png)
-
-Figure 3.38: Registration Page
-
-### 3.11.10 Login Page
-
-All EasyEarn users will access the Login Page for authentication. The page features an email and password input field, a role selector that lets users choose to be either a Job Seeker or Employer, and a “Login” button that sends the email and password to Supabase Authentication. After successful login, users are directed to their dashboard based on their role. If you do not have an account, A "Register here" link will direct new users to the Registration page, while the Admin Login link is available at the bottom of the page. The developed Login Page is displayed in Figure 3.39, which includes the role selector for authentication, email and password fields.
 
 ![Figure 83](Diagram/figure-83.png)
 
-Figure 3.39: Login Page
-
-### 3.11.11 Forgot Password Page
-
-The Forgot Password and Reset Password pages enable users who are not able to log in to their EasyEarn account to recover access to their account via a secure email-based reset flow. On the Forgot Password page, the user types in their registered email address, and Supabase Auth sends a password reset link to their email address. The link will take the user to the Reset Password page, on which he or she will enter and confirm the new password and then return to the Login page to log in with the new password. The password validation for strength and the visual style are the same on both pages as the Login/Register page. The Forgot Password and Reset Password pages that have been added to EasyEarn and are shown in Figure 3.40 demonstrate how this can be done.
-
 ![Figure 84](Diagram/figure-84.png)
 
-Figure 3.40: Forgot Password Page
+Figure 3.41: Security Page
 
-### 3.11.12 Password Reset Email
+### 3.11.7 Chatbot Page
 
-On the Forgot Password page, when a user submits their email, Supabase Auth automatically sends a password reset email to the user's registered email address (shown in Figure 3.41). The email includes a "Reset Password" link which is valid for a short period of time; when it is clicked, the user will be directed to the Reset Password page where they can change their password and regain access to their account.
+The Chatbot page gives a dedicated interface for the user to interact with the EasyEarn Assistant (a rule-based Chatbot) that guides the user on how to use the platform. It features a chat window with a welcome message, a text field and a send button for sending general questions, and quick reply buttons for common topics like sign-up, upload resume, post a job, and report a scam. EasyEarn uses the Chatbot Page design as shown in Figure 3.42, featuring the chat window, input for chatrooms and quick reply shortcuts.
 
 ![Figure 85](Diagram/figure-85.png)
 
-Figure 3.41: Password Reset Email
+Figure 3.42: Chatbot Page
+
+### 3.11.8 Google Translate Website
+
+Google Translate Website has a language selector where users can see EasyEarn in various languages such as Bahasa Melayu, Mandarin, Tamil and English. If a language is chosen, the current EasyEarn page is redirected via Google Translate site translation service; the content on the page is translated without the need for having localised copies of each page. To extend users' access from different communities in Malaysia, the Google Translate Website is integrated into EasyEarn as in Figure 3.43.
+
+![Figure 86](Diagram/figure-86.png)
+
+Figure 3.43: Google Translate Website
+
+### 3.11.9 Registration Page
+
+The Registration Page can be used by new users to register on EasyEarn. There are two sections of the form: Job Seeker and Employer, with the form fields adjusted dynamically based on the selection. In both cases, the form requests the user's complete name, email address, password, cellphone number and region or city. Employers are also required to enter the type of business (Individual or Company). If the registration form is successfully submitted, then a user account is created on Supabase with the role selected and the permissions associated with that role. The Terms and Conditions must be accepted before filling out the Registration Form. The collection and processing of personal information are based on the notice, consent and security principles in PDPA 2010. After successful registration, the user will be redirected to the Login Page. A Registration Page was implemented as shown in Figure 3.44, with sections split up according to the user's (Job Seeker/Emp) role in signing up for an account.
+
+![Figure 87](Diagram/figure-87.png)
+
+![Figure 88](Diagram/figure-88.png)
+
+Figure 3.44: Registration Page
+
+### 3.11.10 Login Page
+
+All EasyEarn users will access the Login Page for authentication. The page features an email and password input field, a role selector that lets users choose to be either a Job Seeker or Employer, and a “Login” button that sends the email and password to Supabase Authentication. After successful login, users are directed to their dashboard based on their role. If you do not have an account, A "Register here" link will direct new users to the Registration page, while the Admin Login link is available at the bottom of the page. The developed Login Page is displayed in Figure 3.45, which includes the role selector for authentication, email and password fields.
+
+![Figure 89](Diagram/figure-89.png)
+
+Figure 3.45: Login Page
+
+### 3.11.11 Forgot Password Page
+
+The Forgot Password and Reset Password pages enable users who are not able to log in to their EasyEarn account to recover access to their account via a secure email-based reset flow. On the Forgot Password page, the user types in their registered email address, and Supabase Auth sends a password reset link to their email address. The link will take the user to the Reset Password page, on which he or she will enter and confirm the new password and then return to the Login page to log in with the new password. The password validation for strength and the visual style are the same on both pages as the Login/Register page. The Forgot Password and Reset Password pages that have been added to EasyEarn and are shown in Figure 3.46 demonstrate how this can be done.
+
+![Figure 90](Diagram/figure-90.png)
+
+Figure 3.46: Forgot Password Page
+
+### 3.11.12 Password Reset Email
+
+On the Forgot Password page, when a user submits their email, Supabase Auth automatically sends a password reset email to the user's registered email address as shown in Figure 3.47. The email includes a "Reset Password" link which is valid for a short period of time; when it is clicked, the user will be directed to the Reset Password page where they can change their password and regain access to their account.
+
+![Figure 91](Diagram/figure-91.png)
+
+Figure 3.47: Password Reset Email
 
 ### 3.11.13 Logout Page
 
-The Logout page verifies that the user is logged out of EasyEarn and his session. It includes a personalised goodbye screen with the user's profile picture or initials, a confirmation message to let the user know that his/her progress has been saved, and options to return to the homepage or log in again. The page also makes a Supabase sign-out call as a precaution, just in case someone navigated to this page directly rather than through the standard logout process. The design of the Logout Page in EasyEarn is shown in Figure 3.42, including a customised goodbye message and navigation.
+The Logout page verifies that the user is logged out of EasyEarn and his session. It includes a personalised goodbye screen with the user's profile picture or initials, a confirmation message to let the user know that his/her progress has been saved, and options to return to the homepage or log in again. The page also makes a Supabase sign-out call as a precaution, just in case someone navigated to this page directly rather than through the standard logout process. The design of the Logout Page in EasyEarn is shown in Figure 3.48, including a customised goodbye message and navigation.
 
-Figure 3.42: Logout Page
+![Figure 92](Diagram/figure-92.png)
 
-![Figure 86](Diagram/figure-86.png)
+Figure 3.48: Logout Page
 
 ### 3.11.14 Job Seeker
 
@@ -1180,29 +1227,7 @@ The Job Seeker module is intended for people looking for short-term or flexible 
 
 3.11.14.1 Job Seeker Dashboard
 
-The Job Seeker Dashboard is the personal hub for authenticated job seekers upon login. It shows a welcome banner that shows the percentage of completion of the profile and highlights 4 buttons for quick access to the following actions: Update Profile, Review Applications, Build Resume and Check Work History. Figure 3.43 depicts the Job Seeker Dashboard with the following elements: Welcome Banner, Profile Completion Indicator, and Quick Access Action Cards.
-
-![Figure 87](Diagram/figure-87.png)
-
-![Figure 88](Diagram/figure-88.png)
-
-![Figure 89](Diagram/figure-89.png)
-
-![Figure 90](Diagram/figure-90.png)
-
-Figure 3.43: Job Seeker Dashboard
-
-#### 3.11.14.2 Jobs Page
-
-The Job Seeker Jobs page provides a way for Job Seekers to view and manage their saved jobs in one place, and to browse through job postings in two tabs, Browse Jobs and Saved Jobs.
-
-Browser Job:
-
-The Browse Jobs tab includes an activity overview that includes counts of saved, applied, skill-matched and available jobs, a search and filter panel, a filter by "Near Me" geolocation with a radius filter (5-50 km), a grid of live approved job posts, and a jobs already applied filter section. EasyEarn Browse Jobs tab is shown in Figure 3.44, where the activity overview, search/filter panel and live job listings are seen.
-
-![Figure 91](Diagram/figure-91.png)
-
-![Figure 92](Diagram/figure-92.png)
+The Job Seeker Dashboard is the personal hub for authenticated job seekers upon login. It shows a welcome banner that shows the percentage of completion of the profile and highlights 4 buttons for quick access to the following actions: Update Profile, Review Applications, Build Resume and Check Work History. Figure 3.49 depicts the Job Seeker Dashboard with the following elements: Welcome Banner, Profile Completion Indicator, and Quick Access Action Cards.
 
 ![Figure 93](Diagram/figure-93.png)
 
@@ -1212,11 +1237,15 @@ The Browse Jobs tab includes an activity overview that includes counts of saved,
 
 ![Figure 96](Diagram/figure-96.png)
 
-Figure 3.44: Jobs Page (Browse Jobs Tab)
+Figure 3.49: Job Seeker Dashboard
 
-Saved Jobs:
+#### 3.11.14.2 Jobs Page
 
-The Saved Jobs tab shows a summary of how many jobs are saved, how many of them are still live, and how many have already been applied to, and a list of bookmarked listings available for Job Seekers to apply to or remove. The Saved Jobs tab in EasyEarn is shown in Figure 3.45 and consists of the Saved Jobs summary and Bookmarked listings.
+The Job Seeker Jobs page provides a way for Job Seekers to view and manage their saved jobs in one place, and to browse through job postings in two tabs, Browse Jobs and Saved Jobs.
+
+Browser Job:
+
+The Browse Jobs tab includes an activity overview that includes counts of saved, applied, skill-matched and available jobs, a search and filter panel, a filter by "Near Me" geolocation with a radius filter (5-50 km), a grid of live approved job posts, and a jobs already applied filter section. EasyEarn Browse Jobs tab is shown in Figure 3.50, where the activity overview, search/filter panel and live job listings are seen.
 
 ![Figure 97](Diagram/figure-97.png)
 
@@ -1226,15 +1255,15 @@ The Saved Jobs tab shows a summary of how many jobs are saved, how many of them 
 
 ![Figure 100](Diagram/figure-100.png)
 
-Figure 3.45: Jobs Page (Saved Jobs Tab)
-
-#### 3.11.14.3 My Application Page
-
-Job Seekers can use the My Applications page to keep track of all jobs they've applied for. It features an overview section with real-time application metrics (In Review, Active, Completed, Rejected), a trend section with a line graph and doughnut chart of application activity by status and filter tabs that display applications by All, Active, or Rejected. All applications are listed on the page with their current status and a separate Completed Jobs section shows jobs that have been accepted and are acknowledged as complete, with Job Seekers checking the box to confirm that the jobs were completed and rating the employer after final confirmation; when they are accepted, they are automatically saved to the user's Work History. When Job Seekers request the employer to confirm completion of a job, they can enter the job title, employer/company, category, and start/end dates in a Submit Completion Request modal. Figure 3.46 shows the My Applications Page design used in EasyEarn, which features the application overview stats, activity trend charts, status filters and the completed jobs/work history submission flow.
-
 ![Figure 101](Diagram/figure-101.png)
 
 ![Figure 102](Diagram/figure-102.png)
+
+Figure 3.50: Jobs Page (Browse Jobs Tab)
+
+Saved Jobs:
+
+The Saved Jobs tab shows a summary of how many jobs are saved, how many of them are still live, and how many have already been applied to, and a list of bookmarked listings available for Job Seekers to apply to or remove. The Saved Jobs tab in EasyEarn is shown in Figure 3.51 and consists of the Saved Jobs summary and Bookmarked listings.
 
 ![Figure 103](Diagram/figure-103.png)
 
@@ -1242,29 +1271,17 @@ Job Seekers can use the My Applications page to keep track of all jobs they've a
 
 ![Figure 105](Diagram/figure-105.png)
 
-Figure 3.46: My Applications Page
-
-##### 3.11.14.3.1 Report Employer
-
-Job Seekers can mark a particular employer as a Job Seeker by using a Report button that is included on each application card, so that they do not have to navigate away from the application card. When the Job Seeker clicks Report, they will access a modal to choose from a list of options like a fake or misleading job posting, harassment, unsafe working conditions, non-payment or scam, and more, and may optionally enter additional details before submitting the report to be reviewed by an admin. The reason selector and details field are presented as the Report Employer modal in EasyEarn, as shown in Figure 3.47.
-
 ![Figure 106](Diagram/figure-106.png)
 
-Figure 3.47: Report Employer
+Figure 3.51: Jobs Page (Saved Jobs Tab)
 
-#### 3.11.14.4 Job Seeker Messages Page
+#### 3.11.14.3 My Application Page
 
-The Messages page is used to post and receive asynchronous messages to and from the Employers about submitting them for a job and how to get the job. It features a sidebar inbox with an overview of conversation threads with the name of the employer, relevant job posting, and an employer rating if applicable, and a thread panel with the complete conversation history. Job Seekers are able to send text messages, upload images and see the messages sent by the employer, including the special DuitNow payment-related messages. On a panel, if no conversation is selected, it shows a "Select a conversation" prompt in the inbox. The design of the Messages Page used in EasyEarn is shown in Figure 3.48 and consists of the conversation inbox, message thread view, and the image attachment support message composer.
+Job Seekers can use the My Applications page to keep track of all jobs they've applied for. It features an overview section with real-time application metrics (In Review, Active, Completed, Rejected), a trend section with a line graph and doughnut chart of application activity by status and filter tabs that display applications by All, Active, or Rejected. All applications are listed on the page with their current status and a separate Completed Jobs section shows jobs that have been accepted and are acknowledged as complete, with Job Seekers checking the box to confirm that the jobs were completed and rating the employer after final confirmation; when they are accepted, they are automatically saved to the user's Work History. When Job Seekers request the employer to confirm completion of a job, they can enter the job title, employer/company, category, and start/end dates in a Submit Completion Request modal. Figure 3.52 shows the My Applications Page design used in EasyEarn, which features the application overview stats, activity trend charts, status filters and the completed jobs/work history submission flow.
 
 ![Figure 107](Diagram/figure-107.png)
 
 ![Figure 108](Diagram/figure-108.png)
-
-Figure 3.48: Job Seeker Messages Page
-
-#### 3.11.14.5 Interviews Page
-
-The Interviews page lets Job Seekers keep track of interview appointments arranged by employers who have received their job applications. It features an interview summary section with numbers of Confirmed, Upcoming, and Completed interviews; a list of upcoming interviews is sorted by soonest date, and a Completed Interviews section shows past or attended interviews. If there are no confirmed interviews, the page will offer a little bit of advice to the Job Seeker to fill out their profile with skills and a bio to increase the odds of being accepted to the application process, as well as links to edit their profile and keep track of applications. The design of the Interviews Page, as shown in Figure 3.49, is the one that was used in EasyEarn and it contains the next interviews, the completed interview history, and the summary stats for the interviews.
 
 ![Figure 109](Diagram/figure-109.png)
 
@@ -1272,27 +1289,33 @@ The Interviews page lets Job Seekers keep track of interview appointments arrang
 
 ![Figure 111](Diagram/figure-111.png)
 
+Figure 3.52: My Applications Page
+
+##### 3.11.14.3.1 Report Employer
+
+Job Seekers can report a particular Employer by using the Report button included on each application card, without navigating away from the application page. When the Job Seeker clicks Report, they will access a modal to choose from a list of options like a fake or misleading job posting, harassment, unsafe working conditions, non-payment or scam, and more, and may optionally enter additional details before submitting the report to be reviewed by an admin. The reason selector and details field are presented as the Report Employer modal in EasyEarn, as shown in Figure 3.53.
+
 ![Figure 112](Diagram/figure-112.png)
+
+Figure 3.53: Report Employer
+
+#### 3.11.14.4 Job Seeker Messages Page
+
+The Messages page is used to post and receive asynchronous messages to and from the Employers about submitting them for a job and how to get the job. It features a sidebar inbox with an overview of conversation threads with the name of the employer, relevant job posting, and an employer rating if applicable, and a thread panel with the complete conversation history. Job Seekers are able to send text messages, upload images and see the messages sent by the employer, including the special DuitNow payment-related messages. On a panel, if no conversation is selected, it shows a "Select a conversation" prompt in the inbox. The design of the Messages Page used in EasyEarn is shown in Figure 3.54 and consists of the conversation inbox, message thread view, and the image attachment support message composer.
 
 ![Figure 113](Diagram/figure-113.png)
 
-Figure 3.49: Interviews Page
-
-#### 3.11.14.6 Work History Page
-
-Job Seekers will be able to see their completed gigs on their Work History page and update their resumes and earnings tracking. Completed work records are created from completed job engagements and stored in the Supabase work_history table. It has an overview of the significant metrics such as total finished jobs, total income and top category. It also has a Work record form with the details of the job, including the Company, Job category, location, completion date, earnings, rating, work period and highlights. A resume readiness panel displays the number of work records that have been stored and whether the resume is ready or not, with a link to the Resume page. The Recent Work Record section shows work entries completed that are saved in the work_history table. There is a Rate Employer modal too, which lets a Job Seeker rate the employer 1-5 stars and write a review of the employer (optional). The design of the Work History Page in EasyEarn is shown in Figure 3.50, which consists of the metrics summary, work record form, resume readiness panel and Rate Employer modal.
-
 ![Figure 114](Diagram/figure-114.png)
+
+Figure 3.54: Job Seeker Messages Page
+
+#### 3.11.14.5 Interviews Page
+
+The Interviews page lets Job Seekers keep track of interview appointments arranged by employers who have received their job applications. It features an interview summary section with numbers of Confirmed, Upcoming, and Completed interviews; a list of upcoming interviews is sorted by soonest date, and a Completed Interviews section shows past or attended interviews. If there are no confirmed interviews, the page will offer a little bit of advice to the Job Seeker to fill out their profile with skills and a bio to increase the odds of being accepted to the application process, as well as links to edit their profile and keep track of applications. The design of the Interviews Page, as shown in Figure 3.55, is the one that was used in EasyEarn and it contains the next interviews, the completed interview history, and the summary stats for the interviews.
 
 ![Figure 115](Diagram/figure-115.png)
 
 ![Figure 116](Diagram/figure-116.png)
-
-Figure 3.50: Work History Page
-
-#### 3.11.14.7 Resume Page
-
-The Resume page automatically creates a Resume based on the information provided in the Job Seeker's Saved profile and Work History section that's ready for use by an employer. The page provides a printable single-page resume that includes the user's profile picture, name, professional headline, contact information, profile bio, skills, education and availability. The main content area displays work experience entries, highlighted results such as completed jobs, total earnings and average employer rating, as well as references generated from completed jobs. Using the Refresh button, Job Seekers can refresh the preview view with fresh data as they update their profile, and download the resume in a PDF format using the jsPDF and html2canvas packages. EasyEarn's Resume Page design is a combination of the Resume preview design and the refresh/download toolbar, as illustrated in Figure 3.51.
 
 ![Figure 117](Diagram/figure-117.png)
 
@@ -1300,17 +1323,23 @@ The Resume page automatically creates a Resume based on the information provided
 
 ![Figure 119](Diagram/figure-119.png)
 
+Figure 3.55: Interviews Page
+
+#### 3.11.14.6 Work History Page
+
+Job Seekers will be able to see their completed gigs on their Work History page and update their resumes and earnings tracking. Completed work records are created from completed job engagements and stored in the Supabase work_history table. It has an overview of the significant metrics such as total finished jobs, total income and top category. It also has a Work record form with the details of the job, including the Company, Job category, location, completion date, earnings, rating, work period and highlights. A resume readiness panel displays the number of work records that have been stored and whether the resume is ready or not, with a link to the Resume page. The Recent Work Record section shows work entries completed that are saved in the work_history table. There is a Rate Employer modal too, which lets a Job Seeker rate the employer 1-5 stars and write a review of the employer (optional). The design of the Work History Page in EasyEarn is shown in Figure 3.56, which consists of the metrics summary, work record form, resume readiness panel and Rate Employer modal.
+
 ![Figure 120](Diagram/figure-120.png)
-
-Figure 3.51: Resume Page
-
-#### 3.11.14.8 Job Seeker Profile Page
-
-Job Seekers can use the Profile page to fill in and keep up to date with information that they use throughout applications, recommendations, and resumes. It features a preview card with the user's avatar, headline, location, phone and availability, as well as an activity overview with rating, completed gigs, applications and saved jobs and a guide showing a progress bar and checklist of missing essentials to complete the user profile. The profile form consists of four sections: Basic Information, which includes the name, email, phone number, location, headline and biographical details, and the upload of a profile photo; Skills & Experience, which has a searchable skill tag picker, preferred job category, years of experience, and expected rate; Education, which dynamically adds qualification entries; and Availability, which includes a selectable available days, preferred time, and work mode. The final action section will enable Job Seekers to save all changes to their Supabase profile. The Profile Page design is shown in Figure 3.52 and includes the profile preview, the profile completeness tracker, and the editing form with multiple sections.
 
 ![Figure 121](Diagram/figure-121.png)
 
 ![Figure 122](Diagram/figure-122.png)
+
+Figure 3.56: Work History Page
+
+#### 3.11.14.7 Resume Page
+
+The Resume page automatically creates a Resume based on the information provided in the Job Seeker's Saved profile and Work History section that's ready for use by an employer. The page provides a printable single-page resume that includes the user's profile picture, name, professional headline, contact information, profile bio, skills, education and availability. The main content area displays work experience entries, highlighted results such as completed jobs, total earnings and average employer rating, as well as references generated from completed jobs. Using the Refresh button, Job Seekers can refresh the preview view with fresh data as they update their profile, and download the resume in a PDF format using the jsPDF and html2canvas packages. EasyEarn's Resume Page design is a combination of the Resume preview design and the refresh/download toolbar, as illustrated in Figure 3.57.
 
 ![Figure 123](Diagram/figure-123.png)
 
@@ -1320,15 +1349,11 @@ Job Seekers can use the Profile page to fill in and keep up to date with informa
 
 ![Figure 126](Diagram/figure-126.png)
 
-Figure 3.52: Job Seeker Profile Page
+Figure 3.57: Resume Page
 
-### 3.11.15 Employer
+#### 3.11.14.8 Job Seeker Profile Page
 
-The Employer module is for people and SMEs wanting to recruit for short or flexible-term contracts in EasyEarn. Employers can post their job listings, review & manage applications from job seekers, verify their business to display a verified badge, access a dashboard to see their hiring analytics, and rate job seekers after they finish the job. The module has an amber colour theme to differentiate it from Job Seeker and Admin modules.
-
-#### 3.11.15.1 Employer Dashboard
-
-The Employer Dashboard gives employers a single view of their hiring activity and shows them four statistics cards: Active Jobs, Pending Review, Total Applicants, and Trust Verified status. An Application Share Breakdown doughnut chart visualises the distribution of application statuses across all job postings. Figure 3.53 shows the Employer Dashboard implemented with hiring statistics cards and a breakdown of the application status doughnut chart.
+Job Seekers can use the Profile page to fill in and keep up to date with information that they use throughout applications, recommendations, and resumes. It features a preview card with the user's avatar, headline, location, phone and availability, as well as an activity overview with rating, completed gigs, applications and saved jobs and a guide showing a progress bar and checklist of missing essentials to complete the user profile. The profile form consists of four sections: Basic Information, which includes the name, email, phone number, location, headline and biographical details, and the upload of a profile photo; Skills & Experience, which has a searchable skill tag picker, preferred job category, years of experience, and expected rate; Education, which dynamically adds qualification entries; and Availability, which includes a selectable available days, preferred time, and work mode. The final action section will enable Job Seekers to save all changes to their Supabase profile. The Profile Page design is shown in Figure 3.58 and includes the profile preview, the profile completeness tracker, and the editing form with multiple sections.
 
 ![Figure 127](Diagram/figure-127.png)
 
@@ -1338,15 +1363,19 @@ The Employer Dashboard gives employers a single view of their hiring activity an
 
 ![Figure 130](Diagram/figure-130.png)
 
-Figure 3.53: Employer Dashboard
-
-#### 3.11.15.2 Manage Jobs Page
-
-The Manage Jobs page is the Employer's main page to post and update jobs. It features a metrics dashboard with Published, Pending Review, Expired, and Closed metrics and a job form to add or edit a job with fields for job title, job category, location (with state and area drop-downs, and a geolocate/geocode button), pay range, openings, schedule, expiry date, job required skills (where tags can be set to up to 5 skills), and a job description, including options for publish immediately and save as a draft. A Publishing Notes panel shows a listing quality score, a pre-publish checklist and quick tips for writing effective listings. At the bottom of the page, there is a Job List section, which lists all of the employer's jobs and will display their status, number of applicants, and expiry date so that the employer can view and manage their jobs from one location. The Manage Jobs Page design in EasyEarn is shown in Figure 3.54, which consists of the job metrics overview, the job creation/editing form, the publishing guidance panel, and the listings management table.
-
 ![Figure 131](Diagram/figure-131.png)
 
 ![Figure 132](Diagram/figure-132.png)
+
+Figure 3.58: Job Seeker Profile Page
+
+### 3.11.15 Employer
+
+The Employer module is for people and SMEs wanting to recruit for short or flexible-term contracts in EasyEarn. Employers can post their job listings, review & manage applications from job seekers, verify their business to display a verified badge, access a dashboard to see their hiring analytics, and rate job seekers after they finish the job. The module has an amber colour theme to differentiate it from Job Seeker and Admin modules.
+
+#### 3.11.15.1 Employer Dashboard
+
+The Employer Dashboard gives employers a single view of their hiring activity and shows them four statistics cards: Active Jobs, Pending Review, Total Applicants, and Trust Verified status. An Application Share Breakdown doughnut chart visualises the distribution of application statuses across all job postings. Figure 3.59 shows the Employer Dashboard implemented with hiring statistics cards and a breakdown of the application status doughnut chart.
 
 ![Figure 133](Diagram/figure-133.png)
 
@@ -1354,13 +1383,13 @@ The Manage Jobs page is the Employer's main page to post and update jobs. It fea
 
 ![Figure 135](Diagram/figure-135.png)
 
-Figure 3.54: Manage Jobs Page
-
-#### 3.11.15.3 Applicants Page
-
-Employers can review candidates and manage the hiring pipeline on their Applicants page for their job listings. It provides an overview, where the numbers of the applicants applied, reviewed, accepted and rejected are displayed, a trend view with a line chart and a doughnut chart that breaks down the activity of applicants by status, and an Applicant Queue that shows the list of all applications received, from which Employers can accept applicants, schedule them for an interview, send messages and confirm job completion. Employers can use a Schedule Interview modal to schedule the interview date and time, location/Platform and notes for the applicant. Once a Job is completed, Employers are able to record the Date of Confirmation and the Final Earnings using a Confirm Completed Job modal. The Applicants Page design used in EasyEarn is shown in Figure 3.55, featuring the applicant overview stats, activity trend charts, applicant queue, the interview scheduling and job completion modals.
-
 ![Figure 136](Diagram/figure-136.png)
+
+Figure 3.59: Employer Dashboard
+
+#### 3.11.15.2 Manage Jobs Page
+
+The Manage Jobs page is the Employer's main page to post and update jobs. It features a metrics dashboard with Published, Pending Review, Expired, and Closed metrics and a job form to add or edit a job with fields for job title, job category, location (with state and area drop-downs, and a geolocate/geocode button), pay range, openings, schedule, expiry date, job required skills (where tags can be set to up to 5 skills), and a job description, including options for publish immediately and save as a draft. A Publishing Notes panel shows a listing quality score, a pre-publish checklist and quick tips for writing effective listings. At the bottom of the page, there is a Job List section, which lists all of the employer's jobs and will display their status, number of applicants, and expiry date so that the employer can view and manage their jobs from one location. The Manage Jobs Page design in EasyEarn is shown in Figure 3.60, which consists of the job metrics overview, the job creation/editing form, the publishing guidance panel, and the listings management table.
 
 ![Figure 137](Diagram/figure-137.png)
 
@@ -1368,53 +1397,71 @@ Employers can review candidates and manage the hiring pipeline on their Applican
 
 ![Figure 139](Diagram/figure-139.png)
 
-Figure 3.55: Applicants Page
-
-#### 3.11.15.4 Employer Messages Page
-
-Employers can follow up with a job seeker about application and hiring details on the Messages page. It has an inbox sidebar that shows conversation threads, and a thread panel that shows a conversation history and allows Employers to view and add messages about a given applicant. If no conversation is selected, the panel will ask the Employer to select a conversation in the Inbox or create a conversation on the Applicants page. EasyEarn implements the Messages Page (Employer) design shown in Figure 3.56 that contains the conversation inbox and the message thread view.
-
 ![Figure 140](Diagram/figure-140.png)
 
 ![Figure 141](Diagram/figure-141.png)
 
+Figure 3.60: Manage Jobs Page
+
+#### 3.11.15.3 Applicants Page
+
+Employers can review candidates and manage the hiring pipeline on their Applicants page for their job listings. It provides an overview, where the numbers of the applicants applied, reviewed, accepted and rejected are displayed, a trend view with a line chart and a doughnut chart that breaks down the activity of applicants by status, and an Applicant Queue that shows the list of all applications received, from which Employers can accept applicants, schedule them for an interview, send messages and confirm job completion. Employers can use a Schedule Interview modal to schedule the interview date and time, location/Platform and notes for the applicant. Once a Job is completed, Employers are able to record the Date of Confirmation and the Final Earnings using a Confirm Completed Job modal. The Applicants Page design used in EasyEarn is shown in Figure 3.61, featuring the applicant overview stats, activity trend charts, applicant queue, the interview scheduling and job completion modals.
+
 ![Figure 142](Diagram/figure-142.png)
-
-Figure 3.56: Employer Messages Page
-
-#### 3.11.15.5 Verification Page
-
-Employers can upload their business information for admin review and approval on the Verification Page. It comes with a status bar that displays the progress of the verification process and a checklist of the necessary requirements in the Company Info, Documents and Admin Review steps. The data collected on the verification form are the SSM registration number, business type, business address and documents uploaded (business registration document, contact person proof (IC copy, staff card or signed authorisation letter)). After all the necessary information and paperwork are submitted, employers may submit the completed package to the Admin for review. The design of the Verification Page in EasyEarn is shown in Figure 3.57. A progress banner is displayed on this page to show verification status, and a form to return business credentials is provided.
 
 ![Figure 143](Diagram/figure-143.png)
 
 ![Figure 144](Diagram/figure-144.png)
 
-Figure 3.57: Verification Page
-
-#### 3.11.15.6 Rating Page
-
-The Rating Page shows the ratings and reviews of the Employer that have been received from Job Seekers for completed jobs. It includes an overview of the average rating, the number of reviews and the number of 5-star ratings, a rating distribution graph and a list of all the reviews received. The Rating Page design is demonstrated in Figure 3.58, which includes the rating overview, distribution breakdown and list of all ratings.
-
-Figure 3.58: Rating Page
-
 ![Figure 145](Diagram/figure-145.png)
+
+Figure 3.61: Applicants Page
+
+#### 3.11.15.4 Employer Messages Page
+
+Employers can follow up with a job seeker about application and hiring details on the Messages page. It has an inbox sidebar that shows conversation threads, and a thread panel that shows a conversation history and allows Employers to view and add messages about a given applicant. If no conversation is selected, the panel will ask the Employer to select a conversation in the Inbox or create a conversation on the Applicants page. EasyEarn implements the Messages Page (Employer) design shown in Figure 3.62 that contains the conversation inbox and the message thread view.
 
 ![Figure 146](Diagram/figure-146.png)
 
 ![Figure 147](Diagram/figure-147.png)
 
-#### 3.11.15.7 Employer Profile Page
-
-Employer Profile Page allows the Employer to keep certain company information that can foster trust with prospective Job Seekers before they apply for a job. It includes a profile form with the name of the company, contact email, contact phone number, business type, location, website, business logo and company overview. It also features a readiness snapshot panel, a preview of the company logo, and progress tracking throughout the Basic Info, Trust Setup and Hiring Ready stages, as well as a trust checklist that offers the steps to make the company profile more complete and trustworthy. EasyEarn Employer Profile Page design layout, as shown in Figure 3.59, contains the Employer Profile details form and Employer Profile ready snap.
-
-Figure 3.59: Employer Profile Page
-
 ![Figure 148](Diagram/figure-148.png)
+
+Figure 3.62: Employer Messages Page
+
+#### 3.11.15.5 Verification Page
+
+Employers can upload their business information for admin review and approval on the Verification Page. It comes with a status bar that displays the progress of the verification process and a checklist of the necessary requirements in the Company Info, Documents and Admin Review steps. The data collected on the verification form are the SSM registration number, business type, business address and documents uploaded (business registration document, contact person proof (IC copy, staff card or signed authorisation letter)). After all the necessary information and paperwork are submitted, employers may submit the completed package to the Admin for review. The design of the Verification Page in EasyEarn is shown in Figure 3.63. A progress banner is displayed on this page to show verification status, and a form to return business credentials is provided.
 
 ![Figure 149](Diagram/figure-149.png)
 
 ![Figure 150](Diagram/figure-150.png)
+
+Figure 3.63: Verification Page
+
+#### 3.11.15.6 Rating Page
+
+The Rating Page shows the ratings and reviews of the Employer that have been received from Job Seekers for completed jobs. It includes an overview of the average rating, the number of reviews and the number of 5-star ratings, a rating distribution graph and a list of all the reviews received. The Rating Page design is demonstrated in Figure 3.64, which includes the rating overview, distribution breakdown and list of all ratings.
+
+![Figure 151](Diagram/figure-151.png)
+
+![Figure 152](Diagram/figure-152.png)
+
+![Figure 153](Diagram/figure-153.png)
+
+Figure 3.64: Rating Page
+
+#### 3.11.15.7 Employer Profile Page
+
+Employer Profile Page allows the Employer to keep certain company information that can foster trust with prospective Job Seekers before they apply for a job. It includes a profile form with the name of the company, contact email, contact phone number, business type, location, website, business logo and company overview. It also features a readiness snapshot panel, a preview of the company logo, and progress tracking throughout the Basic Info, Trust Setup and Hiring Ready stages, as well as a trust checklist that offers the steps to make the company profile more complete and trustworthy. EasyEarn Employer Profile Page design layout, as shown in Figure 3.65, contains the Employer Profile details form and Employer Profile ready snap.
+
+![Figure 154](Diagram/figure-154.png)
+
+![Figure 155](Diagram/figure-155.png)
+
+![Figure 156](Diagram/figure-156.png)
+
+Figure 3.65: Employer Profile Page
 
 ### 3.11.16 Admin
 
@@ -1422,53 +1469,29 @@ The Admin module is designed to control and oversee the platform's operations, a
 
 #### 3.11.16.1 Admin Dashboard
 
-The Admin Dashboard gives the Administrator a full overview of platform activity, with statistics cards for total Users, Reports, Verifications, and Jobs. The Moderation Queue shows reports, verification requests and job postings that need to be reviewed by an admin, while the Database Distribution Metrics doughnut chart shows platform data proportions by category. Figure 3.60 shows the Admin Dashboard implemented with Platform statistics cards, activity stream and Database distribution metrics.
-
-![Figure 151](Diagram/figure-151.png)
-
-![Figure 152](Diagram/figure-152.png)
-
-Figure 3.60: Admin Dashboard
-
-#### 3.11.16.2 Admin Users Page
-
-The Admin Users Page provides Administrators with a list of all users registered in the platform. It has a summary that displays the number of Job Seekers, Employers and Admins, and a user directory which filters by role. Alternatively, administrators can search for users by their name, email, phone number or location using the search field. All users appear in the directory with their respective roles, account status and user registration date, which can be used for additional moderation actions. The Admin Users Page design of EasyEarn is displayed in Figure 3.61, which includes an overview of the user count and a filterable user directory.
-
-![Figure 153](Diagram/figure-153.png)
-
-Figure 3.61: Admin User Page
-
-![Figure 154](Diagram/figure-154.png)
-
-![Figure 155](Diagram/figure-155.png)
-
-#### 3.11.16.3 Admin Jobs Page
-
-Moderate jobs posted on the platform from the Admin Jobs Page by admins. It contains a summary of the number of Live Jobs, Flagged Jobs and Removed listings, and includes one Live Job review queue. The queue may be sorted by moderation status, which includes Pending Review, Approved, Flagged, Removed, Closed, Expired or All Jobs. A search bar is also provided to search by title, employer, category, pay or description. The employer name is displayed with the flag reason and moderation status for each of the job posts, and this lets Admins view and make changes to flagged or pending job posts. Figure 3.62 shows the EasyEarn system's Admin Jobs Page, which contains an overview of the jobs' status and provides a list of jobs in the review queue that can be filtered.
-
-![Figure 156](Diagram/figure-156.png)
+The Admin Dashboard gives the Administrator a full overview of platform activity, with statistics cards for total Users, Reports, Verifications, and Jobs. The Moderation Queue shows reports, verification requests and job postings that need to be reviewed by an admin, while the Database Distribution Metrics doughnut chart shows platform data proportions by category. Figure 3.66 shows the Admin Dashboard implemented with Platform statistics cards, activity stream and Database distribution metrics.
 
 ![Figure 157](Diagram/figure-157.png)
 
 ![Figure 158](Diagram/figure-158.png)
 
+Figure 3.66: Admin Dashboard
+
+#### 3.11.16.2 Admin Users Page
+
+The Admin Users Page provides Administrators with a list of all users registered in the platform. It has a summary that displays the number of Job Seekers, Employers and Admins, and a user directory which filters by role. Alternatively, administrators can search for users by their name, email, phone number or location using the search field. All users appear in the directory with their respective roles, account status and user registration date, which can be used for additional moderation actions. The Admin Users Page design of EasyEarn is displayed in Figure 3.67, which includes an overview of the user count and a filterable user directory.
+
 ![Figure 159](Diagram/figure-159.png)
-
-Figure 3.62: Admin Jobs Page
-
-#### 3.11.16.4 Admin Reports Page
-
-Admins can manage and resolve safety-related reports, such as suspicious employers, fraudulent listings and payment disputes, through the Admin Reports Page. It includes an overview of the number of Open, Escalated and Resolved reports, as well as a report feed that filters reports by Status (Open, Escalated or Resolved) and by Source (Supabase Reports or Payment Disputes). A search field is also included to search by type, description, reporter and/or status. Every report displays the type of report, priority and status, enabling Admins to view and act upon reports of fake employers, non-payment, suspicious listings or platform abuse. The design for the Admin Reports Page in EasyEarn is shown in Figure 3.63; it combines the report status overview and filterable report feed.
 
 ![Figure 160](Diagram/figure-160.png)
 
 ![Figure 161](Diagram/figure-161.png)
 
-Figure 3.63: Admin Reports Page
+Figure 3.67: Admin User Page
 
-#### 3.11.16.5 Admin Messages Page
+#### 3.11.16.3 Admin Jobs Page
 
-If a payment dispute or moderation issue is to be followed up with the user in question, Admins may send them a message asynchronously from the Admin Messages Page. It features an inbox sidebar that notifies active conversations between the Admin and others, and includes a message panel that lists the selected conversation history so that the Admin can view past messages and type in new ones. If follow-up is needed, the corresponding conversation will be available for the Admin on the Admin Reports Page. Admin Messages Page design in EasyEarn with a conversation inbox and message thread panel is shown in Figure 3.64.
+Moderate jobs posted on the platform from the Admin Jobs Page by admins. It contains a summary of the number of Live Jobs, Flagged Jobs and Removed listings, and includes one Live Job review queue. The queue may be sorted by moderation status, which includes Pending Review, Approved, Flagged, Removed, Closed, Expired or All Jobs. A search bar is also provided to search by title, employer, category, pay or description. The employer name is displayed with the flag reason and moderation status for each of the job posts, and this lets Admins view and make changes to flagged or pending job posts. Figure 3.68 shows the EasyEarn system's Admin Jobs Page, which contains an overview of the jobs' status and provides a list of jobs in the review queue that can be filtered.
 
 ![Figure 162](Diagram/figure-162.png)
 
@@ -1476,29 +1499,35 @@ If a payment dispute or moderation issue is to be followed up with the user in q
 
 ![Figure 164](Diagram/figure-164.png)
 
-Figure 3.64: Admin Messages Page
-
-#### 3.11.16.6 Admin Verifications Review Page
-
-The Admin Verification Review Page is one of the Safety and Trust features of EasyEarn, and directly contributes to Research Objective 2. The page allows the Administrator to view, approve or reject the submission of employer KYB documentation. When a verification is requested, the employer's name is displayed, along with submitted documents and the status of the verification, which will enable the Administrator to make informed decisions to ensure the integrity and trust of the platform. The Admin Verification Review Page (skipped for some of the other types of documents) allows the Administrator to approve or deny each employer's document submission.
-
 ![Figure 165](Diagram/figure-165.png)
+
+Figure 3.68: Admin Jobs Page
+
+#### 3.11.16.4 Admin Reports Page
+
+Admins can manage and resolve safety-related reports, such as suspicious employers, fraudulent listings and payment disputes, through the Admin Reports Page. It includes an overview of the number of Open, Escalated and Resolved reports, as well as a report feed that filters reports by Status (Open, Escalated or Resolved) and by Source (Supabase Reports or Payment Disputes). A search field is also included to search by type, description, reporter and/or status. Every report displays the type of report, priority and status, enabling Admins to view and act upon reports of fake employers, non-payment, suspicious listings or platform abuse. The design for the Admin Reports Page in EasyEarn is shown in Figure 3.69; it combines the report status overview and filterable report feed.
 
 ![Figure 166](Diagram/figure-166.png)
 
 ![Figure 167](Diagram/figure-167.png)
 
+Figure 3.69: Admin Reports Page
+
+#### 3.11.16.5 Admin Messages Page
+
+If a payment dispute or moderation issue is to be followed up with the user in question, Admins may send them a message asynchronously from the Admin Messages Page. It features an inbox sidebar that notifies active conversations between the Admin and others, and includes a message panel that lists the selected conversation history so that the admin can view past messages and type in new ones. If follow-up is needed, the corresponding conversation will be available for the Admin on the Admin Reports Page. Admin Messages Page design in EasyEarn with a conversation inbox and message thread panel is shown in Figure 3.70.
+
 ![Figure 168](Diagram/figure-168.png)
-
-Figure 3.65: Admin Verifications Review Page
-
-#### 3.11.16.7 Admin Analytics Page
-
-The Admin Analytics Page offers Admins a snapshot of platform growth and workload with summary metrics for user growth, job volume and report load, a trend chart, and a distribution graph of users, jobs, reports and verifications. It also includes a Gig Workers Act 2025 compliance awareness panel to remind Admins that there should be clear information in job postings, any claims related to payment must be followed up and that verification records should be looked at when considering employer accountabilities. Under the charts, there is a data explorer table showing analytics records which can be filtered by analytics type and status and searched by name, title, role, category or details. For the Admin Analytics Page, the design includes the filterable records table, the trend and distribution graphs, as well as summary metrics, as shown in Figure 3.66.
 
 ![Figure 169](Diagram/figure-169.png)
 
 ![Figure 170](Diagram/figure-170.png)
+
+Figure 3.70: Admin Messages Page
+
+#### 3.11.16.6 Admin Verifications Review Page
+
+EasyEarn has a number of Safety and Trust features, including the Admin Verifications Review Page, which directly supports Research Objective 2. The page provides the Administrator the ability to view the verification submissions, review uploaded Know Your Business (KYB) documents, check on the status of the verification, and approve or deny the verification request. If an Employer makes a request for a verification, his/her information, uploaded documents and verification status are displayed for review. This allows the Administrator to evaluate the information provided before verifying the submission and helps to ensure the platform's safety and trust. Figure 3.71 illustrates the Admin Verifications Review Page, which supports Research Objective 2 by allowing the Administrator to review Employer KYB documents, check the verification status, and approve or reject Employer verification submissions.
 
 ![Figure 171](Diagram/figure-171.png)
 
@@ -1506,24 +1535,54 @@ The Admin Analytics Page offers Admins a snapshot of platform growth and workloa
 
 ![Figure 173](Diagram/figure-173.png)
 
-Figure 3.66: Admin Analytics Page
-
-#### 3.11.16.8 Admin Profile Page
-
-The Admin Profile page enables Admins to keep their contact information and avatar complete and trustworthy, and use it across moderation actions. It has a profile page with the Admin's name, email, telephone, address, picture and brief bio about their moderating position. A snapshot panel on the right provides a real-time preview of the profile and readiness flags for basic info, identity, and moderation readiness, as well as a trust checklist to remind Admins to ensure that all information is up to date before taking moderation action. The design of the Admin Profile Page as used in EasyEarn is shown in Figure 3.67 and further comprises the profile form as well as the readiness snapshot panel.
-
 ![Figure 174](Diagram/figure-174.png)
+
+Figure 3.71: Admin Verifications Review Page
+
+#### 3.11.16.7 Admin Chatbot Knowledge Management Page
+
+The Admin Chatbot Knowledge Management Page is where Administrators can manage the knowledge that the EasyEarn rule-based chatbot uses. There is the ability to create new questions and answers, categorise and keyword questions, search for pre-existing chatbot knowledge and update or delete answers that are outdated. The chatbot knowledge is stored in the Supabase chatbot_knowledge table and is used to give a response to common platform-related questions. This way, the information in the chatbot can be updated via the Admin page, without having to adjust chatbot code. Only authorised Administrators have access to the management functions. The Admin Chatbot Knowledge Management Page, as shown in Figure 3.72, contains the knowledge entry form, as well as the stored chatbot knowledge records.
 
 ![Figure 175](Diagram/figure-175.png)
 
 ![Figure 176](Diagram/figure-176.png)
 
-Figure 3.67: Admin Profile Page
+![Figure 177](Diagram/figure-177.png)
+
+Figure 3.72: Admin Chatbot Knowledge Management Page
+
+#### 3.11.16.8 Admin Analytics Page
+
+The Admin Analytics Page offers Admins a snapshot of platform growth and workload with summary metrics for user growth, job volume and report load, a trend chart, and a distribution graph of users, jobs, reports and verifications. It also includes a Gig Workers Act 2025 compliance awareness panel to remind Admins that there should be clear information in job postings, any claims related to payment must be followed up and that verification records should be looked at when considering employer accountabilities. Under the charts, there is a data explorer table showing analytics records which can be filtered by analytics type and status and searched by name, title, role, category or details. For the Admin Analytics Page, the design includes the filterable records table, the trend and distribution graphs, as well as summary metrics, as shown in Figure 3.73.
+
+![Figure 178](Diagram/figure-178.png)
+
+![Figure 179](Diagram/figure-179.png)
+
+![Figure 180](Diagram/figure-180.png)
+
+![Figure 181](Diagram/figure-181.png)
+
+![Figure 182](Diagram/figure-182.png)
+
+Figure 3.73: Admin Analytics Page
+
+#### 3.11.16.9 Admin Profile Page
+
+The Admin Profile page enables Admins to keep their contact information and avatar complete and trustworthy, and use it across moderation actions. It has a profile page with the Admin's name, email, telephone, address, picture and brief bio about their moderating position. A snapshot panel on the right provides a real-time preview of the profile and readiness flags for basic info, identity, and moderation readiness, as well as a trust checklist to remind Admins to ensure that all information is up to date before taking moderation action. The design of the Admin Profile Page as used in EasyEarn is shown in Figure 3.74 and further comprises the profile form as well as the readiness snapshot panel.
+
+![Figure 183](Diagram/figure-183.png)
+
+![Figure 184](Diagram/figure-184.png)
+
+![Figure 185](Diagram/figure-185.png)
+
+Figure 3.74: Admin Profile Page
 
 ## 3.12 Conclusion
 
 This chapter thoroughly documented the research methodology, planning structure, requirements, system design and user interface design of the EasyEarn Job Matching Portal. The Hybrid Agile-Waterfall methodology gives a structure to the development process while allowing for the delivery of the seven core system modules in an incremental and sprint-based approach (Boehm & Turner, 2004; Sommerville, 2016).
 
-The planning artefacts (Work Breakdown Structure, project schedule, Gantt Chart) provide a clear plan with a 26-week execution plan, defined milestones, and deliverables (PMI, 2021). The Hardware and Software requirements analysis demonstrates that the development and deployment of EasyEarn is feasible in the academic project scope with web and cloud-based technology. These system design elements include the three-layer BaaS architecture, modular JavaScript system design, the twelve-table relational PostgreSQL database schema (Date, 2019), use case diagram (Rumbaugh et al., 2004), system workflow diagrams for roles, and serve as a technical basis for the EasyEarn platform.
+The planning artefacts (Work Breakdown Structure, project schedule and Gantt Chart) provide a clear 26-week execution framework with defined milestones and deliverables. The Hardware and Software requirements analysis demonstrates that the development and deployment of EasyEarn is feasible in the academic project scope with web and cloud-based technology. These system design elements include the three-layer BaaS architecture, modular JavaScript system design, the twelve-table relational PostgreSQL database schema (Date, 2019), use case diagram (Rumbaugh et al., 2004), and role-based system workflow diagrams. Together, these elements serve as the technical basis for the EasyEarn platform.
 
-The user-centred interface approach throughout the EasyEarn platform is illustrated in the wireframe designs of Section 3.10 and implemented user interfaces of Section 3.11 (Garrett, 2011; Nielsen, 2012). One of the main features is the Auto-Generate Resume function in Section 3.11.14.7, which will create an employer-ready resume PDF from the Job Seeker's saved profile and work history data, without needing to format the resume (Hall, 2025). The design of the system is geared towards simplicity, clarity and easy accessibility of the roles to be played, consistent with the platform's mission to target users with varying levels of digital literacy from underserved regions in Malaysia. Chapter 4 discusses the implementation and the testing and evaluation of EasyEarn towards the goals set by it.
+The user-centred interface approach throughout the EasyEarn platform is illustrated in the wireframe designs of Section 3.10 and implemented user interfaces of Section 3.11 (Garrett, 2011; Nielsen, 2012). One of the main features is the Auto-Generate Resume function in Section 3.11.14.7, which creates an employer-ready resume PDF from the Job Seeker's saved profile and work history data, without needing to format the resume (Hall, 2025). The design of the system is geared towards simplicity, clarity and easy accessibility of the roles to be played, consistent with the platform's mission to target users with varying levels of digital literacy from underserved regions in Malaysia. Chapter 4 discusses the implementation, testing and evaluation of EasyEarn in relation to the project objectives.

@@ -1,0 +1,917 @@
+# Appendix
+
+## Appendix 1: Google Form
+
+This appendix shows the Google Form used for the EasyEarn User Requirement Survey. Information on users' requirements and extra feedback was gathered using the questionnaire, which also asked for respondents' background data, their job searches, and their experiences of being hired or not.
+
+https://forms.gle/28utP2sdZZ9MFvBbA
+
+## Appendix 2: EasyEarn Job Matching Portal
+
+This appendix provides a link to the deployed EasyEarn Job Matching Portal for direct access to the implemented system.
+
+https://peiying040830.github.io/easyearn/
+
+## Appendix 3: System Testing Evidence
+
+Detailed System Testing test cases and supporting evidence are provided in this appendix, which are not covered in Section 4.3.1. The System Testing has been performed according to seven categories: E2E Workflow, Integration, Performance, Recovery, Business Logic, Reporting and Compliance. All 34 System Testing test cases achieved a Pass result. For brevity, one test case from each of the testing groups is given in Section 4.3.1, with the remaining test cases and evidence presented in Appendix 3.1 to Appendix 3.7, grouped by testing category.
+
+### Appendix 3.1 E2E Workflow
+
+The remaining End-to-End (E2E) Workflow System Testing test cases are provided in this appendix which are not covered by Section 4.3.1.1. These test cases are used to provide supporting evidence for the end-to-end EasyEarn user workflows for Job Seeker, Employer and Admin functions. Additional test cases are provided below, with the representative E2E Workflow test case, ST-003: Hire-to-completion flow, presented in Section 4.3.1.1.
+
+ST-001: Job seeker registration to application
+
+This test covers the complete Job Seeker workflow from account registration and profile completion to browsing job listings and submitting an application. Ensures that the application is properly documented and in the Applications section with a pending status. The job seeker's profile form and completed profile are depicted in Figure A3.1 along with the completed application submitted with a "pending" status.
+
+![Figure 1](Appendix Diagram/figure-01.png)
+
+Figure A3.1: Registration of the job seeker as an applicant
+
+ST-002: Employer registration to applicant review
+
+Handles onboarding of the employer with a secure employer code, posting job listings, and the employer reviews incoming applicants. Ensures proper gating of registration and that applicant status updates are communicated to the seeker. The employer registration with the secure employer code, posted job listing, and the applicant review screen are illustrated in Figure A3.2.
+
+![Figure 2](Appendix Diagram/figure-02.png)
+
+Figure A3.2: Registration of the job seeker as an applicant
+
+ST-004: Admin moderation lifecycle
+
+Consists of an admin who reviews a reported job listing, suspends it and resolves the report. Confirms that the listing is no longer visible when publicly searching for a listing and the report is marked resolved with notes saved. The admin moderation screen for a reported listing with the suspend action and resolved report, along with saved notes, is depicted in Figure A3.3.
+
+![Figure 3](Appendix Diagram/figure-03.png)
+
+Figure A3.3: Admin Moderation Lifecycle
+
+ST-005: Payment lifecycle
+
+Completes the two-step payment confirmation: employer marks payment as paid, seeker confirms receipt. Ensures both times are independently recorded, and payment is not "confirmed" until the seeker acts. The two-step payment confirmation is shown in Figure A3.4: the employer's "Mark as Paid" action and the independent receipt confirmation.
+
+![Figure 4](Appendix Diagram/figure-04.png)
+
+Figure A3.4: Payment Lifecycle
+
+ST-006: Payment dispute and resolution
+
+Covers a seeker who raises a payment dispute rather than confirming receipt, and admin mediation. Validates that the report is correct for the correct application/payment, without changing the payment state. The payment dispute submission and correct payment/record view for admin mediation are shown in Figure A3.5.
+
+![Figure 5](Appendix Diagram/figure-05.png)
+
+Figure A3.5: Payment Dispute and Resolution
+
+### Appendix 3.2 Integration
+
+The remaining Integration System Testing test cases are provided in this appendix, not covered by Section 4.3.1.2. The above mentioned test cases offer supporting evidence of the interaction between EasyEarn's frontend functions, Supabase database, database triggers, notifications, verification workflow, messaging and the chatbot functions and saved-job features. The other Integration test cases are listed below, and the representative Integration test case, ST-007: Application CRUD and openings_count trigger, is presented in Section 4.3.1.2.
+
+ST-008: New-application notification trigger
+
+Tests that automatically create a notification to the proper employer when a new application is submitted and that update the status of the application when the status is marked read. The employer gets a notification with the new application, and the application status is automatically updated when the notification is marked as read, as shown in Figure A3.6.
+
+![Figure 6](Appendix Diagram/figure-06.png)
+
+Figure A3.6: New-application Notification Trigger
+
+ST-009: Employer verification workflow
+
+Performs an end-to-end employer verification process, including document submission, admin approval and checks that the verified badge is displayed throughout the platform after successful verification. The employer verification workflow depicted in Figure A3.7 starts with the submission of the document, moves to admin approval and finally results in the verified badge on the platform.
+
+![Figure 7](Appendix Diagram/figure-07.png)
+
+Figure A3.7: Employer Verification Workflow
+
+ST-010: Messaging integration
+
+Tests asynchronous messaging between the Job Seeker and Employer to ensure that messages are stored and that the unread message indicator functions properly. The message thread shows the messages exchanged properly, and unread messages are marked as expected, as indicated in Figure A3.8.
+
+![Figure 8](Appendix Diagram/figure-08.png)
+
+Figure A3.8: Messaging Integration
+
+ST-011: Chatbot knowledge base Integration
+
+Tests that return results to queries are seeded; unrecognised tests return gracefully; both recognised and unrecognised tests are logged with a matched/unmatched flag. The chatbot gives back seeded responses for the recognised queries and a nice response for the unrecognised queries in Figure A3.9.
+
+![Figure 9](Appendix Diagram/figure-09.png)
+
+Figure A3.9: Chatbot Knowledge Base Integration
+
+ST-012: Saved jobs integration
+
+Correct Bookmark / Unbookmark synchronisation on the saved_jobs table and correct metrics for the Saved Jobs page. The Saved Jobs page displays the Saved Jobs and their metrics, synced as shown in Figure A3.10.
+
+![Figure 10](Appendix Diagram/figure-10.png)
+
+Figure A3.10: Saved Jobs Integration
+
+### Appendix 3.3 Performance
+
+The remaining test cases for the Performance System Testing are included in this appendix and are not included in Section 4.3.1.3. These test cases are used to support the performance of EasyEarn, where the data-intensive, concurrent and time-sensitive operations include loading and filtering of Job Listings, generation of PDF Resumes & rendering of the Admin Analytics Dashboard. Additional Performance test cases are provided below, and the representative Performance test case, ST-014: Concurrent application race condition, is presented in Section 4.3.1.3.
+
+ST-013: Jobs page load and filter performance
+
+Renders and filters a large set of job listings, showing that test page loads and filtering speed are within target and that no UI freezes while rendering or filtering. The Jobs page is rendering and filtering a large number of jobs, as seen in Figure A3.11, and the load and filter times are within target.
+
+![Figure 11](Appendix Diagram/figure-11.png)
+
+Figure A3.11: Jobs Page Load and Filter Performance
+
+ST-015: PDF resume generation performance
+
+Takes a test of the jsPDF + html2canvas resume export functionality, checking that it generates within the set time limit and is not clipped. The PDF resume export was successful, and the generated document was not clipped, as can be seen in Figure A3.12; it completed export within the target timing.
+
+![Figure 12](Appendix Diagram/figure-12.png)
+
+Figure A3.12: PDF Resume Generation Performance
+
+ST-016: Admin analytics dashboard render time
+
+This test measures the performance of loading the dashboard when it loads a large application dataset, validating the rendering of summary cards and charts within the target time on cold load. Figure A3.13 demonstrates the admin analytics dashboard loading a large dataset and rendering summary cards and charts within the target time.
+
+![Figure 13](Appendix Diagram/figure-13.png)
+
+Figure A3.13: Admin Analytics Dashboard Render Time
+
+### Appendix 3.4 Recovery
+
+The other test cases not included in Section 4.3.1.4 are provided in this appendix. These test cases serve as evidence of how the entire system deals with failure and interruptions, such as losing connection to Supabase, session expiration, transaction failures and repeated payment operations. Section 4.3.1.4 presents the representative Recovery test case, ST-019: Failed application submission rollback, and is included as follows the additional Recovery test cases.
+
+ST-017: Supabase connectivity loss handling
+
+Test application behaviour in the event of a connection drop to Supabase, ensuring that errors are gracefully presented and that the application retries when the connection is restored. Handling a dropped Supabase connection with a friendly error message and retry when it reconnects, as seen in Figure A3.14.
+
+![Figure 14](Appendix Diagram/figure-14.png)
+
+Figure A3.14: Supabase Connectivity Loss Handling
+
+ST-018: Session expiry and re-authentication
+
+Tests which detect an expired session and prompt a user to log in; that is, no protected data is passed to an unauthenticated request. In Figure A3.15, an expired session is detected, and a new session is re-authenticated, but no data is returned to the unauthenticated request.
+
+![Figure 15](Appendix Diagram/figure-15.png)
+
+Figure A3.15: Session Expiry and Re-authentication
+
+ST-020: Duplicate payment prevention on retry
+
+Tests which retried the action "Mark as Paid" to see if it would update the existing payment record instead of creating a duplicate with conflicting information. If the Mark as Paid action is retried, it will update the existing payment record without creating another record, as shown in Figure A3.16.
+
+![Figure 16](Appendix Diagram/figure-16.png)
+
+Figure A3.16: Duplicate Payment Prevention on Retry
+
+### Appendix 3.5 Business Logic
+
+The rest of the Business Logic System Testing test cases are shown in this appendix. These test cases serve as evidence of the implementation of certain main features of the EasyEarn system rules, such as job-matching calculations, location-distance bonuses, status transitions for applications, rating eligibility, and behaviour of the moderation queue and Employer Verification Badge. The following is a listing of additional Business Logic test cases: Section 4.3.1.5 presents the representative Business Logic test case, ST-023: Application status transition constraints.
+
+ST-021: Match score calculation accuracy
+
+Takes the skill-matching percentage formula test and shows the correct percentage match for skills that are required if present; a badge of "New" is displayed if there are no required skills listed. The calculated match percentage for required skills and the "New" badge displayed when no skills are listed are demonstrated in Figure A3.17.
+
+![Figure 17](Appendix Diagram/figure-17.png)
+
+Figure A3.17: Match Score Calculation Accuracy
+
+ST-022: Location-distance bonus and match cap
+
+Tests a distance-based bonus that will increase match score for nearby jobs, with a maximum bonus of 99% for jobs that match, and a maximum bonus of 85% for jobs that do not match. The match bonus applied for the distance can be seen in Figure A3.18, where the scores are limited to 99% for known locations and 85% for unknown locations.
+
+![Figure 18](Appendix Diagram/figure-18.png)
+
+Figure A3.18: Location-distance Bonus and Match Cap
+
+ST-024: Bidirectional rating eligibility
+
+Tests in which the rating feature is only available after the job has been completed and if two people rate the same job, then the first rating is updated by the second, not duplicated. The rating feature only appears after the job is complete and a second rating appears and does not duplicate the first rating, as shown in Figure A3.19.
+
+![Figure 19](Appendix Diagram/figure-19.png)
+
+Figure A3.19: Bidirectional Rating Eligibility
+
+ST-025: Admin moderation queue classification
+
+Clearly defined tests where each moderation status label translates correctly to the job listing status in the underlying queue, and filters update the visible queue and the metric counts. The admin moderation queue and filters update the queue and metric counts, with each status label correctly mapped as shown in Figure A3.20.
+
+![Figure 20](Appendix Diagram/figure-20.png)
+
+Figure A3.20: Admin Moderation Queue Classification
+
+ST-026: Employer verification badge visibility
+
+Tests in which the verified badge is added and removed from the listing when the employer's account is verified/removed from the verified tab, and the same applies across both views of the profile (listing and profile). When the status of a listing changes, the verified badge appears and disappears on the listing view as well as the profile view, as seen in Figure A3.21.
+
+![Figure 21](Appendix Diagram/figure-21.png)
+
+Figure A3.21: Employer Verification Badge Visibility
+
+### Appendix 3.6 Reporting
+
+The following Reporting System Testing test cases are not included in Section 4.3.1.6. The test cases demonstrate the accuracy of information published via EasyEarn dashboards, reports and calculated summaries, as well as job listing reports, Job Seeker work history and earnings, and Employer job posting performance information. The following Reporting test cases are provided for reference. Section 4.3.1.6 presents the representative Reporting test case, ST-027: Admin analytics dashboard accuracy.
+
+ST-028: Job listing reporting feature
+
+Tests whether a job seeker submits a suspicious listing, it is saved correctly, and the admin can see it soon after the job seeker submits the listing. The listing report of a suspicious job seeker is saved and displayed instantly in the admin's report queue, as illustrated in Figure A3.22.
+
+![Figure 22](Appendix Diagram/figure-22.png)
+
+Figure A3.22: Job Listing Report Feature
+
+ST-029: Work history and earnings report
+
+Checks to see if the work history list and total earnings amount are accurate and update properly when the work history is filtered by category. When filtered by ‘category', the work history list and total earnings are updated correctly, as shown in Figure A3.23.
+
+![Figure 23](Appendix Diagram/figure-23.png)
+
+Figure A3.23: Work History and Earnings Report
+
+ST-030: Employer job posting performance view
+
+Tests that provide the employer with the number of applicants or openings per listing that is accurate, and that the removal of a listing is immediate from the listing's view. As seen in Figure A3.24, employers see their job posting performance view with an accurate count of applicants/opportunities as well as a job post disappearing right after it was removed.
+
+![Figure 24](Appendix Diagram/figure-24.png)
+
+Figure A3.24: Employer Job Posting Performance View
+
+### Appendix 3.7 Compliance
+
+This appendix provides the remaining Compliance-related System Testing test cases not covered in Section 4.3.1.7. The selected EasyEarn functions for privacy, transparency and user protection, such as access to the privacy policy and Terms of Service, administrative audit records, and compliance reminders under the PDPA 2010 and the Gig Workers Act 2025, are supported by these test cases. The representative Compliance test case, ST-032: PDPA-aligned document handling, is presented in Section 4.3.1.7, while the additional Compliance test cases are provided below.
+
+ST-031: Privacy Policy and Terms of Service accessibility
+
+The Privacy Policy and Terms of Service pages are in place and accurately explain how data is handled and are always linked from the site footer. The Privacy Policy and Terms of Service pages with the correct information on how to handle the data are located in the site footer, as shown in Figure A3.25.
+
+![Figure 25](Appendix Diagram/figure-25.png)
+
+Figure A3.25: Privacy Policy and Terms of Service Accessibility
+
+ST-033: Admin audit trail for account decisions
+
+Tests that will change access due to changes in access status will be reported and will be recorded as rejection status notes and displayed to the affected employer. The audit trail includes a record of the access-status change, and the rejection notes are shown to the employer concerned, as shown in Figure A3.26.
+
+![Figure 26](Appendix Diagram/figure-26.png)
+
+Figure A3.26: Admin Audit Trail for Account Decisions
+
+ST-034: Gig Workers Act 2025 compliance reminders
+
+Admin-focused compliance pages that consistently appear with compliance reminders that align with the Gig Workers Act 2025 (transparent terms, payment clarity, dispute handling) rather than on a single page. The admin compliance pages will include reminders about the Gig Workers Act 2025 regarding terms, clarity of payment, and dispute resolution, as illustrated in Figure A3.27.
+
+![Figure 27](Appendix Diagram/figure-27.png)
+
+Figure A3.27: Gig Workers Act 2025 Compliance Reminders
+
+The findings in Section 4.3.1 are supported by the detailed System Testing evidence, which is included in Appendix 3. In the seven test categories, 34 System Testing test cases passed. There are additional test records and supporting evidence omitted from the main chapter for conciseness of presentation in the System Testing results, which are provided in the appendix.
+
+## Appendix 4: User Acceptance Testing (UAT) Evidence
+
+The detailed UAT test cases and supporting evidence are shown in this appendix and are not included in Section 4.3.2. The 36 UAT test cases covered the three primary EasyEarn roles: Job Seeker, Employer and Admin. There were a total of 12 test cases for each role that included the major functions and workflows that were available to the user type. To maintain the main report to a manageable length, one representative UAT test case from each user role is provided in Section 4.3.2 with supporting evidence, while the remainder of the test cases and supporting evidence are organised in Appendix 4.1 to Appendix 4.3 by the various user roles.
+
+### Appendix 4.1: Job Seeker UAT
+
+The remaining Job Seeker UAT test cases missing from the list presented in Section 4.3.2.1 are presented in this appendix. The test cases are supportive evidence for the main functions of the Job Seeker, such as Registration & Login, Dashboard, Job Search & Browse, Saved Jobs, In-Progress Work, Interviews, Work History, Resume Management, Messages, Profile Management, Logout & Session. The following additional Job Seeker test cases are provided in addition to the representative Job Seeker UAT test case (JS-004: Job Application) presented in Section 4.3.2.1.
+
+JS-001: Registration and login
+
+Successful login and redirection to the Dashboard with profile completion of 100% and the message "Welcome back, Wong Ke Ni". This round was also re-tested for new account registration, which was successful, with a working account that was successfully logged in. The Dashboard will appear as shown in Figure A4.1 as soon as you log in, and the Profile Completion Indicator will be at 100%.
+
+![Figure 28](Appendix Diagram/figure-28.png)
+
+Figure A4.1: Job Seeker - Registration and Login
+
+JS-002: Dashboard
+
+The Applications column in the Dashboard counted 2, the Interviews column counted 2, and the Saved Jobs column counted 3. The Applications column in the Dashboard had 2, the Interviews column had 2, and the Saved Jobs column had 3. There were 2 applications, both completed, with 0 Pending, 0 Reviewed and 0 Rejected in the Application Pipeline. The Dashboard summary cards for Applications, Interviews, and Saved Jobs are highlighted in Figure A4.2 along with the Application Pipeline breakdown.
+
+![Figure 29](Appendix Diagram/figure-29.png)
+
+Figure A4.2: Job Seeker – Dashboard
+
+JS-003: Job Search and Browse
+
+The activity summary read: Saved: 3, Applied: 2, Skill Match: 2, Available: 2. The "Approved jobs available now" section was correct, as none of the jobs was available, but there were jobs that were approved yet were not active, and they were visible as "Jobs you've applied to" with Saved + Applied. Cashier (80% match) and Part-Time Barista & Cafe Crew (60% match) were both correct, as they were applied to and were saved. The Jobs page Activity Summary, search/filter panel and applied job listings with match percentages are displayed in Figure A4.3.
+
+![Figure 30](Appendix Diagram/figure-30.png)
+
+Figure A4.3: Job Seeker - Job Search and Browse
+
+JS-005: Saved Jobs
+
+The count badge for all 3 saved jobs was displayed under the Saved Jobs tab. Each card was confirmed to have a Remove option, and it was clickable. The Saved Jobs tab appears with the count badge and Remove button on the job cards as shown in Figure A4.4.
+
+![Figure 31](Appendix Diagram/figure-31.png)
+
+Figure A4.4: Job Seeker - Saved Jobs
+
+JS-006: In-Progress Work
+
+EasyEarn has no In-Progress page, but rather the filter "Active (Pending/Reviewed/Accepted)" on applications.html does this. The two real applications are already Completed, so the Active count would be correct at 0. Clicking the Applications page with the Active (Pending/Reviewed/Accepted) filter selected returns 0 applications, as shown in Figure A4.5.
+
+![Figure 32](Appendix Diagram/figure-32.png)
+
+Figure A4.5: Job Seeker - In-Progress Work
+
+JS-007: Interviews
+
+Based on the Interview Summary, the number of confirmed interviews was 2, the number of upcoming interviews was 0, and the number of completed interviews was 2. For both interviews, the correct date and time were specified, along with a working link to Google Meet, and there were actions to View Application and Open Chat. The Interview Summary appears in Figure A4.6 along with the two completed interview records with the date, time, and Google Meet link.
+
+![Figure 33](Appendix Diagram/figure-33.png)
+
+Figure A4.6: Job Seeker – Interviews
+
+JS-008: Work History
+
+The recent work record was tagged with RM180: Food and Beverage, Rated, and dated 2026-06-22 (which is Part-Time Barista & Cafe Crew). Completed Jobs: 1, Total Earnings: RM180, Top Category: Food and Beverage. The Work History page displays the summary stats and the Barista work record, dated as shown in Figure A4.7.
+
+![Figure 34](Appendix Diagram/figure-34.png)
+
+Figure A4.7: Job Seeker - Work History
+
+JS-009: Resume Management
+
+The profile headline was correctly included in the Resume preview, as were the Work Experience (Part-Time Barista & Cafe Crew, W&X Bakery), the Highlighted Results (1 completed gig, RM180, 5.0/5), Skills, Education (SPM - SMK Bercham - 2021), and the Availability, as well as a reference section for W&X Bakery. Both the "Refresh from Profile" and the "Download PDF" buttons were included, which means that the resume is not uploaded but rather is auto-generated. The auto-generated Resume preview is displayed in Figure A4.8 along with the headline, work experience, skills, education and availability sections.
+
+![Figure 35](Appendix Diagram/figure-35.png)
+
+Figure A4.8: Job Seeker - Resume Management
+
+JS-010: Messages
+
+The W&X Bakery thread was there and looked good in the Inbox, in the style of “Part-Time Barista & Cafe Crew - 5.0 - 1 review.” The job context and an existing image attachment from the employer were displayed in the thread view, with a working message input box and a pair of Attach Image and Send Message controls. In Figure A4.9, the Messages inbox is displayed, showing the W&X Bakery thread with the job and image attachment displayed.
+
+![Figure 36](Appendix Diagram/figure-36.png)
+
+Figure A4.9: Job Seeker – Messages
+
+JS-011: Profile Management
+
+The Profile page displayed a 100% Profile Strength with 3 ratings, 2 completed gigs and 2 applications, and 3 saved jobs. All three Edit Info, Skills & Experience, Education Background and Set Availability sections were accurate, as they were in the real saved data. On the Profile page, you can see the Profile Strength indicator and the Edit Info, Skills & Experience and the Availability sections as in Figure A4.10.
+
+![Figure 37](Appendix Diagram/figure-37.png)
+
+Figure A4.10: Job Seeker - Profile Management
+
+JS-012: Logout and Session
+
+User can log out from the system and enter a session (Tested by Ang Mun Hin). Directly visiting dashboard.html after logging out routed to the login page, and re-authenticating with the account username/password had to be done to access dashboard.html. When dashboard.html was called directly after logging out, the login page appeared as in Figure A4.11.
+
+![Figure 38](Appendix Diagram/figure-38.png)
+
+Figure A4.11: Job Seeker - Logout and Session
+
+### Appendix 4.2: Employer UAT
+
+This appendix contains the remaining Employer UAT test cases not covered in Section 4.3.2.2. The above test cases provide support to the main Employer functions like Registration and Login, Dashboard, Post Job, Manage Jobs, Shortlist/Accept Applicant, Ratings, Messages, Profile Management, Verification, Job Completion Confirmation and Logout and Session. A representative Employer UAT test case, EMP-005: View Applicants, is provided in Section 4.3.2.2, and other Employer test cases are listed below.
+
+EMP-001: Registration and Login
+
+Successfully logged in with an existing Employer Account (W&X Bakery), then successfully redirected to the Employer Dashboard, then successful logon with the same Employer Account across the other Employer Pages visited. The Employer Dashboard will appear as shown in Figure A4.12 after logging in, and will show that the current session is W&X Bakery.
+
+![Figure 39](Appendix Diagram/figure-39.png)
+
+Figure A4.12: Employer - Registration and Login
+
+EMP-002: Dashboard
+
+The Dashboard displayed Approved Jobs: 2, Applicants: 2, Pending Review: 0 and Verification: Approved. The What you can do next quick actions appeared, and the Hiring Activity Trend chart appeared. The Dashboard summary cards for Approved Jobs, Applicants, and Verification status are seen in conjunction with the Hiring Activity Trend chart in Figure A4.13.
+
+![Figure 40](Appendix Diagram/figure-40.png)
+
+Figure A4.13: Employer – Dashboard
+
+EMP-003: Post Job
+
+Manage Jobs has a total of 2 Published, 0 Pending Review, 1 Expired and 0 Closed. A new Create or Edit a Listing form was reviewed, but no new job was submitted this round. The Create or Edit a Listing form is displayed with the Manage Jobs status summary as shown in Figure A4.14.
+
+![Figure 41](Appendix Diagram/figure-41.png)
+
+Figure A4.14: Employer - Post Job
+
+EMP-004: Manage Jobs
+
+Everything on manage-jobs.html and on the job_listings table was correct for all three jobs, including their status, number of applicants, number of jobs open and their expiry date. Figure A4.15 displays the Manage Jobs page, which shows the status and number of applicants, number of openings, and expiry date for all three jobs.
+
+![Figure 42](Appendix Diagram/figure-42.png)
+
+Figure A4.15: Employer - Manage Jobs
+
+EMP-006: Shortlist/Accept Applicant
+
+Both applications were previously marked as "Completed" in the "My Applications" pipeline (2 Accepted, moved to Completed), matching the job seeker's "My Applications" pipeline. However, both of these applications are in the Completed state, as the Accept action was initiated and followed through the applicant pipeline earlier, as shown in Figure A4.16.
+
+![Figure 43](Appendix Diagram/figure-43.png)
+
+Figure A4.16: Employer - Shortlist/Accept Applicant
+
+EMP-007: Ratings
+
+The Ratings page had a rating of Average, 1 review, 1 5-star rating, and 1 review (5/5) from user Len Pei Ying ("Friendly", dated 22 June 2026). The Ratings page summary and the submitted 5-star rating page review from Len Pei Ying are displayed in Figure A4.17.
+
+![Figure 44](Appendix Diagram/figure-44.png)
+
+Figure A4.17: Employer - Ratings
+
+EMP-008: Messages
+
+There were two conversation threads on the Messages page. The "Pei Ying" thread (marked "New job seeker") contained some pre-existing short messages sent and received between Pei Ying and the user, with an image attachment on 22 June 2026. The Message inbox is displayed in Figure A4.18 with the two conversation threads and the opened exchange dialog with an image attachment in the Pei Ying thread.
+
+![Figure 45](Appendix Diagram/figure-45.png)
+
+Figure A4.18: Employer – Messages
+
+EMP-009: Profile Management
+
+The Company profile page was able to display the Company information (Name, Email, Phone, Location, Website, Overview) correctly and the Readiness snapshots for Basic Info 100%, Trust Setup 67% and Hiring Ready 80%. Figure A4.19 displays the Company Profile page that contains company details saved and the Readiness snapshot percentages.
+
+![Figure 46](Appendix Diagram/figure-46.png)
+
+Figure A4.19: Employer - Profile Management
+
+EMP-010: Verification
+
+The Verification page displayed Current Status: Approved, and Company Info, Documents and Admin Review had all been marked as 100%, with both required documents marked as Saved. The Verification page appears with the Approved status and with the Company Info, Documents, and Admin Review sections completed as shown in Figure A4.20.
+
+![Figure 47](Appendix Diagram/figure-47.png)
+
+Figure A4.20: Employer - Verification
+
+EMP-011: Job Completion Confirmation
+
+Both applications were marked as "Completed" on applicants.html, and the applicants' corresponding work history and applications pages were the same, which indicated a successful completion-confirmation flow. When both jobs are completed, the Applicants page is as shown in Figure A4.21, which is the same as the job seeker's Work History record.
+
+![Figure 48](Appendix Diagram/figure-48.png)
+
+Figure A4.21: Employer - Job Completion Confirmation
+
+EMP-012: Logout and Session
+
+When directly accessing the employer dashboard after logging out, no valid session token was found, and they were redirected to the logon screen. When the employer dashboard was accessed directly after logging out, the login screen was displayed as shown in Figure A4.22.
+
+![Figure 49](Appendix Diagram/figure-49.png)
+
+Figure A4.22: Employer - Logout and Session
+
+### Appendix 4.3: Admin UAT
+
+This appendix provides a list of test cases for Admin UAT which were not included in Section 4.3.2.3. These test cases offer support for the major administrative activities for EasyEarn, such as Log In, Dashboard Overview, Employer Account Lock/Unlock, Job Seeker Account Lock/Unlock, Approve Job, Verifications, Reports, Analytics, Messages/Support, Profile Management, and Log Out/Session. Other Admin test cases are provided below. The representative Admin UAT test case, ADM-006: Flag/Remove Job, is presented in Section 4.3.2.3.
+
+ADM-001: Login
+
+Login was successful with a valid username and password, but a subsequent login with an incorrect password was immediately rejected with an error message; no session was created. Figure A4.23 displays the Admin Dashboard, both with a successful login and with an incorrect password.
+
+![Figure 50](Appendix Diagram/figure-50.png)
+
+Figure A4.23: Admin - Login
+
+ADM-002: Dashboard Overview
+
+The Users summary card value was in line with the Users page's actual value. The Users count on the Users page matches the figure in the Users summary card in the Admin Dashboard, as displayed in Figure A4.24.
+
+![Figure 51](Appendix Diagram/figure-51.png)
+
+Figure A4.24: Admin - Dashboard Overview
+
+ADM-003: Lock/Unlock (Employer Account)
+
+The Account Status was automatically updated to "Locked" upon clicking Lock Account and to "Active" upon clicking Unlock Account. After the Lock and Unlock actions, the CarePlus account status has changed from Locked to Active, as illustrated in Figure A4.25.
+
+![Figure 52](Appendix Diagram/figure-52.png)
+
+Figure A4.25: Admin - Lock/Unlock (Employer Account)
+
+ADM-004: Lock/Unlock (Job Seeker Account)
+
+The Len Pei Ying account was immediately deactivated and could no longer be logged in; when clicking Unlock Account, it was immediately turned to Active status, and login was restored. This change in account status from Locked to Active can be seen in Figure A4.26 after locking and unlocking the account.
+
+![Figure 53](Appendix Diagram/figure-53.png)
+
+Figure A4.26: Admin - Lock/Unlock (Job Seeker Account)
+
+ADM-005: Approve Job
+
+The Event Crew job status was set to “Approved” as soon as it was clicked, and the job listing showed up right on the Jobs page. The Event Crew listing status changed from Flagged to Approved, as seen in Figure A4.27, and it is listed on the Jobs page.
+
+![Figure 54](Appendix Diagram/figure-54.png)
+
+Figure A4.27: Admin - Approve Job
+
+ADM-007: Verifications
+
+After clicking on Approve, the CarePlus verification status was automatically updated to "Approved". On the Verifications page, the "Approval Status" on the CarePlus verification changes from Pending Review to Approved. The CarePlus verification status updates from Pending Review to Approved in Figure A4.28 on the Verifications page.
+
+![Figure 55](Appendix Diagram/figure-55.png)
+
+Figure A4.28: Admin – Verifications
+
+ADM-008: Reports
+
+The report status was updated to "Resolved" upon clicking Resolve, and the "Message Employer" action was also tested and opened a real conversation thread with W&X Bakery. Figure A4.29 shows the report status changing to Resolved and the Message Employer action opening a conversation thread with W&X Bakery.
+
+![Figure 56](Appendix Diagram/figure-56.png)
+
+Figure A4.29: Admin - Reports
+
+ADM-009: Analytics
+
+Users trend line worked well from February to July and mirrored Supabase's record movement. On the Analytics page, the Platform Activity line chart is displayed using the Users trend from February to July, as shown in Figure A4.30.
+
+![Figure 57](Appendix Diagram/figure-57.png)
+
+Figure A4.30: Admin - Analytics
+
+ADM-010: Messages/Support
+
+This reply was instant and showed up in the message thread properly. The admin's response is displayed properly in the support message thread, as illustrated in Figure A4.31.
+
+![Figure 58](Appendix Diagram/figure-58.png)
+
+Figure A4.31: Admin - Messages/Support
+
+ADM-011: Profile Management
+
+The changes in the display name and contact email were saved and persisted upon a page refresh as well as re-login. The changed display name and contact email are preserved after refreshing the Admin Profile page, as presented in Figure A4.32.
+
+![Figure 59](Appendix Diagram/figure-59.png)
+
+Figure A4.32: Admin - Profile Management
+
+ADM-012: Logout and Session
+
+The session was also terminated without any problems, and direct URL access to admin pages was denied. The default page you will see after you log out is the login screen if you accessed it directly from the URL, as shown in Figure A4.33.
+
+![Figure 60](Appendix Diagram/figure-60.png)
+
+Figure A4.33: Admin - Logout and Session
+
+The 36 UAT test cases were executed using designated user accounts and test data stored in Supabase. The appendix contains the remaining test records and supporting evidence which were not included in the main chapter for conciseness in the presentation of the UAT results.
+
+## Appendix 5: Security Testing Evidence
+
+Detailed Security Testing test cases and supporting evidence are provided in this appendix that are not included in Section 4.3.4. A total of 29 Security Testing test cases were created and run under eight categories: RLS - Data Isolation, Auth & Access Control, Upload Security, Input Sanitisation, Rating & Business Rules, Report Security, Analytics & Chatbot, PDPA & Compliance. To maintain the overall brevity of the main report, one representative Security Testing test case is included for each of the categories in Section 4.3.4, with the remainder of the test cases and supporting evidence organised by security testing category in Appendix 5.1, Appendix 5.2, Appendix 5.3, Appendix 5.4, Appendix 5.5, Appendix 5.6, Appendix 5.7, and Appendix 5.8. The detailed evidence also documents the remaining security issues found during the tests, as further discussed in Chapter 5.3.1.
+
+### Appendix 5.1: RLS - Data Isolation
+
+This appendix provides the remaining RLS - Data Isolation Security Testing test cases which are not discussed in Section 4.3.4.1. These test cases support user-specific data, such as applications, notifications, job postings, verification documents, payments, saved jobs, user profile and work history, with their Row Level Security controls. The additional RLS - Data Isolation test cases are provided below and are presented in the representative test case, SEC-001: Seeker cannot read another seeker's applications, in Section 4.3.4.1.
+
+SEC-002: Seeker cannot update another seeker's application status
+
+Both the USING and WITH CHECK clauses of the UPDATE statement are subject to the policy of applications_update_seeker, which prevented the cross-seeker UPDATE operation from being performed at the database level. When Seeker B targeted Seeker A's application, it tried to UPDATE to an existing application that was already deleted, as shown in Figure A5.1; it failed with 0 rows affected.
+
+![Figure 61](Appendix Diagram/figure-61.png)
+
+Figure A5.1: RLS - Data Isolation (Seeker Application Update Isolation)
+
+SEC-003: Seeker cannot read another user's notifications
+
+Other users' notification rows were not returned to the client because the notifications_select_own policy filtered the SELECT statement so that only rows for the current user were returned. When you view the notifications query, only the rows that are for the authenticated user will be returned, as displayed in Figure A5.2.
+
+![Figure 62](Appendix Diagram/figure-62.png)
+
+Figure A5.2: RLS - Data Isolation (Notification Read Isolation)
+
+SEC-004: Employer cannot update another employer's job listing
+
+The job_listings_update_owner policy is used to limit UPDATE operations to job listings that are owned by the authenticated Employer. If an Employer (E2) tries to update a job listing created by another Employer (E1), then the update is rejected and no row is updated. This is a blocked cross-employer update attempt, as seen in Figure A5.3.
+
+![Figure 63](Appendix Diagram/figure-63.png)
+
+Figure A5.3: RLS - Data Isolation (Job Listing Update Isolation)
+
+SEC-005: Employer cannot modify another employer's verification documents
+
+The Employer will not be allowed to change other Employer's verification documents. The policy users_update_own applies to UPDATEs to the users table, limiting them to the user's own row. If Employer E2 tries to update the verification document data fields of Employer E1, the update is denied and no protected verification data is changed. The blocked attempt to update cross-owner is displayed in figure A5.4.
+
+![Figure 64](Appendix Diagram/figure-64.png)
+
+Figure A5.4: RLS - Data Isolation (Verification Document Access)
+
+SEC-006: Seeker cannot insert a payment record on the employer's behalf
+
+The payments_insert_seeker policy is set up to only allow seeker inserts when the application matches and payee_id is null or self, meaning that a seeker shouldn't be able to do a payment insert from the UI. The payment insert is limited as to what action the seeker can confirm in Figure A5.5.
+
+![Figure 65](Appendix Diagram/figure-65.png)
+
+Figure A5.5: RLS - Data Isolation (Payment Insert Restriction)
+
+SEC-007: Seeker cannot update another seeker's payment confirmation
+
+All users were denied the ability to update others' payment information due to the payments_update_related_users policy that was set to only allow the admin, payer or payee role to do so. When Seeker 2 verified Seeker 1's payment, it got the payment rejected, as illustrated in Figure A5.6.
+
+![Figure 66](Appendix Diagram/figure-66.png)
+
+Figure A5.6: RLS - Data Isolation (Payment Confirmation Isolation)
+
+SEC-012: Seeker cannot delete another seeker's saved job
+
+The saved_jobs_delete_own policy only allowed DELETE when the user Identifier (ID) was equal to auth.uid(), so even though Seeker 2 knew the UUID of Seeker 1's saved job, it was not deleted. In Figure A5.7, Seeker 1's saved job has not been altered by the blocked delete request of Seeker 2.
+
+![Figure 67](Appendix Diagram/figure-67.png)
+
+Figure A5.7: RLS - Data Isolation (Saved Job Delete Isolation)
+
+SEC-019: Non-admin cannot update another user's profile row
+
+The users_update_own and users_admin_update policies ensure that only the row owner or someone who is an admin can UPDATE the row; a seeker cannot modify another user's profile information. The rejected update is displayed in Figure A5.8 in another user's profile row.
+
+![Figure 68](Appendix Diagram/figure-68.png)
+
+Figure A5.8: RLS - Data Isolation (User Profile Update Isolation)
+
+SEC-020: Seeker cannot change an application's status field directly
+
+The applications_update_employer policy restricts updates through the normal Employer-scoped workflow. However, there is no separate field-level database constraint that specifically prevents a Job Seeker from attempting to change the application status through a direct API request. Therefore, this remains a residual security risk discussed in Section 5.3.1. Figure A5.9 shows that the application status remains unchanged when the tested update is performed through the Employer-scoped update path.
+
+![Figure 69](Appendix Diagram/figure-69.png)
+
+Figure A5.9: RLS - Data Isolation (Application Status Field Restriction)
+
+SEC-021: Employer cannot read another seeker's work history
+
+The work_history_select_own policy only allowed Seeker 1 to see his own work history, preventing Seeker 2 from seeing what Seeker 1 had created. For a non-owning seeker, the work history query returns no rows, as shown in Figure A5.10.
+
+![Figure 70](Appendix Diagram/figure-70.png)
+
+Figure A5.10: RLS - Data Isolation - Work History Read Isolation
+
+### Appendix 5.2: Auth & Access Control
+
+The other Auth & Access Control Security Testing test cases, not covered in Section 4.3.4.2, are presented in this appendix. These test cases serve as support for the authentication, session management and role-based access controls in EasyEarn, such as cross-role data access, registration role-gating, password handling and session expiry. The following test cases are for additional Auth & Access Control. The representative test case, SEC-024: Admin page access blocked for non-admin users, is shown in Section 4.3.4.2 below.
+
+SEC-013: RLS prevents cross-role data access
+
+The scoped SELECT/UPDATE for rls_apply, rls_job_listing and rls_user were implemented for matching seeker_id, employer_id and admin, respectively, while the admin pages redirected non-admin sessions client-side as well. The diagram in Figure A5.11 demonstrates that a non-admin session is being redirected from an admin-only page.
+
+![Figure 71](Appendix Diagram/figure-71.png)
+
+Figure A5.11: Auth & Access Control - Cross-role Data Access
+
+SEC-014: Registration role-gating via invite codes
+
+The function, handleRegister(), checked the provided admin/employer invite code against the constant first before invoking supabase.auth.SignUp(), the registration was denied with the first incorrect code. If the invite code is invalid, the registration form displays an error message before allowing a user to create an account, as seen in Figure A5.12.
+
+![Figure 72](Appendix Diagram/figure-72.png)
+
+Figure A5.12: Auth & Access Control - Registration Role-gating
+
+SEC-015: Password policy enforcement and credential handling
+
+The password length and character requirements are checked on the client side with handleRegister(), and the raw Supabase error messages are converted into a generic "Invalid email or password" message to prevent account enumeration with mapSupabaseAuthError(). Both an incorrect email and password will result in an invalid-credentials message, as is shown in Figure A5.13.
+
+![Figure 73](Appendix Diagram/figure-73.png)
+
+Figure A5.13: Auth & Access Control - Password Policy Enforcement
+
+SEC-023: Session expiry and requireUser() redirect behaviour
+
+Supabase.auth. requirementUser() redirected to the login page.getUser() did not produce any valid session, and observeAuth() received SIGNED_OUT events while the user was surfing the web. The login page is displayed if an expired session was detected, as shown in Figure A5.14.
+
+![Figure 74](Appendix Diagram/figure-74.png)
+
+Figure A5.14: Auth & Access Control - Session Expiry Handling
+
+### Appendix 5.3: Upload Security
+
+This appendix includes the evidence for Upload Security Testing. The tests determine the file size and restrictions on file types of user-provided uploads, such as Job Seeker profile images and Employer verification documents. In Section 4.3.4.3, the representative Upload Security test case is presented in the case of SEC-016: Profile photo and verification document upload restrictions. This category consists of one test case, so there is no need to repeat any test case in this appendix.
+
+### Appendix 5.4: Input Sanitisation
+
+The remaining Input Sanitisation Security Testing test cases not included in Section 4.3.4.4 are presented here. These test cases serve as supporting evidence for processing and dealing with user input and database requests, such as protecting against Cross-Site Scripting (XSS) and SQL injection-related risks. The test case for input sanitisation, SEC-017: Input sanitisation against XSS, is included in Section 4.3.4.4 and the following test case is an additional input sanitisation test case.
+
+SEC-018: SQL injection resistance
+
+All database access was made via Supabase JS client's parameterised PostgREST requests, and not directly via SQL. Therefore, all injection payloads were handled as plain text values. An SQL injection payload is submitted in a form field, which is treated as a literal string value, as shown in Figure A5.15.
+
+![Figure 75](Appendix Diagram/figure-75.png)
+
+Figure A5.15: Input Sanitisation - SQL Injection Resistance
+
+### Appendix 5.5: Rating & Business Rules
+
+The following Rating & Business Rules Security Testing test cases are not covered in Section 4.3.4.5. Supporting evidence for the security-related restrictions on rating eligibility and reviewer–reviewee relationships is given in these test cases. The additional Rating & Business Rules test case is provided here, with the representative test case SEC-008: Seeker cannot submit a rating for a pending application provided in Section 4.3.4.5.
+
+SEC-009: Reviewer and reviewee cannot be the same user
+
+At present, there is no CHECK constraint in the ratings table to prevent reviewer_id and reviewee_id from referring to the same user. The normal application flow prevents self-rating through the user interface, but this rule is not fully enforced at the database level. Therefore, this remains a residual security risk discussed in Section 5.3.1. Figure A5.16 shows the tested rating flow with separate reviewer and reviewee accounts.
+
+![Figure 76](Appendix Diagram/figure-76.png)
+
+Figure A5.16: Rating & Business Rules - Self-rating Prevention
+
+### Appendix 5.6: Report Security
+
+The following Report Security test cases are not shown in Section 4.3.4.6. These test cases are offered to assist in supporting the controls that limit report submission and retrieval to authenticated and authorised users. The additional Report Security test case is included below and the representative test case SEC-011: Seeker cannot read another user's submitted reports is included in Section 4.3.4.6.
+
+SEC-010: Unauthenticated user cannot submit a report
+
+The policy "reports_insert_own" did not allow anonymous users to make an INSERT, and the front-end report page also verified the session before displaying the report form to prevent the anonymous user from submitting a report. A report form that is not accessible to an unauthenticated session is displayed in Figure A5.17.
+
+![Figure 77](Appendix Diagram/figure-77.png)
+
+Figure A5.17: Report Security - Unauthenticated Submission Block
+
+### Appendix 5.7: Analytics & Chatbot
+
+The following test cases are not included in Section 4.3.4.7, but are relevant to Analytics & Chatbot Security Testing. The test cases serve as evidence for the restrictions on administrative analytics data and chatbot logs based on the concept of roles. An additional Analytics & Chatbot test case is provided below; the representative test case SEC-025: Admin analytics data is not accessible to non-admin users is presented in Section 4.3.4.7.
+
+SEC-022: Admin-only access to chatbot logs
+
+The policy, chatbot_logs_select_admin, limited SELECT access to admin-role users, thus returning no rows to users who did not have admin-role. There are no rows returned from a non-admin query against the chatbot_logs table, as illustrated in Figure A5.18.
+
+![Figure 78](Appendix Diagram/figure-78.png)
+
+Figure A5.18: Analytics & Chatbot - Chatbot Log Access Restriction
+
+### Appendix 5.8: PDPA & Compliance
+
+This appendix provides additional PDPA & Compliance Security Testing test cases to be matched with Section 4.3.4.8. These test cases offer evidence for selected privacy and access-control provisions concerning the handling of personal data, Employer verification information, restrictions on access to verification status, and visibility of job listings. The additional PDPA & Compliance test cases are listed below and are included as an example with SEC-026: Personal data fields are not exposed in public job listing queries in Section 4.3.4.8.
+
+SEC-027: Employer verification documents are not exposed to authenticated non-owner users
+
+The new users SELECT policies limit direct access to a user's record to the owner user and authorised Administrators. If a non-owner (with an authenticated document) tries to query the user record of another Employer, the information contained in the verification document is not returned. The following restricted query result is displayed in Figure A5.19.
+
+![Figure 79](Appendix Diagram/figure-79.png)
+
+Figure A5.19: PDPA & Compliance - Verification Document Access Restriction
+
+SEC-028:  Seeker cannot update an Employer's verification status
+
+users_update_own was only allowed to update the row's owner, and only users_admin_update was able to change the verification_status, meaning a seeker was unable to change the verification status of an employer. If an update attempt is not performed by an administrator, the Verification status field will not change in Figure A5.20.
+
+![Figure 80](Appendix Diagram/figure-80.png)
+
+Figure A5.20: PDPA & Compliance - Verification Status Update Restriction
+
+SEC-029: Closed job listings are removed from public job search
+
+The public job query excluded closed listings with the filter .eq('status', 'open') and updateJobListingStatus() was applied by the RLS policy, which is only accessible to admins and sets 'status' to 'closed'. When a listing is closed, it no longer appears in the public job search results as indicated in Figure A5.21.
+
+![Figure 81](Appendix Diagram/figure-81.png)
+
+Figure A5.21: PDPA & Compliance - Closed Listing Removal
+
+The results summarised in Section 4.3.4 are underpinned by the detailed evidence of Security Testing given in Appendix 5. The test cases also illustrate the security controls applied throughout EasyEarn, and provide an account of the security risks that remain after testing. The remaining restrictions on security are explained later in section 5.3.1.
+
+## Appendix 6: Compatibility Testing Evidence
+
+This appendix documents the detailed Compatibility Testing test cases and supporting evidence, which are not detailed in Section 4.3.5. There are 6 categories of Compatibility Testing test cases that were developed and executed: Browser Compatibility, Responsive Design, Feature Compatibility, Session & Auth, UI & Display, Form & Input. One sample test case for each category of compatibility testing is described in Section 4.3.5, and the other test cases and supporting documentation are grouped together in Appendix 6.1 to Appendix 6.6 by their respective testing compatibility categories for the main report to be kept succinct.
+
+### Appendix 6.1: Browser Compatibility
+
+The following Browser Compatibility test cases are not included in Section 4.3.5.1. The remaining Browser Compatibility test cases are presented in this appendix. These test cases serve as proof of cross-browser consistency of functions and interface elements such as JavaScript feature support, PDF resume generation, Chart.js analytics rendering, etc., across the tested browsers. The following is a listing of additional Browser Compatibility test cases; the representative Browser Compatibility test case, CT-001: CSS layout rendering, is presented in Section 4.3.5.1.
+
+CT-002: JavaScript feature support
+
+No console errors were seen for fetch() or ES module imports in the browsers tested, as they were accessed without error while trying to retrieve job listings from Supabase. Figure A6.1 shows that the browser console has no errors, and that both fetch and ES modules are supported by the browsers tested. Safari support is considered based on standards compliance, but was not directly tested on the available devices.
+
+![Figure 82](Appendix Diagram/figure-82.png)
+
+Figure A6.1: Browser Compatibility - JavaScript Feature Support
+
+CT-003: PDF resume generation
+
+jsPDF and html2canvas ran properly in all the browsers tested, and the resume PDF was created, including using the proper fonts, layout and the correct work history data. The produced resume PDF has been uniformly formatted in the browsers tested, as illustrated in Figure A6.2.
+
+![Figure 83](Appendix Diagram/figure-83.png)
+
+Figure A6.2: Browser Compatibility - PDF Resume Generation
+
+CT-004: Chart.js analytics rendering
+
+Using the Canvas API, line charts and doughnut charts are displayed correctly, and analytics data is shown the same way in all the browsers tested. The Analytics Dashboard charts were presented consistently in all the browsers tested and are shown in Figure A6.3.
+
+![Figure 84](Appendix Diagram/figure-84.png)
+
+Figure A6.3: Browser Compatibility - Chart.js Analytics Rendering
+
+### Appendix 6.2: Responsive Design
+
+The remaining cases of Responsive Design that are not covered in Section 4.3.5.2 are included in this appendix. The following test cases are used to support the responsive behaviour of EasyEarn on different screen sizes and interaction modes such as mobile touch interactions, mobile content display, form validation consistency and mobile filtering functions. The following are Responsive Design test cases that are not covered in the representative test case, CT-005: Layout breakpoints, in Section 4.3.5.2.
+
+CT-006: Mobile touch interactions
+
+The hamburger menu, job card navigation and filter dropdowns also responded correctly to the tap input, which was handled correctly through standard click listeners. As shown in Figure A6.4, the hamburger menu and the filter dropdown will move with a touch.
+
+![Figure 85](Appendix Diagram/figure-85.png)
+
+Figure A6.4: Responsive Design - Mobile Touch Interactions
+
+CT-007: Mobile content display
+
+These Saved Jobs and Work History pages were designed using card layouts that will stack vertically on a mobile device, but all content will be visible in a 375px viewport. The Saved Jobs and Work History pages appear as in Figure A6.5 in the 375px mobile viewport.
+
+![Figure 86](Appendix Diagram/figure-86.png)
+
+Figure A6.5: Responsive Design - Mobile Content Display
+
+CT-008: Form validation consistency
+
+Empty fields and invalid passwords consistently generated error messages, regardless of browser-native validation styling, for custom JS validation (mapSupabaseAuthError, password regex check). This is the Login page in Figure A6.6 with the same validation error messages in all tested browsers.
+
+![Figure 87](Appendix Diagram/figure-87.png)
+
+Figure A6.6: Responsive Design - Form Validation Consistency
+
+CT-009: Mobile filter functionality
+
+Category and Location filter chips responded to mobile touch input, jobseeker-jobs.js re-rendering the job list over the top. The filters are tapped while the Jobs list is updated on the mobile viewport, as shown in Figure A6.7.
+
+![Figure 88](Appendix Diagram/figure-88.png)
+
+Figure A6.7: Responsive Design - Mobile Filter Functionality
+
+### Appendix 6.3: Feature Compatibility
+
+This appendix contains the rest of the Feature Compatibility test cases not covered in Section 4.3.5.3. These test cases establish consistent operations of the following EasyEarn features: Dark mode, Floating chatbot widget, Employer verification file uploads, Notification updates and Admin analytics info. Below are the additional Feature Compatibility test cases. The representative Feature Compatibility test case is CT-010: Google Translate integration, which is presented in Section 4.3.5.3.
+
+CT-011: Dark mode across role dashboards
+
+The preference was saved in localStorage and recalled after reloading the page, as theme.js switched the accent colour for each role to a dark-mode-friendly variant using a root-level data-theme attribute that CSS variables are keyed off of. Dark mode is applied throughout the Job Seeker, Employer and Admin dashboards, as shown in Figure A6.8.
+
+![Figure 89](Appendix Diagram/figure-89.png)
+
+Figure A6.8: Feature Compatibility - Dark Mode Across Role Dashboards
+
+CT-012: Floating chatbot widget
+
+Fixed-position chatbot widget that supports all modern browsers, placed on mobile to not obstruct main navigation, and keyword matching performed consistently client-side. The chatbot widget is depicted in Figure A6.9 both on the desktop and on mobile, while still not interfering with the navigation.
+
+![Figure 90](Appendix Diagram/figure-90.png)
+
+Figure A6.9: Feature Compatibility - Floating Chatbot Widget
+
+CT-013: File upload for verification
+
+The file input was opened natively in all tested browsers, and client-side file type and size validation was done before the file was converted to Base64 and stored in the users table in employer-verification.js. Figure A6.10 displays the Verification page file picker and successfully uploaded document.
+
+![Figure 91](Appendix Diagram/figure-91.png)
+
+Figure A6.10: Feature Compatibility - File Upload for Verification
+
+CT-014: Notification bell updates
+
+On the subsequent polling cycle, notification polling using setInterval fetch calls was used to identify new notifications and refresh the bell indicators with an updated count of notifications, ensuring a consistent presentation of notifications across browsers. When the notification bell is added to the badge, it should be updated as shown in Figure A6.11 when a new notification is generated.
+
+![Figure 92](Appendix Diagram/figure-92.png)
+
+Figure A6.11: Feature Compatibility - Notification Bell Updates
+
+CT-015: Admin analytics data consistency
+
+The analytics data was computed from the current records from Supabase tables: Users, Jobs, Reports and verification records, presented with Chart.js. Historical snapshots may also be stored in the analytics table on a daily basis. Figure A6.12 shows that the values in the Analytics Dashboard were the same for each of the browsers tested.
+
+![Figure 93](Appendix Diagram/figure-93.png)
+
+Figure A6.12: Feature Compatibility - Admin Analytics Data Consistency
+
+### Appendix 6.4: Session & Auth
+
+This appendix lists the remaining test cases for Session & Auth Compatibility Testing, which are not covered in Section 4.3.5.4. These test cases give evidence for the consistency of the authentication-session behaviour in different browser tabs (such as the session being persisted across tabs and synchronised logout). Below is the additional Session & Auth test case for reference. The representative Session & Auth test case, CT-017: Cross-tab logout, is presented in Section 4.3.5.4.
+
+CT-016: Cross-tab session persistence
+
+The Supabase auth session stored in localStorage was used across tabs in the same browser, and observeAuth() would identify that this session had previously been used and wouldn't prompt for re-authentication. If the dashboard is opened in a second browser tab, it loads without asking the user to re-login, as illustrated in Figure A6.13.
+
+![Figure 94](Appendix Diagram/figure-94.png)
+
+Figure A6.13: Session & Auth - Cross-tab Session Persistence
+
+### Appendix 6.5: UI & Display
+
+The following is a list of UI & Display Compatibility Testing test cases not listed in Section 4.3.5.5. These test cases give supporting evidence for the presentation/readability of EasyEarn interface elements in the tested environments, such as cross-OS font rendering and preview of uploaded images. The representative test case for UI & Display is CT-019: Long text overflow handling, which appears in Section 4.3.5.5. The other UI & Display test cases are listed below.
+
+CT-018: Cross-OS font rendering
+
+Most testing has been done on Windows, where native support of Arial means no difference in sub-pixel rendering, which could affect legibility. Testing was primarily conducted on Windows. macOS and Linux were not directly tested; therefore, compatibility with these operating systems should not be interpreted as directly verified. The text on the home page is readable on Windows, as Figure A6.14.
+
+![Figure 95](Appendix Diagram/figure-95.png)
+
+Figure A6.14: UI & Display - Cross-OS Font Rendering
+
+CT-020: Image upload preview
+
+The FileReader API had already provided a local object URL for the image preview before upload, and images were displayed properly with the regular img src in Chrome, Firefox and Edge. The profile picture preview works correctly both before and after upload, as shown in Figure A6.15.
+
+![Figure 96](Appendix Diagram/figure-96.png)
+
+Figure A6.15: UI & Display - Image Upload Preview
+
+### Appendix 6.6: Form & Input
+
+Some additional Form & Input Compatibility Testing test cases are provided here, in this appendix, that are not included in the examples of Section 4.3.5.6. These test cases serve as evidence of the consistency between the common form and the common input controls by supported browsers, such as file-size and file-type validation, and masking of password fields. The following Form & Input test cases are provided. The representative Form & Input test case, CT-021: Interview date/time picker, is included in Section 4.3.5.6.
+
+CT-022: File size and type validation
+
+Client-side checks for file.size and file.type did not rely on browser-native limitations: files that were deemed invalid got the same error message in all tested browsers. In Figure A6.16, a file that is too large is being rejected, along with the validation error message.
+
+![Figure 97](Appendix Diagram/figure-97.png)
+
+Figure A6.16: Form & Input - File Size and Type Validation
+
+CT-023: Password field masking
+
+By default, all modern browsers mask characters in password entry and only send the password to Supabase Auth via HTTPS, not the console. The input for the password field is masked on the Login page as indicated in Figure A6.17.
+
+![Figure 98](Appendix Diagram/figure-98.png)
+
+Figure A6.17: Form & Input - Password Field Masking
+
+The results summarised in Section 4.3.5 are supported by detailed Compatibility Testing evidence in Appendix 6. In the six test categories, 23 Compatibility Testing test cases received Pass results in the environments directly tested. The appendix contains the extra test records and supporting data that have been omitted from the main chapter to allow a concise presentation of the Compatibility Testing results.
