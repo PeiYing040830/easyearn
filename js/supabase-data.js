@@ -1029,6 +1029,40 @@ export async function createNotification(payload) {
   return data;
 }
 
+export async function notifyAdmins(payload) {
+  const { data: admins, error: adminError } = await supabase
+    .from(TABLES.profiles)
+    .select('id')
+    .eq('role', 'admin');
+
+  if (adminError) throw adminError;
+
+  const rows = (admins || [])
+    .map((admin) => admin.id)
+    .filter(Boolean)
+    .map((adminId) => ({
+      user_id: adminId,
+      type: payload.type || 'admin_alert',
+      message: payload.message || '',
+      is_read: false,
+      created_at: payload.created_at || new Date().toISOString(),
+      target_table: payload.target_table || null,
+      target_id: payload.target_id || null,
+      is_admin: true,
+      actor_id: payload.actor_id || null
+    }));
+
+  if (!rows.length) return [];
+
+  const { data, error } = await supabase
+    .from(TABLES.notifications)
+    .insert(rows)
+    .select('*');
+
+  if (error) throw error;
+  return data || [];
+}
+
 function safeParseJson(value) {
   if (typeof value !== 'string' || !value.trim()) return null;
   try {

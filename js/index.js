@@ -135,11 +135,11 @@ document.addEventListener('DOMContentLoaded', () => {
       document.body.appendChild(script);
     }
 
-    if ((isJobSeekerHeader || isEmployerHeader) && !document.getElementById('easyearn-notif-bell')) {
+    if ((isJobSeekerHeader || isEmployerHeader || isAdminHeader) && !document.getElementById('easyearn-notif-bell')) {
       const bellScript = document.createElement('script');
       bellScript.id = 'easyearn-notif-bell';
       bellScript.type = 'module';
-      bellScript.src = `${basePath}js/notifications-bell.js`;
+      bellScript.src = `${basePath}js/notifications-bell.js?v=20260901a`;
       document.body.appendChild(bellScript);
     }
 
