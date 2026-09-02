@@ -2,40 +2,126 @@
 
 ## 1. Introduction
 
-EasyEarn is a web-based gig job matching portal designed for Job Seekers, Employers, and Admin users. The system allows Job Seekers to search and apply for gig jobs, Employers to post jobs and manage applicants, and Admins to monitor users, job listings, reports, verification requests, chatbot content, and platform analytics.
-
-This user manual explains how to use the main functions of EasyEarn through the deployed web application.
+EasyEarn is a web-based gig job matching portal for three user groups: Job Seekers, Employers, and Admins. The system is deployed through GitHub Pages and uses Supabase for authentication, profile records, job listings, applications, notifications, reports, verification data, ratings, payments, work history, chatbot knowledge, and analytics.
 
 System URL:
 
 `https://peiying040830.github.io/easyearn/`
 
-## 2. User Roles
+This manual is written based on the implemented EasyEarn pages and navigation structure.
 
-EasyEarn provides three main user roles.
+## 2. Main User Roles
 
-| Role | Main Purpose |
-| --- | --- |
-| Job Seeker | Search jobs, apply for jobs, manage applications, save jobs, receive messages, manage profile, view work history, and generate resume. |
-| Employer | Post jobs, manage job listings, review applicants, communicate with Job Seekers, submit employer verification, and rate completed workers. |
-| Admin | Manage platform users, moderate jobs, review reports, review employer verification requests, manage chatbot knowledge, monitor analytics, and support users. |
+| Role | Main Navigation | Main Functions |
+| --- | --- | --- |
+| Job Seeker | Dashboard, Jobs, Applications, Messages, Interviews, Work History, Resume, Profile | Browse jobs, apply for jobs, save jobs, track applications, message employers, manage interviews, record completed work, download resume, and update profile. |
+| Employer | Dashboard, Manage Jobs, Applicants, Messages, Verification, Ratings, Profile | Create and manage job listings, review applicants, schedule interviews, confirm completed work, message job seekers, submit verification, rate job seekers, and update employer profile. |
+| Admin | Dashboard, Users, Jobs, Reports, Messages, Verifications, Chatbot, Analytics, Profile | Monitor the platform, manage users, moderate jobs, review reports, review employer verification requests, manage chatbot knowledge, view analytics, message users, and update admin profile. |
 
-## 3. General System Functions
+## 3. Public Website Guide
 
-### 3.1 Register an Account
+### 3.1 Public Navigation
 
-1. Open the EasyEarn website.
-2. Click `Login`.
-3. Select the `Register` tab on the login page. The standalone `register.html` page redirects users to `login.html?tab=register`.
-4. Enter the full name, email, password, and confirm password.
-5. Select one role from the role cards: `Job Seeker`, `Employer`, or `Admin`.
-6. If `Employer` is selected, enter the Employer Secure Code.
-7. If `Admin` is selected, enter the Admin Secure Code.
-8. Click `Create Account`.
-9. If email confirmation is required by Supabase Auth, check the email inbox and confirm the account before logging in.
-10. If the account is created with an active session, the system redirects the user to the dashboard that matches the selected role.
+The public website header contains:
 
-Registration validation:
+- `Home`
+- `About`
+- `Help`
+- `Browse Jobs`
+- `Report`
+- `Security`
+- `Login`
+- `Get Started`
+
+The `Get Started` button opens the Register tab on the Login / Register page.
+
+### 3.2 Home Page
+
+The Home page introduces EasyEarn and provides entry points for both Job Seekers and Employers.
+
+Main buttons:
+
+- `Find a Job`: opens the Register tab.
+- `Post a Job`: opens the Register tab.
+- `Browse Jobs`: opens the public job browsing page.
+- `Join as Job Seeker`: opens the Register tab.
+- `Join as Employer`: opens the Register tab.
+- `Create Free Account`: opens the Register tab.
+
+### 3.3 About Page
+
+The About page explains the EasyEarn project purpose, target users, and platform concept. The `Create Account` button opens the Register tab.
+
+### 3.4 Help Page
+
+The Help page provides support options. Users can open the chatbot or go to the Report page to submit an issue.
+
+### 3.5 Public Browse Jobs Page
+
+The public `Browse Jobs` page allows visitors to view available jobs before logging in.
+
+Users can:
+
+1. Search by role, location, or keyword.
+2. Filter job listings.
+3. Use location detection to show nearby jobs.
+4. Change the distance radius.
+5. Clear the selected location filter.
+6. Click `Apply`.
+
+When a public visitor clicks `Apply`, the system sends the visitor to `login.html?tab=register` so they can create an account before applying.
+
+### 3.6 Report Page
+
+The public `Report` page is used to report suspicious listings, non-paying employers, fake profiles, harassment, abuse, or other issues.
+
+The report form contains:
+
+- Name
+- Email
+- Reporter role
+- Report type
+- Listing or employer profile link
+- Description
+- Evidence file
+
+Report validation:
+
+- Name, email, and description are required.
+- Name must be at least 2 characters.
+- Email must be valid.
+- Description must be at least 20 characters.
+- The optional reference link must be a valid URL.
+- Evidence files must be PDF, PNG, JPG, JPEG, or WebP.
+- Evidence files must be 3 MB or smaller.
+
+After a report is submitted, Admin users can review it from the Admin `Reports` page. Admin users also receive a notification for new reports.
+
+### 3.7 Security, Privacy, and Terms Pages
+
+The `Security`, `Privacy`, and `Terms` pages provide information about system security, data handling, and terms of use.
+
+## 4. Account Access
+
+### 4.1 Register an Account
+
+EasyEarn registration is handled inside the Login / Register page. The standalone `register.html` page redirects users to `login.html?tab=register`.
+
+To register:
+
+1. Open EasyEarn.
+2. Click `Get Started`, `Find a Job`, `Post a Job`, `Join as Job Seeker`, `Join as Employer`, `Create Free Account`, or `Register here`.
+3. The Register tab opens on the Login / Register page.
+4. Enter `Full Name`.
+5. Enter `Email`.
+6. Enter `Password`.
+7. Enter `Confirm Password`.
+8. Select a role card: `Job Seeker`, `Employer`, or `Admin`.
+9. If `Employer` is selected, enter the Employer Secure Code.
+10. If `Admin` is selected, enter the Admin Secure Code.
+11. Click `Create Account`.
+
+Registration rules:
 
 - Full name must be at least 2 characters.
 - Email must use a valid email format.
@@ -43,406 +129,500 @@ Registration validation:
 - Password must contain at least one letter and one number.
 - Password must contain at least one of these symbols: `!@#$%^`.
 - Confirm password must match the password.
-- Employer and Admin registration require the correct secure code.
+- Employer registration requires the correct Employer Secure Code.
+- Admin registration requires the correct Admin Secure Code.
 
-### 3.2 Log In
+After registration, EasyEarn creates the Supabase Auth account and stores the user profile in the `users` table. If Supabase requires email confirmation, the user must confirm the email before logging in. If a session is created immediately, the system redirects the user based on the selected role.
 
-1. Open the EasyEarn website.
-2. Click `Login`.
-3. Enter the registered email and password.
-4. Click the login button.
-5. The system redirects the user to the correct dashboard according to the account role.
+### 4.2 Log In
 
-### 3.3 Log Out
+To log in:
 
-1. Click `Logout` in the top navigation bar.
-2. The system signs the user out.
-3. The user is redirected away from protected pages.
+1. Click `Login`.
+2. Enter the registered email.
+3. Enter the password.
+4. Click `Login`.
 
-### 3.4 Change Theme
+After login, EasyEarn checks the user's role from the profile record and redirects to:
 
-1. Click the theme toggle button in the navigation bar.
-2. The interface changes between light mode and dark mode.
+- Job Seeker: `pages/jobseeker/dashboard.html`
+- Employer: `pages/employer/dashboard.html`
+- Admin: `pages/admin/dashboard.html`
 
-### 3.5 Translate Page Content
+### 4.3 Forgot Password
 
-1. Click the language or translate control in the navigation bar.
-2. Select the preferred language using the Google Translate widget.
-3. The page content is translated in the browser.
+To reset a forgotten password:
 
-### 3.6 Use Notifications
+1. Click `Forgot password?` on the Login tab.
+2. Enter the account email.
+3. Click `Send Reset Link`.
+4. Open the reset link from the email.
+5. Enter the new password.
+6. Confirm the new password.
+7. Click `Update Password`.
 
-1. Click the notification bell in the navigation bar.
-2. Review new notifications in the dropdown list.
-3. Click a notification to mark it as read.
-4. Click `Mark all read` to clear unread indicators.
+### 4.4 Log Out
 
-Notifications may appear for events such as new messages, application updates, employer verification requests, and submitted reports, depending on the user's role.
+To log out, click `Logout` in the role-based navigation bar. EasyEarn signs the user out and redirects away from protected pages.
 
-### 3.7 Use Chatbot
+## 5. Shared Logged-In Features
 
-1. Click the floating chatbot button.
-2. Type a question related to EasyEarn.
-3. Read the chatbot response.
-4. Continue asking questions if further help is needed.
+### 5.1 Header Tools
 
-The chatbot provides rule-based guidance using the chatbot knowledge base prepared for the system.
+Job Seeker, Employer, and Admin pages include:
 
-## 4. Job Seeker User Guide
+- Theme toggle
+- Google Translate widget
+- Notification bell
+- User badge and display name
+- Logout button
+- Mobile hamburger menu
 
-### 4.1 Access the Job Seeker Dashboard
+### 5.2 Notification Bell
 
-1. Log in using a Job Seeker account.
-2. The system opens the Job Seeker dashboard.
-3. Review dashboard cards, recent activity, application status, and suggested platform actions.
+The notification bell displays unread notifications for the logged-in user. Users can open the bell dropdown, review notifications, click a notification to mark it as read, or click `Mark all read`.
 
-### 4.2 Search and Browse Jobs
-
-1. Click `Jobs` in the Job Seeker navigation bar.
-2. Browse available job listings.
-3. Use search, category, location, or other available filters to narrow down results.
-4. Review job details such as title, pay, employer, location, work mode, and requirements.
-
-### 4.3 Apply for a Job
-
-1. Open the `Jobs` page.
-2. Select a suitable job listing.
-3. Click the apply button.
-4. Confirm the application.
-5. The application is recorded in the system.
-
-After applying, the Job Seeker can track the application from the `Applications` page.
-
-### 4.4 Save a Job
-
-1. Open the `Jobs` page.
-2. Click the save or bookmark action on a job listing.
-3. Open `Saved Jobs` to view saved listings later.
-4. Remove a saved job if it is no longer needed.
-
-### 4.5 Manage Applications
-
-1. Click `Applications`.
-2. View submitted applications.
-3. Check the application status, such as pending, shortlisted, accepted, rejected, completed, or cancelled.
-4. Follow any available action shown for the application.
-
-### 4.6 View In-Progress Work
-
-1. Click `Applications`.
-2. Review applications that are accepted, active, or waiting for the next action.
-3. Open the relevant application details or action shown by the system.
-4. Follow the displayed work status, payment confirmation, or completion action.
-
-### 4.7 Manage Interviews
-
-1. Click `Interviews`.
-2. View interview schedules created by Employers.
-3. Check the interview date, time, job title, and employer information.
-4. Attend or respond according to the instructions shown.
-
-### 4.8 Use Messages
-
-1. Click `Messages`.
-2. Select a conversation.
-3. Type a message in the message input.
-4. Send the message.
-5. New unread messages may also appear in the notification bell.
-
-### 4.9 Update Job Seeker Profile
-
-1. Click `Profile`.
-2. Edit personal information such as name, email, phone, location, skills, bio, availability, and expected rate.
-3. Upload or update the profile picture if required.
-4. Save the profile.
-
-Profile information helps Employers understand the Job Seeker's skills and availability.
-
-### 4.10 Manage Resume
-
-1. Click `Resume`.
-2. Review the resume information generated from the Job Seeker profile and work history.
-3. Edit relevant profile or resume sections where available.
-4. Export or download the resume as PDF if the option is provided.
-
-### 4.11 View Work History
-
-1. Click `Work History`.
-2. Review completed jobs.
-3. Check completion dates, employer information, job details, payment status, and ratings where available.
-
-Work history supports the resume generation feature.
-
-### 4.12 Report a Problem
-
-1. Open the public `Report` page or relevant report function.
-2. Fill in the required report information.
-3. Include useful details such as job link, user details, description, and supporting evidence if available.
-4. Submit the report.
-5. Admin users can review the submitted report from the Admin Reports page.
-
-## 5. Employer User Guide
-
-### 5.1 Access the Employer Dashboard
-
-1. Log in using an Employer account.
-2. The system opens the Employer dashboard.
-3. Review job listing summaries, applicant activity, verification status, and recent updates.
-
-### 5.2 Create a Job Posting
-
-1. Click `Post Job`.
-2. Enter job details such as job title, category, location, pay, work mode, requirements, description, and number of openings.
-3. Review the entered information.
-4. Submit the job posting.
-5. The job becomes available according to the system's moderation and listing rules.
-
-### 5.3 Manage Job Listings
-
-1. Click `Manage Jobs`.
-2. Review active, pending, closed, or removed job listings.
-3. Edit a job if changes are needed.
-4. Delete or close a job listing if it should no longer receive applications.
-
-### 5.4 View Applicants
-
-1. Click `Applicants`.
-2. Review applicants for the Employer's job postings.
-3. Check applicant details, application status, applied job, date, and related profile information.
-4. Use available actions to shortlist, accept, reject, complete, or manage the application.
-
-### 5.5 Schedule or Manage Interviews
-
-1. Open an applicant record from the `Applicants` page.
-2. Use the interview action if available.
-3. Select the interview date and time.
-4. Save the interview schedule.
-5. The Job Seeker can view the interview from their Interviews page.
-
-### 5.6 Communicate with Job Seekers
-
-1. Click `Messages`.
-2. Select a Job Seeker conversation.
-3. Send messages related to the job or application.
-4. Monitor the notification bell for new replies.
-
-### 5.7 Confirm Job Completion
-
-1. Open the relevant applicant or application record.
-2. Mark the job as completed when the work is finished.
-3. The completed job can appear in the Job Seeker's work history.
-
-### 5.8 Rate a Job Seeker
-
-1. Click `Ratings` or open the rating action from a completed application.
-2. Select the completed Job Seeker engagement.
-3. Enter the rating and review.
-4. Submit the rating.
-
-Ratings help build trust and reflect completed work performance.
-
-### 5.9 Submit Employer Verification
-
-1. Click `Verification`.
-2. Enter the required business information, such as SSM registration number, business type, and registered business address.
-3. Upload the required verification documents.
-4. Submit the verification package.
-5. The request is sent to Admin for review.
-6. Admin users receive a notification for the new verification request.
-
-### 5.10 Update Employer Profile
-
-1. Click `Profile`.
-2. Edit company or employer details, such as company name, business information, contact details, location, website, and overview.
-3. Save the profile.
-
-Complete profile information helps Job Seekers assess the employer and job listing credibility.
-
-## 6. Admin User Guide
-
-### 6.1 Access the Admin Dashboard
-
-1. Log in using an Admin account.
-2. The system opens the Admin dashboard.
-3. Review platform summary cards, recent activity, reports, users, jobs, and moderation-related information.
-
-### 6.2 Manage Users
-
-1. Click `Users`.
-2. Review registered Job Seekers, Employers, and Admins.
-3. Search or filter users if controls are available.
-4. Lock or unlock user accounts when required.
-5. Check user role, account status, verification status, and profile information.
-
-### 6.3 Moderate Jobs
-
-1. Click `Jobs`.
-2. Review job listings submitted by Employers.
-3. Approve, flag, remove, or review job listings using the available actions.
-4. Monitor job status and moderation information.
-
-### 6.4 Review Employer Verifications
-
-1. Click `Verifications`.
-2. Review submitted employer verification requests.
-3. Check company details, SSM number, business type, address, and uploaded documents.
-4. Choose the appropriate action, such as approve, reject, or request recheck.
-5. The Employer's verification status updates after the Admin action.
-
-When an Employer submits a new verification request, the Admin notification bell receives a verification notification.
-
-### 6.5 Review Reports
-
-1. Click `Reports`.
-2. Review submitted reports and payment disputes.
-3. Check the report type, reporter details, reported user, description, status, and evidence where available.
-4. Resolve or escalate the report using the available actions.
-5. Message or warn related users if needed.
-6. Lock or unlock an Employer account if required by the case.
-
-When a user submits a new report, the Admin notification bell receives a report notification.
-
-### 6.6 Use Admin Messages
-
-1. Click `Messages`.
-2. Select the relevant conversation.
-3. Reply to users who need support or follow-up.
-4. Use messages to contact Employers or Job Seekers during report handling or moderation.
-
-### 6.7 Manage Chatbot Knowledge
-
-1. Click `Chatbot`.
-2. Review chatbot knowledge entries.
-3. Add, edit, or remove knowledge base entries where available.
-4. Save changes.
-5. Test chatbot responses from the chatbot interface.
-
-### 6.8 View Analytics
-
-1. Click `Analytics`.
-2. Review summary metrics, charts, and platform statistics.
-3. Use the data explorer or available filters to inspect user, job, report, application, and verification records.
-4. Use analytics to support platform monitoring and decision-making.
-
-### 6.9 Update Admin Profile
-
-1. Click `Profile`.
-2. Update admin profile information where available.
-3. Save changes.
-
-## 7. Public Visitor Guide
-
-### 7.1 Browse Public Pages
-
-Public visitors can access general pages such as:
-
-- Home
-- About
-- Jobs
-- Help
-- Security
-- Privacy
-- Terms
-- Report
-
-Some pages are informational, while protected features require login.
-
-### 7.2 Browse Public Jobs
-
-1. Open the `Jobs` page.
-2. Browse available job listings.
-3. Use search or filters if available.
-4. Log in or register as a Job Seeker to apply.
-
-### 7.3 Submit a Report
-
-1. Open the `Report` page.
-2. Enter the required report details.
-3. Submit the form.
-4. Admin users can review the report from the Admin Reports page.
-
-## 8. Notification Behaviour
-
-The notification bell displays unread notifications for the logged-in user.
+Notification examples:
 
 | Event | Receiver |
 | --- | --- |
-| New job application submitted | Employer |
-| Application or work status update | Related user, depending on workflow |
-| New chat message | Message receiver |
-| New report submitted | Admin |
-| New employer verification submitted | Admin |
+| A Job Seeker applies for a job | Employer |
+| A user receives a new message | Message receiver |
+| A user submits a report | Admin |
+| An Employer submits verification | Admin |
 
-The notification badge shows the unread notification count. Opening a notification can mark it as read. Admin users should regularly check the bell, Reports page, and Verifications page to avoid missing important moderation work.
+The bell refreshes periodically, so a new notification may appear after a short delay.
+
+### 5.3 Theme Toggle
+
+Click the theme button to switch between light mode and dark mode. The selected preference is stored in the browser.
+
+### 5.4 Google Translate
+
+Use the Google Translate widget in the header to translate page content into another language.
+
+### 5.5 Chatbot
+
+Most pages include a floating chatbot. Users can type questions about EasyEarn and receive rule-based answers from the chatbot knowledge base.
+
+## 6. Job Seeker Guide
+
+### 6.1 Job Seeker Dashboard
+
+After logging in as a Job Seeker, the system opens the Job Seeker dashboard. The dashboard summarises the user's job search and application activity and provides shortcuts to important pages.
+
+### 6.2 Jobs Page
+
+The Job Seeker `Jobs` page is used to browse and apply for jobs.
+
+Users can:
+
+1. Search jobs by keyword.
+2. Filter jobs by available controls.
+3. Use location-based search.
+4. Save jobs for later.
+5. Apply for a job.
+
+Saved jobs are viewed through the saved view in the Job Seeker jobs page. The old `saved-jobs.html` page redirects to `jobs.html?tab=saved`.
+
+### 6.3 Applications Page
+
+The `Applications` page displays the Job Seeker's application pipeline.
+
+The page shows:
+
+- In Review count
+- Active count
+- Completed count
+- Rejected count
+- Application activity chart
+- Status filters
+- Application list
+- Completed jobs list
+
+Users can filter applications by:
+
+- All
+- Active
+- Rejected
+
+Accepted jobs can be moved through completion-related actions. A completed job can be saved into Work History after the completion and payment flow is confirmed.
+
+### 6.4 Messages Page
+
+The `Messages` page allows the Job Seeker to communicate with Employers.
+
+To send a message:
+
+1. Open `Messages`.
+2. Select a conversation from the thread list.
+3. Type a message.
+4. Click `Send Message`.
+
+The send button is disabled until a conversation is selected.
+
+### 6.5 Interviews Page
+
+The `Interviews` page displays interview schedules created by Employers. Job Seekers can review the job title, employer, interview date, time, location, and notes when available.
+
+### 6.6 Work History Page
+
+The `Work History` page stores completed gig records.
+
+Users can:
+
+1. Review total completed jobs.
+2. Review total earnings.
+3. Review strongest job category.
+4. Add or update a work record manually.
+5. Open the Resume page.
+6. Rate an Employer for completed work.
+
+The work history form includes:
+
+- Job title
+- Company
+- Category
+- Location
+- Completed date
+- Earnings
+- Rating
+- Period
+- Highlights
+
+### 6.7 Resume Page
+
+The `Resume` page generates a resume from the Job Seeker profile and completed work history.
+
+Users can:
+
+1. Click `Refresh from Profile`.
+2. Review the generated resume preview.
+3. Click `Download PDF`.
+
+The resume includes profile information, contact details, skills, education, availability, work history, and selected work statistics.
+
+### 6.8 Profile Page
+
+The `Profile` page allows the Job Seeker to update personal and work-related details.
+
+Profile fields include:
+
+- Full name
+- Email
+- Phone
+- Location
+- Headline
+- Bio
+- Profile photo
+- Skills
+- Preferred categories
+- Experience years
+- Expected rate
+- Education
+- Availability days
+- Availability time
+- Work mode
+
+Click `Save Profile` to store changes.
+
+## 7. Employer Guide
+
+### 7.1 Employer Dashboard
+
+After logging in as an Employer, the system opens the Employer dashboard. The dashboard summarises job listings, applicant activity, verification status, and important next actions.
+
+### 7.2 Manage Jobs Page
+
+EasyEarn uses `Manage Jobs` as the main workspace for creating and managing job listings.
+
+The page contains:
+
+- Published jobs count
+- Pending review jobs count
+- Expired jobs count
+- Closed jobs count
+- Job form
+- Publishing notes
+- Employer job list
+
+To create a job:
+
+1. Open `Manage Jobs`.
+2. Fill in the job title.
+3. Select a category.
+4. Select the state.
+5. Enter the area or use the location auto-detect button.
+6. Enter the pay rate.
+7. Enter the number of openings.
+8. Select the schedule.
+9. Select the expiry date.
+10. Add up to 5 required skills.
+11. Enter the job description.
+12. Click `Publish Job`.
+
+The Employer can also click `Save Draft`. Existing listings can be edited from the job list.
+
+### 7.3 Applicants Page
+
+The `Applicants` page allows Employers to review Job Seekers who applied to their jobs.
+
+Employers can:
+
+1. View applicant details.
+2. Review the applied job and application date.
+3. Update the application status.
+4. Schedule an interview.
+5. Confirm completed work.
+6. Rate the Job Seeker after completion.
+
+Interview scheduling uses a modal with interview date, time, location, and notes. Completion confirmation uses a completion modal.
+
+### 7.4 Messages Page
+
+The `Messages` page allows Employers to communicate with Job Seekers.
+
+To send a message:
+
+1. Open `Messages`.
+2. Select a conversation.
+3. Type the message.
+4. Click `Send Message`.
+
+### 7.5 Verification Page
+
+Employers use the `Verification` page to submit company verification information.
+
+The verification form includes:
+
+- SSM registration number
+- Business type
+- Registered business address
+- Business registration document
+- Contact proof document
+
+Verification rules:
+
+- SSM registration number is required and must be at least 6 characters.
+- Business type is required.
+- Registered business address is required and must be at least 10 characters.
+- Both verification documents are required.
+- Verification files must be PDF, PNG, JPG, JPEG, or WebP.
+- Each verification file must be 2 MB or smaller.
+
+After submission, the verification status changes to `Submitted`. Admin users receive a notification and can review the request from the Admin `Verifications` page.
+
+### 7.6 Ratings Page
+
+The `Ratings` page allows Employers to review rating information and submit ratings for completed Job Seekers when the workflow allows it.
+
+### 7.7 Employer Profile Page
+
+The `Profile` page allows Employers to update company and account details.
+
+Typical profile information includes company name, contact details, location, website, business overview, and profile image. Click `Save Profile` to store changes.
+
+## 8. Admin Guide
+
+### 8.1 Admin Dashboard
+
+After logging in as an Admin, the system opens the Admin dashboard. The dashboard shows platform metrics such as users, open reports or disputes, pending employer verifications, total jobs, and moderation summary information.
+
+### 8.2 Users Page
+
+The `Users` page allows Admins to review platform accounts.
+
+Admins can:
+
+1. View Job Seeker, Employer, and Admin counts.
+2. Search users.
+3. Filter users.
+4. Review role, account status, and verification status.
+5. Lock or unlock user accounts.
+
+### 8.3 Jobs Page
+
+The `Jobs` page is used for job listing moderation.
+
+Admins can:
+
+1. Review live, pending, flagged, and removed job listings.
+2. Search job listings.
+3. Filter by status.
+4. Approve pending jobs.
+5. Flag suspicious jobs.
+6. Remove jobs from the demo view.
+
+### 8.4 Reports Page
+
+The `Reports` page is used to review safety reports and payment disputes.
+
+The page shows:
+
+- Open reports count
+- Escalated reports count
+- Resolved reports count
+- Status filter
+- Source filter
+- Search box
+- Report feed
+
+Admins can:
+
+1. Review Supabase reports.
+2. Review payment disputes.
+3. Resolve a report.
+4. Escalate a report.
+5. Message the reported user or Employer.
+6. Send a warning to an Employer.
+7. Lock or unlock an Employer account when needed.
+
+New user-submitted reports create Admin notifications.
+
+### 8.5 Messages Page
+
+The Admin `Messages` page allows Admins to communicate with users for support, report follow-up, and moderation cases.
+
+### 8.6 Verifications Page
+
+The `Verifications` page is used to review Employer verification requests.
+
+The page shows:
+
+- Pending count
+- Approved count
+- Rejected count
+- Status filter
+- Search box
+- Verification request queue
+
+Admins can:
+
+1. Review company and business details.
+2. Check SSM number.
+3. Check business type.
+4. Check registered address.
+5. Review uploaded document names and submitted verification data.
+6. Click `Approve`.
+7. Click `Request Recheck`.
+8. Click `Reject`.
+
+When Admin requests recheck or rejects a request, the system stores review notes for the Employer.
+
+### 8.7 Chatbot Knowledge Page
+
+The `Chatbot` page lets Admins manage the chatbot knowledge base.
+
+Admins can:
+
+1. Review existing knowledge entries.
+2. Search knowledge entries.
+3. Add a question and answer.
+4. Edit an existing entry.
+5. Delete an entry.
+6. Refresh the knowledge list.
+
+### 8.8 Analytics Page
+
+The `Analytics` page displays platform-level statistics and charts.
+
+Admins can:
+
+1. View user, job, report, verification, and matching metrics.
+2. Review visual charts.
+3. Filter analytics records by type and status.
+4. Search analytics records.
+5. Save analytics snapshots when the page workflow performs the snapshot action.
+
+### 8.9 Admin Profile Page
+
+The `Profile` page allows Admins to update admin profile information, including profile image and contact-related display details.
 
 ## 9. Common Troubleshooting
 
-### 9.1 Cannot Log In
+### 9.1 Get Started Does Not Open Registration
 
-Check that the email and password are correct. If the password is forgotten, click `Forgot password?` on the login page and follow the reset-password email flow.
+The correct registration URL is:
 
-### 9.2 Redirected Away From a Page
+`login.html?tab=register`
 
-The system redirects users when the page does not match their role. For example, a Job Seeker cannot access Admin pages.
+If the button opens an old cached page, refresh the browser or wait for the GitHub Pages deployment cache to update.
 
-### 9.3 Job Application Does Not Submit
+### 9.2 Cannot Register
 
-Check that the user is logged in as a Job Seeker and that the job still has available openings. The system prevents duplicate applications for the same job.
+Check that all required fields are filled in and that the password follows the required format. Employer and Admin registration also require the correct secure code.
 
-### 9.4 Verification Upload Fails
+### 9.3 Cannot Log In
 
-Check that the uploaded file type is allowed and that the file size is within the system limit. Use PDF, PNG, JPG, or WebP files where possible.
+Check the email and password. If the account requires email confirmation, confirm the email first. If the password is forgotten, use `Forgot password?`.
 
-### 9.5 Notification Does Not Appear Immediately
+### 9.4 Redirected Away From a Page
 
-Refresh the page or wait for the next notification polling cycle. The notification bell checks for updates periodically.
+EasyEarn uses role-based routing. A Job Seeker cannot access Employer or Admin pages, and an Employer cannot access Admin-only pages.
 
-### 9.6 Page Layout Looks Different
+### 9.5 Job Application Does Not Submit
 
-Use a supported modern browser such as Google Chrome, Mozilla Firefox, or Microsoft Edge. Some browser-specific display differences may occur.
+Make sure the user is logged in as a Job Seeker. The system prevents duplicate applications and also depends on available job openings.
+
+### 9.6 Verification Upload Fails
+
+Check the file type and file size. Verification files must be PDF, PNG, JPG, JPEG, or WebP and must be 2 MB or smaller.
+
+### 9.7 Report Submission Fails
+
+Check that name, email, and description are filled in. The description must be at least 20 characters. Evidence files must be 3 MB or smaller.
+
+### 9.8 Notification Does Not Appear Immediately
+
+The notification bell checks for updates periodically. Wait briefly or refresh the page.
 
 ## 10. Security and Privacy Notes
 
-- Users should not share passwords or verification codes.
-- Job Seekers should report suspicious job postings.
-- Employers should provide accurate business information for verification.
-- Admin users should handle reports and verification documents carefully.
-- Users should only upload necessary supporting documents.
-- Logged-in users should log out after using a shared device.
+- Users should not share passwords, secure codes, or verification codes.
+- Job Seekers should report suspicious job listings or unsafe behaviour.
+- Employers should provide accurate company and verification information.
+- Admins should handle reports, user details, and verification documents carefully.
+- Users should upload only necessary supporting documents.
+- Users should log out after using EasyEarn on a shared device.
 
-## 11. Recommended User Workflow Summary
+## 11. Workflow Summary
 
-### Job Seeker
+### Job Seeker Workflow
 
-1. Register or log in.
-2. Complete profile.
-3. Browse jobs.
-4. Apply for suitable jobs.
-5. Communicate with Employers.
-6. Attend interviews if scheduled.
-7. Complete work.
-8. Confirm payment and view work history.
-9. Generate resume if needed.
+1. Register through the Register tab.
+2. Log in as Job Seeker.
+3. Complete the profile.
+4. Browse jobs.
+5. Save or apply for jobs.
+6. Track applications.
+7. Message Employers.
+8. Review interviews.
+9. Complete accepted work.
+10. Confirm completion or payment-related steps when shown.
+11. Review Work History.
+12. Generate and download resume.
 
-### Employer
+### Employer Workflow
 
-1. Register or log in.
-2. Complete employer profile.
-3. Submit verification package.
-4. Post job listing.
-5. Review applicants.
-6. Shortlist or accept suitable applicants.
-7. Communicate with Job Seekers.
-8. Mark completed work.
-9. Rate completed Job Seekers.
+1. Register through the Register tab with Employer Secure Code.
+2. Log in as Employer.
+3. Complete the employer profile.
+4. Submit employer verification.
+5. Create or publish jobs from Manage Jobs.
+6. Review applicants.
+7. Schedule interviews.
+8. Accept or reject applicants.
+9. Confirm completed work.
+10. Rate Job Seekers after completion.
 
-### Admin
+### Admin Workflow
 
-1. Log in.
-2. Monitor dashboard and notifications.
-3. Review users and jobs.
-4. Process employer verification requests.
-5. Review submitted reports and disputes.
-6. Manage chatbot knowledge.
-7. Monitor analytics.
-8. Support users through messages.
+1. Register or log in as Admin with the required Admin access.
+2. Monitor Dashboard and notifications.
+3. Review Users.
+4. Moderate Jobs.
+5. Review Reports and payment disputes.
+6. Review Employer Verifications.
+7. Manage Chatbot knowledge.
+8. Monitor Analytics.
+9. Use Messages for support or moderation follow-up.
