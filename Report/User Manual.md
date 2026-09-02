@@ -25,13 +25,25 @@ EasyEarn provides three main user roles.
 ### 3.1 Register an Account
 
 1. Open the EasyEarn website.
-2. Click `Register`.
-3. Select the user role, such as Job Seeker or Employer.
-4. Enter the required account details.
-5. Submit the registration form.
-6. After successful registration, log in using the registered email and password.
+2. Click `Login`.
+3. Select the `Register` tab on the login page. The standalone `register.html` page redirects users to `login.html?tab=register`.
+4. Enter the full name, email, password, and confirm password.
+5. Select one role from the role cards: `Job Seeker`, `Employer`, or `Admin`.
+6. If `Employer` is selected, enter the Employer Secure Code.
+7. If `Admin` is selected, enter the Admin Secure Code.
+8. Click `Create Account`.
+9. If email confirmation is required by Supabase Auth, check the email inbox and confirm the account before logging in.
+10. If the account is created with an active session, the system redirects the user to the dashboard that matches the selected role.
 
-Note: Admin accounts are controlled separately and should only be created or assigned by authorised project personnel.
+Registration validation:
+
+- Full name must be at least 2 characters.
+- Email must use a valid email format.
+- Password must be at least 6 characters.
+- Password must contain at least one letter and one number.
+- Password must contain at least one of these symbols: `!@#$%^`.
+- Confirm password must match the password.
+- Employer and Admin registration require the correct secure code.
 
 ### 3.2 Log In
 
@@ -117,9 +129,10 @@ After applying, the Job Seeker can track the application from the `Applications`
 
 ### 4.6 View In-Progress Work
 
-1. Click `In Progress` or access the in-progress work page if available.
-2. Review accepted or active job engagements.
-3. Follow the displayed work status and next action.
+1. Click `Applications`.
+2. Review applications that are accepted, active, or waiting for the next action.
+3. Open the relevant application details or action shown by the system.
+4. Follow the displayed work status, payment confirmation, or completion action.
 
 ### 4.7 Manage Interviews
 
@@ -366,7 +379,7 @@ The notification badge shows the unread notification count. Opening a notificati
 
 ### 9.1 Cannot Log In
 
-Check that the email and password are correct. If the password is forgotten, use the forgot-password page if available.
+Check that the email and password are correct. If the password is forgotten, click `Forgot password?` on the login page and follow the reset-password email flow.
 
 ### 9.2 Redirected Away From a Page
 
@@ -433,4 +446,3 @@ Use a supported modern browser such as Google Chrome, Mozilla Firefox, or Micros
 6. Manage chatbot knowledge.
 7. Monitor analytics.
 8. Support users through messages.
-
