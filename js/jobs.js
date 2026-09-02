@@ -161,7 +161,7 @@ import { fetchPublicProfilesByIds } from './supabase-data.js';
         </div>
         <div class="job-footer">
           <span class="job-date">${dateStr}</span>
-          <button class="btn-apply" onclick="location.href='register.html'">Apply</button>
+          <button class="btn-apply" onclick="location.href='login.html?tab=register'">Apply</button>
         </div>
       </div>`;
   }
