@@ -1414,10 +1414,14 @@ export async function markEmployerPaid(applicationId, seekerId = null, amount = 
     .maybeSingle();
 
   if (existing?.id) {
+    const existingAmount = Number(existing.amount) || 0;
+    if (requestedAmount <= 0 && existingAmount <= 0) {
+      throw new Error('Final earnings amount is required before confirming payment.');
+    }
     // Record exists → stamp employer_paid_at
     const updates = {
       employer_paid_at: new Date().toISOString(),
-      amount: requestedAmount > 0 ? requestedAmount : (Number(existing.amount) || 0)
+      amount: requestedAmount > 0 ? requestedAmount : existingAmount
     };
 
     const { error } = await supabase
@@ -1426,6 +1430,9 @@ export async function markEmployerPaid(applicationId, seekerId = null, amount = 
       .eq('id', existing.id);
     if (error) throw error;
   } else {
+    if (requestedAmount <= 0) {
+      throw new Error('Final earnings amount is required before confirming payment.');
+    }
     // No record yet → insert a new one
     const { data: { user } } = await supabase.auth.getUser();
     const { error } = await supabase

@@ -298,7 +298,7 @@ import {
         </button>
         <button type="button" class="btn-outline employer-action-btn dispute-complete-btn"
           data-application-id="${escapeHtml(app.id)}">
-          Reopen Review
+          Cancel Confirmation
         </button>`;
 
     } else if (status === 'completion_pending') {
@@ -477,9 +477,13 @@ import {
     const seekerId      = document.getElementById('complete-seeker-id').value;
     const jobId         = document.getElementById('complete-job-id').value;
     const endDate       = document.getElementById('complete-date').value;
-    const earnings      = parseFloat(document.getElementById('complete-earnings').value) || 0;
+    const earnings      = parseFloat(document.getElementById('complete-earnings').value);
 
     if (!applicationId) { if (completeStatusEl) completeStatusEl.textContent = 'Application ID missing.'; return; }
+    if (!Number.isFinite(earnings) || earnings <= 0) {
+      if (completeStatusEl) completeStatusEl.textContent = 'Please enter final earnings greater than RM 0.';
+      return;
+    }
 
     completeSaveBtn.disabled = true;
     completeSaveBtn.textContent = 'Confirming…';
@@ -620,7 +624,7 @@ import {
     if (disputeBtn) {
       const appId = disputeBtn.dataset.applicationId;
       if (!appId) return;
-      if (!confirm('Move this application back to reviewed status?')) return;
+      if (!confirm('Cancel this confirmation and move the application back to reviewed status?')) return;
       disputeBtn.disabled = true;
       disputeBtn.textContent = 'Saving...';
       try {
@@ -636,21 +640,7 @@ import {
     // Mark as Paid
     const paidBtn = event.target.closest('.mark-paid-btn');
     if (paidBtn) {
-      const appId = paidBtn.dataset.applicationId;
-      const seekerId = paidBtn.dataset.seekerId || null;
-      if (!appId) return;
-      paidBtn.disabled = true;
-      paidBtn.textContent = 'Saving…';
-      try {
-        await markEmployerPaid(appId, seekerId);
-        paidApplicationIds.add(appId);
-        await refreshView();
-      } catch (err) {
-        console.error('Failed to mark as paid:', err);
-        paidBtn.disabled = false;
-        paidBtn.textContent = '💸 Mark as Paid';
-        alert('Failed to save. Please try again.');
-      }
+      alert('Please use Confirm Work / Payment and enter the final earnings amount.');
       return;
     }
 
