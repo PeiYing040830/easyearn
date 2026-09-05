@@ -67,6 +67,15 @@ import {
     return map[status] || status;
   }
 
+  function getStatusGroup(status) {
+    const normalized = normalizeStatus(status);
+    if (['pending', 'reviewed'].includes(normalized)) return 'inreview';
+    if (['interview', 'accepted', 'completion_pending'].includes(normalized)) return 'active';
+    if (normalized === 'completed') return 'completed';
+    if (normalized === 'rejected') return 'rejected';
+    return 'inreview';
+  }
+
   function buildStatusTimeline(status, appliedAt) {
     const normalized = normalizeStatus(status);
     const isRejected = normalized === 'rejected';
@@ -186,10 +195,7 @@ import {
       const idx = months.findIndex((m) => m.year === date.getFullYear() && m.month === date.getMonth());
       if (idx === -1) return;
       const s = normalizeStatus(a.status);
-      if (s === 'pending' || s === 'reviewed' || s === 'interview') months[idx].inreview++;
-      else if (s === 'accepted' || s === 'completion_pending')       months[idx].active++;
-      else if (s === 'completed')                                      months[idx].completed++;
-      else if (s === 'rejected')                                       months[idx].rejected++;
+      months[idx][getStatusGroup(s)]++;
     });
     return {
       inreview:  months.map((m) => m.inreview),
@@ -205,10 +211,7 @@ import {
     const c = { inreview: 0, active: 0, rejected: 0, completed: 0 };
     applications.forEach((a) => {
       const s = normalizeStatus(a.status);
-      if (s === 'pending' || s === 'reviewed' || s === 'interview') c.inreview++;
-      else if (s === 'accepted' || s === 'completion_pending') c.active++;
-      else if (s === 'rejected') c.rejected++;
-      else if (s === 'completed') c.completed++;
+      c[getStatusGroup(s)]++;
     });
     return c;
   }
@@ -218,8 +221,8 @@ import {
     const total = Object.values(c).reduce((s, v) => s + v, 0);
 
     const notes = {
-      inreview:  c.inreview  ? `${c.inreview} application(s) pending, reviewed, or in interview.` : 'No applications under review yet.',
-      active:    c.active    ? `${c.active} accepted job(s) or jobs awaiting confirmation.`        : 'No active jobs yet.',
+      inreview:  c.inreview  ? `${c.inreview} application(s) pending or reviewed.` : 'No applications under review yet.',
+      active:    c.active    ? `${c.active} interview, accepted, or payment confirmation job(s).`        : 'No active jobs yet.',
       completed: c.completed ? `${c.completed} completed jobs.`                          : 'No completed jobs yet.',
       rejected:  c.rejected  ? `${c.rejected} rejected.`                                : 'No rejected applications yet.'
     };
@@ -337,7 +340,7 @@ import {
   function getFilteredApps() {
     const all = applications.filter((a) => !a.deleted_at);
     if (activeFilter === 'all') return all;
-    if (activeFilter === 'active') return all.filter((a) => ['accepted','completion_pending'].includes(normalizeStatus(a.status)));
+    if (activeFilter === 'active') return all.filter((a) => ['pending', 'reviewed', 'interview', 'accepted', 'completion_pending'].includes(normalizeStatus(a.status)));
     if (activeFilter === 'rejected') return all.filter((a) => normalizeStatus(a.status) === 'rejected');
     return all;
   }
