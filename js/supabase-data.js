@@ -1404,7 +1404,8 @@ export async function createPayment(payload) {
   return data;
 }
 
-export async function markEmployerPaid(applicationId, seekerId = null) {
+export async function markEmployerPaid(applicationId, seekerId = null, amount = 0) {
+  const requestedAmount = Number(amount) || 0;
   // Check if a payment record already exists for this application
   const { data: existing } = await supabase
     .from(TABLES.payments)
@@ -1414,7 +1415,10 @@ export async function markEmployerPaid(applicationId, seekerId = null) {
 
   if (existing?.id) {
     // Record exists → stamp employer_paid_at
-    const updates = { employer_paid_at: new Date().toISOString() };
+    const updates = {
+      employer_paid_at: new Date().toISOString(),
+      amount: requestedAmount > 0 ? requestedAmount : (Number(existing.amount) || 0)
+    };
 
     const { error } = await supabase
       .from(TABLES.payments)
@@ -1430,7 +1434,7 @@ export async function markEmployerPaid(applicationId, seekerId = null) {
         application_id: applicationId,
         payer_id: user?.id ?? null,
         payee_id: seekerId ?? null,
-        amount: 0,
+        amount: requestedAmount,
         status: 'pending',
         employer_paid_at: new Date().toISOString()
       });
@@ -1623,6 +1627,8 @@ export async function confirmPaymentReceived(applicationId) {
       });
     if (error) throw error;
   }
+
+  await updateApplicationStatus(applicationId, 'completed');
 }
 
 // ── Skill Tags ─────────────────────────────────────────────────────────────

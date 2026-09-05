@@ -6,7 +6,7 @@
   <title>EasyEarn - My Applications</title>
     <link rel="icon" type="image/png" href="/easyearn/images/logo.png?v=20260829b">
 <link rel="stylesheet" href="../../css/landing.css">
-  <link rel="stylesheet" href="jobseeker-pages.css?v=20260829e">
+  <link rel="stylesheet" href="jobseeker-pages.css?v=20260905a">
 </head>
 <body>
   <div id="site-header"></div>
@@ -14,7 +14,7 @@
     <div class="jobseeker-header">
       <div class="hero-badge">Applications</div>
       <h1>My Applications</h1>
-      <p>Track every job you've applied to — pending, accepted, completed, or rejected.</p>
+      <p>Track every job you've applied to from pending review through interview, payment confirmation, and completion.</p>
     </div>
 
     <!-- Stats -->
@@ -99,7 +99,7 @@
         <div>
           <div class="hero-badge">Recent Activity</div>
           <h2>Your applications</h2>
-          <p>Accepted jobs can be marked as completed. Work History unlocks after you confirm payment received.</p>
+          <p>Jobs are completed only after you confirm payment received. Confirmed jobs are saved into Work History.</p>
         </div>
       </div>
       <div id="applications-live-list" class="jobseeker-list application-list">
@@ -147,8 +147,8 @@
   <!-- Work History Modal -->
   <div id="work-history-modal" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,0.45); z-index:9999; align-items:center; justify-content:center;">
     <div style="background:#fff; border-radius:16px; padding:32px; max-width:520px; width:90%; box-shadow:0 20px 60px rgba(0,0,0,0.2);">
-      <h2 style="margin-bottom:6px;">Submit Completion Request</h2>
-      <p style="color:#64748b; margin-bottom:20px;">Send your completion details to the employer. This job will only appear in Work History after the employer confirms it.</p>
+      <h2 style="margin-bottom:6px;">Confirm Payment Received</h2>
+      <p style="color:#64748b; margin-bottom:20px;">After employer confirmation, confirm that payment was received to complete the job and save it into Work History.</p>
 
       <div class="profile-form-grid" style="display:grid; gap:14px;">
         <input type="hidden" id="wh-application-id">
@@ -192,6 +192,6 @@
   <script src="../../js/translate.js" defer></script>
   <script src="../../js/includes.js?v=20260802a" defer></script>
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-  <script type="module" src="../../js/jobseeker-applications.js?v=20260430d"></script>
+  <script type="module" src="../../js/jobseeker-applications.js?v=20260905a"></script>
 </body>
 </html>

@@ -60,7 +60,7 @@ import {
       reviewed:           'Reviewed',
       interview:          'Interview',
       accepted:           'Accepted',
-      completion_pending: 'Awaiting Confirm',
+      completion_pending: 'Completion Pending',
       completed:          'Completed',
       rejected:           'Rejected'
     };
@@ -73,23 +73,21 @@ import {
     const indexMap = {
       pending: 0,
       reviewed: 1,
-      interview: 1,
-      accepted: 2,
-      completion_pending: 2,
-      completed: 3,
-      rejected: 3
+      interview: 2,
+      accepted: 3,
+      completion_pending: 4,
+      completed: 5,
+      rejected: 5
     };
     const currentIndex = indexMap[normalized] ?? 0;
     const appliedLabel = appliedAt === 'Date not available' ? 'Submitted' : appliedAt;
-    const reviewLabel = normalized === 'interview' ? 'Interview' : 'Reviewed';
-    const acceptedNote = normalized === 'completion_pending' ? 'Awaiting employer confirmation' : 'Employer decision';
-    const finalLabel = isRejected ? 'Rejected' : 'Completed';
-    const finalNote = isRejected ? 'Application closed' : 'Work history ready';
     const steps = [
       { label: 'Applied', note: appliedLabel },
-      { label: reviewLabel, note: 'Employer review' },
-      { label: 'Accepted', note: acceptedNote },
-      { label: finalLabel, note: finalNote }
+      { label: 'Reviewed', note: 'Employer review' },
+      { label: 'Interview', note: 'Interview scheduled' },
+      { label: 'Accepted', note: 'Employer decision' },
+      { label: 'Completion Pending', note: 'Confirm payment received' },
+      { label: isRejected ? 'Rejected' : 'Completed', note: isRejected ? 'Application closed' : 'Work history ready' }
     ];
 
     return `
@@ -272,49 +270,34 @@ import {
         </button>`;
 
     } else if (status === 'accepted') {
-      // Seeker can request completion
       actionBtns = `
-        <button type="button" class="btn-primary seeker-action-btn request-complete-btn"
-          data-application-id="${escapeHtml(app.id)}"
-          data-job-title="${escapeHtml(jobTitle)}"
-          data-company="${escapeHtml(company)}">
-          ✅ Mark as Completed
+        <button type="button" class="btn-outline seeker-action-btn" disabled>
+          Waiting for Employer Completion / Payment
         </button>`;
 
     } else if (status === 'completion_pending') {
+      const payment = paymentStatusMap[app.id];
+      const employerPaid = !!(payment?.employer_paid_at || payment?.status === 'employer_paid' || payment?.status === 'confirmed');
       actionBtns = `
-        <button type="button" class="btn-outline seeker-action-btn" disabled>
-          ⏳ Waiting for Employer Confirmation
+        <button type="button" class="btn-primary seeker-action-btn confirm-payment-btn"
+          data-application-id="${escapeHtml(app.id)}"
+          data-employer-paid="${employerPaid ? 'true' : 'false'}"
+          title="Confirm you received payment to complete this job and save it to Work History.">
+          Confirm Payment Received
         </button>`;
 
     } else if (status === 'completed') {
-      const payment           = paymentStatusMap[app.id];
-      const employerPaid      = !!(payment?.employer_paid_at || payment?.status === 'employer_paid' || payment?.status === 'confirmed');
-      const seekerConfirmed   = !!(payment?.seeker_confirmed_at || payment?.status === 'confirmed');
-
-      let rateBtn = '';
       if (alreadyRated) {
-        rateBtn = `<button type="button" class="btn-outline seeker-action-btn" disabled style="opacity:.6;cursor:default;">★ Rated</button>`;
-      } else if (!seekerConfirmed) {
-        rateBtn = `
-          <button type="button" class="btn-outline seeker-action-btn confirm-payment-btn"
-            data-application-id="${escapeHtml(app.id)}"
-            data-employer-paid="${employerPaid ? 'true' : 'false'}"
-            title="Confirm you received payment to unlock rating. Use Report if there is a payment issue.">
-            💰 Confirm Payment Received
-          </button>`;
+        actionBtns = `<button type="button" class="btn-outline seeker-action-btn" disabled style="opacity:.6;cursor:default;">Rated</button>`;
       } else {
-        // Both confirmed — unlock rating
-        rateBtn = `
+        actionBtns = `
           <button type="button" class="btn-outline seeker-action-btn rate-employer-btn"
             data-application-id="${escapeHtml(app.id)}"
             data-employer-id="${escapeHtml(job.employer_id || '')}"
             data-employer-name="${escapeHtml(company)}">
-            ⭐ Rate Employer
+            Rate Employer
           </button>`;
       }
-
-      actionBtns = rateBtn;
     }
 
     const employerId = job.employer_id || '';
@@ -457,9 +440,9 @@ import {
       ratedBySeeker = new Set();
     }
 
-    // Fetch payment status for all completed applications
+    // Fetch payment status for applications that can show payment actions.
     try {
-      const completedApps = applications.filter(a => normalizeStatus(a.status) === 'completed');
+      const completedApps = applications.filter(a => ['completion_pending', 'completed'].includes(normalizeStatus(a.status)));
       const payments = await Promise.all(
         completedApps.map(a => fetchPaymentByApplication(a.id).catch(() => null))
       );
@@ -497,36 +480,8 @@ import {
   whCancelBtn?.addEventListener('click', closeWhModal);
   whModal?.addEventListener('click', (e) => { if (e.target === whModal) closeWhModal(); });
 
-  whSaveBtn?.addEventListener('click', async () => {
-    const applicationId = document.getElementById('wh-application-id').value;
-    if (!applicationId) { if (whStatus) whStatus.textContent = 'Application ID missing.'; return; }
-
-    whSaveBtn.disabled = true;
-    whSaveBtn.textContent = 'Submitting…';
-    if (whStatus) whStatus.textContent = '';
-
-    try {
-      await insertWorkHistory({
-        seeker_id: currentUser?.id,
-        application_id: applicationId,
-        job_title: document.getElementById('wh-job-title').value,
-        employer_name: document.getElementById('wh-employer-name').value,
-        category: document.getElementById('wh-category').value,
-        start_date: document.getElementById('wh-start-date').value || null,
-        end_date: document.getElementById('wh-end-date').value || null,
-        earnings: 0 // employer fills the actual amount when confirming payment
-      });
-
-      await updateApplicationStatus(applicationId, 'completion_pending');
-
-      closeWhModal();
-      await refreshView();
-    } catch (err) {
-      console.error('Failed to submit completion:', err);
-      if (whStatus) whStatus.textContent = `Error: ${err.message || err}`;
-      whSaveBtn.disabled = false;
-      whSaveBtn.textContent = 'Submit Completion';
-    }
+  whSaveBtn?.addEventListener('click', () => {
+    if (whStatus) whStatus.textContent = 'Please use Confirm Payment Received after employer confirmation.';
   });
 
 
@@ -735,16 +690,14 @@ import {
       return;
     }
 
-    // Mark as Completed
+    // Legacy completion request button; kept for older cached markup.
     const completeBtn = event.target.closest('.request-complete-btn');
     if (completeBtn) {
-      const appId = completeBtn.dataset.applicationId;
-      const app = applications.find((a) => a.id === appId);
-      if (app) openWhModal(app);
+      alert('Please wait for the employer to confirm work and payment before confirming receipt.');
       return;
     }
 
-    // Confirm Payment Received (unlocks Rating)
+    // Confirm Payment Received, complete the application, and save Work History.
     const confirmPayBtn = event.target.closest('.confirm-payment-btn');
     if (confirmPayBtn) {
       const appId = confirmPayBtn.dataset.applicationId;
@@ -758,18 +711,32 @@ import {
       confirmPayBtn.textContent = 'Confirming…';
       try {
         await confirmPaymentReceived(appId);
-        // Update local map so UI re-renders immediately
+        const app = applications.find((item) => item.id === appId);
+        if (app) {
+          const job = app._job || {};
+          const payment = paymentStatusMap[appId] || {};
+          await insertWorkHistory({
+            seeker_id: currentUser?.id,
+            application_id: appId,
+            job_title: job.title || 'Completed Job',
+            employer_name: job.company_name || job.employer_name || 'Employer',
+            category: job.category || null,
+            start_date: null,
+            end_date: new Date().toISOString().split('T')[0],
+            earnings: Number(payment.amount) || 0
+          });
+        }
         if (paymentStatusMap[appId]) {
           paymentStatusMap[appId].seeker_confirmed_at = new Date().toISOString();
           paymentStatusMap[appId].status = 'confirmed';
         } else {
           paymentStatusMap[appId] = { seeker_confirmed_at: new Date().toISOString(), status: 'confirmed' };
         }
-        renderAll();
+        await refreshView();
       } catch (err) {
         console.error('Failed to confirm payment:', err);
         confirmPayBtn.disabled = false;
-        confirmPayBtn.textContent = '💰 Confirm Payment Received';
+        confirmPayBtn.textContent = 'Confirm Payment Received';
         alert('Failed to save. Please try again.');
       }
       return;

@@ -276,7 +276,7 @@
 
 .application-status-timeline {
   display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
+  grid-template-columns: repeat(6, minmax(0, 1fr));
   gap: 12px;
   margin: 14px 0 2px;
 }
@@ -1590,6 +1590,11 @@
   }
 
   .application-status-step:nth-child(2)::after {
+    display: none;
+  }
+
+  .application-status-step:nth-child(4)::after,
+  .application-status-step:nth-child(6)::after {
     display: none;
   }
 

@@ -3,7 +3,6 @@ import {
   fetchRatingsForReviewees,
   updateApplicationStatus,
   updateInterviewSchedule,
-  syncWorkHistoryEarningsFromPayment,
   normalizeArray,
   observeAuth,
   upsertRating,
@@ -38,7 +37,7 @@ import {
   let currentUser = null;
   let applications = [];
   let ratedApplicationIds = new Set(); // track which seekers employer already rated
-  let paidApplicationIds  = new Set(); // track which completed jobs employer has marked paid
+  let paidApplicationIds  = new Set(); // track which jobs employer has marked paid
   let paymentStatusMap = {};
   let seekerRatingsById = new Map();
 
@@ -288,13 +287,6 @@ import {
 
     } else if (status === 'accepted') {
       actionBtns = `
-        <button type="button" class="btn-outline employer-action-btn" disabled>
-          Waiting for Job Seeker Completion
-        </button>`;
-
-    } else if (status === 'completion_pending') {
-      // ★ KEY FIX: employer sees active Confirm button here
-      actionBtns = `
         <button type="button" class="btn-primary employer-action-btn confirm-complete-btn"
           data-application-id="${escapeHtml(app.id)}"
           data-seeker-id="${escapeHtml(seekerId)}"
@@ -302,11 +294,17 @@ import {
           data-job-title="${escapeHtml(jobTitle)}"
           data-job-id="${escapeHtml(app.job_id || '')}"
           data-employer-name="${escapeHtml(job.company_name || job.employer_name || '')}">
-          ✅ Confirm Completed
+          Confirm Work / Payment
         </button>
         <button type="button" class="btn-outline employer-action-btn dispute-complete-btn"
           data-application-id="${escapeHtml(app.id)}">
-          Dispute Completion
+          Reopen Review
+        </button>`;
+
+    } else if (status === 'completion_pending') {
+      actionBtns = `
+        <button type="button" class="btn-outline employer-action-btn" disabled>
+          Awaiting Job Seeker Payment Confirmation
         </button>`;
 
     } else if (status === 'completed') {
@@ -460,6 +458,10 @@ import {
     document.getElementById('complete-date').value    = new Date().toISOString().split('T')[0];
     document.getElementById('complete-earnings').value = '';
     if (completeStatusEl) completeStatusEl.textContent = '';
+    if (completeSaveBtn) {
+      completeSaveBtn.disabled = false;
+      completeSaveBtn.textContent = 'Confirm Work / Payment';
+    }
     completeModal.style.display = 'flex';
   }
 
@@ -484,31 +486,17 @@ import {
     if (completeStatusEl) completeStatusEl.textContent = '';
 
     try {
-      // 1. Update application status → completed
-      await updateApplicationStatus(applicationId, 'completed');
-
-      // Note: work_history is already created by the seeker when they submit
-      // the completion request (completion_pending status). The employer cannot
-      // insert on the seeker's behalf due to RLS — seeker_id must equal auth.uid().
-      // Sync earnings from the confirmed payment record into the seeker's row.
-      try { await syncWorkHistoryEarningsFromPayment(applicationId); }
-      catch (_) { /* non-fatal */ }
+      await markEmployerPaid(applicationId, seekerId, earnings);
+      await updateApplicationStatus(applicationId, 'completion_pending');
 
       closeCompleteModal();
       await refreshView();
-
-      // 3. Prompt employer to rate the seeker
-      openRateSeekerModal({
-        applicationId,
-        seekerId,
-        seekerName: document.getElementById('complete-applicant-name').textContent
-      });
 
     } catch (err) {
       console.error('Failed to confirm completion:', err);
       if (completeStatusEl) completeStatusEl.textContent = `Error: ${err.message || err}`;
       completeSaveBtn.disabled = false;
-      completeSaveBtn.textContent = 'Confirm Completed';
+      completeSaveBtn.textContent = 'Confirm Work / Payment';
     }
   });
 
@@ -621,7 +609,7 @@ import {
 
   listEl?.addEventListener('click', async (event) => {
 
-    // Confirm Completed
+    // Confirm work and payment
     const confirmBtn = event.target.closest('.confirm-complete-btn');
     if (confirmBtn) {
       openCompleteModal(confirmBtn);
@@ -632,11 +620,11 @@ import {
     if (disputeBtn) {
       const appId = disputeBtn.dataset.applicationId;
       if (!appId) return;
-      if (!confirm('Dispute this completion claim and move the application back to accepted?')) return;
+      if (!confirm('Move this application back to reviewed status?')) return;
       disputeBtn.disabled = true;
       disputeBtn.textContent = 'Saving...';
       try {
-        await updateApplicationStatus(appId, 'accepted');
+        await updateApplicationStatus(appId, 'reviewed');
         await refreshView();
       } catch (err) {
         disputeBtn.disabled = false;
