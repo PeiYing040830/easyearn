@@ -42,6 +42,7 @@ import { observeAuth, fetchNotifications, markNotificationRead, markAllNotificat
     if (type === 'application_update') return '🔔';
     if (type === 'interview')          return '📅';
     if (type === 'new_message')        return '💬';
+    if (type === 'admin_queue')        return '📌';
     return '📢';
   }
 
@@ -58,6 +59,17 @@ import { observeAuth, fetchNotifications, markNotificationRead, markAllNotificat
       job: n._chatJobTitle || ''
     });
     return `${base}/pages/${folder}/messages.html?${params.toString()}`;
+  }
+
+  // Loads target link data so the page can display current information.
+  function getTargetLink(n) {
+    const base = (window.EASYEARN_BASE_PATH || '../../').replace(/\/$/, '');
+    const isAdmin = window.location.href.includes('/admin/');
+    if (n.type === 'new_message') return getChatLink(n);
+    if (!isAdmin) return '';
+    if (n.target_table === 'reports') return `${base}/pages/admin/reports.html`;
+    if (n.target_table === 'verifications') return `${base}/pages/admin/verifications.html`;
+    return '';
   }
 
   // ── Render dropdown ────────────────────────────────────────────────────
@@ -128,8 +140,9 @@ import { observeAuth, fetchNotifications, markNotificationRead, markAllNotificat
           el.style.background = 'transparent';
           el.querySelector('span[style*="border-radius:50%"]')?.remove();
         }
-        if (n && n.type === 'new_message') {
-          window.location.href = getChatLink(n);
+        const targetLink = n ? getTargetLink(n) : '';
+        if (targetLink) {
+          window.location.href = targetLink;
         }
       });
     });

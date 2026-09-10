@@ -1137,6 +1137,72 @@ function safeParseJson(value) {
   }
 }
 
+// Builds admin queue reminders so active admin work still appears if a notification row was missed.
+async function fetchAdminQueueNotifications(userId) {
+  const { data: profile, error: profileError } = await supabase
+    .from(TABLES.profiles)
+    .select('role')
+    .eq('id', userId)
+    .maybeSingle();
+
+  if (profileError || normalizeRoleValue(profile?.role) !== 'admin') return [];
+
+  const [reportsResult, disputesResult, profilesResult] = await Promise.allSettled([
+    fetchReports(),
+    fetchPaymentDisputes(),
+    fetchAllProfiles()
+  ]);
+
+  const reports = reportsResult.status === 'fulfilled' ? reportsResult.value : [];
+  const disputes = disputesResult.status === 'fulfilled' ? disputesResult.value : [];
+  const profiles = profilesResult.status === 'fulfilled' ? profilesResult.value : [];
+  const activeReportStatuses = ['pending', 'open', 'submitted', 'flagged', 'under_review'];
+  const openCases = [
+    ...(reports || []).filter((report) =>
+      activeReportStatuses.includes(String(report.status || 'pending').toLowerCase())
+    ),
+    ...(disputes || [])
+  ];
+  const pendingVerifications = (profiles || []).filter((profileItem) => {
+    if (profileItem.role !== 'employer' || profileItem.isVerified) return false;
+    return ['submitted', 'recheck'].includes(String(profileItem.verificationStatus || '').toLowerCase());
+  });
+
+  const reminders = [];
+  if (openCases.length) {
+    const latestCase = openCases
+      .map((item) => item.created_at || item.disputed_at || item.createdAt)
+      .filter(Boolean)
+      .sort()
+      .pop() || new Date().toISOString();
+    reminders.push({
+      id: 'admin-queue-reports',
+      user_id: userId,
+      type: 'admin_queue',
+      message: `${openCases.length} open report/dispute case(s) waiting for review.`,
+      is_read: false,
+      created_at: latestCase,
+      target_table: 'reports',
+      _virtual: true
+    });
+  }
+
+  if (pendingVerifications.length) {
+    reminders.push({
+      id: 'admin-queue-verifications',
+      user_id: userId,
+      type: 'admin_queue',
+      message: `${pendingVerifications.length} employer verification request(s) waiting for review.`,
+      is_read: false,
+      created_at: new Date().toISOString(),
+      target_table: 'verifications',
+      _virtual: true
+    });
+  }
+
+  return reminders;
+}
+
 // Formats or checks chat payload so later code can use a clean value.
 function normalizeChatPayload(row = {}) {
   const parsed = safeParseJson(row.message);
@@ -1324,6 +1390,7 @@ export async function fetchNotifications(userId, { limit = 20 } = {}) {
   ]);
 
   if (notifRes.error) throw notifRes.error;
+  if (chatRes.error) throw chatRes.error;
 
   // Deduplicate: keep only the latest unread message per thread
   const threadMap = new Map();
@@ -1356,7 +1423,9 @@ export async function fetchNotifications(userId, { limit = 20 } = {}) {
     };
   });
 
-  return [...(notifRes.data || []), ...chatNotifs]
+  const adminQueueNotifs = await fetchAdminQueueNotifications(userId);
+
+  return [...(notifRes.data || []), ...chatNotifs, ...adminQueueNotifs]
     .sort((a, b) => new Date(b.created_at) - new Date(a.created_at))
     .slice(0, limit);
 }
