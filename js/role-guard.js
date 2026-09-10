@@ -1,14 +1,19 @@
+/**
+ * EasyEarn file note: Handles the role guard page behavior and related user interactions.
+ */
 import { fetchProfile, observeAuth } from './supabase-data.js';
 
 (function () {
   'use strict';
 
+  // Formats or checks role so later code can use a clean value.
   function normalizeRole(role) {
     const value = String(role || '').trim().toLowerCase();
     if (value === 'jobseeker' || value === 'job seeker') return 'seeker';
     return value;
   }
 
+  // Runs the required role for current path step for this page workflow.
   function requiredRoleForCurrentPath() {
     const path = window.location.pathname.replace(/\\/g, '/').toLowerCase();
     if (path.includes('/pages/admin/')) return 'admin';
@@ -17,6 +22,7 @@ import { fetchProfile, observeAuth } from './supabase-data.js';
     return '';
   }
 
+  // Helper function for dashboard for role used by this script.
   function dashboardForRole(role) {
     const basePath = window.EASYEARN_BASE_PATH || '../../';
     if (role === 'admin') return `${basePath}pages/admin/dashboard.html`;
@@ -25,6 +31,7 @@ import { fetchProfile, observeAuth } from './supabase-data.js';
     return `${basePath}login.html`;
   }
 
+  // Helper function for role matches used by this script.
   function roleMatches(requiredRole, actualRole) {
     return requiredRole && actualRole && requiredRole === actualRole;
   }

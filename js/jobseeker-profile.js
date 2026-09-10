@@ -1,3 +1,6 @@
+/**
+ * EasyEarn file note: Handles the jobseeker profile page behavior and related user interactions.
+ */
 import {
   calcAverageRating,
   fetchApplications,
@@ -21,6 +24,7 @@ import {
   let allSkillTags = [];
   let selectedSkills = [];
 
+  // Sets up skill picker when this script is loaded.
   async function initSkillPicker(existingSkills = []) {
     selectedSkills = Array.isArray(existingSkills) ? [...existingSkills] : [];
     renderChips();
@@ -28,6 +32,7 @@ import {
     try { allSkillTags = await fetchSkillTags(); } catch (e) { allSkillTags = []; }
   }
 
+  // Renders chips into the HTML so the user can see it.
   function renderChips() {
     const chipsEl = document.getElementById('skill-chips');
     if (!chipsEl) return;
@@ -37,6 +42,7 @@ import {
         <button type="button" data-skill="${skill}" style="background:none;border:none;cursor:pointer;font-size:0.9rem;line-height:1;color:#065f46;padding:0 2px">×</button>
       </span>`).join('');
     chipsEl.querySelectorAll('button[data-skill]').forEach(btn => {
+      // Connects this element event to the handler that should run next.
       btn.addEventListener('click', () => {
         selectedSkills = selectedSkills.filter(s => s !== btn.dataset.skill);
         renderChips();
@@ -45,11 +51,13 @@ import {
     });
   }
 
+  // Updates hidden input after the user changes something or data is refreshed.
   function updateHiddenInput() {
     const hiddenInput = document.getElementById('skills');
     if (hiddenInput) hiddenInput.value = selectedSkills.join(',');
   }
 
+  // Helper function for commit pending skill input used by this script.
   function commitPendingSkillInput() {
     const searchInput = document.getElementById('skill-search');
     const suggestEl = document.getElementById('skill-suggestions');
@@ -64,6 +72,7 @@ import {
     if (suggestEl) suggestEl.style.display = 'none';
   }
 
+  // Shows the suggestions message or section when the user needs feedback.
   function showSuggestions(query) {
     const suggestEl = document.getElementById('skill-suggestions');
     if (!suggestEl) return;
@@ -79,6 +88,7 @@ import {
         ${t.name} <small style="color:#9ca3af">${t.category || ''}</small>
       </div>`).join('');
     suggestEl.querySelectorAll('[data-tag]').forEach(item => {
+      // Connects this element event to the handler that should run next.
       item.addEventListener('mousedown', (e) => {
         e.preventDefault();
         const tag = item.dataset.tag;
@@ -90,12 +100,16 @@ import {
     });
   }
 
+  // Waits until the HTML has loaded before running page setup code.
   document.addEventListener('DOMContentLoaded', () => {
     const searchInput = document.getElementById('skill-search');
     const suggestEl   = document.getElementById('skill-suggestions');
     if (searchInput) {
+      // Connects this element event to the handler that should run next.
       searchInput.addEventListener('input', () => showSuggestions(searchInput.value));
+      // Connects this element event to the handler that should run next.
       searchInput.addEventListener('blur', () => setTimeout(() => { if (suggestEl) suggestEl.style.display = 'none'; }, 200));
+      // Connects this element event to the handler that should run next.
       searchInput.addEventListener('keydown', (e) => {
         if (e.key === 'Enter') {
           e.preventDefault();
@@ -135,6 +149,7 @@ import {
 
   const EDUCATION_LEVELS = ['SPM', 'STPM', 'Diploma', 'Advanced Diploma', 'Bachelor\'s Degree', 'Master\'s Degree', 'PhD', 'Professional Certificate', 'Other'];
 
+  // Renders education entries into the HTML so the user can see it.
   function renderEducationEntries() {
     const container = document.getElementById('education-entries-container');
     if (!container) return;
@@ -166,11 +181,13 @@ import {
     `).join('');
 
     container.querySelectorAll('select[data-edu-field], input[data-edu-field]').forEach(el => {
+      // Connects this element event to the handler that should run next.
       el.addEventListener('change', (e) => {
         const i = Number(e.target.dataset.eduIdx);
         const f = e.target.dataset.eduField;
         educationEntries[i][f] = e.target.value;
       });
+      // Connects this element event to the handler that should run next.
       el.addEventListener('input', (e) => {
         const i = Number(e.target.dataset.eduIdx);
         const f = e.target.dataset.eduField;
@@ -178,6 +195,7 @@ import {
       });
     });
     container.querySelectorAll('button[data-edu-remove]').forEach(btn => {
+      // Connects this element event to the handler that should run next.
       btn.addEventListener('click', () => {
         educationEntries.splice(Number(btn.dataset.eduRemove), 1);
         renderEducationEntries();
@@ -187,6 +205,7 @@ import {
 
   const addEduBtn = document.getElementById('add-education-btn');
   if (addEduBtn) {
+    // Connects this element event to the handler that should run next.
     addEduBtn.addEventListener('click', () => {
       educationEntries.push({ level: '', field: '', year: '' });
       renderEducationEntries();
@@ -221,6 +240,7 @@ import {
   let selectedPhotoFile = null;
   let isSaving = false;
 
+  // Helper function for notify status used by this script.
   function notifyStatus(message, isError = false) {
     const text = String(message || '');
     const shouldShow = isError || /\b(saved|submitted|updated|success|unable|failed|error|wrong|required|cannot)\b/i.test(text);
@@ -228,6 +248,7 @@ import {
     window.EasyEarnToast?.show(text, isError || /\b(unable|failed|error|wrong|required|cannot)\b/i.test(text) ? 'error' : 'success');
   }
 
+  // Formats or checks list so later code can use a clean value.
   function normalizeList(value) {
     return String(value || '')
       .split(',')
@@ -235,6 +256,7 @@ import {
       .filter(Boolean);
   }
 
+  // Updates status after the user changes something or data is refreshed.
   function setStatus(message, isError = false) {
     if (!statusMessage) return;
     statusMessage.textContent = message;
@@ -247,6 +269,7 @@ import {
     notifyStatus(message, isError);
   }
 
+  // Updates photo status after the user changes something or data is refreshed.
   function setPhotoStatus(message, state = '') {
     if (!photoUploadStatus) return;
     photoUploadStatus.textContent = message;
@@ -255,6 +278,7 @@ import {
     if (state === 'error') photoUploadStatus.classList.add('is-error');
   }
 
+  // Updates save state after the user changes something or data is refreshed.
   function setSaveState(saving) {
     isSaving = saving;
     if (!saveButton) return;
@@ -263,6 +287,7 @@ import {
     saveButton.style.opacity = saving ? '0.7' : '';
   }
 
+  // Updates header name after the user changes something or data is refreshed.
   function updateHeaderName(name, photoSrc = '') {
     const navName = document.getElementById('nav-user-name');
     const navBadge = document.getElementById('nav-user-badge');
@@ -282,6 +307,7 @@ import {
     navBadge.textContent = getInitials(name || 'Job Seeker', 'JS');
   }
 
+  // Helper function for fill form used by this script.
   function fillForm(user, data) {
     fields.name.value = data?.name || user.user_metadata?.name || '';
     fields.email.value = data?.email || user.email || '';
@@ -312,6 +338,7 @@ import {
     renderEducationEntries();
   }
 
+  // Formats or checks preview data so later code can use a clean value.
   function buildPreviewData() {
     const availabilityDays = fields.availabilityDays
       .filter((checkbox) => checkbox.checked)
@@ -329,6 +356,7 @@ import {
     };
   }
 
+  // Renders avatar image into the HTML so the user can see it.
   function renderAvatarImage(src) {
     if (!previewEls.avatar) return;
 
@@ -344,6 +372,7 @@ import {
     previewEls.avatar.textContent = '';
   }
 
+  // Renders preview into the HTML so the user can see it.
   function renderPreview() {
     const preview = buildPreviewData();
     if (previewEls.name) previewEls.name.textContent = preview.name;
@@ -357,6 +386,7 @@ import {
     }
   }
 
+  // Renders completeness into the HTML so the user can see it.
   function renderCompleteness() {
     const savedSkillsCount = selectedSkills.length || normalizeList(fields.skills.value).length;
     const checks = [
@@ -376,14 +406,17 @@ import {
 
   }
 
+  // Helper function for pluralize used by this script.
   function pluralize(count, singular, plural = `${singular}s`) {
     return `${count} ${count === 1 ? singular : plural}`;
   }
 
+  // Formats or checks status so later code can use a clean value.
   function normalizeStatus(status) {
     return String(status || '').trim().toLowerCase();
   }
 
+  // Renders overview stats into the HTML so the user can see it.
   function renderOverviewStats({ ratings = [], history = [], applications = [], savedCount = 0 } = {}) {
     const averageRating = calcAverageRating(ratings);
     const reviewCount = ratings.length;
@@ -406,6 +439,7 @@ import {
     if (previewEls.savedNote) previewEls.savedNote.textContent = savedCount ? 'Ready to apply later' : 'No saved jobs yet';
   }
 
+  // Loads overview stats data so the page can display current information.
   async function loadOverviewStats(userId) {
     renderOverviewStats();
 
@@ -419,6 +453,7 @@ import {
     renderOverviewStats({ ratings, history, applications, savedCount });
   }
 
+  // Formats or checks payload so later code can use a clean value.
   function buildPayload() {
     return {
       name: fields.name.value.trim(),
@@ -442,11 +477,13 @@ import {
     };
   }
 
+  // Formats or checks valid phone so later code can use a clean value.
   function isValidPhone(value) {
     if (!value) return true;
     return /^\+?[0-9][0-9\s-]{7,18}$/.test(value);
   }
 
+  // Helper function for validate profile payload used by this script.
   function validateProfilePayload(payload) {
     if (!payload.name) return { message: 'Please enter your full name before saving.', field: fields.name };
     if (payload.name.length < 2) return { message: 'Full name must be at least 2 characters.', field: fields.name };
@@ -462,6 +499,7 @@ import {
     return null;
   }
 
+  // Formats or checks resume snapshot so later code can use a clean value.
   function buildResumeSnapshot(profileData) {
     const availability = [
       ...(profileData.availability_days || []),
@@ -493,6 +531,7 @@ import {
     };
   }
 
+  // Helper function for read image file used by this script.
   function readImageFile(file) {
     return new Promise((resolve, reject) => {
       const reader = new FileReader();
@@ -502,6 +541,7 @@ import {
     });
   }
 
+  // Loads image element data so the page can display current information.
   function loadImageElement(src) {
     return new Promise((resolve, reject) => {
       const image = new Image();
@@ -511,6 +551,7 @@ import {
     });
   }
 
+  // Helper function for compress image to data URL used by this script.
   async function compressImageToDataUrl(file) {
     const source = await readImageFile(file);
     const image = await loadImageElement(source);
@@ -542,6 +583,7 @@ import {
     return output;
   }
 
+  // Runs the photo if needed step for this page workflow.
   async function savePhotoIfNeeded() {
     if (!selectedPhotoFile) return currentPhotoUrl;
 
@@ -558,6 +600,7 @@ import {
     return currentPhotoUrl;
   }
 
+  // Loads logout photo snapshot data so the page can display current information.
   async function getLogoutPhotoSnapshot() {
     if (!selectedPhotoFile) return currentPhotoUrl;
 
@@ -569,6 +612,7 @@ import {
     }
   }
 
+  // Helper function for cache logout snapshot used by this script.
   function cacheLogoutSnapshot(name, photoSrc) {
     try {
       sessionStorage.setItem('ee_logout_name', name || 'Job Seeker');
@@ -578,6 +622,7 @@ import {
     }
   }
 
+  // Runs the profile step for this page workflow.
   async function saveProfile() {
     if (!currentUser || isSaving) return;
 
@@ -634,13 +679,16 @@ import {
     }
   }
 
+  // Helper function for register events used by this script.
   function registerEvents() {
     Object.values(fields).forEach((field) => {
       if (!field || Array.isArray(field)) return;
+      // Connects this element event to the handler that should run next.
       field.addEventListener('input', () => {
         renderPreview();
         renderCompleteness();
       });
+      // Connects this element event to the handler that should run next.
       field.addEventListener('change', () => {
         renderPreview();
         renderCompleteness();
@@ -648,6 +696,7 @@ import {
     });
 
     fields.availabilityDays.forEach((checkbox) => {
+      // Connects this element event to the handler that should run next.
       checkbox.addEventListener('change', () => {
         renderPreview();
         renderCompleteness();
@@ -655,6 +704,7 @@ import {
     });
 
     if (fields.photoFile) {
+      // Connects this element event to the handler that should run next.
       fields.photoFile.addEventListener('change', () => {
         const file = fields.photoFile.files?.[0] || null;
         selectedPhotoFile = file;
@@ -673,6 +723,7 @@ import {
     }
 
     if (form) {
+      // Connects this element event to the handler that should run next.
       form.addEventListener('submit', (event) => {
         event.preventDefault();
         saveProfile();
@@ -680,6 +731,7 @@ import {
     }
   }
 
+  // Handles the logout action triggered by the user.
   async function handleLogout() {
     const photoSrc = await getLogoutPhotoSnapshot();
     const displayName = fields.name?.value?.trim()
@@ -693,6 +745,7 @@ import {
   }
 
   if (logoutBtn) logoutBtn.addEventListener('click', handleLogout);
+  // Waits until the HTML has loaded before running page setup code.
   document.addEventListener('click', (event) => {
     const button = event.target.closest('#nav-logout-btn');
     if (button) handleLogout();

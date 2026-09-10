@@ -1,6 +1,10 @@
+/**
+ * EasyEarn file note: Handles the translate page behavior and related user interactions.
+ */
 (function () {
   'use strict';
 
+  // Sets up init when this script is loaded.
   function init() {
     const el = document.getElementById('google_translate_element');
     if (!el) return;

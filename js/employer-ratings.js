@@ -1,9 +1,14 @@
+/**
+ * EasyEarn file note: Handles the employer ratings page behavior and related user interactions.
+ */
 import { observeAuth, fetchRatings, calcAverageRating, fetchProfile } from './supabase-data.js';
 
+// Runs the stars step for this page workflow.
 function stars(n) {
   return '★'.repeat(Math.round(n)) + '☆'.repeat(5 - Math.round(n));
 }
 
+// Formats or checks HTML so later code can use a clean value.
 function escapeHtml(s) {
   return String(s ?? '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
 }
@@ -16,6 +21,7 @@ observeAuth(async (user) => {
     ratings = await fetchRatings(user.id);
     // Only show ratings where reviewer is a job seeker (seeker rating employer)
     ratings = ratings.filter(r => {
+      // Helper function for role used by this script.
       const role = (r.reviewer_role || '').toLowerCase();
       return role === 'seeker' || role === 'jobseeker' || role === 'job_seeker';
     });

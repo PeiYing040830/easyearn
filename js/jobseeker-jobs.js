@@ -1,3 +1,6 @@
+/**
+ * EasyEarn file note: Handles the jobseeker jobs page behavior and related user interactions.
+ */
 import {
   fetchApplications,
   fetchJobs,
@@ -56,7 +59,9 @@ import {
   // ── Haversine distance ───────────────────────────────────────────────────
   function haversineKm(lat1, lng1, lat2, lng2) {
     const R = 6371;
+    // Helper function for d lat used by this script.
     const dLat = (lat2 - lat1) * Math.PI / 180;
+    // Helper function for d lng used by this script.
     const dLng = (lng2 - lng1) * Math.PI / 180;
     const a = Math.sin(dLat / 2) ** 2
       + Math.cos(lat1 * Math.PI / 180) * Math.cos(lat2 * Math.PI / 180)
@@ -66,6 +71,7 @@ import {
 
   // ── Geocode via Nominatim ────────────────────────────────────────────────
   const geocodeCache = {};
+  // Helper function for geocode location used by this script.
   async function geocodeLocation(locationStr) {
     if (!locationStr) return null;
     const key = locationStr.toLowerCase().trim();
@@ -87,6 +93,7 @@ import {
     return null;
   }
 
+  // Formats or checks HTML so later code can use a clean value.
   function escapeHtml(value) {
     return String(value ?? '')
       .replace(/&/g, '&amp;')
@@ -96,6 +103,7 @@ import {
       .replace(/'/g, '&#39;');
   }
 
+  // Formats or checks save job error so later code can use a clean value.
   function formatSaveJobError(error) {
     const detail = error?.message || error?.details || error?.hint || '';
     return detail
@@ -103,6 +111,7 @@ import {
       : 'Unable to update saved jobs right now. Please check Supabase policies for saved_jobs.';
   }
 
+  // Formats or checks job so later code can use a clean value.
   function normalizeJob(job) {
     const employerProfile = employerProfilesById.get(job.employer_id || '') || null;
     const employerName = employerProfile?.companyName || employerProfile?.businessName || employerProfile?.name || '';
@@ -126,6 +135,7 @@ import {
     };
   }
 
+  // Formats or checks employer rating so later code can use a clean value.
   function formatEmployerRating(job) {
     const ratingSummary = employerRatingsById.get(job.employerId) || null;
     if (!ratingSummary || !ratingSummary.count) {
@@ -143,15 +153,18 @@ import {
     };
   }
 
+  // Loads application for job data so the page can display current information.
   function getApplicationForJob(jobId) {
     return applications.find((application) => application.job_id === jobId) || null;
   }
 
+  // Helper function for can cancel application used by this script.
   function canCancelApplication(application) {
     const status = String(application?.status || 'pending').toLowerCase();
     return ['pending', 'reviewed'].includes(status);
   }
 
+  // Formats or checks skill key so later code can use a clean value.
   function normalizeSkillKey(skill) {
     return String(skill || '')
       .trim()
@@ -182,6 +195,7 @@ import {
     ['barista', 'coffee', 'espresso', 'latte', 'cafe']
   ];
 
+  // Helper function for stem skill token used by this script.
   function stemSkillToken(token) {
     let value = normalizeSkillKey(token);
     if (value.endsWith('ies') && value.length > 4) value = `${value.slice(0, -3)}y`;
@@ -191,6 +205,7 @@ import {
     return value;
   }
 
+  // Helper function for tokenize skill used by this script.
   function tokenizeSkill(value) {
     return normalizeSkillKey(value)
       .split(' ')
@@ -198,6 +213,7 @@ import {
       .filter((token) => token.length > 2 && !SKILL_STOP_WORDS.has(token));
   }
 
+  // Loads token similarity data so the page can display current information.
   function getTokenSimilarity(a, b) {
     if (!a || !b) return 0;
     if (a === b) return 1;
@@ -225,6 +241,7 @@ import {
     return 1 - (previous[b.length] / maxLength);
   }
 
+  // Loads phrase similarity data so the page can display current information.
   function getPhraseSimilarity(a, b) {
     const aTokens = tokenizeSkill(a);
     const bTokens = tokenizeSkill(b);
@@ -237,6 +254,7 @@ import {
     return matched / Math.max(aTokens.length, bTokens.length);
   }
 
+  // Loads skill keywords data so the page can display current information.
   function getSkillKeywords(skill) {
     const key = normalizeSkillKey(skill);
     if (!key) return [];
@@ -255,6 +273,7 @@ import {
     return [...keywords];
   }
 
+  // Helper function for skill matches text used by this script.
   function skillMatchesText(skill, text) {
     const haystack = normalizeSkillKey(text);
     if (getSkillKeywords(skill).some((keyword) => haystack.includes(keyword))) return true;
@@ -270,6 +289,7 @@ import {
     return matchedTokens / skillTokens.length >= 0.55;
   }
 
+  // Helper function for skills match used by this script.
   function skillsMatch(skillA, skillB) {
     const aKeywords = getSkillKeywords(skillA);
     const bKeywords = getSkillKeywords(skillB);
@@ -280,6 +300,7 @@ import {
     return getPhraseSimilarity(skillA, skillB) >= 0.45;
   }
 
+  // Loads matched skills data so the page can display current information.
   function getMatchedSkills(job, userSkills) {
     if (!userSkills.length) return [];
     const source = [
@@ -294,6 +315,7 @@ import {
     return userSkills.filter((skill) => skillMatchesText(skill, source));
   }
 
+  // Loads missing job skills data so the page can display current information.
   function getMissingJobSkills(job, userSkills) {
     const skills = normalizeArray(job.skills);
     return skills.filter((jobSkill) => (
@@ -301,6 +323,7 @@ import {
     ));
   }
 
+  // Loads matched job skills data so the page can display current information.
   function getMatchedJobSkills(job, userSkills) {
     const skills = normalizeArray(job.skills);
     return skills.filter((jobSkill) => (
@@ -308,12 +331,14 @@ import {
     ));
   }
 
+  // Formats or checks skill tags so later code can use a clean value.
   function buildSkillTags(skills, className = '', emptyMsg = 'None yet') {
     return skills.length
       ? skills.map((skill) => `<span class="skill-tag ${className}">${escapeHtml(skill)}</span>`).join('')
       : `<span class="skill-tag is-muted">${emptyMsg}</span>`;
   }
 
+  // Formats or checks job details so later code can use a clean value.
   function buildJobDetails(job, userSkills = []) {
     const matchedSkills = getMatchedSkills(job, userSkills);
     const matchedJobSkills = getMatchedJobSkills(job, userSkills);
@@ -359,6 +384,7 @@ import {
     `;
   }
 
+  // Formats or checks calculate match score so later code can use a clean value.
   function calculateMatchScore(job, userSkills) {
     if (!userSkills.length) return 0;
     const source = [
@@ -375,6 +401,7 @@ import {
     ), 0);
   }
 
+  // Formats or checks calculate distance bonus so later code can use a clean value.
   function calculateDistanceBonus(job) {
     const distance = Number(job._distanceKm);
     // No GPS active or distance unknown → no location bonus
@@ -388,6 +415,7 @@ import {
     return 0;
   }
 
+  // Formats or checks calculate match percent so later code can use a clean value.
   function calculateMatchPercent(job, userSkills, matchScore = calculateMatchScore(job, userSkills)) {
     if (!userSkills.length) return 0;
     const jobSkills = normalizeArray(job.skills);
@@ -410,6 +438,7 @@ import {
     return Math.min(cap, Math.round(skillPercent + distanceBonus));
   }
 
+  // Helper function for populate filters used by this script.
   function populateFilters(jobs) {
     const categories = [...new Set(jobs.map((job) => job.category).filter(Boolean))].sort();
     const locations = [...new Set(jobs.map((job) => job.location).filter(Boolean))].sort();
@@ -418,6 +447,7 @@ import {
     els.location.innerHTML = ['<option value="">All locations</option>', ...locations.map((item) => `<option value="${escapeHtml(item)}">${escapeHtml(item)}</option>`)].join('');
   }
 
+  // Loads filtered jobs data so the page can display current information.
   function getFilteredJobs() {
     const keyword = String(els.keyword.value || '').trim().toLowerCase();
     const category = String(els.category.value || '').trim().toLowerCase();
@@ -468,6 +498,7 @@ import {
       .sort((a, b) => a._distanceKm - b._distanceKm);
   }
 
+  // Renders stats into the HTML so the user can see it.
   function renderStats(jobs) {
     const matched = jobs.filter((job) => job.matchScore > 0).length;
     const approvedJobs = allJobs.filter((job) => job.status === 'approved').length;
@@ -491,6 +522,7 @@ import {
     }
   }
 
+  // Formats or checks job card so later code can use a clean value.
   function buildJobCard(job) {
     const application = getApplicationForJob(job.id);
     const alreadyApplied = Boolean(application);
@@ -543,6 +575,7 @@ import {
     `;
   }
 
+  // Renders jobs into the HTML so the user can see it.
   function renderJobs(jobs) {
     if (jobsLoadError) {
       const errorMarkup = `
@@ -585,12 +618,14 @@ import {
     els.results.innerHTML = liveJobs.map(buildJobCard).join('');
   }
 
+  // Helper function for refresh view used by this script.
   async function refreshView() {
     const jobs = await getFilteredJobsWithDistance();
     renderStats(jobs);
     renderJobs(jobs);
   }
 
+  // Loads data data so the page can display current information.
   async function loadData(user) {
     const [profileResult, jobsResult, applicationsResult, savedCountResult, savedIdsResult] = await Promise.allSettled([
       fetchProfile(user.id, user),
@@ -691,6 +726,7 @@ import {
     const btnClear  = document.getElementById('jobs-clear-location');
     if (!btnLocate) return;
 
+    // Connects this element event to the handler that should run next.
     btnLocate.addEventListener('click', () => {
       if (!navigator.geolocation) {
         alert('Geolocation is not supported by your browser.');
@@ -746,6 +782,7 @@ import {
     });
   })();
 
+  // Handles the job card click action triggered by the user.
   async function handleJobCardClick(event) {
     const saveBtn = event.target.closest('.jobs-save-btn');
     const quickApplyBtn = event.target.closest('.jobs-quick-apply-btn');
@@ -871,6 +908,7 @@ import {
     const submitBtn = document.getElementById('apply-submit-btn');
     const cancelBtn = document.getElementById('apply-cancel-btn');
 
+    // Handles the file action triggered by the user.
     function handleFile(file) {
       if (!file) return;
       if (file.size > 5 * 1024 * 1024) { alert('File too large. Max 5MB.'); return; }
@@ -884,15 +922,23 @@ import {
       reader.readAsDataURL(file);
     }
 
+    // Connects this element event to the handler that should run next.
     dropZone.addEventListener('click', () => fileInput.click());
+    // Connects this element event to the handler that should run next.
     fileInput.addEventListener('change', () => handleFile(fileInput.files[0]));
+    // Connects this element event to the handler that should run next.
     dropZone.addEventListener('dragover', (e) => { e.preventDefault(); dropZone.style.background = '#ede9fe'; });
+    // Connects this element event to the handler that should run next.
     dropZone.addEventListener('dragleave', () => { dropZone.style.background = '#f0fdfa'; });
+    // Connects this element event to the handler that should run next.
     dropZone.addEventListener('drop', (e) => { e.preventDefault(); dropZone.style.background = '#f0fdfa'; handleFile(e.dataTransfer.files[0]); });
 
+    // Connects this element event to the handler that should run next.
     cancelBtn.addEventListener('click', () => modal.remove());
+    // Connects this element event to the handler that should run next.
     modal.addEventListener('click', (e) => { if (e.target === modal) modal.remove(); });
 
+    // Connects this element event to the handler that should run next.
     submitBtn.addEventListener('click', async () => {
       submitBtn.disabled = true;
       submitBtn.textContent = 'Submitting…';

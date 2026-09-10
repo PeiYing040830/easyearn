@@ -1,3 +1,6 @@
+/**
+ * EasyEarn file note: Handles the jobseeker applications page behavior and related user interactions.
+ */
 import {
   fetchApplications,
   fetchJobListing,
@@ -37,12 +40,14 @@ import {
 
   // ── Helpers ────────────────────────────────────────────────────────────────
 
+  // Formats or checks HTML so later code can use a clean value.
   function escapeHtml(value) {
     return String(value ?? '')
       .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
       .replace(/"/g, '&quot;').replace(/'/g, '&#39;');
   }
 
+  // Formats or checks status so later code can use a clean value.
   function normalizeStatus(value) {
     const raw = String(value || '').toLowerCase();
     if (raw.includes('completion') && raw.includes('pend')) return 'completion_pending';
@@ -54,6 +59,7 @@ import {
     return 'pending';
   }
 
+  // Formats or checks status label so later code can use a clean value.
   function formatStatusLabel(status) {
     const map = {
       pending:            'Pending',
@@ -67,6 +73,7 @@ import {
     return map[status] || status;
   }
 
+  // Loads status group data so the page can display current information.
   function getStatusGroup(status) {
     const normalized = normalizeStatus(status);
     if (['pending', 'reviewed'].includes(normalized)) return 'inreview';
@@ -76,6 +83,7 @@ import {
     return 'inreview';
   }
 
+  // Formats or checks status timeline so later code can use a clean value.
   function buildStatusTimeline(status, appliedAt) {
     const normalized = normalizeStatus(status);
     const isRejected = normalized === 'rejected';
@@ -119,6 +127,7 @@ import {
 
   // ── Charts ─────────────────────────────────────────────────────────────────
 
+  // Helper function for apply line used by this script.
   function applyLine(trend) {
     const canvas = document.getElementById('applications-line-canvas');
     if (!canvas) return;
@@ -161,10 +170,12 @@ import {
     });
   }
 
+  // Updates share after the user changes something or data is refreshed.
   function setShare(el, value, total) {
     if (el) el.textContent = `${total ? Math.round((value / total) * 100) : 0}%`;
   }
 
+  // Helper function for apply pie used by this script.
   function applyPie(counts) {
     const canvas = document.getElementById('applications-donut-canvas');
     if (!canvas) return;
@@ -183,6 +194,7 @@ import {
     });
   }
 
+  // Formats or checks monthly trend so later code can use a clean value.
   function buildMonthlyTrend(appsList) {
     const now = new Date();
     const months = [];
@@ -207,6 +219,7 @@ import {
 
   // ── Render Stats ───────────────────────────────────────────────────────────
 
+  // Helper function for count applications used by this script.
   function countApplications() {
     const c = { inreview: 0, active: 0, rejected: 0, completed: 0 };
     applications.forEach((a) => {
@@ -216,6 +229,7 @@ import {
     return c;
   }
 
+  // Renders stats into the HTML so the user can see it.
   function renderStats() {
     const c = countApplications();
     const total = Object.values(c).reduce((s, v) => s + v, 0);
@@ -239,6 +253,7 @@ import {
 
   // ── Build Application Card ─────────────────────────────────────────────────
 
+  // Formats or checks application card so later code can use a clean value.
   function buildApplicationCard(app) {
     const status    = normalizeStatus(app.status);
     const job       = app._job || {};
@@ -337,6 +352,7 @@ import {
 
   // ── Render Lists ───────────────────────────────────────────────────────────
 
+  // Loads filtered apps data so the page can display current information.
   function getFilteredApps() {
     const all = applications.filter((a) => !a.deleted_at);
     if (activeFilter === 'all') return all;
@@ -345,6 +361,7 @@ import {
     return all;
   }
 
+  // Renders applications into the HTML so the user can see it.
   function renderApplications() {
     if (!listEl) return;
 
@@ -369,6 +386,7 @@ import {
     listEl.innerHTML = visible.map(buildApplicationCard).join('');
   }
 
+  // Renders completed jobs into the HTML so the user can see it.
   function renderCompletedJobs() {
     if (!completedListEl) return;
 
@@ -393,6 +411,7 @@ import {
     completedListEl.innerHTML = completed.map(buildApplicationCard).join('');
   }
 
+  // Renders all into the HTML so the user can see it.
   function renderAll() {
     renderStats();
     renderApplications();
@@ -413,6 +432,7 @@ import {
 
   // ── Enrich applications with job data ─────────────────────────────────────
 
+  // Helper function for enrich with jobs used by this script.
   async function enrichWithJobs(appsList) {
     const jobIds = [...new Set(appsList.map((a) => a.job_id).filter(Boolean))];
     const jobMap = new Map();
@@ -427,6 +447,7 @@ import {
 
   // ── Full Refresh ───────────────────────────────────────────────────────────
 
+  // Helper function for refresh view used by this script.
   async function refreshView() {
     if (!currentUser) return;
     const raw = await fetchApplications(currentUser.id);
@@ -465,6 +486,7 @@ import {
   const whSaveBtn   = document.getElementById('wh-save-btn');
   const whStatus    = document.getElementById('wh-modal-status');
 
+  // Helper function for open wh modal used by this script.
   function openWhModal(app) {
     const job = app._job || {};
     document.getElementById('wh-application-id').value = app.id || '';
@@ -478,6 +500,7 @@ import {
     whModal.style.display = 'flex';
   }
 
+  // Runs the wh modal step for this page workflow.
   function closeWhModal() { whModal.style.display = 'none'; }
 
   whCancelBtn?.addEventListener('click', closeWhModal);
@@ -490,6 +513,7 @@ import {
 
   // ── Report Employer Modal ─────────────────────────────────────────────────
 
+  // Helper function for open report employer modal used by this script.
   function openReportEmployerModal({ applicationId, employerId, employerName, jobTitle }) {
     const MODAL_ID = 'report-employer-modal';
 
@@ -525,6 +549,7 @@ import {
       document.body.appendChild(el);
 
       el.querySelector('#rem2-cancel-btn').addEventListener('click', () => { el.style.display = 'none'; });
+      // Connects this element event to the handler that should run next.
       el.addEventListener('click', (e) => { if (e.target === el) el.style.display = 'none'; });
     }
 
@@ -575,6 +600,7 @@ import {
 
   // ── Rate Employer Modal ────────────────────────────────────────────────────
 
+  // Helper function for open rate employer modal used by this script.
   function openRateEmployerModal({ applicationId, employerId, employerName }) {
     const MODAL_ID = 'rate-employer-modal';
 
@@ -605,15 +631,18 @@ import {
 
       const starsRow = el.querySelector('#rem-stars-row');
       const starInput = el.querySelector('#rem-star-value');
+      // Connects this element event to the handler that should run next.
       starsRow.addEventListener('mouseover', (e) => {
         const b = e.target.closest('.rem-star-btn'); if (!b) return;
         const v = Number(b.dataset.star);
         starsRow.querySelectorAll('.rem-star-btn').forEach((s) => { s.style.color = Number(s.dataset.star) <= v ? '#f59e0b' : '#d1d5db'; });
       });
+      // Connects this element event to the handler that should run next.
       starsRow.addEventListener('mouseleave', () => {
         const v = Number(starInput.value);
         starsRow.querySelectorAll('.rem-star-btn').forEach((s) => { s.style.color = Number(s.dataset.star) <= v ? '#f59e0b' : '#d1d5db'; });
       });
+      // Connects this element event to the handler that should run next.
       starsRow.addEventListener('click', (e) => {
         const b = e.target.closest('.rem-star-btn'); if (!b) return;
         starInput.value = b.dataset.star;
@@ -621,6 +650,7 @@ import {
       });
       starsRow.querySelectorAll('.rem-star-btn').forEach((s) => { s.style.color = '#f59e0b'; });
       el.querySelector('#rem-skip-btn').addEventListener('click', () => { el.style.display = 'none'; });
+      // Connects this element event to the handler that should run next.
       el.addEventListener('click', (e) => { if (e.target === el) el.style.display = 'none'; });
     }
 
@@ -668,6 +698,7 @@ import {
 
   // ── Event Delegation ───────────────────────────────────────────────────────
 
+  // Handles the list click action triggered by the user.
   async function handleListClick(event) {
     // Cancel Application
     const cancelApplicationBtn = event.target.closest('.cancel-application-btn');

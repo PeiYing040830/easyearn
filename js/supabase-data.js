@@ -1,3 +1,6 @@
+/**
+ * EasyEarn file note: Handles the supabase data page behavior and related user interactions.
+ */
 import { supabase } from './supabase-config.js';
 
 export const TABLES = {
@@ -23,11 +26,13 @@ export const TABLES = {
   verificationRequests: 'verification_requests'
 };
 
+// Formats or checks missing optional table error so later code can use a clean value.
 function isMissingOptionalTableError(error) {
   const message = String(error?.message || '').toLowerCase();
   return error?.code === '42P01' || message.includes('could not find the table') || message.includes('does not exist');
 }
 
+// Formats or checks array so later code can use a clean value.
 export function normalizeArray(value) {
   if (Array.isArray(value)) return value.filter(Boolean);
   if (typeof value === 'string' && value.trim()) {
@@ -36,6 +41,7 @@ export function normalizeArray(value) {
   return [];
 }
 
+// Formats or checks role value so later code can use a clean value.
 function normalizeRoleValue(role) {
   const value = String(role || '').trim().toLowerCase().replace(/[_-]+/g, ' ');
   if (['job seeker', 'jobseeker', 'seeker'].includes(value)) return 'seeker';
@@ -44,6 +50,7 @@ function normalizeRoleValue(role) {
   return value || 'seeker';
 }
 
+// Loads initials data so the page can display current information.
 export function getInitials(name, fallback = 'EE') {
   const initials = String(name || fallback)
     .split(' ')
@@ -56,23 +63,27 @@ export function getInitials(name, fallback = 'EE') {
   return initials || fallback;
 }
 
+// Loads current user data so the page can display current information.
 export async function getCurrentUser() {
   const { data, error } = await supabase.auth.getUser();
   if (error) throw error;
   return data.user || null;
 }
 
+// Loads current session data so the page can display current information.
 export async function getCurrentSession() {
   const { data, error } = await supabase.auth.getSession();
   if (error) throw error;
   return data.session || null;
 }
 
+// Helper function for sign out user used by this script.
 export async function signOutUser() {
   const { error } = await supabase.auth.signOut();
   if (error) throw error;
 }
 
+// Runs the user step for this page workflow.
 export async function requireUser() {
   const user = await getCurrentUser();
   if (!user) {
@@ -86,6 +97,7 @@ export async function requireUser() {
   return user;
 }
 
+// Runs the auth step for this page workflow.
 export function observeAuth(callback) {
   let active = true;
 
@@ -111,6 +123,7 @@ export function observeAuth(callback) {
   };
 }
 
+// Formats or checks profile row so later code can use a clean value.
 export function normalizeProfileRow(row = {}, user = null) {
   const role = normalizeRoleValue(row.role || user?.user_metadata?.role || 'seeker');
   const isEmployer = role === 'employer';
@@ -162,6 +175,7 @@ export function normalizeProfileRow(row = {}, user = null) {
   };
 }
 
+// Loads profile data so the page can display current information.
 export async function fetchProfile(userId, user = null) {
   const { data, error } = await supabase
     .from(TABLES.profiles)
@@ -173,6 +187,7 @@ export async function fetchProfile(userId, user = null) {
   return normalizeProfileRow(data || {}, user);
 }
 
+// Loads profiles by IDs data so the page can display current information.
 export async function fetchProfilesByIds(userIds = []) {
   const ids = Array.from(new Set((userIds || []).filter(Boolean)));
   if (!ids.length) return [];
@@ -186,6 +201,7 @@ export async function fetchProfilesByIds(userIds = []) {
   return (data || []).map((row) => normalizeProfileRow(row, null));
 }
 
+// Loads public profiles by IDs data so the page can display current information.
 export async function fetchPublicProfilesByIds(userIds = []) {
   const ids = Array.from(new Set((userIds || []).filter(Boolean)));
   if (!ids.length) return [];
@@ -199,6 +215,7 @@ export async function fetchPublicProfilesByIds(userIds = []) {
   return (data || []).map((row) => normalizeProfileRow(row, null));
 }
 
+// Loads applicant profiles for employer data so the page can display current information.
 export async function fetchApplicantProfilesForEmployer(userIds = []) {
   const ids = Array.from(new Set((userIds || []).filter(Boolean)));
   if (!ids.length) return [];
@@ -211,6 +228,7 @@ export async function fetchApplicantProfilesForEmployer(userIds = []) {
   return (data || []).map((row) => normalizeProfileRow(row, null));
 }
 
+// Loads all profiles data so the page can display current information.
 export async function fetchAllProfiles() {
   const { data, error } = await supabase
     .from(TABLES.profiles)
@@ -221,6 +239,7 @@ export async function fetchAllProfiles() {
   return (data || []).map((row) => normalizeProfileRow(row, null));
 }
 
+// Creates or updates profile so the database stays in sync.
 export async function upsertProfile(userId, payload) {
   const role = normalizeRoleValue(payload.role || 'seeker');
   const isSeeker = role === 'seeker' || role === 'jobseeker';
@@ -319,14 +338,17 @@ export async function upsertProfile(userId, payload) {
   return data;
 }
 
+// Loads resume data so the page can display current information.
 export async function fetchResume(userId) {
   return fetchProfile(userId);
 }
 
+// Creates or updates resume so the database stays in sync.
 export async function upsertResume(userId, payload) {
   return upsertProfile(userId, payload);
 }
 
+// Updates user verification after the user changes something or data is refreshed.
 export async function setUserVerification(userId, isVerified) {
   const { data, error } = await supabase
     .from(TABLES.profiles)
@@ -339,6 +361,7 @@ export async function setUserVerification(userId, isVerified) {
   return data;
 }
 
+// Updates employer verification after the user changes something or data is refreshed.
 export async function updateEmployerVerification(userId, payload) {
   const row = {};
 
@@ -395,6 +418,7 @@ export async function updateEmployerVerification(userId, payload) {
   return created;
 }
 
+// Formats or checks work history row so later code can use a clean value.
 export function normalizeWorkHistoryRow(row = {}) {
   return {
     id: row.id,
@@ -417,6 +441,7 @@ export function normalizeWorkHistoryRow(row = {}) {
   };
 }
 
+// Loads work history data so the page can display current information.
 export async function fetchWorkHistory(userId) {
   const { data, error } = await supabase
     .from(TABLES.workHistory)
@@ -427,6 +452,7 @@ export async function fetchWorkHistory(userId) {
 
   if (error) throw error;
 
+  // Helper function for rows used by this script.
   const rows = (data || []).map(normalizeWorkHistoryRow);
   const deduped = [];
   const seenKeys = new Set();
@@ -446,6 +472,7 @@ export async function fetchWorkHistory(userId) {
   return deduped;
 }
 
+// Creates work history when the workflow needs a new record or message.
 export async function insertWorkHistory(payload) {
   const applicationId = payload.application_id || null;
 
@@ -482,6 +509,7 @@ export async function insertWorkHistory(payload) {
   return data;
 }
 
+// Runs the work history earnings from payment step for this page workflow.
 export async function syncWorkHistoryEarningsFromPayment(applicationId) {
   // Fetch payment record and update work history earnings to match
   const { data: payment } = await supabase
@@ -508,6 +536,7 @@ export async function syncWorkHistoryEarningsFromPayment(applicationId) {
   return data;
 }
 
+// Formats or checks payment amount same as pay rate so later code can use a clean value.
 async function isPaymentAmountSameAsPayRate(applicationId, amount) {
   if (!applicationId || !Number.isFinite(amount) || amount <= 0) return false;
 
@@ -531,6 +560,7 @@ async function isPaymentAmountSameAsPayRate(applicationId, amount) {
   return Number.isFinite(payRate) && payRate > 0 && Math.abs(amount - payRate) < 0.01;
 }
 
+// Loads applications data so the page can display current information.
 export async function fetchApplications(userId) {
   const { data, error } = await supabase
     .from(TABLES.applications)
@@ -542,6 +572,7 @@ export async function fetchApplications(userId) {
   return data || [];
 }
 
+// Loads applications with interview data so the page can display current information.
 export async function fetchApplicationsWithInterview(userId) {
   const { data, error } = await supabase
     .from('applications')
@@ -555,6 +586,7 @@ export async function fetchApplicationsWithInterview(userId) {
   return data || [];
 }
 
+// Creates application when the workflow needs a new record or message.
 export async function createApplication(payload) {
   const row = {
     job_id: payload.job_id,
@@ -574,6 +606,7 @@ export async function createApplication(payload) {
   return data;
 }
 
+// Updates application status after the user changes something or data is refreshed.
 export async function updateApplicationStatus(applicationId, status) {
   const { error } = await supabase
     .from(TABLES.applications)
@@ -584,6 +617,7 @@ export async function updateApplicationStatus(applicationId, status) {
   return { id: applicationId, status };
 }
 
+// Clears or removes application from the UI or database.
 export async function deleteApplication(applicationId, seekerId) {
   let query = supabase
     .from(TABLES.applications)
@@ -597,6 +631,7 @@ export async function deleteApplication(applicationId, seekerId) {
   return { id: applicationId };
 }
 
+// Updates interview schedule after the user changes something or data is refreshed.
 export async function updateInterviewSchedule(applicationId, payload) {
   const { error } = await supabase
     .from('applications')
@@ -612,6 +647,7 @@ export async function updateInterviewSchedule(applicationId, payload) {
   return { id: applicationId, ...payload };
 }
 
+// Runs the interview attendance step for this page workflow.
 export async function confirmInterviewAttendance(applicationId) {
   const confirmedAt = new Date().toISOString();
 
@@ -626,8 +662,10 @@ export async function confirmInterviewAttendance(applicationId) {
   return { id: applicationId, attendance_confirmed_at: confirmedAt };
 }
 
+// Loads employer applications data so the page can display current information.
 export async function fetchEmployerApplications(employerId) {
   const jobs = await fetchEmployerJobs(employerId);
+  // Helper function for job IDs used by this script.
   const jobIds = (jobs || []).map((job) => job.id).filter(Boolean);
 
   if (!jobIds.length) return [];
@@ -659,6 +697,7 @@ export async function fetchEmployerApplications(employerId) {
   }));
 }
 
+// Loads jobs data so the page can display current information.
 export async function fetchJobs() {
   const { data, error } = await supabase
     .from(TABLES.jobs)
@@ -668,6 +707,7 @@ export async function fetchJobs() {
   return data || [];
 }
 
+// Loads reports data so the page can display current information.
 export async function fetchReports() {
   const { data, error } = await supabase
     .from(TABLES.reports)
@@ -678,6 +718,7 @@ export async function fetchReports() {
   return data || [];
 }
 
+// Loads report reviews data so the page can display current information.
 export async function fetchReportReviews() {
   const { data, error } = await supabase
     .from(TABLES.reportReviews)
@@ -689,6 +730,7 @@ export async function fetchReportReviews() {
   return data || [];
 }
 
+// Loads job moderation data so the page can display current information.
 export async function fetchJobModeration() {
   const { data, error } = await supabase
     .from(TABLES.jobModeration)
@@ -700,6 +742,7 @@ export async function fetchJobModeration() {
   return data || [];
 }
 
+// Loads verification requests data so the page can display current information.
 export async function fetchVerificationRequests() {
   const { data, error } = await supabase
     .from(TABLES.verificationRequests)
@@ -711,6 +754,7 @@ export async function fetchVerificationRequests() {
   return data || [];
 }
 
+// Creates report when the workflow needs a new record or message.
 export async function createReport(payload) {
   const row = {
     reporter_id: payload.reporter_id || null,
@@ -731,6 +775,7 @@ export async function createReport(payload) {
   return data;
 }
 
+// Updates report after the user changes something or data is refreshed.
 export async function updateReport(reportId, payload) {
   const row = {};
   if (payload.status !== undefined) row.status = payload.status;
@@ -750,6 +795,7 @@ export async function updateReport(reportId, payload) {
   return data;
 }
 
+// Loads employer jobs data so the page can display current information.
 export async function fetchEmployerJobs(employerId) {
   const { data, error } = await supabase
     .from(TABLES.jobs)
@@ -761,6 +807,7 @@ export async function fetchEmployerJobs(employerId) {
   return data || [];
 }
 
+// Loads job listing data so the page can display current information.
 export async function fetchJobListing(jobId) {
   const { data, error } = await supabase
     .from(TABLES.jobs)
@@ -772,6 +819,7 @@ export async function fetchJobListing(jobId) {
   return data || null;
 }
 
+// Creates job listing when the workflow needs a new record or message.
 export async function createJobListing(payload) {
   const row = {
     employer_id: payload.employer_id,
@@ -799,6 +847,7 @@ export async function createJobListing(payload) {
   return data;
 }
 
+// Updates job listing after the user changes something or data is refreshed.
 export async function updateJobListing(jobId, payload) {
   const row = {
     title: payload.title || '',
@@ -825,6 +874,7 @@ export async function updateJobListing(jobId, payload) {
   return data;
 }
 
+// Updates job listing status after the user changes something or data is refreshed.
 export async function updateJobListingStatus(jobId, status) {
   const { data, error } = await supabase
     .from(TABLES.jobs)
@@ -837,6 +887,7 @@ export async function updateJobListingStatus(jobId, status) {
   return data;
 }
 
+// Updates user account status after the user changes something or data is refreshed.
 export async function updateUserAccountStatus(userId, accountStatus) {
   const { data, error } = await supabase
     .from(TABLES.profiles)
@@ -849,6 +900,7 @@ export async function updateUserAccountStatus(userId, accountStatus) {
   return normalizeProfileRow(data || {}, null);
 }
 
+// Updates employer jobs status after the user changes something or data is refreshed.
 export async function updateEmployerJobsStatus(employerId, status) {
   const { data, error } = await supabase
     .from(TABLES.jobs)
@@ -860,6 +912,7 @@ export async function updateEmployerJobsStatus(employerId, status) {
   return data || [];
 }
 
+// Loads saved jobs count data so the page can display current information.
 export async function fetchSavedJobsCount(userId) {
   const { count, error } = await supabase
     .from(TABLES.savedJobs)
@@ -870,6 +923,7 @@ export async function fetchSavedJobsCount(userId) {
   return count || 0;
 }
 
+// Loads saved job IDs data so the page can display current information.
 export async function fetchSavedJobIds(userId) {
   const { data, error } = await supabase
     .from(TABLES.savedJobs)
@@ -880,6 +934,7 @@ export async function fetchSavedJobIds(userId) {
   return (data || []).map((row) => row.job_id).filter(Boolean);
 }
 
+// Runs the job step for this page workflow.
 export async function saveJob(payload) {
   const row = {
     seeker_id: payload.seeker_id || payload.user_id,
@@ -897,6 +952,7 @@ export async function saveJob(payload) {
   return data;
 }
 
+// Clears or removes saved job from the UI or database.
 export async function removeSavedJob(userId, jobId) {
   const { error } = await supabase
     .from(TABLES.savedJobs)
@@ -908,6 +964,7 @@ export async function removeSavedJob(userId, jobId) {
   return true;
 }
 
+// Loads knowledge base data so the page can display current information.
 export async function fetchKnowledgeBase() {
   const { data, error } = await supabase
     .from(TABLES.chatbotKnowledge)
@@ -926,6 +983,7 @@ export async function fetchKnowledgeBase() {
   }));
 }
 
+// Runs the knowledge base step for this page workflow.
 export async function seedKnowledgeBase(items) {
   const rows = items.map((item) => ({
     question: item.question || normalizeArray(item.keywords)[0] || 'General question',
@@ -941,6 +999,7 @@ export async function seedKnowledgeBase(items) {
   if (error) throw error;
 }
 
+// Updates knowledge entry after the user changes something or data is refreshed.
 export async function updateKnowledgeEntry(entryId, payload) {
   const row = {
     question: payload.question || normalizeArray(payload.keywords)[0] || 'General question',
@@ -960,6 +1019,7 @@ export async function updateKnowledgeEntry(entryId, payload) {
   return data;
 }
 
+// Clears or removes knowledge entry from the UI or database.
 export async function deleteKnowledgeEntry(entryId) {
   const { error } = await supabase
     .from(TABLES.chatbotKnowledge)
@@ -970,6 +1030,7 @@ export async function deleteKnowledgeEntry(entryId) {
   return true;
 }
 
+// Runs the chatbot interaction step for this page workflow.
 export async function logChatbotInteraction(payload = {}) {
   let userId = payload.user_id || null;
 
@@ -1006,6 +1067,7 @@ export async function logChatbotInteraction(payload = {}) {
   if (error) throw error;
 }
 
+// Creates notification when the workflow needs a new record or message.
 export async function createNotification(payload) {
   const row = {
     user_id: payload.user_id,
@@ -1029,6 +1091,7 @@ export async function createNotification(payload) {
   return data;
 }
 
+// Helper function for notify admins used by this script.
 export async function notifyAdmins(payload) {
   const { data: admins, error: adminError } = await supabase
     .from(TABLES.profiles)
@@ -1037,6 +1100,7 @@ export async function notifyAdmins(payload) {
 
   if (adminError) throw adminError;
 
+  // Helper function for rows used by this script.
   const rows = (admins || [])
     .map((admin) => admin.id)
     .filter(Boolean)
@@ -1063,6 +1127,7 @@ export async function notifyAdmins(payload) {
   return data || [];
 }
 
+// Formats or checks parse json so later code can use a clean value.
 function safeParseJson(value) {
   if (typeof value !== 'string' || !value.trim()) return null;
   try {
@@ -1072,6 +1137,7 @@ function safeParseJson(value) {
   }
 }
 
+// Formats or checks chat payload so later code can use a clean value.
 function normalizeChatPayload(row = {}) {
   const parsed = safeParseJson(row.message);
   if (!parsed || parsed.kind !== 'chat') return null;
@@ -1094,11 +1160,13 @@ function normalizeChatPayload(row = {}) {
   };
 }
 
+// Formats or checks thread key so later code can use a clean value.
 function buildThreadKey(userA, userB, jobId = '') {
   const pair = [String(userA || ''), String(userB || '')].sort();
   return [pair[0], pair[1], String(jobId || '')].join('::');
 }
 
+// Creates chat message when the workflow needs a new record or message.
 export async function createChatMessage(payload) {
   const threadKey = buildThreadKey(payload.sender_id, payload.recipient_id, payload.job_id);
   const createdAt = payload.created_at || new Date().toISOString();
@@ -1151,6 +1219,7 @@ export async function createChatMessage(payload) {
   ].filter(Boolean);
 }
 
+// Loads chat messages data so the page can display current information.
 export async function fetchChatMessages(userId, counterpartId = '', jobId = '') {
   const { data, error } = await supabase
     .from(TABLES.notifications)
@@ -1161,6 +1230,7 @@ export async function fetchChatMessages(userId, counterpartId = '', jobId = '') 
 
   if (error) throw error;
 
+  // Helper function for messages used by this script.
   const messages = (data || []).map(normalizeChatPayload).filter(Boolean);
 
   return messages.filter((item) => {
@@ -1172,6 +1242,7 @@ export async function fetchChatMessages(userId, counterpartId = '', jobId = '') 
   });
 }
 
+// Loads chat threads data so the page can display current information.
 export async function fetchChatThreads(userId) {
   const { data, error } = await supabase
     .from(TABLES.notifications)
@@ -1182,6 +1253,7 @@ export async function fetchChatThreads(userId) {
 
   if (error) throw error;
 
+  // Helper function for messages used by this script.
   const messages = (data || []).map(normalizeChatPayload).filter(Boolean);
   const map = new Map();
 
@@ -1211,6 +1283,7 @@ export async function fetchChatThreads(userId) {
   return Array.from(map.values());
 }
 
+// Runs the chat thread as read step for this page workflow.
 export async function markChatThreadAsRead(userId, counterpartId = '', jobId = '') {
   const messages = await fetchChatMessages(userId, counterpartId, jobId);
   const unreadIds = messages.filter((item) => !item.isRead && item.ownerId === userId).map((item) => item.id);
@@ -1229,6 +1302,7 @@ export async function markChatThreadAsRead(userId, counterpartId = '', jobId = '
 
 // ── Notifications ─────────────────────────────────────────────────────────
 
+// Loads notifications data so the page can display current information.
 export async function fetchNotifications(userId, { limit = 20 } = {}) {
   // Fetch regular notifications AND unread chat messages in parallel
   const [notifRes, chatRes] = await Promise.all([
@@ -1287,6 +1361,7 @@ export async function fetchNotifications(userId, { limit = 20 } = {}) {
     .slice(0, limit);
 }
 
+// Runs the notification read step for this page workflow.
 export async function markNotificationRead(notificationId) {
   const { error } = await supabase
     .from(TABLES.notifications)
@@ -1296,6 +1371,7 @@ export async function markNotificationRead(notificationId) {
   if (error) throw error;
 }
 
+// Runs the all notifications read step for this page workflow.
 export async function markAllNotificationsRead(userId) {
   const { error } = await supabase
     .from(TABLES.notifications)
@@ -1308,6 +1384,7 @@ export async function markAllNotificationsRead(userId) {
 
 // ── Ratings ───────────────────────────────────────────────────────────────
 
+// Creates or updates rating so the database stays in sync.
 export async function upsertRating(payload) {
   const row = {
     reviewer_id:   payload.rater_id || payload.reviewer_id,
@@ -1329,6 +1406,7 @@ export async function upsertRating(payload) {
   return data;
 }
 
+// Loads ratings data so the page can display current information.
 export async function fetchRatings(revieweeId) {
   const { data, error } = await supabase
     .from(TABLES.ratings)
@@ -1340,6 +1418,7 @@ export async function fetchRatings(revieweeId) {
   return data || [];
 }
 
+// Loads ratings for reviewees data so the page can display current information.
 export async function fetchRatingsForReviewees(revieweeIds = []) {
   const ids = Array.from(new Set((revieweeIds || []).filter(Boolean)));
   if (!ids.length) return [];
@@ -1354,6 +1433,7 @@ export async function fetchRatingsForReviewees(revieweeIds = []) {
   return data || [];
 }
 
+// Loads ratings by applications data so the page can display current information.
 export async function fetchRatingsByApplications(applicationIds = []) {
   const ids = Array.from(new Set((applicationIds || []).filter(Boolean)));
   if (!ids.length) return [];
@@ -1368,6 +1448,7 @@ export async function fetchRatingsByApplications(applicationIds = []) {
   return data || [];
 }
 
+// Loads ratings by reviewer data so the page can display current information.
 export async function fetchRatingsByReviewer(reviewerId) {
   const { data, error } = await supabase
     .from(TABLES.ratings)
@@ -1379,6 +1460,7 @@ export async function fetchRatingsByReviewer(reviewerId) {
   return data || [];
 }
 
+// Formats or checks average rating so later code can use a clean value.
 export function calcAverageRating(ratings = []) {
   if (!ratings.length) return null;
   const sum = ratings.reduce((acc, r) => acc + Number(r.stars || 0), 0);
@@ -1387,6 +1469,7 @@ export function calcAverageRating(ratings = []) {
 
 // ── Payments ───────────────────────────────────────────────────────────────
 
+// Creates payment when the workflow needs a new record or message.
 export async function createPayment(payload) {
   const { data, error } = await supabase
     .from(TABLES.payments)
@@ -1404,6 +1487,7 @@ export async function createPayment(payload) {
   return data;
 }
 
+// Runs the employer paid step for this page workflow.
 export async function markEmployerPaid(applicationId, seekerId = null, amount = 0) {
   const requestedAmount = Number(amount) || 0;
   // Check if a payment record already exists for this application
@@ -1449,6 +1533,7 @@ export async function markEmployerPaid(applicationId, seekerId = null, amount = 
   }
 }
 
+// Loads payment by application data so the page can display current information.
 export async function fetchPaymentByApplication(applicationId) {
   const { data, error } = await supabase
     .from(TABLES.payments)
@@ -1459,6 +1544,7 @@ export async function fetchPaymentByApplication(applicationId) {
   return data;
 }
 
+// Runs the payment record for application step for this page workflow.
 export async function ensurePaymentRecordForApplication(applicationId, payeeId = null) {
   const existing = await fetchPaymentByApplication(applicationId).catch(() => null);
   if (existing?.id) return existing;
@@ -1480,6 +1566,7 @@ export async function ensurePaymentRecordForApplication(applicationId, payeeId =
   return data;
 }
 
+// Loads payments by user data so the page can display current information.
 export async function fetchPaymentsByUser(userId) {
   const { data, error } = await supabase
     .from(TABLES.payments)
@@ -1490,6 +1577,7 @@ export async function fetchPaymentsByUser(userId) {
   return data || [];
 }
 
+// Runs the payment step for this page workflow.
 export async function confirmPayment(paymentId) {
   const { data, error } = await supabase
     .from(TABLES.payments)
@@ -1501,6 +1589,7 @@ export async function confirmPayment(paymentId) {
   return data;
 }
 
+// Runs the payment evidence step for this page workflow.
 export async function uploadPaymentEvidence(paymentId, evidenceUrl) {
   const { data, error } = await supabase
     .from(TABLES.payments)
@@ -1512,11 +1601,13 @@ export async function uploadPaymentEvidence(paymentId, evidenceUrl) {
   return data;
 }
 
+// Runs the payment evidence by application step for this page workflow.
 export async function uploadPaymentEvidenceByApplication(applicationId, evidenceUrl, payeeId = null) {
   const payment = await ensurePaymentRecordForApplication(applicationId, payeeId);
   return uploadPaymentEvidence(payment.id, evidenceUrl);
 }
 
+// Runs the payment dispute step for this page workflow.
 export async function raisePaymentDispute(paymentId, disputeDesc) {
   const { data, error } = await supabase
     .from(TABLES.payments)
@@ -1528,11 +1619,13 @@ export async function raisePaymentDispute(paymentId, disputeDesc) {
   return data;
 }
 
+// Runs the payment dispute by application step for this page workflow.
 export async function raisePaymentDisputeByApplication(applicationId, disputeDesc, payeeId = null) {
   const payment = await ensurePaymentRecordForApplication(applicationId, payeeId);
   return raisePaymentDispute(payment.id, disputeDesc);
 }
 
+// Runs the payment dispute and create report by application step for this page workflow.
 export async function raisePaymentDisputeAndCreateReportByApplication(applicationId, disputeDesc, payeeId = null, evidenceUrl = '') {
   const payment = await raisePaymentDisputeByApplication(applicationId, disputeDesc, payeeId);
 
@@ -1575,6 +1668,7 @@ export async function raisePaymentDisputeAndCreateReportByApplication(applicatio
   return payment;
 }
 
+// Runs the payment dispute step for this page workflow.
 export async function resolvePaymentDispute(paymentId, resolution) {
   const { data, error } = await supabase
     .from(TABLES.payments)
@@ -1586,6 +1680,7 @@ export async function resolvePaymentDispute(paymentId, resolution) {
   return data;
 }
 
+// Loads payment disputes data so the page can display current information.
 export async function fetchPaymentDisputes() {
   const { data, error } = await supabase
     .from(TABLES.payments)
@@ -1599,6 +1694,7 @@ export async function fetchPaymentDisputes() {
   );
 }
 
+// Runs the payment received step for this page workflow.
 export async function confirmPaymentReceived(applicationId) {
   // Find the payment record for this application, then mark seeker confirmed
   const { data: payment, error: fetchError } = await supabase
@@ -1640,6 +1736,7 @@ export async function confirmPaymentReceived(applicationId) {
 
 // ── Skill Tags ─────────────────────────────────────────────────────────────
 
+// Loads skill tags data so the page can display current information.
 export async function fetchSkillTags() {
   const [profilesResult, jobsResult] = await Promise.all([
     supabase.from(TABLES.profiles).select('skill_tags'),
@@ -1664,6 +1761,7 @@ export async function fetchSkillTags() {
   return [...counts.values()].sort((a, b) => b.usage_count - a.usage_count || a.name.localeCompare(b.name));
 }
 
+// Runs the skill tag usage step for this page workflow.
 export async function incrementSkillTagUsage(tagNames = []) {
   return normalizeArray(tagNames).length;
 }
@@ -1673,6 +1771,7 @@ export async function incrementSkillTagUsage(tagNames = []) {
 // users/jobs/reports/applications on each page load instead of writing to
 // or reading from a stored public.analytics snapshot table.
 
+// Loads all applications data so the page can display current information.
 export async function fetchAllApplications() {
   const { data, error } = await supabase
     .from(TABLES.applications)
@@ -1684,6 +1783,7 @@ export async function fetchAllApplications() {
 
 // ── Job Expiry ─────────────────────────────────────────────────────────────
 
+// Runs the expired jobs step for this page workflow.
 export async function closeExpiredJobs() {
   const today = new Date().toISOString().slice(0, 10);
   const { error } = await supabase
@@ -1696,6 +1796,7 @@ export async function closeExpiredJobs() {
 
 // ── Chat Image Upload ──────────────────────────────────────────────────────
 
+// Runs the chat image step for this page workflow.
 export async function uploadChatImage(file) {
   // Convert to base64 data URL directly — no Storage bucket needed
   return new Promise((resolve, reject) => {
@@ -1714,6 +1815,7 @@ export async function uploadChatImage(file) {
 // Upserts one row per calendar date into the analytics table so that
 // Table 3.20 (Data Dictionary – analytics) stays in sync with real usage.
 
+// Runs the analytics snapshot step for this page workflow.
 export async function saveAnalyticsSnapshot({
   totalUsers = 0,
   totalSeekers = 0,

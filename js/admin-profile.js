@@ -1,3 +1,6 @@
+/**
+ * EasyEarn file note: Handles the admin profile page behavior and related user interactions.
+ */
 import { fetchProfile, getInitials, observeAuth, upsertProfile } from './supabase-data.js';
 
 (function () {
@@ -32,6 +35,7 @@ import { fetchProfile, getInitials, observeAuth, upsertProfile } from './supabas
   let selectedPhotoData = '';
   let currentPhotoData = '';
 
+  // Updates header after the user changes something or data is refreshed.
   function updateHeader(name, photoSrc = '') {
     const navName = document.getElementById('nav-user-name');
     const navBadge = document.getElementById('nav-user-badge');
@@ -51,6 +55,7 @@ import { fetchProfile, getInitials, observeAuth, upsertProfile } from './supabas
     navBadge.textContent = getInitials(name || 'Admin', 'AD');
   }
 
+  // Updates status after the user changes something or data is refreshed.
   function setStatus(message, type = '') {
     if (!statusEl) return;
     statusEl.textContent = message;
@@ -58,6 +63,7 @@ import { fetchProfile, getInitials, observeAuth, upsertProfile } from './supabas
     if (type) statusEl.classList.add(type);
   }
 
+  // Updates photo status after the user changes something or data is refreshed.
   function setPhotoStatus(message, type = '') {
     if (!photoStatusEl) return;
     photoStatusEl.textContent = message;
@@ -65,6 +71,7 @@ import { fetchProfile, getInitials, observeAuth, upsertProfile } from './supabas
     if (type) photoStatusEl.classList.add(type);
   }
 
+  // Updates busy after the user changes something or data is refreshed.
   function setBusy(isBusy) {
     if (!saveBtn) return;
     if (!saveBtn.dataset.defaultText) saveBtn.dataset.defaultText = saveBtn.textContent;
@@ -72,12 +79,14 @@ import { fetchProfile, getInitials, observeAuth, upsertProfile } from './supabas
     saveBtn.textContent = isBusy ? 'Saving...' : saveBtn.dataset.defaultText;
   }
 
+  // Updates metric after the user changes something or data is refreshed.
   function setMetric(barEl, valueEl, percentage) {
     const rounded = Math.max(0, Math.min(100, Math.round(percentage)));
     if (barEl) barEl.style.width = `${rounded}%`;
     if (valueEl) valueEl.textContent = `${rounded}%`;
   }
 
+  // Helper function for read file as data URL used by this script.
   function readFileAsDataUrl(file) {
     return new Promise((resolve, reject) => {
       const reader = new FileReader();
@@ -87,6 +96,7 @@ import { fetchProfile, getInitials, observeAuth, upsertProfile } from './supabas
     });
   }
 
+  // Loads image data so the page can display current information.
   function loadImage(src) {
     return new Promise((resolve, reject) => {
       const image = new Image();
@@ -96,6 +106,7 @@ import { fetchProfile, getInitials, observeAuth, upsertProfile } from './supabas
     });
   }
 
+  // Helper function for compress image used by this script.
   async function compressImage(file) {
     const source = await readFileAsDataUrl(file);
     if (!file.type.startsWith('image/')) return source;
@@ -121,6 +132,7 @@ import { fetchProfile, getInitials, observeAuth, upsertProfile } from './supabas
     return output;
   }
 
+  // Renders preview into the HTML so the user can see it.
   function renderPreview() {
     const name = fields.name?.value.trim() || currentUser?.email?.split('@')[0] || 'Admin';
     const email = fields.email?.value.trim() || 'Email not set';
@@ -146,6 +158,7 @@ import { fetchProfile, getInitials, observeAuth, upsertProfile } from './supabas
 
     const basic = [name, email, phone, location].filter((item) => item && !String(item).includes('not set')).length / 4 * 100;
     const identity = [photo, bio].filter(Boolean).length / 2 * 100;
+    // Helper function for ready used by this script.
     const ready = ((basic + identity) / 2);
 
     setMetric(preview.basicBar, preview.basicValue, basic);
@@ -153,6 +166,7 @@ import { fetchProfile, getInitials, observeAuth, upsertProfile } from './supabas
     setMetric(preview.readyBar, preview.readyValue, ready);
   }
 
+  // Handles the photo change action triggered by the user.
   async function handlePhotoChange() {
     const file = fields.photo?.files?.[0];
     if (!file) {
@@ -179,6 +193,7 @@ import { fetchProfile, getInitials, observeAuth, upsertProfile } from './supabas
     }
   }
 
+  // Handles the submit action triggered by the user.
   async function handleSubmit(event) {
     event.preventDefault();
     if (!currentUser) return;
@@ -213,6 +228,7 @@ import { fetchProfile, getInitials, observeAuth, upsertProfile } from './supabas
     }
   }
 
+  // Helper function for populate used by this script.
   function populate(profile, user) {
     if (fields.name) fields.name.value = profile.name || user?.email?.split('@')[0] || '';
     if (fields.email) fields.email.value = profile.email || user?.email || '';

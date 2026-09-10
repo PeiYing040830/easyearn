@@ -1,3 +1,6 @@
+/**
+ * EasyEarn file note: Handles the jobseeker interviews page behavior and related user interactions.
+ */
 import {
   confirmInterviewAttendance,
   fetchApplicationsWithInterview,
@@ -18,12 +21,14 @@ import {
   const pastEl         = document.getElementById('int-past-count');
   const pastNote       = document.getElementById('int-past-note');
 
+  // Formats or checks HTML so later code can use a clean value.
   function escapeHtml(value) {
     return String(value ?? '')
       .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
       .replace(/"/g, '&quot;').replace(/'/g, '&#39;');
   }
 
+  // Formats or checks date so later code can use a clean value.
   function formatDate(value) {
     if (!value) return 'Date not set';
     return new Date(value).toLocaleString('en-MY', {
@@ -32,6 +37,7 @@ import {
     });
   }
 
+  // Formats or checks date short so later code can use a clean value.
   function formatDateShort(value) {
     if (!value) return '-';
     return new Date(value).toLocaleString('en-MY', {
@@ -39,15 +45,18 @@ import {
     });
   }
 
+  // Formats or checks attendance confirmed so later code can use a clean value.
   function isAttendanceConfirmed(application) {
     return Boolean(application?.attendance_confirmed_at);
   }
 
+  // Loads days until data so the page can display current information.
   function getDaysUntil(dateStr) {
     const diff = new Date(dateStr) - new Date();
     return Math.ceil(diff / (1000 * 60 * 60 * 24));
   }
 
+  // Formats or checks card so later code can use a clean value.
   function buildCard(application, job, isPast) {
     const title    = job?.title    || 'Job Interview';
     const company  = job?.company  || job?.employer_name || 'EasyEarn Employer';
@@ -110,6 +119,7 @@ import {
       </article>`;
   }
 
+  // Renders stats into the HTML so the user can see it.
   function renderStats(scheduled, upcoming, past) {
     if (scheduledEl)   scheduledEl.textContent   = String(scheduled);
     if (scheduledNote) scheduledNote.textContent  = scheduled ? `${scheduled} interview(s) confirmed.` : 'No confirmed interviews yet.';
@@ -119,6 +129,7 @@ import {
     if (pastNote)      pastNote.textContent       = past ? `${past} completed interview(s).` : 'No completed interviews yet.';
   }
 
+  // Renders upcoming into the HTML so the user can see it.
   function renderUpcoming(applications, jobsById) {
     if (!upcomingListEl) return;
     if (!applications.length) {
@@ -141,6 +152,7 @@ import {
       .join('');
   }
 
+  // Renders past into the HTML so the user can see it.
   function renderPast(applications, jobsById) {
     if (!pastListEl) return;
     if (!applications.length) {
@@ -160,8 +172,10 @@ import {
       .join('');
   }
 
+  // Sets up attendance actions when this script is loaded.
   function bindAttendanceActions() {
     document.querySelectorAll('.confirm-attendance-btn').forEach((button) => {
+      // Connects this element event to the handler that should run next.
       button.addEventListener('click', async () => {
         const applicationId = button.dataset.applicationId;
         const interviewDate = button.dataset.interviewDate || 'this interview';

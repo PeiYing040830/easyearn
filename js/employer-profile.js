@@ -1,3 +1,6 @@
+/**
+ * EasyEarn file note: Handles the employer profile page behavior and related user interactions.
+ */
 import {
   fetchProfile,
   observeAuth,
@@ -49,6 +52,7 @@ import {
   let selectedLogoFile = null;
   let currentProfile = null;
 
+  // Helper function for notify status used by this script.
   function notifyStatus(message, type = '') {
     const text = String(message || '');
     const shouldShow = type || /\b(saved|submitted|published|updated|success|unable|failed|error|wrong|required|cannot)\b/i.test(text);
@@ -57,6 +61,7 @@ import {
     window.EasyEarnToast?.show(text, toastType);
   }
 
+  // Updates status after the user changes something or data is refreshed.
   function setStatus(message, type = '') {
     if (!statusEl) return;
     statusEl.textContent = message;
@@ -65,6 +70,7 @@ import {
     notifyStatus(message, type);
   }
 
+  // Updates button busy after the user changes something or data is refreshed.
   function setButtonBusy(button, busyText, busy) {
     if (!button) return;
     if (!button.dataset.defaultText) {
@@ -74,6 +80,7 @@ import {
     button.textContent = busy ? busyText : button.dataset.defaultText;
   }
 
+  // Updates logo status after the user changes something or data is refreshed.
   function setLogoStatus(message, type = '') {
     if (!logoStatusEl) return;
     logoStatusEl.textContent = message;
@@ -81,6 +88,7 @@ import {
     if (type) logoStatusEl.classList.add(type);
   }
 
+  // Loads account status message data so the page can display current information.
   function getAccountStatusMessage(profile) {
     const status = String(profile?.accountStatus || 'active').toLowerCase();
     if (status === 'suspended') {
@@ -92,6 +100,7 @@ import {
     return '';
   }
 
+  // Helper function for fill form used by this script.
   function fillForm(profile = {}) {
     if (fields.companyName) fields.companyName.value = profile.companyName || profile.businessName || profile.name || '';
     if (fields.contactEmail) fields.contactEmail.value = profile.email || currentUser?.email || '';
@@ -103,6 +112,7 @@ import {
     currentLogo = profile.photoData || profile.photoUrl || '';
   }
 
+  // Helper function for read payload used by this script.
   function readPayload() {
     return {
       companyName: fields.companyName?.value.trim() || '',
@@ -115,15 +125,18 @@ import {
     };
   }
 
+  // Formats or checks valid email so later code can use a clean value.
   function isValidEmail(value) {
     return /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/i.test(String(value || '').trim());
   }
 
+  // Formats or checks valid phone so later code can use a clean value.
   function isValidPhone(value) {
     if (!value) return true;
     return /^\+?[0-9][0-9\s-]{7,18}$/.test(value);
   }
 
+  // Formats or checks valid URL so later code can use a clean value.
   function isValidUrl(value) {
     if (!value) return true;
     try {
@@ -134,6 +147,7 @@ import {
     }
   }
 
+  // Helper function for validate payload used by this script.
   function validatePayload(payload) {
     if (!payload.companyName) return { message: 'Please enter a company name.', field: fields.companyName };
     if (payload.companyName.length < 2) return { message: 'Company name must be at least 2 characters.', field: fields.companyName };
@@ -146,6 +160,7 @@ import {
     return null;
   }
 
+  // Loads initials data so the page can display current information.
   function getInitials(name) {
     return String(name || 'Employer')
       .split(' ')
@@ -156,6 +171,7 @@ import {
       .toUpperCase() || 'EM';
   }
 
+  // Renders logo into the HTML so the user can see it.
   function renderLogo(src = '') {
     if (!previewEls.logo) return;
 
@@ -189,6 +205,7 @@ import {
     }
   }
 
+  // Helper function for read image file used by this script.
   function readImageFile(file) {
     return new Promise((resolve, reject) => {
       const reader = new FileReader();
@@ -198,6 +215,7 @@ import {
     });
   }
 
+  // Loads image element data so the page can display current information.
   function loadImageElement(src) {
     return new Promise((resolve, reject) => {
       const image = new Image();
@@ -207,6 +225,7 @@ import {
     });
   }
 
+  // Helper function for compress logo to data URL used by this script.
   async function compressLogoToDataUrl(file) {
     const source = await readImageFile(file);
     const image = await loadImageElement(source);
@@ -238,6 +257,7 @@ import {
     return output;
   }
 
+  // Runs the logo if needed step for this page workflow.
   async function saveLogoIfNeeded() {
     if (!selectedLogoFile) return currentLogo;
     if (selectedLogoFile.size > 2 * 1024 * 1024) {
@@ -253,12 +273,14 @@ import {
     return currentLogo;
   }
 
+  // Updates metric after the user changes something or data is refreshed.
   function setMetric(metric, percentage) {
     const rounded = Math.max(0, Math.min(100, Math.round(percentage)));
     if (metric.track) metric.track.style.width = `${rounded}%`;
     if (metric.value) metric.value.textContent = `${rounded}%`;
   }
 
+  // Updates readiness after the user changes something or data is refreshed.
   function updateReadiness() {
     const payload = readPayload();
 
@@ -272,6 +294,7 @@ import {
     renderLogo(currentLogo);
   }
 
+  // Sets up realtime update when this script is loaded.
   function bindRealtimeUpdate() {
     Object.values(fields).forEach((field) => {
       field?.addEventListener('input', updateReadiness);
@@ -279,6 +302,7 @@ import {
     });
   }
 
+  // Handles the save action triggered by the user.
   async function handleSave(event) {
     event.preventDefault();
 
@@ -328,6 +352,7 @@ import {
     }
   }
 
+  // Loads profile data so the page can display current information.
   async function loadProfile(user) {
     const profile = await fetchProfile(user.id, user);
     currentProfile = profile;

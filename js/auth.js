@@ -1,3 +1,6 @@
+/**
+ * EasyEarn file note: Handles the auth page behavior and related user interactions.
+ */
 import { supabase } from './supabase-config.js';
 
 const ADMIN_CODE = 'EASYEARN-ADMIN-2026';
@@ -6,6 +9,7 @@ const PROFILE_TABLE = 'users';
 
 let selectedRole = 'seeker';
 
+// Shows the error message or section when the user needs feedback.
 function showError(msg) {
   const el = document.getElementById('error-msg');
   if (el) {
@@ -14,10 +18,12 @@ function showError(msg) {
   }
 }
 
+// Formats or checks valid email so later code can use a clean value.
 function isValidEmail(value) {
   return /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/i.test(String(value || '').trim());
 }
 
+// Sets up password toggles when this script is loaded.
 function setupPasswordToggles() {
   const SHOW_EMOJI = String.fromCodePoint(0x1f440);
   const HIDE_EMOJI = String.fromCodePoint(0x1f648);
@@ -27,6 +33,7 @@ function setupPasswordToggles() {
     button.dataset.bound = 'true';
     button.textContent = SHOW_EMOJI;
 
+    // Connects this element event to the handler that should run next.
     button.addEventListener('click', () => {
       const targetId = button.getAttribute('data-toggle-target');
       const input = targetId ? document.getElementById(targetId) : null;
@@ -40,6 +47,7 @@ function setupPasswordToggles() {
   });
 }
 
+// Clears or removes error from the UI or database.
 function clearError() {
   const el = document.getElementById('error-msg');
   if (el) {
@@ -48,11 +56,13 @@ function clearError() {
   }
 }
 
+// Formats or checks role so later code can use a clean value.
 function normalizeRole(role) {
   if (!role) return 'seeker';
   return role === 'jobseeker' ? 'seeker' : role;
 }
 
+// Formats or checks Supabase auth error so later code can use a clean value.
 function mapSupabaseAuthError(error, context = 'login') {
   const message = String(error?.message || '').toLowerCase();
 
@@ -79,6 +89,7 @@ function mapSupabaseAuthError(error, context = 'login') {
   return 'Login failed. Please try again.';
 }
 
+// Creates or updates profile so the database stays in sync.
 async function upsertProfile(user, overrides = {}) {
   if (!user?.id) return null;
 
@@ -121,6 +132,7 @@ async function upsertProfile(user, overrides = {}) {
   return data;
 }
 
+// Loads role for user data so the page can display current information.
 async function getRoleForUser(user) {
   if (!user?.id) return 'seeker';
 
@@ -141,6 +153,7 @@ async function getRoleForUser(user) {
   return normalizeRole(user.user_metadata?.role || 'seeker');
 }
 
+// Runs the by role step for this page workflow.
 async function redirectByRole(user) {
   const role = await getRoleForUser(user);
 
@@ -156,10 +169,12 @@ async function redirectByRole(user) {
   }
 }
 
+// Handles the login action triggered by the user.
 async function handleLogin() {
   clearError();
   // support both combined page (login-email) and old standalone (email)
   const email = (document.getElementById('login-email') || document.getElementById('email'))?.value.trim();
+  // Helper function for password used by this script.
   const password = (document.getElementById('login-password') || document.getElementById('password'))?.value.trim();
 
   if (!email || !password) {
@@ -187,6 +202,7 @@ async function handleLogin() {
   await redirectByRole(data.user);
 }
 
+// Handles the register action triggered by the user.
 async function handleRegister() {
   clearError();
 
@@ -295,11 +311,13 @@ window.selectRole = function selectRole(role) {
 
 const loginBtn = document.getElementById('login-btn');
 if (loginBtn) {
+  // Connects this element event to the handler that should run next.
   loginBtn.addEventListener('click', handleLogin);
 }
 
 const registerBtn = document.getElementById('register-btn');
 if (registerBtn) {
+  // Connects this element event to the handler that should run next.
   registerBtn.addEventListener('click', handleRegister);
 }
 

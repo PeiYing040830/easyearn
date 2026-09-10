@@ -1,3 +1,6 @@
+/**
+ * EasyEarn file note: Handles the employer dashboard page behavior and related user interactions.
+ */
 import { fetchEmployerApplications, fetchEmployerJobs, fetchProfile, observeAuth } from './supabase-data.js';
 
 (function () {
@@ -23,6 +26,7 @@ import { fetchEmployerApplications, fetchEmployerJobs, fetchProfile, observeAuth
   };
   const welcomeNameEl = document.getElementById('employer-dashboard-welcome-name');
 
+  // Formats or checks status so later code can use a clean value.
   function normalizeStatus(value) {
     const raw = String(value || '').toLowerCase();
     if (raw.includes('accept')) return 'accepted';
@@ -31,6 +35,7 @@ import { fetchEmployerApplications, fetchEmployerJobs, fetchProfile, observeAuth
     return 'pending';
   }
 
+  // Helper function for apply line used by this script.
   function applyLine(labels, trend) {
     const canvas = document.getElementById('employer-dashboard-line-canvas');
     if (!canvas) return;
@@ -67,11 +72,13 @@ import { fetchEmployerApplications, fetchEmployerJobs, fetchProfile, observeAuth
     });
   }
 
+  // Updates share after the user changes something or data is refreshed.
   function setShare(el, value, total) {
     if (!el) return;
     el.textContent = `${total ? Math.round((value / total) * 100) : 0}%`;
   }
 
+  // Helper function for apply pie used by this script.
   function applyPie(values) {
     const canvas = document.getElementById('employer-dashboard-donut-canvas');
     if (!canvas) return;

@@ -1,5 +1,7 @@
 <!DOCTYPE html>
+<!-- EasyEarn file note: Builds the profile page layout and connects it to shared styles/scripts. -->
 <html lang="en">
+<!-- Head section stores page settings, title, icons, and stylesheet links. -->
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,17 +10,23 @@
 <link rel="stylesheet" href="../../css/landing.css">
   <link rel="stylesheet" href="employer-pages.css?v=20260829e">
 </head>
+<!-- Body section contains everything the user can see or interact with. -->
 <body>
+  <!-- Shared header/navigation is injected here by includes.js. -->
   <div id="site-header"></div>
+  <!-- Main area contains the primary page content. -->
   <main class="employer-shell">
+    <!-- Section for the employer page header area of this page. -->
     <section class="employer-page-header">
       <div class="employer-badge">Employer Profile</div>
       <h1>Build employer trust</h1>
       <p>Your company profile helps job seekers understand who you are before they apply.</p>
     </section>
 
+    <!-- Section for the employer grid area of this page. -->
     <section class="employer-grid split">
       <article class="employer-card">
+        <!-- Container for the employer section head content and layout. -->
         <div class="employer-section-head">
           <div>
             <div class="employer-badge">Profile Form</div>
@@ -26,7 +34,9 @@
             <p>Keep the core employer information ready for verification and future job publishing.</p>
           </div>
         </div>
+        <!-- Form where users enter and submit employer profile details. -->
         <form id="employer-profile-form">
+          <!-- Container for the employer form grid content and layout. -->
           <div class="employer-form-grid">
             <label class="employer-field"><span>Company name</span><input id="employer-company-name" type="text" placeholder="BrightSpark Events"></label>
             <label class="employer-field"><span>Contact email</span><input id="employer-contact-email" type="email" placeholder="hiring@brightspark.com"></label>
@@ -45,6 +55,7 @@
             </div>
             <label class="employer-field full"><span>Company overview</span><textarea id="employer-overview" placeholder="Introduce your company, your hiring needs, and what job seekers can expect."></textarea></label>
           </div>
+          <!-- Container for the employer form actions content and layout. -->
           <div class="employer-form-actions employer-action-with-status">
             <button class="btn-primary" id="employer-save-profile-btn" type="submit">Save Profile</button>
             <p class="employer-inline-status action-status-message" id="employer-profile-status">Save result will appear here.</p>
@@ -53,6 +64,7 @@
       </article>
 
       <article class="employer-card">
+        <!-- Container for the employer section head content and layout. -->
         <div class="employer-section-head">
           <div>
             <div class="employer-badge">Profile Snapshot</div>
@@ -60,6 +72,7 @@
             <p>Your preview updates as you edit the form so your company identity stays consistent.</p>
           </div>
         </div>
+        <!-- Container for the employer list content and layout. -->
         <div class="employer-list">
           <div class="employer-logo-preview">
             <div class="employer-logo-avatar" id="employer-logo-preview"></div>
@@ -68,13 +81,17 @@
               <p id="employer-logo-preview-meta">Add a business logo for stronger company branding.</p>
             </div>
           </div>
+          <!-- Container for the employer status row content and layout. -->
           <div class="employer-status-row"><strong>Basic info</strong><div class="employer-status-track"><span id="employer-basic-track" style="width: 0%;"></span></div><strong id="employer-basic-value">0%</strong></div>
+          <!-- Container for the employer status row content and layout. -->
           <div class="employer-status-row"><strong>Trust setup</strong><div class="employer-status-track"><span id="employer-trust-track" style="width: 0%;"></span></div><strong id="employer-trust-value">0%</strong></div>
+          <!-- Container for the employer status row content and layout. -->
           <div class="employer-status-row"><strong>Hiring ready</strong><div class="employer-status-track"><span id="employer-ready-track" style="width: 0%;"></span></div><strong id="employer-ready-value">0%</strong></div>
           <div class="employer-readiness-note">
             <span>Profile readiness</span>
             <strong>Keep these details current before posting jobs and requesting verification.</strong>
           </div>
+          <!-- Container for the employer trust checklist content and layout. -->
           <div class="employer-trust-checklist">
             <strong>Trust checklist</strong>
             <ul>
@@ -89,12 +106,16 @@
     </section>
   </main>
   
+  <!-- Inline script runs page-specific JavaScript behavior. -->
   <script>
     window.EASYEARN_BASE_PATH = '../../';
     window.EASYEARN_HEADER_PATH = '../../partials/header-employer.html';
   </script>
+  <!-- Loads translation support for multilingual users. -->
   <script src="../../js/translate.js" defer></script>
+  <!-- Loads shared header and footer partials. -->
   <script src="../../js/includes.js?v=20260802a" defer></script>
+  <!-- Loads the JavaScript file that controls this page: ../../js/employer-profile.js?v=20260802a. -->
   <script type="module" src="../../js/employer-profile.js?v=20260802a"></script>
 </body>
 </html>

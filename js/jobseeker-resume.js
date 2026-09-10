@@ -1,3 +1,6 @@
+/**
+ * EasyEarn file note: Handles the jobseeker resume page behavior and related user interactions.
+ */
 import {
   fetchProfile,
   fetchWorkHistory,
@@ -38,6 +41,7 @@ import {
   let activeUser = null;
   let refreshResumeData = null;
 
+  // Formats or checks HTML so later code can use a clean value.
   function escapeHtml(value) {
     return String(value ?? '')
       .replace(/&/g, '&amp;')
@@ -47,6 +51,7 @@ import {
       .replace(/'/g, '&#39;');
   }
 
+  // Formats or checks array so later code can use a clean value.
   function normalizeArray(value) {
     if (Array.isArray(value)) return value.filter(Boolean);
     if (typeof value === 'string' && value.trim()) {
@@ -66,10 +71,12 @@ import {
     return 'pending';
   }
 
+  // Formats or checks payment confirmed so later code can use a clean value.
   function isPaymentConfirmed(payment) {
     return !!(payment?.seeker_confirmed_at || payment?.status === 'confirmed' || payment?.payee_confirmed);
   }
 
+  // Updates header name after the user changes something or data is refreshed.
   function updateHeaderName(name, photoSrc = '', attempt = 0) {
     const navName = document.getElementById('nav-user-name');
     const navBadge = document.getElementById('nav-user-badge');
@@ -91,6 +98,7 @@ import {
     navBadge.textContent = getInitials(name || 'Job Seeker', 'JS');
   }
 
+  // Renders list into the HTML so the user can see it.
   function renderList(element, items, emptyText) {
     if (!element) return;
     if (!items.length) {
@@ -100,6 +108,7 @@ import {
     element.innerHTML = items.map((item) => `<li>${escapeHtml(item)}</li>`).join('');
   }
 
+  // Renders photo into the HTML so the user can see it.
   function renderPhoto(name, src) {
     if (!els.photo) return;
     if (src) {
@@ -113,6 +122,7 @@ import {
     els.photo.textContent = getInitials(name, 'JS');
   }
 
+  // Helper function for merge data used by this script.
   function mergeData(profile, resume) {
     if (!resume) return profile || {};
     return {
@@ -126,6 +136,7 @@ import {
     };
   }
 
+  // Renders profile into the HTML so the user can see it.
   function renderProfile(user, data) {
     const name = data?.name || user.user_metadata?.name || user.email?.split('@')[0] || 'Job Seeker';
     const headline = data?.headline || 'Add your professional headline in profile.';
@@ -168,6 +179,7 @@ import {
     updateHeaderName(name, photo);
   }
 
+  // Renders work history into the HTML so the user can see it.
   function renderWorkHistory(items) {
     if (!els.workList) return;
 
@@ -207,7 +219,9 @@ import {
         .slice()
         .sort((a, b) => new Date(b.completedOn || b.completedDate || 0) - new Date(a.completedOn || a.completedDate || 0))
         .filter(item => {
+          // Helper function for company used by this script.
           const company = (item.company || '').trim().toLowerCase();
+          // Helper function for title used by this script.
           const title = (item.title || item.jobTitle || '').trim().toLowerCase();
           const key = `${company}|${title}`;
           if (!company || seen.has(key)) return false;
@@ -231,12 +245,14 @@ import {
     }
   }
 
+  // Helper function for summarize review used by this script.
   function summarizeReview(value) {
     const text = String(value || '').trim().replace(/\s+/g, ' ');
     if (!text) return 'No review yet';
     return text.length > 72 ? `${text.slice(0, 69).trim()}...` : text;
   }
 
+  // Helper function for merge ratings used by this script.
   function mergeRatings(...ratingGroups) {
     const seen = new Set();
     return ratingGroups
@@ -257,8 +273,10 @@ import {
       .sort((a, b) => new Date(b.created_at || 0) - new Date(a.created_at || 0));
   }
 
+  // Renders stats into the HTML so the user can see it.
   function renderStats(items, ratings = []) {
     const averageRating = calcAverageRating(ratings);
+    // Helper function for recent review used by this script.
     const recentReview = (ratings || []).find((rating) => {
       return String(rating.reviewer_role || '').toLowerCase() === 'employer'
         && String(rating.review || '').trim();
@@ -269,6 +287,7 @@ import {
     if (els.recentReview) els.recentReview.textContent = summarizeReview(recentReview?.review);
   }
 
+  // Helper function for download pdf used by this script.
   async function downloadPdf() {
     if (!resumePaper || !window.html2canvas || !window.jspdf?.jsPDF || !els.downloadBtn) {
       return;
@@ -304,6 +323,7 @@ import {
       const usableWidth = pageWidth - margin * 2;
       const usableHeight = pageHeight - margin * 2;
       const imageWidth = usableWidth;
+      // Helper function for image height used by this script.
       const imageHeight = (canvas.height * imageWidth) / canvas.width;
 
       if (imageHeight <= usableHeight) {
@@ -335,6 +355,7 @@ import {
           );
 
           const sliceData = pageCanvas.toDataURL('image/png');
+          // Helper function for slice height mm used by this script.
           const sliceHeightMm = (Math.min(sliceHeightPx, canvas.height - renderedHeight) * imageWidth) / canvas.width;
 
           if (!firstPage) pdf.addPage();
@@ -345,6 +366,7 @@ import {
         }
       }
 
+      // Helper function for raw name used by this script.
       const rawName = (els.name?.textContent || 'job-seeker-resume').trim();
       const safeName = rawName.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '') || 'job-seeker-resume';
       pdf.save(`${safeName}-resume.pdf`);
@@ -380,6 +402,7 @@ import {
       const applicationStatusById = new Map(
         (applications || []).map((app) => [app.id, normalizeStatus(app.status)])
       );
+      // Helper function for completed apps used by this script.
       const completedApps = (applications || []).filter(
         (app) => normalizeStatus(app.status) === 'completed'
       );
@@ -424,6 +447,7 @@ import {
 
   if (els.downloadBtn) {
     els.downloadBtn.disabled = true;
+    // Connects this element event to the handler that should run next.
     els.downloadBtn.addEventListener('click', downloadPdf);
   }
 
@@ -435,6 +459,7 @@ import {
 
     activeUser = user;
 
+    // Helper function for refresh used by this script.
     const refresh = async (silent = false) => {
       try {
         await loadResumeData(user);
@@ -456,6 +481,7 @@ import {
 
     if (els.refreshBtn && !els.refreshBtn.dataset.bound) {
       els.refreshBtn.dataset.bound = 'true';
+      // Connects this element event to the handler that should run next.
       els.refreshBtn.addEventListener('click', async () => {
         const originalText = els.refreshBtn.textContent;
         els.refreshBtn.disabled = true;

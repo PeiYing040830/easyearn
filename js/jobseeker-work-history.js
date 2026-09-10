@@ -1,3 +1,6 @@
+/**
+ * EasyEarn file note: Handles the jobseeker work history page behavior and related user interactions.
+ */
 import {
   fetchApplications,
   fetchJobs,
@@ -64,6 +67,7 @@ import {
 
   const STAR_LABELS = ['', 'Poor', 'Fair', 'Good', 'Very Good', 'Excellent'];
 
+  // Updates stars after the user changes something or data is refreshed.
   function setStars(n) {
     selectedStars = n;
     rateStarRow.querySelectorAll('span').forEach((s) => {
@@ -73,6 +77,7 @@ import {
     if (rateStarLabel) rateStarLabel.textContent = n ? STAR_LABELS[n] : 'Click a star to rate';
   }
 
+  // Helper function for open rate modal used by this script.
   function openRateModal(data) {
     activeRateData = data;
     selectedStars = 0;
@@ -84,6 +89,7 @@ import {
     if (rateModal) { rateModal.style.display = 'flex'; }
   }
 
+  // Runs the rate modal step for this page workflow.
   function closeRateModal() {
     if (rateModal) rateModal.style.display = 'none';
     activeRateData = null;
@@ -92,13 +98,16 @@ import {
 
   if (rateStarRow) {
     rateStarRow.querySelectorAll('span').forEach((star) => {
+      // Connects this element event to the handler that should run next.
       star.addEventListener('click', () => setStars(Number(star.dataset.star)));
+      // Connects this element event to the handler that should run next.
       star.addEventListener('mouseover', () => {
         rateStarRow.querySelectorAll('span').forEach((s) => {
           s.textContent = Number(s.dataset.star) <= Number(star.dataset.star) ? '★' : '☆';
           s.style.color = Number(s.dataset.star) <= Number(star.dataset.star) ? '#f59e0b' : '#d1d5db';
         });
       });
+      // Connects this element event to the handler that should run next.
       star.addEventListener('mouseout', () => setStars(selectedStars));
     });
   }
@@ -108,6 +117,7 @@ import {
   rateModal?.addEventListener('click', (e) => { if (e.target === rateModal) closeRateModal(); });
 
   if (rateModalSubmit) {
+    // Connects this element event to the handler that should run next.
     rateModalSubmit.addEventListener('click', async () => {
       if (!selectedStars) {
         if (rateModalStatus) rateModalStatus.textContent = 'Please select a star rating.';
@@ -178,6 +188,7 @@ import {
     });
   }
 
+  // Formats or checks status so later code can use a clean value.
   function normalizeStatus(value) {
     const raw = String(value || '').toLowerCase();
     if (raw.includes('completion') && raw.includes('pend')) return 'completion_pending';
@@ -188,6 +199,7 @@ import {
     return 'pending';
   }
 
+  // Formats or checks HTML so later code can use a clean value.
   function escapeHtml(value) {
     return String(value ?? '')
       .replace(/&/g, '&amp;')
@@ -197,6 +209,7 @@ import {
       .replace(/'/g, '&#39;');
   }
 
+  // Updates header name after the user changes something or data is refreshed.
   function updateHeaderName(name, photoSrc = '') {
     const navName = document.getElementById('nav-user-name');
     const navBadge = document.getElementById('nav-user-badge');
@@ -215,6 +228,7 @@ import {
     navBadge.textContent = getInitials(name || 'Job Seeker', 'JS');
   }
 
+  // Helper function for notify status used by this script.
   function notifyStatus(message, isError = false) {
     const text = String(message || '');
     const shouldShow = isError || /\b(saved|submitted|updated|success|unable|failed|error|wrong|required|cannot)\b/i.test(text);
@@ -222,6 +236,7 @@ import {
     window.EasyEarnToast?.show(text, isError || /\b(unable|failed|error|wrong|required|cannot)\b/i.test(text) ? 'error' : 'success');
   }
 
+  // Updates status after the user changes something or data is refreshed.
   function setStatus(message, isError = false) {
     if (!statusEl) return;
     statusEl.textContent = message;
@@ -230,6 +245,7 @@ import {
     notifyStatus(message, isError);
   }
 
+  // Updates saving state after the user changes something or data is refreshed.
   function setSavingState(saving) {
     isSaving = saving;
     if (!saveBtn) return;
@@ -237,6 +253,7 @@ import {
     saveBtn.textContent = saving ? 'Saving...' : 'Save Work Record';
   }
 
+  // Formats or checks highlights so later code can use a clean value.
   function normalizeHighlights(value) {
     return String(value || '')
       .split('\n')
@@ -244,12 +261,14 @@ import {
       .filter(Boolean);
   }
 
+  // Formats or checks currency so later code can use a clean value.
   function formatCurrency(value) {
     const amount = Number(value);
     if (!Number.isFinite(amount)) return 'RM0';
     return `RM${amount.toLocaleString('en-MY', { maximumFractionDigits: 0 })}`;
   }
 
+  // Formats or checks display date so later code can use a clean value.
   function formatDisplayDate(value) {
     if (!value) return 'Date not set';
     const date = new Date(value);
@@ -261,10 +280,12 @@ import {
     });
   }
 
+  // Formats or checks payment confirmed so later code can use a clean value.
   function isPaymentConfirmed(payment) {
     return !!(payment?.seeker_confirmed_at || payment?.status === 'confirmed' || payment?.payee_confirmed);
   }
 
+  // Formats or checks payload so later code can use a clean value.
   function buildPayload() {
     return {
       user_id: currentUser.id,
@@ -279,6 +300,7 @@ import {
     };
   }
 
+  // Formats or checks future date so later code can use a clean value.
   function isFutureDate(value) {
     if (!value) return false;
     const date = new Date(value);
@@ -288,6 +310,7 @@ import {
     return date > today;
   }
 
+  // Helper function for validate payload used by this script.
   function validatePayload(payload) {
     if (!payload.job_title) return 'Please enter the job title.';
     if (payload.job_title.length < 3) return 'Job title must be at least 3 characters.';
@@ -302,10 +325,12 @@ import {
     return '';
   }
 
+  // Helper function for reset form used by this script.
   function resetForm() {
     form?.reset();
   }
 
+  // Renders summary into the HTML so the user can see it.
   function renderSummary(items) {
     const totalJobs = items.length;
     const totalEarnings = items.reduce((sum, item) => sum + Number(item.earnings || 0), 0);
@@ -330,6 +355,7 @@ import {
     if (summaryEls.resumeStatus) summaryEls.resumeStatus.textContent = totalJobs ? 'Yes' : 'No';
   }
 
+  // Renders history list into the HTML so the user can see it.
   function renderHistoryList(items) {
     if (!historyListEl) return;
 
@@ -396,6 +422,7 @@ import {
 
     // Rate employer button handler
     historyListEl.querySelectorAll('.rate-employer-btn:not([disabled])').forEach((btn) => {
+      // Connects this element event to the handler that should run next.
       btn.addEventListener('click', () => {
         openRateModal({
           applicationId: btn.dataset.applicationId,
@@ -406,6 +433,7 @@ import {
       });
     });
     historyListEl.querySelectorAll('.sync-earnings-btn').forEach((btn) => {
+      // Connects this element event to the handler that should run next.
       btn.addEventListener('click', async () => {
         const appId = btn.dataset.applicationId;
         if (!appId) return;
@@ -434,6 +462,7 @@ import {
     });
   }
 
+  // Loads history data so the page can display current information.
   async function loadHistory(uid) {
     let items = await fetchWorkHistory(uid);
 
@@ -457,6 +486,7 @@ import {
 
       const jobsById = new Map((jobs || []).map((job) => [job.id, job]));
       const applicationStatusById = new Map((applications || []).map((application) => [application.id, normalizeStatus(application.status)]));
+      // Helper function for completed apps used by this script.
       const completedApps = (applications || []).filter((application) => normalizeStatus(application.status) === 'completed');
       const paymentResults = await Promise.all(
         completedApps.map((application) => fetchPaymentByApplication(application.id).catch(() => null))
@@ -464,6 +494,7 @@ import {
       const paymentByApplicationId = new Map(
         completedApps.map((application, index) => [application.id, paymentResults[index] || null])
       );
+      // Loads payment amount data so the page can display current information.
       const getPaymentAmount = (applicationId, fallbackEarnings = 0) => {
         const fallback = Number(fallbackEarnings || 0);
         const paymentAmount = Number(paymentByApplicationId.get(applicationId)?.amount || 0);
@@ -557,6 +588,7 @@ import {
     renderHistoryList(items);
   }
 
+  // Runs the history step for this page workflow.
   async function saveHistory(event) {
     event.preventDefault();
     if (!currentUser || isSaving) return;
@@ -585,6 +617,7 @@ import {
   }
 
   if (form) {
+    // Connects this element event to the handler that should run next.
     form.addEventListener('submit', saveHistory);
   }
 

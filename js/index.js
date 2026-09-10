@@ -1,3 +1,6 @@
+/**
+ * EasyEarn file note: Handles the index page behavior and related user interactions.
+ */
 function loadPartial(id, path) {
   const target = document.getElementById(id);
   if (!target) return Promise.resolve(false);
@@ -14,6 +17,7 @@ function loadPartial(id, path) {
     });
 }
 
+// Helper function for highlight current nav used by this script.
 function highlightCurrentNav() {
   const navLinks = document.querySelectorAll('#site-header .nav-links a[href]');
   if (!navLinks.length) return;
@@ -44,6 +48,7 @@ function highlightCurrentNav() {
   }
 }
 
+// Formats or checks footer links so later code can use a clean value.
 function normalizeFooterLinks(basePath) {
   const footerLinks = document.querySelectorAll('#site-footer a[href]');
   if (!footerLinks.length) return;
@@ -61,6 +66,7 @@ function normalizeFooterLinks(basePath) {
   });
 }
 
+// Waits until the HTML has loaded before running page setup code.
 document.addEventListener('DOMContentLoaded', () => {
   const basePath = window.EASYEARN_BASE_PATH || '';
   const headerPath = window.EASYEARN_HEADER_PATH || `${basePath}partials/header.html`;
@@ -168,10 +174,12 @@ function initHamburgerMenu() {
     // Remove previous listener to prevent duplicate bindings
     hamburgerBtn.removeEventListener('click', toggleMenu);
 
+    // Helper function for toggle menu used by this script.
     function toggleMenu() {
       navbar.classList.toggle('nav-active');
     }
 
+    // Connects this element event to the handler that should run next.
     hamburgerBtn.addEventListener('click', toggleMenu);
 
     // Close the mobile menu automatically if clicking outside the navbar area

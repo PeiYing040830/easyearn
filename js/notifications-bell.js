@@ -1,4 +1,7 @@
 /**
+ * EasyEarn file note: Handles the notifications bell page behavior and related user interactions.
+ */
+/**
  * notifications-bell.js
  * Handles the notification bell UI injected into header-jobseeker and header-employer.
  * Polls for unread notifications and shows a dropdown list.
@@ -21,6 +24,7 @@ import { observeAuth, fetchNotifications, markNotificationRead, markAllNotificat
 
   // ── Helpers ────────────────────────────────────────────────────────────
 
+  // Helper function for time ago used by this script.
   function timeAgo(isoString) {
     if (!isoString) return '';
     const diff = Date.now() - new Date(isoString).getTime();
@@ -32,6 +36,7 @@ import { observeAuth, fetchNotifications, markNotificationRead, markAllNotificat
     return `${Math.floor(hrs / 24)}d ago`;
   }
 
+  // Helper function for type icon used by this script.
   function typeIcon(type) {
     if (type === 'new_job')            return '📋';
     if (type === 'application_update') return '🔔';
@@ -40,8 +45,10 @@ import { observeAuth, fetchNotifications, markNotificationRead, markAllNotificat
     return '📢';
   }
 
+  // Loads chat link data so the page can display current information.
   function getChatLink(n) {
     const isEmployer = window.location.href.includes('/employer/');
+    // Helper function for base used by this script.
     const base = (window.EASYEARN_BASE_PATH || '../../').replace(/\/$/, '');
     const folder = isEmployer ? 'employer' : 'jobseeker';
     const params = new URLSearchParams({
@@ -55,6 +62,7 @@ import { observeAuth, fetchNotifications, markNotificationRead, markAllNotificat
 
   // ── Render dropdown ────────────────────────────────────────────────────
 
+  // Renders dropdown into the HTML so the user can see it.
   function renderDropdown() {
     if (!notifications.length) {
       dropdown.innerHTML = `
@@ -102,11 +110,14 @@ import { observeAuth, fetchNotifications, markNotificationRead, markAllNotificat
     });
 
     dropdown.querySelectorAll('.notif-item').forEach((el) => {
+      // Connects this element event to the handler that should run next.
       el.addEventListener('mouseenter', () => { el.style.background = 'var(--hover-bg,#f9fafb)'; });
+      // Connects this element event to the handler that should run next.
       el.addEventListener('mouseleave', () => {
         const n = notifications.find((x) => x.id === el.dataset.id);
         el.style.background = n && !n.is_read ? 'var(--notif-unread-bg,#fefce8)' : 'transparent';
       });
+      // Connects this element event to the handler that should run next.
       el.addEventListener('click', async () => {
         const n = notifications.find((x) => x.id === el.dataset.id);
         if (n && !n.is_read) {
@@ -124,12 +135,14 @@ import { observeAuth, fetchNotifications, markNotificationRead, markAllNotificat
     });
   }
 
+  // Helper function for esc HTML used by this script.
   function escHtml(str) {
     return String(str).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
   }
 
   // ── Badge ──────────────────────────────────────────────────────────────
 
+  // Updates badge after the user changes something or data is refreshed.
   function updateBadge() {
     const unread = notifications.filter((n) => !n.is_read).length;
     if (!badge) return;
@@ -144,6 +157,7 @@ import { observeAuth, fetchNotifications, markNotificationRead, markAllNotificat
 
   // ── Fetch + poll ───────────────────────────────────────────────────────
 
+  // Helper function for refresh used by this script.
   async function refresh() {
     if (!currentUserId) return;
     try {
@@ -155,6 +169,7 @@ import { observeAuth, fetchNotifications, markNotificationRead, markAllNotificat
     }
   }
 
+  // Helper function for start polling used by this script.
   function startPolling() {
     clearInterval(pollTimer);
     pollTimer = setInterval(refresh, 30000);   // poll every 30 s
@@ -162,6 +177,7 @@ import { observeAuth, fetchNotifications, markNotificationRead, markAllNotificat
 
   // ── Toggle dropdown ────────────────────────────────────────────────────
 
+  // Connects this element event to the handler that should run next.
   bellBtn.addEventListener('click', (e) => {
     e.stopPropagation();
     isOpen = !isOpen;
@@ -169,6 +185,7 @@ import { observeAuth, fetchNotifications, markNotificationRead, markAllNotificat
     if (isOpen) renderDropdown();
   });
 
+  // Waits until the HTML has loaded before running page setup code.
   document.addEventListener('click', (e) => {
     if (!dropdown.contains(e.target) && e.target !== bellBtn) {
       isOpen = false;

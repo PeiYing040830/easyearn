@@ -1,3 +1,6 @@
+/**
+ * EasyEarn file note: Handles the enhancements page behavior and related user interactions.
+ */
 // UI enhancements: reveal on scroll
 (function () {
   'use strict';
@@ -20,6 +23,7 @@
     '.faq-item'
   ];
 
+  // Helper function for apply reveal used by this script.
   function applyReveal() {
     const elements = document.querySelectorAll(selectors.join(','));
     elements.forEach((el) => el.classList.add('reveal'));
@@ -44,6 +48,7 @@
     elements.forEach((el) => observer.observe(el));
   }
 
+  // Sets up hero slider when this script is loaded.
   function initHeroSlider() {
     const slides = Array.from(document.querySelectorAll('.hero-photo .hero-slide'));
     if (slides.length <= 1) return;
@@ -62,12 +67,14 @@
     }, 4200);
   }
 
+  // Sets up enhancements when this script is loaded.
   function initEnhancements() {
     applyReveal();
     initHeroSlider();
   }
 
   if (document.readyState === 'loading') {
+    // Waits until the HTML has loaded before running page setup code.
     document.addEventListener('DOMContentLoaded', initEnhancements);
   } else {
     initEnhancements();

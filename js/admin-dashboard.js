@@ -1,3 +1,6 @@
+/**
+ * EasyEarn file note: Handles the admin dashboard page behavior and related user interactions.
+ */
 import { observeAuth, fetchAllProfiles, fetchJobs, fetchReports, fetchPaymentDisputes, fetchProfile } from './supabase-data.js?v=20260611a';
 
 (function () {
@@ -36,6 +39,7 @@ import { observeAuth, fetchAllProfiles, fetchJobs, fetchReports, fetchPaymentDis
   };
   const welcomeNameEl = document.getElementById('admin-dashboard-welcome-name');
 
+  // Formats or checks month buckets so later code can use a clean value.
   function buildMonthBuckets() {
     const now = new Date();
     const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
@@ -52,6 +56,7 @@ import { observeAuth, fetchAllProfiles, fetchJobs, fetchReports, fetchPaymentDis
     return buckets;
   }
 
+  // Helper function for count items by recent month used by this script.
   function countItemsByRecentMonth(items, dateFields = ['created_at', 'createdAt']) {
     const buckets = buildMonthBuckets();
     const counts = new Map(buckets.map((bucket) => [bucket.key, 0]));
@@ -77,8 +82,10 @@ import { observeAuth, fetchAllProfiles, fetchJobs, fetchReports, fetchPaymentDis
     };
   }
 
+  // Updates report queue state after the user changes something or data is refreshed.
   function setReportQueueState(reports) {
     const pendingStatuses = ['pending', 'open', 'submitted', 'flagged', 'under_review'];
+    // Helper function for active reports used by this script.
     const activeReports = (reports || []).filter((report) => {
       const status = String(report?.status || '').toLowerCase();
       return pendingStatuses.includes(status);
@@ -120,12 +127,14 @@ import { observeAuth, fetchAllProfiles, fetchJobs, fetchReports, fetchPaymentDis
     }
   }
 
+  // Updates share after the user changes something or data is refreshed.
   function setShare(el, value, total) {
     if (!el) return;
     const percentage = total ? Math.round((value / total) * 100) : 0;
     el.textContent = `${percentage}%`;
   }
 
+  // Updates pie ring after the user changes something or data is refreshed.
   function setPieRing(values) {
     const canvas = document.getElementById('admin-dashboard-donut-canvas');
     if (!canvas) return;
@@ -143,6 +152,7 @@ import { observeAuth, fetchAllProfiles, fetchJobs, fetchReports, fetchPaymentDis
     });
   }
 
+  // Helper function for apply line used by this script.
   function applyLine({ labels, userValues, reportValues, verificationValues, jobValues }) {
     const canvas = document.getElementById('admin-dashboard-line-canvas');
     if (!canvas) return;

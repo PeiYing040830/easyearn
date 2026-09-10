@@ -1,3 +1,6 @@
+/**
+ * EasyEarn file note: Handles the supabase config page behavior and related user interactions.
+ */
 import { createClient } from "https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm";
 
 const supabaseUrl =
@@ -16,10 +19,12 @@ export const supabase = createClient(supabaseUrl, supabaseAnonKey, {
   }
 });
 
+// Formats or checks Supabase configured so later code can use a clean value.
 export const isSupabaseConfigured = () =>
   !supabaseUrl.includes("YOUR_PROJECT_ID") &&
   !supabaseAnonKey.includes("YOUR_SUPABASE_ANON_KEY");
 
+// Loads Supabase config status data so the page can display current information.
 export function getSupabaseConfigStatus() {
   return {
     url: supabaseUrl,

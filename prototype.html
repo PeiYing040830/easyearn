@@ -1,5 +1,7 @@
 <!DOCTYPE html>
+<!-- EasyEarn file note: Builds the prototype page layout and connects it to shared styles/scripts. -->
 <html lang="en">
+<!-- Head section stores page settings, title, icons, and stylesheet links. -->
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,7 +9,9 @@
     <link rel="icon" type="image/png" href="/easyearn/images/logo.png?v=20260829b">
 <link rel="stylesheet" href="css/prototype.css">
 </head>
+<!-- Body section contains everything the user can see or interact with. -->
 <body>
+  <!-- Header area introduces the page and usually contains the main page title. -->
   <header class="topbar">
     <div class="brand">
       <img src="images/logo.png" alt="EasyEarn logo">
@@ -29,8 +33,11 @@
     </nav>
   </header>
 
+  <!-- Main area contains the primary page content. -->
   <main>
+    <!-- Section for the page area of this page. -->
     <section class="page active" id="home">
+      <!-- Container for the page hero content and layout. -->
       <div class="page-hero">
         <span class="hero-label">Local Prototype</span>
         <h1>EasyEarn LocalStorage Prototype</h1>
@@ -38,6 +45,7 @@
         <p class="session-pill" id="session-summary">Not logged in</p>
       </div>
 
+      <!-- Container for the cards content and layout. -->
       <div class="cards">
         <article>
           <h2>Sign Up / Login</h2>
@@ -61,8 +69,10 @@
         </article>
       </div>
 
+      <!-- Section for the objective map area of this page. -->
       <section class="objective-map">
         <h2>Prototype Objective Coverage</h2>
+        <!-- Container for the cards content and layout. -->
         <div class="cards objective-cards">
           <article>
             <h2>Objective 1</h2>
@@ -82,9 +92,11 @@
         </div>
       </section>
 
+      <!-- Section for the system map area of this page. -->
       <section class="system-map">
         <h2>Based on Existing EasyEarn System</h2>
         <p>This prototype uses localStorage, but the screens follow the same modules and data flow as the Supabase system.</p>
+        <!-- Container for the map grid content and layout. -->
         <div class="map-grid">
           <div><strong>users</strong><span>registration, login, role, seeker profile, employer verification</span></div>
           <div><strong>job_listings</strong><span>employer job CRUD, admin approval, public job browsing</span></div>
@@ -95,6 +107,7 @@
         </div>
       </section>
 
+      <!-- Section for the flow summary area of this page. -->
       <section class="flow-summary">
         <h2>Simple Demo Flow</h2>
         <div class="timeline flow-timeline">
@@ -108,13 +121,16 @@
       </section>
     </section>
 
+    <!-- Section for the page area of this page. -->
     <section class="page" id="auth">
+      <!-- Container for the page hero content and layout. -->
       <div class="page-hero compact">
         <span class="hero-label">Step 1</span>
       <h1>Sign Up / Login Prototype</h1>
       <p>Sign up stores a demo account in localStorage. Login is required before role pages can be opened.</p>
       </div>
 
+      <!-- Container for the auth grid content and layout. -->
       <div class="auth-grid">
         <article class="auth-card">
           <h2>Sign Up</h2>
@@ -158,7 +174,9 @@
       </div>
     </section>
 
+    <!-- Section for the page area of this page. -->
     <section class="page" id="jobseeker">
+      <!-- Container for the page hero content and layout. -->
       <div class="page-hero compact">
         <span class="hero-label">Job Seeker</span>
         <h1>Job Seeker Prototype</h1>
@@ -175,8 +193,10 @@
         </aside>
 
         <div class="screen">
+          <!-- Container for the panel content and layout. -->
           <div class="panel active" id="seeker-dashboard">
             <h2>Dashboard</h2>
+            <!-- Container for the stats content and layout. -->
             <div class="stats">
               <span>Profile: 90%</span>
               <span id="seeker-application-stat">Applications: 0</span>
@@ -186,6 +206,7 @@
             <p>Recommended jobs are shown after admin approves the employer and job listing. This dashboard mirrors the real Job Seeker dashboard, but stores demo records locally.</p>
           </div>
 
+          <!-- Container for the panel content and layout. -->
           <div class="panel" id="seeker-profile">
             <h2>Profile Update</h2>
             <p class="module-note">System mapping: users table fields for seeker profile and digital identity.</p>
@@ -196,8 +217,10 @@
             <button class="primary" id="save-profile-btn" type="button">Save Profile</button>
           </div>
 
+          <!-- Container for the panel content and layout. -->
           <div class="panel" id="seeker-jobs">
             <h2>Browse Jobs</h2>
+            <!-- Container for the filter row content and layout. -->
             <div class="filter-row">
               <input placeholder="Search job">
               <select><option>Food and Beverage</option></select>
@@ -214,6 +237,7 @@
             </article>
           </div>
 
+          <!-- Container for the panel content and layout. -->
           <div class="panel" id="seeker-applications">
             <h2>Applications</h2>
             <article class="job-box">
@@ -229,6 +253,7 @@
             </article>
           </div>
 
+          <!-- Container for the panel content and layout. -->
           <div class="panel" id="seeker-saved">
             <h2>Saved Jobs</h2>
             <p class="module-note">System mapping: saved_jobs table stores bookmarked jobs by seeker_id and job_id.</p>
@@ -239,9 +264,11 @@
             </article>
           </div>
 
+          <!-- Container for the panel content and layout. -->
           <div class="panel" id="seeker-work-history">
             <h2>Work History</h2>
             <p class="module-note">System mapping: work_history table becomes evidence for the worker identity/resume.</p>
+            <!-- Container for the resume preview content and layout. -->
             <div class="resume-preview">
               <h3>Cashier</h3>
               <p>Employer: W&X Bakery</p>
@@ -256,7 +283,9 @@
       </div>
     </section>
 
+    <!-- Section for the page area of this page. -->
     <section class="page" id="employer">
+      <!-- Container for the page hero content and layout. -->
       <div class="page-hero compact">
         <span class="hero-label">Employer</span>
         <h1>Employer Prototype</h1>
@@ -271,8 +300,10 @@
         </aside>
 
         <div class="screen">
+          <!-- Container for the panel content and layout. -->
           <div class="panel active" id="employer-dashboard">
             <h2>Dashboard</h2>
+            <!-- Container for the stats content and layout. -->
             <div class="stats">
               <span id="employer-job-stat">Posted Jobs: 0</span>
               <span id="employer-applicant-stat">Applicants: 0</span>
@@ -280,6 +311,7 @@
             </div>
           </div>
 
+          <!-- Container for the panel content and layout. -->
           <div class="panel" id="employer-verification">
             <h2>Employer Verification</h2>
             <input placeholder="SSM Number" value="202401012345">
@@ -289,6 +321,7 @@
             <button class="primary" id="submit-verification-btn">Submit Verification</button>
           </div>
 
+          <!-- Container for the panel content and layout. -->
           <div class="panel" id="employer-post">
             <h2>Post Job</h2>
             <p class="module-note">System mapping: job_listings table with employer_id, status, approved_by, and approved_at.</p>
@@ -305,6 +338,7 @@
             </div>
           </div>
 
+          <!-- Container for the panel content and layout. -->
           <div class="panel" id="employer-applicants">
             <h2>Applicants</h2>
             <p class="module-note">System mapping: applications table status changes from pending to reviewed, accepted, and completed.</p>
@@ -323,7 +357,9 @@
       </div>
     </section>
 
+    <!-- Section for the page area of this page. -->
     <section class="page" id="admin">
+      <!-- Container for the page hero content and layout. -->
       <div class="page-hero compact">
         <span class="hero-label">Admin</span>
         <h1>Admin Prototype</h1>
@@ -337,8 +373,10 @@
         </aside>
 
         <div class="screen">
+          <!-- Container for the panel content and layout. -->
           <div class="panel active" id="admin-dashboard">
             <h2>Dashboard</h2>
+            <!-- Container for the stats content and layout. -->
             <div class="stats">
               <span>Users: 4</span>
               <span id="admin-job-stat">Jobs Pending: 0</span>
@@ -347,6 +385,7 @@
             <p class="module-note">Admin scope in this basic prototype only covers employer verification and job approval. Reports and analytics stay in the full system.</p>
           </div>
 
+          <!-- Container for the panel content and layout. -->
           <div class="panel" id="admin-verification">
             <h2>Employer Verification Review</h2>
             <article class="job-box">
@@ -359,6 +398,7 @@
             </article>
           </div>
 
+          <!-- Container for the panel content and layout. -->
           <div class="panel" id="admin-jobs">
             <h2>Job Approval</h2>
             <article class="job-box">
@@ -375,6 +415,7 @@
     </section>
   </main>
 
+  <!-- Loads the JavaScript file that controls this page: js/prototype.js. -->
   <script src="js/prototype.js"></script>
 </body>
 </html>

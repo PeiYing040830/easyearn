@@ -1,3 +1,6 @@
+/**
+ * EasyEarn file note: Handles the admin reports page behavior and related user interactions.
+ */
 import {
   observeAuth,
   fetchReports,
@@ -42,6 +45,7 @@ import {
   let paymentProfileMap = new Map();
   let currentAdmin = null;
 
+  // Updates status after the user changes something or data is refreshed.
   function setStatus(message, type = '') {
     if (!statusEl) return;
     statusEl.textContent = message;
@@ -49,23 +53,27 @@ import {
     if (type) statusEl.classList.add(type);
   }
 
+  // Formats or checks error message so later code can use a clean value.
   function formatErrorMessage(error, fallback) {
     const message = String(error?.message || error?.details || error?.hint || '').trim();
     return message ? `${fallback} ${message}` : fallback;
   }
 
+  // Loads report state data so the page can display current information.
   function getReportState(_reportId, dbStatus) {
     if (dbStatus === 'resolved') return { status: 'resolved' };
     if (dbStatus === 'escalated') return { status: 'escalated' };
     return { status: 'open' };
   }
 
+  // Helper function for pretty status used by this script.
   function prettyStatus(status) {
     if (status === 'resolved') return 'Resolved';
     if (status === 'escalated') return 'Escalated';
     return 'Open';
   }
 
+  // Formats or checks HTML so later code can use a clean value.
   function escapeHtml(value) {
     return String(value ?? '')
       .replace(/&/g, '&amp;')
@@ -75,6 +83,7 @@ import {
       .replace(/'/g, '&#39;');
   }
 
+  // Loads payment context data so the page can display current information.
   function getPaymentContext(payment) {
     const application = paymentApplicationMap.get(payment.application_id) || null;
     const job = application?.job_id ? (paymentJobMap.get(application.job_id) || null) : null;
@@ -83,11 +92,13 @@ import {
     return { application, job, seeker, employer };
   }
 
+  // Loads payment report marker data so the page can display current information.
   function getPaymentReportMarker(report) {
     const marker = String(report?.admin_notes || '').trim();
     return marker.startsWith('payment_dispute:') ? marker.slice('payment_dispute:'.length) : '';
   }
 
+  // Helper function for looks like payment mirror report used by this script.
   function looksLikePaymentMirrorReport(report) {
     const description = String(report?.description || '').trim().toLowerCase();
     return !!getPaymentReportMarker(report)
@@ -95,6 +106,7 @@ import {
       || description.startsWith('escalated payment dispute for "');
   }
 
+  // Helper function for has matching payment dispute used by this script.
   function hasMatchingPaymentDispute(report) {
     const paymentId = getPaymentReportMarker(report);
     if (paymentId) {
@@ -111,6 +123,7 @@ import {
     });
   }
 
+  // Helper function for dedupe reports used by this script.
   function dedupeReports(reports) {
     const seen = new Set();
     return (reports || []).filter((report) => {
@@ -123,6 +136,7 @@ import {
     });
   }
 
+  // Helper function for refresh payment context used by this script.
   async function refreshPaymentContext() {
     const applications = await fetchAllApplications().catch(() => []);
     paymentApplicationMap = new Map(applications.map((item) => [item.id, item]));
@@ -139,6 +153,7 @@ import {
     paymentProfileMap = new Map(profiles.map((item) => [item.id, item]));
   }
 
+  // Updates metrics after the user changes something or data is refreshed.
   function updateMetrics(items) {
     const open = items.filter((item) => item.state.status === 'open').length;
     const escalated = items.filter((item) => item.state.status === 'escalated').length;
@@ -152,6 +167,7 @@ import {
     if (metrics.resolved.note) metrics.resolved.note.textContent = resolved ? `${resolved} report(s) resolved.` : 'No resolved reports yet.';
   }
 
+  // Renders list into the HTML so the user can see it.
   function renderList() {
     if (!listEl) return;
 

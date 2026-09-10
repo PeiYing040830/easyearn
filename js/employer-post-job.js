@@ -1,3 +1,6 @@
+/**
+ * EasyEarn file note: Handles the employer post job page behavior and related user interactions.
+ */
 import {
   createJobListing,
   fetchJobListing,
@@ -33,6 +36,7 @@ import {
   let editMode = Boolean(editJobId);
   let currentProfile = null;
 
+  // Helper function for notify status used by this script.
   function notifyStatus(message, type = '') {
     const text = String(message || '');
     const shouldShow = type || /\b(saved|published|updated|success|unable|failed|error|required|cannot)\b/i.test(text);
@@ -41,6 +45,7 @@ import {
     window.EasyEarnToast?.show(text, toastType);
   }
 
+  // Updates status after the user changes something or data is refreshed.
   function setStatus(message, type = '') {
     if (!statusEl) return;
     statusEl.textContent = message;
@@ -49,6 +54,7 @@ import {
     notifyStatus(message, type);
   }
 
+  // Updates button state after the user changes something or data is refreshed.
   function setButtonState(button, busyText, busy) {
     if (!button) return;
     if (!button.dataset.defaultText) {
@@ -58,6 +64,7 @@ import {
     button.textContent = busy ? busyText : button.dataset.defaultText;
   }
 
+  // Loads restriction message data so the page can display current information.
   function getRestrictionMessage(profile) {
     const status = String(profile?.accountStatus || 'active').toLowerCase();
     if (status === 'suspended') {
@@ -69,6 +76,7 @@ import {
     return '';
   }
 
+  // Helper function for apply restriction state used by this script.
   function applyRestrictionState(profile) {
     const message = getRestrictionMessage(profile);
     const locked = Boolean(message);
@@ -82,11 +90,13 @@ import {
     return locked;
   }
 
+  // Helper function for parse pay rate used by this script.
   function parsePayRate(value) {
     const match = String(value || '').match(/(\d+(\.\d+)?)/);
     return match ? Number(match[1]) : null;
   }
 
+  // Helper function for infer pay type used by this script.
   function inferPayType(value) {
     const text = String(value || '').toLowerCase();
     if (text.includes('day')) return 'daily';
@@ -94,6 +104,7 @@ import {
     return 'hourly';
   }
 
+  // Helper function for infer job type used by this script.
   function inferJobType(schedule) {
     const text = String(schedule || '').toLowerCase();
     if (text.includes('full')) return 'full-time';
@@ -101,11 +112,13 @@ import {
     return 'part-time';
   }
 
+  // Helper function for parse openings used by this script.
   function parseOpenings(value) {
     const parsed = Number.parseInt(String(value || '1'), 10);
     return Number.isFinite(parsed) && parsed > 0 ? parsed : 1;
   }
 
+  // Formats or checks past date so later code can use a clean value.
   function isPastDate(value) {
     if (!value) return false;
     const date = new Date(value);
@@ -115,6 +128,7 @@ import {
     return date < today;
   }
 
+  // Helper function for fill form used by this script.
   function fillForm(data = {}) {
     if (fields.title) fields.title.value = data.title || '';
     if (fields.category) fields.category.value = data.category || fields.category.value;
@@ -169,6 +183,7 @@ import {
     }
   }
 
+  // Helper function for hydrate form from job used by this script.
   function hydrateFormFromJob(job = {}) {
     const description = String(job.description || '');
     const requirementPrefix = 'Requirements: ';
@@ -194,6 +209,7 @@ import {
     });
   }
 
+  // Updates edit UI state after the user changes something or data is refreshed.
   function setEditUiState() {
     if (publishBtn) {
       publishBtn.textContent = editMode ? 'Update Job' : 'Publish Job';
@@ -208,6 +224,7 @@ import {
     }
   }
 
+  // Runs the draft step for this page workflow.
   async function saveDraft() {
     if (!currentUser) {
       setStatus('Please log in as employer first.', 'is-error');
@@ -264,6 +281,7 @@ import {
     }
   }
 
+  // Helper function for validate form used by this script.
   function validateForm() {
     const title = fields.title?.value.trim() || '';
     const location = fields.location?.value.trim() || '';
@@ -329,6 +347,7 @@ import {
     return true;
   }
 
+  // Handles the publish action triggered by the user.
   async function handlePublish(event) {
     event.preventDefault();
     if (!currentUser) {
@@ -386,6 +405,7 @@ import {
     }
   }
 
+  // Handles the draft save action triggered by the user.
   async function handleDraftSave() {
     await saveDraft();
   }

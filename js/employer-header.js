@@ -1,3 +1,6 @@
+/**
+ * EasyEarn file note: Handles the employer header page behavior and related user interactions.
+ */
 import { fetchProfile, getInitials, observeAuth, signOutUser } from './supabase-data.js';
 
 (function () {
@@ -7,6 +10,7 @@ import { fetchProfile, getInitials, observeAuth, signOutUser } from './supabase-
   let logoutName = 'Employer';
   let logoutPhoto = '';
 
+  // Updates header after the user changes something or data is refreshed.
   function updateHeader(name, imageSrc = '') {
     const navName = document.getElementById('nav-user-name');
     const navBadge = document.getElementById('nav-user-badge');
@@ -26,11 +30,13 @@ import { fetchProfile, getInitials, observeAuth, signOutUser } from './supabase-
     navBadge.textContent = getInitials(name || 'Employer', 'EM');
   }
 
+  // Sets up logout when this script is loaded.
   function bindLogout() {
     const logoutBtn = document.getElementById('nav-logout-btn');
     if (!logoutBtn || logoutBtn.dataset.bound === 'true') return;
 
     logoutBtn.dataset.bound = 'true';
+    // Connects this element event to the handler that should run next.
     logoutBtn.addEventListener('click', async () => {
       try {
         if (currentUser?.id) {
@@ -49,12 +55,14 @@ import { fetchProfile, getInitials, observeAuth, signOutUser } from './supabase-
     });
   }
 
+  // Formats or checks role so later code can use a clean value.
   function normalizeRole(role) {
     const value = String(role || '').trim().toLowerCase();
     if (value === 'jobseeker' || value === 'job seeker') return 'seeker';
     return value;
   }
 
+  // Runs the non employer step for this page workflow.
   function redirectNonEmployer(role) {
     if (role === 'admin') {
       window.location.href = '../admin/dashboard.html';
@@ -83,6 +91,7 @@ import { fetchProfile, getInitials, observeAuth, signOutUser } from './supabase-
         return;
       }
 
+      // Runs the resolved name step for this page workflow.
       const resolvedName = (() => {
           const baseName = profile.companyName || profile.businessName || profile.name || user.email || 'Employer';
           const status = String(profile.accountStatus || 'active').toLowerCase();

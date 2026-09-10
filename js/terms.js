@@ -1,7 +1,11 @@
+/**
+ * EasyEarn file note: Handles the terms page behavior and related user interactions.
+ */
 // terms page scripts
 (function () {
   'use strict';
 
+  // Sets up terms hero slides when this script is loaded.
   function initTermsHeroSlides() {
     const slides = document.querySelectorAll('.terms-hero-slide');
     if (!slides.length) return;
@@ -14,6 +18,7 @@
   }
 
   if (document.readyState === 'loading') {
+    // Waits until the HTML has loaded before running page setup code.
     document.addEventListener('DOMContentLoaded', initTermsHeroSlides);
   } else {
     initTermsHeroSlides();

@@ -1,5 +1,7 @@
 <!DOCTYPE html>
+<!-- EasyEarn file note: Builds the manage jobs page layout and connects it to shared styles/scripts. -->
 <html lang="en">
+<!-- Head section stores page settings, title, icons, and stylesheet links. -->
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,15 +10,20 @@
 <link rel="stylesheet" href="../../css/landing.css">
   <link rel="stylesheet" href="employer-pages.css?v=20260829e">
 </head>
+<!-- Body section contains everything the user can see or interact with. -->
 <body>
+  <!-- Shared header/navigation is injected here by includes.js. -->
   <div id="site-header"></div>
+  <!-- Main area contains the primary page content. -->
   <main class="employer-shell">
+    <!-- Section for the employer page header area of this page. -->
     <section class="employer-page-header">
       <div class="employer-badge">Manage Jobs</div>
       <h1>Create, update, and track your listings</h1>
       <p>Use one workspace to publish new jobs, edit active listings, and monitor application flow.</p>
     </section>
 
+    <!-- Section for the employer grid area of this page. -->
     <section class="employer-grid four">
       <article class="employer-card employer-metric" style="border-top:3px solid #22c55e;"><span class="employer-stat-label">Published</span><strong id="jobs-published-count">0</strong><p id="jobs-published-note">No live jobs yet.</p></article>
       <article class="employer-card employer-metric" style="border-top:3px solid #f59e0b;"><span class="employer-stat-label">Pending Review</span><strong id="jobs-draft-count">0</strong><p id="jobs-draft-note">No jobs waiting for review.</p></article>
@@ -24,8 +31,10 @@
       <article class="employer-card employer-metric" style="border-top:3px solid #f43f5e;"><span class="employer-stat-label">Closed</span><strong id="jobs-closed-count">0</strong><p id="jobs-closed-note">No closed jobs yet.</p></article>
     </section>
 
+    <!-- Section for the employer grid area of this page. -->
     <section class="employer-grid split employer-manage-workspace">
       <article class="employer-card" id="job-form-section">
+        <!-- Container for the employer section head content and layout. -->
         <div class="employer-section-head employer-section-head-stack">
           <div>
             <div class="employer-badge">Job Form</div>
@@ -33,7 +42,9 @@
             <p>Fill in the details below to publish a new job or update an existing one from the list.</p>
           </div>
         </div>
+        <!-- Form where users enter and submit post job details. -->
         <form id="post-job-form">
+          <!-- Container for the employer form grid content and layout. -->
           <div class="employer-form-grid">
             <label class="employer-field"><span>Job title</span><input id="job-title" type="text" placeholder="Event Crew"></label>
             <label class="employer-field"><span>Category</span><select id="job-category">
@@ -107,6 +118,7 @@
               .skill-chip button { background:none;border:none;cursor:pointer;color:#b45309;font-size:15px;line-height:1;padding:0; }
               #skills-tag-input:focus-within { border-color:#d97706;box-shadow:0 0 0 3px rgba(217,119,6,0.15); }
             </style>
+            <!-- Inline script runs page-specific JavaScript behavior. -->
             <script>
               (function () {
                 const MAX = 5;
@@ -169,6 +181,7 @@
             </script>
             <label class="employer-field full"><span>Job description</span><textarea id="job-description" placeholder="Describe the role, duties, timing, and expectations clearly."></textarea></label>
           </div>
+          <!-- Container for the employer form actions content and layout. -->
           <div class="employer-form-actions employer-form-actions-tight employer-action-with-status">
             <button class="btn-primary" id="publish-job-btn" type="submit">Publish Job</button>
             <button class="btn-outline" id="save-draft-btn" type="button">Save Draft</button>
@@ -178,6 +191,7 @@
       </article>
 
       <article class="employer-card">
+        <!-- Container for the employer section head content and layout. -->
         <div class="employer-section-head employer-section-head-stack">
           <div>
             <div class="employer-badge">Publishing Notes</div>
@@ -192,6 +206,7 @@
               <strong>72%</strong>
             </div>
             <p>Adding clear duties, exact location, and timing helps reduce mismatched applications.</p>
+            <!-- Container for the employer status track content and layout. -->
             <div class="employer-status-track"><span style="width: 72%;"></span></div>
           </div>
           <div class="employer-item">
@@ -212,7 +227,9 @@
       </article>
     </section>
 
+    <!-- Section for the employer card area of this page. -->
     <section class="employer-card">
+      <!-- Container for the employer section head content and layout. -->
       <div class="employer-section-head">
         <div>
           <div class="employer-badge">Listings</div>
@@ -222,24 +239,31 @@
         <a href="#job-form-section" class="btn-outline">Create Another Job</a>
       </div>
       <p class="employer-inline-status" id="manage-jobs-status">Loading your job listings...</p>
+      <!-- Container for the employer list content and layout. -->
       <div class="employer-list" id="manage-jobs-list">
         <article class="employer-item">
           <strong>No job listings yet</strong>
           <p>Use the job form above to create your first listing.</p>
           <div class="employer-item-meta"><span>Status: -</span><span>Applicants: 0</span><span>Expiry: -</span></div>
+          <!-- Container for the employer card actions content and layout. -->
           <div class="employer-card-actions"><a href="#job-form-section" class="btn-outline">Create first job</a></div>
         </article>
       </div>
     </section>
   </main>
 
+  <!-- Inline script runs page-specific JavaScript behavior. -->
   <script>
     window.EASYEARN_BASE_PATH = '../../';
     window.EASYEARN_HEADER_PATH = '../../partials/header-employer.html';
   </script>
+  <!-- Loads translation support for multilingual users. -->
   <script src="../../js/translate.js" defer></script>
+  <!-- Loads shared header and footer partials. -->
   <script src="../../js/includes.js?v=20260802a" defer></script>
+  <!-- Loads the JavaScript file that controls this page: ../../js/employer-post-job.js?v=20260802a. -->
   <script type="module" src="../../js/employer-post-job.js?v=20260802a"></script>
+  <!-- Loads the JavaScript file that controls this page: ../../js/employer-manage-jobs.js?v=20260802a. -->
   <script type="module" src="../../js/employer-manage-jobs.js?v=20260802a"></script>
 
   <!-- ── Location field logic ─────────────────────────────────────────── -->

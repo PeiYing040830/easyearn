@@ -1,5 +1,7 @@
 <!DOCTYPE html>
+<!-- EasyEarn file note: Builds the applications page layout and connects it to shared styles/scripts. -->
 <html lang="en">
+<!-- Head section stores page settings, title, icons, and stylesheet links. -->
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,10 +10,15 @@
 <link rel="stylesheet" href="../../css/landing.css">
   <link rel="stylesheet" href="jobseeker-pages.css?v=20260905a">
 </head>
+<!-- Body section contains everything the user can see or interact with. -->
 <body>
+  <!-- Shared header/navigation is injected here by includes.js. -->
   <div id="site-header"></div>
+  <!-- Main area contains the primary page content. -->
   <main class="jobseeker-shell">
+    <!-- Container for the jobseeker header content and layout. -->
     <div class="jobseeker-header">
+      <!-- Container for the hero badge content and layout. -->
       <div class="hero-badge">Applications</div>
       <h1>My Applications</h1>
       <p>Track every job you've applied to from pending review through interview, payment confirmation, and completion.</p>
@@ -19,14 +26,17 @@
 
     <!-- Stats -->
     <section class="jobseeker-card">
+      <!-- Container for the section heading row content and layout. -->
       <div class="section-heading-row">
         <div>
+          <!-- Container for the hero badge content and layout. -->
           <div class="hero-badge">Application Overview</div>
           <h2>Your current pipeline</h2>
           <p>Live counts from Supabase — updates as employers review your applications.</p>
         </div>
         <a href="jobs.html" class="btn-outline interview-action-btn">Browse More Jobs</a>
       </div>
+      <!-- Container for the jobseeker grid content and layout. -->
       <div class="jobseeker-grid application-stats-grid">
         <article class="jobseeker-card application-stat-card">
           <span class="application-stat-label">In Review</span>
@@ -53,13 +63,16 @@
 
     <!-- Chart -->
     <section class="jobseeker-card chart-card applications-chart-card">
+      <!-- Container for the section heading row content and layout. -->
       <div class="section-heading-row">
         <div>
+          <!-- Container for the hero badge content and layout. -->
           <div class="hero-badge">Trend View</div>
           <h2>Application activity trend</h2>
           <p>Visual breakdown of your application statuses.</p>
         </div>
       </div>
+      <!-- Container for the chart duo grid content and layout. -->
       <div class="chart-duo-grid">
         <div class="chart-placeholder line-chart-placeholder">
           <canvas id="applications-line-canvas" style="width:100%;height:220px;"></canvas>
@@ -80,12 +93,15 @@
 
     <!-- Filter Tabs -->
     <section class="jobseeker-card">
+      <!-- Container for the section heading row content and layout. -->
       <div class="section-heading-row">
         <div>
+          <!-- Container for the hero badge content and layout. -->
           <div class="hero-badge">Filter</div>
           <h2>View by status</h2>
         </div>
       </div>
+      <!-- Container for the jobs filter actions content and layout. -->
       <div class="jobs-filter-actions" style="flex-wrap:wrap;">
         <button type="button" class="btn-primary" id="filter-all">All</button>
         <button type="button" class="btn-outline" id="filter-active">Active</button>
@@ -95,20 +111,26 @@
 
     <!-- Applications List -->
     <section class="jobseeker-card">
+      <!-- Container for the section heading row content and layout. -->
       <div class="section-heading-row">
         <div>
+          <!-- Container for the hero badge content and layout. -->
           <div class="hero-badge">Recent Activity</div>
           <h2>Your applications</h2>
           <p>Jobs are completed only after you confirm payment received. Confirmed jobs are saved into Work History.</p>
         </div>
       </div>
+      <!-- Container for the jobseeker list content and layout. -->
       <div id="applications-live-list" class="jobseeker-list application-list">
         <article class="jobseeker-item application-item">
+          <!-- Container for the application main content and layout. -->
           <div class="application-main">
+            <!-- Container for the application title row content and layout. -->
             <div class="application-title-row">
               <h3>Loading applications...</h3>
               <span class="status-pill pending">Loading</span>
             </div>
+            <!-- Container for the application summary content and layout. -->
             <div class="application-summary">
               <p class="application-company">Please wait</p>
               <p>Your live application pipeline is loading from Supabase.</p>
@@ -120,21 +142,27 @@
 
     <!-- Work History Log (completed jobs) -->
     <section class="jobseeker-card" id="completed-jobs-section">
+      <!-- Container for the section heading row content and layout. -->
       <div class="section-heading-row">
         <div>
+          <!-- Container for the hero badge content and layout. -->
           <div class="hero-badge">Completed</div>
           <h2>Completed jobs</h2>
           <p>These jobs are marked complete and saved in your Work History automatically.</p>
         </div>
         <a href="work-history.html" class="btn-outline interview-action-btn">View Full Work History</a>
       </div>
+      <!-- Container for the jobseeker list content and layout. -->
       <div id="completed-jobs-list" class="jobseeker-list application-list">
         <article class="jobseeker-item application-item">
+          <!-- Container for the application main content and layout. -->
           <div class="application-main">
+            <!-- Container for the application title row content and layout. -->
             <div class="application-title-row">
               <h3>No completed jobs yet</h3>
               <span class="status-pill accepted">Empty</span>
             </div>
+            <!-- Container for the application summary content and layout. -->
             <div class="application-summary">
               <p>Once an accepted job is marked complete, it will appear here and be saved to your Work History.</p>
             </div>
@@ -150,6 +178,7 @@
       <h2 style="margin-bottom:6px;">Confirm Payment Received</h2>
       <p style="color:#64748b; margin-bottom:20px;">After employer confirmation, confirm that payment was received to complete the job and save it into Work History.</p>
 
+      <!-- Container for the profile form grid content and layout. -->
       <div class="profile-form-grid" style="display:grid; gap:14px;">
         <input type="hidden" id="wh-application-id">
         <input type="hidden" id="wh-employer-id">
@@ -185,13 +214,18 @@
     </div>
   </div>
 
+  <!-- Inline script runs page-specific JavaScript behavior. -->
   <script>
     window.EASYEARN_BASE_PATH = '../../';
     window.EASYEARN_HEADER_PATH = '../../partials/header-jobseeker.html';
   </script>
+  <!-- Loads translation support for multilingual users. -->
   <script src="../../js/translate.js" defer></script>
+  <!-- Loads shared header and footer partials. -->
   <script src="../../js/includes.js?v=20260802a" defer></script>
+  <!-- Loads the JavaScript file that controls this page: https://cdn.jsdelivr.net/npm/chart.js. -->
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <!-- Loads the JavaScript file that controls this page: ../../js/jobseeker-applications.js?v=20260906a. -->
   <script type="module" src="../../js/jobseeker-applications.js?v=20260906a"></script>
 </body>
 </html>

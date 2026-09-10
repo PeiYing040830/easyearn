@@ -1,3 +1,6 @@
+/**
+ * EasyEarn file note: Handles the jobseeker dashboard page behavior and related user interactions.
+ */
 import {
   fetchApplications,
   fetchJobs,
@@ -44,6 +47,7 @@ import {
 
   const recommendedGrid = document.getElementById('recommended-jobs-grid');
 
+  // Formats or checks HTML so later code can use a clean value.
   function escapeHtml(value) {
     return String(value ?? '')
       .replace(/&/g, '&amp;')
@@ -53,6 +57,7 @@ import {
       .replace(/'/g, '&#39;');
   }
 
+  // Updates welcome name after the user changes something or data is refreshed.
   function setWelcomeName(name, photoSrc = '') {
     const safeName = name || 'Job Seeker';
     if (nameEl) nameEl.textContent = safeName;
@@ -77,6 +82,7 @@ import {
     navBadge.textContent = getInitials(safeName, 'JS');
   }
 
+  // Formats or checks status so later code can use a clean value.
   function normalizeStatus(value) {
     const raw = String(value || '').toLowerCase();
     if (raw.includes('completion') && raw.includes('pend')) return 'accepted';
@@ -87,6 +93,7 @@ import {
     return 'pending';
   }
 
+  // Helper function for application has interview used by this script.
   function applicationHasInterview(application) {
     const status = String(application?.status || '').toLowerCase();
     return Boolean(
@@ -100,6 +107,7 @@ import {
     );
   }
 
+  // Formats or checks calculate profile completeness so later code can use a clean value.
   function calculateProfileCompleteness(profile) {
     const checks = [
       { label: 'Complete basic info', done: Boolean(profile?.name && profile?.email) },
@@ -111,6 +119,7 @@ import {
     return { checks, percentage };
   }
 
+  // Renders profile completeness into the HTML so the user can see it.
   function renderProfileCompleteness(profile) {
     const { checks, percentage } = calculateProfileCompleteness(profile);
     if (profileEls.value) profileEls.value.textContent = `${percentage}%`;
@@ -122,6 +131,7 @@ import {
     }
   }
 
+  // Renders stats into the HTML so the user can see it.
   function renderStats(applications, savedJobsCount, matchedJobsCount, interviewsCount) {
     const totals = {
       applications: applications.length,
@@ -145,6 +155,7 @@ import {
     });
   }
 
+  // Formats or checks job so later code can use a clean value.
   function normalizeJob(job) {
     const payRate = job.pay_rate != null ? `RM${job.pay_rate}${job.pay_type ? ` / ${job.pay_type}` : ''}` : null;
     return {
@@ -161,6 +172,7 @@ import {
     };
   }
 
+  // Formats or checks calculate match score so later code can use a clean value.
   function calculateMatchScore(job, userSkills) {
     if (!userSkills.length) return 0;
     const haystack = [
@@ -175,6 +187,7 @@ import {
     return userSkills.reduce((score, skill) => haystack.includes(String(skill).toLowerCase()) ? score + 1 : score, 0);
   }
 
+  // Formats or checks match badge so later code can use a clean value.
   function formatMatchBadge(job, userSkills) {
     if (!userSkills.length) return 'New';
     if (!job.matchScore) return '—';
@@ -183,6 +196,7 @@ import {
     return `${matchPercent}% Match`;
   }
 
+  // Renders recommended jobs into the HTML so the user can see it.
   function renderRecommendedJobs(jobs, userSkills) {
     if (!recommendedGrid) return 0;
 
@@ -234,6 +248,7 @@ import {
     return ranked.filter((job) => job.matchScore > 0).length;
   }
 
+  // Loads dashboard data data so the page can display current information.
   async function loadDashboardData(user) {
     const [profile, applicationsRaw, jobsRaw, savedJobsCount] = await Promise.all([
       fetchProfile(user.id, user),
@@ -248,6 +263,7 @@ import {
     logoutPhoto = userPhoto;
     const userSkills = normalizeArray(profile.skills);
     const applications = applicationsRaw || [];
+    // Helper function for jobs used by this script.
     const jobs = (jobsRaw || [])
       .filter((job) => String(job.status || '').toLowerCase() === 'approved')
       .map(normalizeJob);
@@ -258,6 +274,7 @@ import {
     renderStats(applications, savedJobsCount, matchedJobsCount, interviewsCount);
   }
 
+  // Handles the logout action triggered by the user.
   async function handleLogout() {
     try {
       sessionStorage.setItem('ee_logout_name', logoutName || 'Job Seeker');
@@ -271,6 +288,7 @@ import {
   }
 
   if (logoutBtn) logoutBtn.addEventListener('click', handleLogout);
+  // Waits until the HTML has loaded before running page setup code.
   document.addEventListener('click', (event) => {
     const btn = event.target.closest('#nav-logout-btn');
     if (btn) handleLogout();

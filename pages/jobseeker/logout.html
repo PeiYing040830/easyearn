@@ -1,5 +1,7 @@
 <!DOCTYPE html>
+<!-- EasyEarn file note: Builds the logout page layout and connects it to shared styles/scripts. -->
 <html lang="en">
+<!-- Head section stores page settings, title, icons, and stylesheet links. -->
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -453,8 +455,10 @@
     }
   </style>
 </head>
+<!-- Body section contains everything the user can see or interact with. -->
 <body>
 
+<!-- Inline script runs page-specific JavaScript behavior. -->
 <script>
   try {
     const savedTheme = localStorage.getItem('easyearn_theme');
@@ -474,7 +478,9 @@
 
 <div class="sparkles" id="sparkles"></div>
 
+<!-- Container for the card content and layout. -->
 <div class="card">
+  <!-- Container for the card box content and layout. -->
   <div class="card-box">
 
     <a href="../../index.html" class="logo">
@@ -529,6 +535,7 @@
   </div>
 </div>
 
+<!-- Inline script runs page-specific JavaScript behavior. -->
 <script>
   // ── Sparkles ──
   const container = document.getElementById('sparkles');

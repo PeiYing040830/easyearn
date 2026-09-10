@@ -1,5 +1,7 @@
 <!DOCTYPE html>
+<!-- EasyEarn file note: Builds the chatbot knowledge page layout and connects it to shared styles/scripts. -->
 <html lang="en">
+<!-- Head section stores page settings, title, icons, and stylesheet links. -->
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,8 +10,11 @@
   <link rel="stylesheet" href="../../css/landing.css">
   <link rel="stylesheet" href="admin-pages.css?v=20260829j">
 </head>
+<!-- Body section contains everything the user can see or interact with. -->
 <body>
+  <!-- Shared header/navigation is injected here by includes.js. -->
   <div id="site-header"></div>
+  <!-- Main area contains the primary page content. -->
   <main class="admin-shell chatbot-knowledge-shell">
     <div class="admin-header">
       <div class="admin-badge">Chatbot</div>
@@ -20,8 +25,11 @@
       </div>
     </div>
 
+    <!-- Container for the chatbot knowledge workspace content and layout. -->
     <div class="chatbot-knowledge-workspace">
+      <!-- Section for the admin card area of this page. -->
       <section class="admin-card chatbot-knowledge-card chatbot-knowledge-manage-card">
+        <!-- Container for the admin section head content and layout. -->
         <div class="admin-section-head">
           <div>
             <div class="admin-badge">Manage</div>
@@ -29,6 +37,7 @@
             <p>Create or update approved chatbot answers for future user questions.</p>
           </div>
         </div>
+        <!-- Form where users enter and submit knowledge insert details. -->
         <form class="admin-form-grid chatbot-knowledge-form" id="knowledge-insert-form">
           <label class="admin-field">
             <span>Question</span>
@@ -51,10 +60,13 @@
             <button class="btn-outline" id="knowledge-clear-btn" type="button">Clear</button>
           </div>
         </form>
+        <!-- Container for the admin inline status content and layout. -->
         <div class="admin-inline-status" id="knowledge-insert-status">Ready to add a new entry.</div>
       </section>
 
+      <!-- Section for the admin card area of this page. -->
       <section class="admin-card chatbot-knowledge-card">
+        <!-- Container for the admin section head content and layout. -->
         <div class="admin-section-head">
           <div>
             <div class="admin-badge">Knowledge Base</div>
@@ -63,21 +75,28 @@
           </div>
           <button class="btn-outline" id="knowledge-refresh-btn" type="button">Refresh</button>
         </div>
+        <!-- Container for the chatbot knowledge toolbar content and layout. -->
         <div class="chatbot-knowledge-toolbar">
           <label class="admin-field" for="knowledge-search">
             <span>Search</span>
             <input id="knowledge-search" type="search" placeholder="Search question, keyword, answer, or category">
           </label>
+          <!-- Container for the chatbot knowledge count content and layout. -->
           <div class="chatbot-knowledge-count" id="knowledge-count">Loading...</div>
         </div>
+        <!-- Container for the chatbot knowledge list content and layout. -->
         <div class="chatbot-knowledge-list" id="knowledge-list"></div>
       </section>
     </div>
   </main>
 
+  <!-- Inline script runs page-specific JavaScript behavior. -->
   <script>window.EASYEARN_BASE_PATH='../../';window.EASYEARN_HEADER_PATH='../../partials/header-admin.html';</script>
+  <!-- Loads translation support for multilingual users. -->
   <script src="../../js/translate.js" defer></script>
+  <!-- Loads shared header and footer partials. -->
   <script src="../../js/includes.js?v=20260829a" defer></script>
+  <!-- Loads the JavaScript file that controls this page: ../../js/seed-chatbot.js?v=20260829d. -->
   <script type="module" src="../../js/seed-chatbot.js?v=20260829d"></script>
 </body>
 </html>

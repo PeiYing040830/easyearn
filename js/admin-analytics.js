@@ -1,3 +1,6 @@
+/**
+ * EasyEarn file note: Handles the admin analytics page behavior and related user interactions.
+ */
 import {
   observeAuth,
   fetchAllProfiles,
@@ -44,6 +47,7 @@ import {
     body: document.getElementById('admin-analytics-table-body')
   };
 
+  // Formats or checks HTML so later code can use a clean value.
   function escapeHtml(value) {
     return String(value ?? '')
       .replace(/&/g, '&amp;')
@@ -52,12 +56,14 @@ import {
       .replace(/"/g, '&quot;');
   }
 
+  // Helper function for title case used by this script.
   function titleCase(value) {
     const text = String(value || '').replace(/[_-]+/g, ' ').trim();
     if (!text) return '-';
     return text.replace(/\b\w/g, (char) => char.toUpperCase());
   }
 
+  // Formats or checks date so later code can use a clean value.
   function formatDate(value) {
     if (!value) return '-';
     const date = new Date(value);
@@ -69,10 +75,12 @@ import {
     });
   }
 
+  // Helper function for join details used by this script.
   function joinDetails(parts = []) {
     return parts.filter(Boolean).join(' | ') || '-';
   }
 
+  // Loads last6 month buckets data so the page can display current information.
   function getLast6MonthBuckets() {
     const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
     const now = new Date();
@@ -89,11 +97,13 @@ import {
     return buckets;
   }
 
+  // Helper function for to month key used by this script.
   function toMonthKey(dateVal) {
     const date = new Date(dateVal);
     return `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}`;
   }
 
+  // Helper function for count items by recent month used by this script.
   function countItemsByRecentMonth(items, dateFields = ['created_at']) {
     const buckets = getLast6MonthBuckets();
     const counts = new Map(buckets.map((bucket) => [bucket.key, 0]));
@@ -111,12 +121,14 @@ import {
     return buckets.map((bucket) => counts.get(bucket.key) || 0);
   }
 
+  // Updates share after the user changes something or data is refreshed.
   function setShare(el, value, total) {
     if (!el) return;
     const percentage = total ? Math.round((value / total) * 100) : 0;
     el.textContent = `${percentage}%`;
   }
 
+  // Updates pie ring after the user changes something or data is refreshed.
   function setPieRing(values) {
     const canvas = document.getElementById('admin-analytics-donut-canvas');
     if (!canvas) return;
@@ -141,6 +153,7 @@ import {
     });
   }
 
+  // Helper function for apply line used by this script.
   function applyLine(values, labels) {
     const canvas = document.getElementById('admin-analytics-line-canvas');
     if (!canvas) return;
@@ -227,6 +240,7 @@ import {
     });
   }
 
+  // Formats or checks user role so later code can use a clean value.
   function normalizeUserRole(role) {
     const value = String(role || '').toLowerCase().trim();
     if (['jobseeker', 'job seeker', 'seeker'].includes(value)) return 'jobseeker';
@@ -235,6 +249,7 @@ import {
     return value || 'user';
   }
 
+  // Formats or checks status so later code can use a clean value.
   function normalizeStatus(type, rawStatus) {
     const status = String(rawStatus || '').toLowerCase().trim();
 
@@ -278,6 +293,7 @@ import {
     return status || 'recorded';
   }
 
+  // Loads status palette class data so the page can display current information.
   function getStatusPaletteClass(status) {
     const normalized = String(status || '').toLowerCase();
     if (['approved', 'completed', 'resolved'].includes(normalized)) return normalized;
@@ -287,6 +303,7 @@ import {
     return '';
   }
 
+  // Loads base statuses for type data so the page can display current information.
   function getBaseStatusesForType(type, rows) {
     if (type === 'user') return ['jobseeker', 'employer', 'admin', 'locked'];
     if (type === 'job') return ['pending', 'approved', 'flagged', 'rejected'];
@@ -296,6 +313,7 @@ import {
     return Array.from(new Set((rows || []).map((row) => String(row.status || '').trim()).filter(Boolean))).sort();
   }
 
+  // Formats or checks analytics rows so later code can use a clean value.
   function buildAnalyticsRows({
     users = [],
     jobs = [],
@@ -394,11 +412,13 @@ import {
     ].sort((a, b) => new Date(b.date || 0) - new Date(a.date || 0));
   }
 
+  // Loads rows for selected type data so the page can display current information.
   function getRowsForSelectedType() {
     const typeValue = tableEls.typeFilter?.value || 'all';
     return analyticsRows.filter((row) => typeValue === 'all' || row.type === typeValue);
   }
 
+  // Helper function for populate status options used by this script.
   function populateStatusOptions(rows) {
     if (!tableEls.statusFilter) return;
 
@@ -423,11 +443,13 @@ import {
     tableEls.statusFilter.value = statuses.includes(current) ? current : 'all';
   }
 
+  // Renders analytics table into the HTML so the user can see it.
   function renderAnalyticsTable() {
     if (!tableEls.body) return;
 
     const typeValue = tableEls.typeFilter?.value || 'all';
     const statusValue = tableEls.statusFilter?.value || 'all';
+    // Helper function for search value used by this script.
     const searchValue = (tableEls.search?.value || '').trim().toLowerCase();
 
     const filtered = analyticsRows.filter((row) => {
@@ -464,6 +486,7 @@ import {
     }).join('');
   }
 
+  // Sets up table controls when this script is loaded.
   function initTableControls() {
     tableEls.typeFilter?.addEventListener('change', () => {
       populateStatusOptions(getRowsForSelectedType());

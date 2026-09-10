@@ -1,3 +1,6 @@
+/**
+ * EasyEarn file note: Handles the feedback page behavior and related user interactions.
+ */
 (function () {
   window.EasyEarnToast = {
     show() {
@@ -20,6 +23,7 @@
   const seenMessages = new Map();
   let styleInjected = false;
 
+  // Helper function for inject styles used by this script.
   function injectStyles() {
     if (styleInjected || document.getElementById('easyearn-toast-style')) return;
     styleInjected = true;
@@ -101,6 +105,7 @@
     document.head.appendChild(style);
   }
 
+  // Loads root data so the page can display current information.
   function getRoot() {
     injectStyles();
     let root = document.getElementById(TOAST_ROOT_ID);
@@ -114,6 +119,7 @@
     return root;
   }
 
+  // Helper function for classify used by this script.
   function classify(message, el) {
     const className = String(el?.className || '').toLowerCase();
     const text = String(message || '').toLowerCase();
@@ -125,6 +131,7 @@
     return '';
   }
 
+  // Shows the toast message or section when the user needs feedback.
   function showToast(message, type = 'info') {
     const text = String(message || '').trim();
     if (!text) return;
@@ -140,8 +147,10 @@
     }, type === 'error' ? 5200 : 3400);
   }
 
+  // Helper function for maybe toast from status used by this script.
   function maybeToastFromStatus(el) {
     if (!el) return;
+    // Helper function for message used by this script.
     const message = (el.textContent || '').replace(/\s+/g, ' ').trim();
     if (!message || message.length < 3) return;
     const type = classify(message, el);
@@ -151,6 +160,7 @@
     showToast(message, type);
   }
 
+  // Runs the status element step for this page workflow.
   function observeStatusElement(el) {
     if (!el || seenMessages.has(el)) return;
     seenMessages.set(el, (el.textContent || '').replace(/\s+/g, ' ').trim());
@@ -164,6 +174,7 @@
     });
   }
 
+  // Sets up feedback when this script is loaded.
   function initFeedback() {
     document.querySelectorAll(STATUS_SELECTOR).forEach(observeStatusElement);
 
@@ -182,6 +193,7 @@
   window.EasyEarnToast = { show: showToast };
 
   if (document.readyState === 'loading') {
+    // Waits until the HTML has loaded before running page setup code.
     document.addEventListener('DOMContentLoaded', initFeedback);
   } else {
     initFeedback();

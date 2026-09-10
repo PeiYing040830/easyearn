@@ -1,3 +1,6 @@
+/**
+ * EasyEarn file note: Handles the theme page behavior and related user interactions.
+ */
 (function () {
   'use strict';
 
@@ -6,6 +9,7 @@
 
   const STORAGE_KEY = 'easyearn_theme';
 
+  // Helper function for apply theme used by this script.
   function applyTheme(isDark) {
     document.body.classList.toggle('theme-dark', isDark);
     const btn = document.getElementById('theme-toggle');
@@ -16,6 +20,7 @@
     }
   }
 
+  // Sets up theme toggle when this script is loaded.
   function initThemeToggle() {
     // Read saved preference first; fall back to system preference
     const saved = localStorage.getItem(STORAGE_KEY);
@@ -29,6 +34,7 @@
 
     const btn = document.getElementById('theme-toggle');
     if (!btn) return;
+    // Connects this element event to the handler that should run next.
     btn.addEventListener('click', function () {
       const currentlyDark = document.body.classList.contains('theme-dark');
       const next = !currentlyDark;

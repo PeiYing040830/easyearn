@@ -1,5 +1,7 @@
 <!DOCTYPE html>
+<!-- EasyEarn file note: Builds the applicants page layout and connects it to shared styles/scripts. -->
 <html lang="en">
+<!-- Head section stores page settings, title, icons, and stylesheet links. -->
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,15 +10,20 @@
 <link rel="stylesheet" href="../../css/landing.css">
   <link rel="stylesheet" href="employer-pages.css?v=20260829e">
 </head>
+<!-- Body section contains everything the user can see or interact with. -->
 <body>
+  <!-- Shared header/navigation is injected here by includes.js. -->
   <div id="site-header"></div>
+  <!-- Main area contains the primary page content. -->
   <main class="employer-shell employer-applicants-page">
+    <!-- Section for the employer page header area of this page. -->
     <section class="employer-page-header">
       <div class="employer-badge">Applicants</div>
       <h1>Review applicants and next steps</h1>
       <p>Accept candidates, schedule interviews, send messages, and confirm job completion.</p>
     </section>
 
+    <!-- Section for the employer grid area of this page. -->
     <section class="employer-grid four">
       <article class="employer-card employer-metric" style="border-top:3px solid #7a4f38;"><span class="employer-stat-label">Applied</span><strong id="employer-applicants-applied-count">0</strong><p id="employer-applicants-applied-note">No applicants yet.</p></article>
       <article class="employer-card employer-metric" style="border-top:3px solid #f59e0b;"><span class="employer-stat-label">Reviewed</span><strong id="employer-applicants-reviewed-count">0</strong><p id="employer-applicants-reviewed-note">No reviewed applicants yet.</p></article>
@@ -24,7 +31,9 @@
       <article class="employer-card employer-metric" style="border-top:3px solid #f43f5e;"><span class="employer-stat-label">Rejected</span><strong id="employer-applicants-rejected-count">0</strong><p id="employer-applicants-rejected-note">No rejected candidates yet.</p></article>
     </section>
 
+    <!-- Section for the employer card area of this page. -->
     <section class="employer-card">
+      <!-- Container for the employer section head content and layout. -->
       <div class="employer-section-head">
         <div>
           <div class="employer-badge">Trend View</div>
@@ -50,7 +59,9 @@
       </div>
     </section>
 
+    <!-- Section for the employer card area of this page. -->
     <section class="employer-card">
+      <!-- Container for the employer section head content and layout. -->
       <div class="employer-section-head">
         <div>
           <div class="employer-badge">Applicant Queue</div>
@@ -58,6 +69,7 @@
           <p>Accept candidates, schedule interviews, confirm completion when the job is done.</p>
         </div>
       </div>
+      <!-- Container for the employer list content and layout. -->
       <div id="employer-applicants-list" class="employer-list">
         <article class="employer-item">
           <strong>Loading applicants...</strong>
@@ -130,13 +142,18 @@
     </div>
   </div>
 
+  <!-- Inline script runs page-specific JavaScript behavior. -->
   <script>
     window.EASYEARN_BASE_PATH = '../../';
     window.EASYEARN_HEADER_PATH = '../../partials/header-employer.html';
   </script>
+  <!-- Loads translation support for multilingual users. -->
   <script src="../../js/translate.js" defer></script>
+  <!-- Loads shared header and footer partials. -->
   <script src="../../js/includes.js?v=20260802a" defer></script>
+  <!-- Loads the JavaScript file that controls this page: https://cdn.jsdelivr.net/npm/chart.js. -->
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <!-- Loads the JavaScript file that controls this page: ../../js/employer-applicants.js?v=20260905a. -->
   <script type="module" src="../../js/employer-applicants.js?v=20260905a"></script>
 </body>
 </html>

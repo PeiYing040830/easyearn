@@ -1,4 +1,7 @@
-﻿import { observeAuth, fetchJobs, fetchProfilesByIds, updateJobListingStatus } from './supabase-data.js';
+/**
+ * EasyEarn file note: Handles the admin jobs page behavior and related user interactions.
+ */
+import { observeAuth, fetchJobs, fetchProfilesByIds, updateJobListingStatus } from './supabase-data.js';
 
 (function () {
   'use strict';
@@ -27,6 +30,7 @@
   let employerNameMap = new Map();
   let activeFilter = 'pending'; // default: show pending review queue
 
+  // Updates status after the user changes something or data is refreshed.
   function setStatus(message, type = '') {
     if (!statusEl) return;
     statusEl.textContent = message;
@@ -34,6 +38,7 @@
     if (type) statusEl.classList.add(type);
   }
 
+  // Helper function for moderation label used by this script.
   function moderationLabel(status) {
     if (status === 'pending' || status === 'open') return 'Pending Review';
     if (status === 'approved') return 'Approved';
@@ -46,6 +51,7 @@
 
   // ── Filter tabs ───────────────────────────────────────────────────────────
 
+  // Helper function for inject filter tabs used by this script.
   function injectFilterTabs() {
     if (document.getElementById('admin-jobs-filter-tabs')) return;
     const tabs = document.createElement('div');
@@ -66,6 +72,7 @@
       btn.dataset.filterKey = key;
       btn.className = key === activeFilter ? 'btn-primary' : 'btn-outline';
       btn.style.cssText = 'font-size:.82rem;padding:.35rem .9rem;';
+      // Connects this element event to the handler that should run next.
       btn.addEventListener('click', async () => {
         activeFilter = key;
         if (statusFilterEl) statusFilterEl.value = key;
@@ -79,6 +86,7 @@
     if (queueEl) queueEl.parentNode?.insertBefore(tabs, queueEl);
   }
 
+  // Formats or checks employer name map so later code can use a clean value.
   async function buildEmployerNameMap(jobs) {
     const employerIds = Array.from(new Set((jobs || []).map((job) => job.employer_id).filter(Boolean)));
     if (!employerIds.length) {
@@ -97,6 +105,7 @@
     }
   }
 
+  // Updates metrics after the user changes something or data is refreshed.
   function updateMetrics(jobsWithReview) {
     const live = jobsWithReview.filter((item) => item.review.status === 'approved').length;
     const flagged = jobsWithReview.filter((item) => item.review.status === 'flagged').length;
@@ -117,6 +126,7 @@
       : 'No pending jobs right now. All listings have been moderated.');
   }
 
+  // Renders queue into the HTML so the user can see it.
   async function renderQueue() {
     if (!queueEl) return;
 
@@ -200,6 +210,7 @@
     queueEl.innerHTML = rendered.join('');
   }
 
+  // Handles the action action triggered by the user.
   async function handleAction(jobId, action) {
     const nextStatus = action === 'approve' ? 'approved' : action === 'flag' ? 'flagged' : 'removed';
     try {

@@ -1,5 +1,7 @@
 <!DOCTYPE html>
+<!-- EasyEarn file note: Builds the analytics page layout and connects it to shared styles/scripts. -->
 <html lang="en">
+<!-- Head section stores page settings, title, icons, and stylesheet links. -->
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,17 +10,23 @@
 <link rel="stylesheet" href="../../css/landing.css">
   <link rel="stylesheet" href="admin-pages.css?v=20260829e">
 </head>
+<!-- Body section contains everything the user can see or interact with. -->
 <body>
+  <!-- Shared header/navigation is injected here by includes.js. -->
   <div id="site-header"></div>
+  <!-- Main area contains the primary page content. -->
   <main class="admin-shell">
     <div class="admin-header"><div class="admin-badge">Analytics</div><h1>Platform analytics overview</h1><p>Watch growth, moderation workload, and system activity once the main collections are fully connected.</p></div>
+    <!-- Section for the admin grid area of this page. -->
     <section class="admin-grid three">
       <article class="admin-card admin-metric"><span class="admin-stat-label">User Growth</span><strong id="admin-analytics-users-count">0</strong><p id="admin-analytics-users-note">No analytics data yet.</p></article>
       <article class="admin-card admin-metric"><span class="admin-stat-label">Job Volume</span><strong id="admin-analytics-jobs-count">0</strong><p id="admin-analytics-jobs-note">No analytics data yet.</p></article>
       <article class="admin-card admin-metric"><span class="admin-stat-label">Report Load</span><strong id="admin-analytics-reports-count">0</strong><p id="admin-analytics-reports-note">No analytics data yet.</p></article>
     </section>
+    <!-- Section for the admin grid area of this page. -->
     <section class="admin-grid two analytics-top-row">
       <article class="admin-card">
+        <!-- Container for the admin section head content and layout. -->
         <div class="admin-section-head"><div><div class="admin-badge">Trend View</div><h2>Analytics chart area</h2><p>This chart can later show new users, jobs, and reports over time.</p></div><a href="dashboard.html" class="btn-outline">Back to Dashboard</a></div>
         <div class="admin-chart-duo admin-chart-duo-side">
           <div class="admin-chart">
@@ -39,6 +47,7 @@
         </div>
       </article>
       <article class="admin-card">
+        <!-- Container for the admin section head content and layout. -->
         <div class="admin-section-head">
           <div>
             <div class="admin-badge">Compliance Awareness</div>
@@ -46,6 +55,7 @@
             <p>Help admins monitor platform activity with gig worker protection, transparent job terms, payment clarity, and dispute follow-up in mind.</p>
           </div>
         </div>
+        <!-- Container for the admin trust checklist content and layout. -->
         <div class="admin-trust-checklist">
           <strong>Admin awareness points</strong>
           <ul>
@@ -56,7 +66,9 @@
         </div>
       </article>
     </section>
+	    <!-- Section for the admin card area of this page. -->
 	    <section class="admin-card">
+	      <!-- Container for the admin section head content and layout. -->
 	      <div class="admin-section-head">
 	        <div>
 	          <div class="admin-badge">Data Explorer</div>
@@ -64,6 +76,7 @@
 	          <p>Inspect full details instead of summary charts, then filter by module, status, or keyword.</p>
 	        </div>
 	      </div>
+	      <!-- Container for the admin analytics toolbar content and layout. -->
 	      <div class="admin-analytics-toolbar">
 	        <label class="admin-analytics-filter">
 	          <span>Type</span>
@@ -86,8 +99,11 @@
 	          <input id="admin-analytics-search" type="search" placeholder="Search name, title, role, category, or details">
 	        </label>
 	      </div>
+	      <!-- Container for the admin analytics summary content and layout. -->
 	      <div class="admin-analytics-summary" id="admin-analytics-table-summary">Loading records...</div>
+	      <!-- Container for the admin table wrap content and layout. -->
 	      <div class="admin-table-wrap">
+	        <!-- Table displays multiple records in rows and columns. -->
 	        <table class="admin-data-table">
 	          <thead>
 	            <tr>
@@ -106,9 +122,13 @@
 	    </section>
 	  </main>
 	  
+  <!-- Inline script runs page-specific JavaScript behavior. -->
   <script>window.EASYEARN_BASE_PATH='../../';window.EASYEARN_HEADER_PATH='../../partials/header-admin.html';</script>
+  <!-- Loads translation support for multilingual users. -->
   <script src="../../js/translate.js" defer></script><script src="../../js/includes.js?v=20260802a" defer></script>
+  <!-- Loads the JavaScript file that controls this page: https://cdn.jsdelivr.net/npm/chart.js. -->
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <!-- Loads the JavaScript file that controls this page: ../../js/admin-analytics.js?v=20260503a. -->
   <script type="module" src="../../js/admin-analytics.js?v=20260503a"></script>
 </body>
 </html>

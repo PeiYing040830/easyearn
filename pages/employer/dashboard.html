@@ -1,5 +1,7 @@
 <!DOCTYPE html>
+<!-- EasyEarn file note: Builds the dashboard page layout and connects it to shared styles/scripts. -->
 <html lang="en">
+<!-- Head section stores page settings, title, icons, and stylesheet links. -->
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,15 +10,20 @@
 <link rel="stylesheet" href="../../css/landing.css">
   <link rel="stylesheet" href="employer-pages.css?v=20260829e">
 </head>
+<!-- Body section contains everything the user can see or interact with. -->
 <body>
+  <!-- Shared header/navigation is injected here by includes.js. -->
   <div id="site-header"></div>
 
+  <!-- Main area contains the primary page content. -->
   <main class="employer-shell employer-dashboard">
+    <!-- Section for the employer page header area of this page. -->
     <section class="employer-page-header employer-page-header--split">
       <div class="employer-page-header-main">
         <div class="employer-badge">Employer Dashboard</div>
         <h1>Welcome back, <span id="employer-dashboard-welcome-name">Employer</span></h1>
         <p>Track approved job posts, incoming applications, and verification progress from the same employer workspace.</p>
+        <!-- Container for the employer hero actions content and layout. -->
         <div class="employer-hero-actions">
           <a href="manage-jobs.html" class="btn-primary">Manage Jobs</a>
           <a href="profile.html" class="btn-outline">Edit Profile</a>
@@ -34,6 +41,7 @@
       </aside>
     </section>
 
+    <!-- Section for the employer grid area of this page. -->
     <section class="employer-grid four">
       <article class="employer-card employer-metric" style="border-top:3px solid #22c55e;"><span class="employer-stat-label">Approved Jobs</span><strong id="employer-dashboard-active-jobs">0</strong><p id="employer-dashboard-active-jobs-note">No approved jobs yet.</p></article>
       <article class="employer-card employer-metric" style="border-top:3px solid #3b82f6;"><span class="employer-stat-label">Applicants</span><strong id="employer-dashboard-applicants">0</strong><p id="employer-dashboard-applicants-note">No applicants yet.</p></article>
@@ -41,7 +49,9 @@
       <article class="employer-card employer-metric" style="border-top:3px solid #6366f1;"><span class="employer-stat-label">Verification</span><strong id="employer-dashboard-verification">Pending</strong><p id="employer-dashboard-verification-note">Submit company verification to unlock trust badges.</p></article>
     </section>
 
+    <!-- Section for the employer card area of this page. -->
     <section class="employer-card">
+      <!-- Container for the employer section head content and layout. -->
       <div class="employer-section-head">
         <div>
           <div class="employer-badge">Hiring Pipeline</div>
@@ -58,8 +68,10 @@
       </div>
     </section>
 
+    <!-- Section for the employer grid area of this page. -->
     <section class="employer-grid split">
       <article class="employer-card">
+        <!-- Container for the employer section head content and layout. -->
         <div class="employer-section-head">
           <div>
             <div class="employer-badge">Quick Actions</div>
@@ -67,6 +79,7 @@
             <p>Open the most important employer pages without leaving the dashboard.</p>
           </div>
         </div>
+        <!-- Container for the employer list content and layout. -->
         <div class="employer-list">
           <article class="employer-item"><strong>Review incoming applicants</strong><p>See who already applied, then continue shortlisting from the applicants page.</p><div class="employer-card-actions"><a href="applicants.html" class="btn-primary">Open Applicants</a></div></article>
           <article class="employer-item"><strong>Manage current job posts</strong><p>Check your job status, edit listings, and monitor openings in one place.</p><div class="employer-card-actions"><a href="manage-jobs.html" class="btn-outline">Open Jobs</a></div></article>
@@ -75,6 +88,7 @@
       </article>
 
       <article class="employer-card">
+        <!-- Container for the employer section head content and layout. -->
         <div class="employer-section-head">
           <div>
             <div class="employer-badge">Trend View</div>
@@ -83,10 +97,12 @@
           </div>
           <a href="manage-jobs.html" class="btn-outline">Open Jobs</a>
         </div>
+        <!-- Container for the employer dashboard chart stack content and layout. -->
         <div class="employer-dashboard-chart-stack">
           <div class="employer-chart">
             <canvas id="employer-dashboard-line-canvas" style="width:100%;height:280px;"></canvas>
           </div>
+          <!-- Container for the employer chart content and layout. -->
           <div class="employer-chart employer-dashboard-donut-row">
             <div class="employer-pie-wrap" style="padding:0;">
               <canvas id="employer-dashboard-donut-canvas" style="width:140px;height:140px;"></canvas>
@@ -103,13 +119,18 @@
     </section>
   </main>
 
+  <!-- Inline script runs page-specific JavaScript behavior. -->
   <script>
     window.EASYEARN_BASE_PATH = '../../';
     window.EASYEARN_HEADER_PATH = '../../partials/header-employer.html';
   </script>
+  <!-- Loads translation support for multilingual users. -->
   <script src="../../js/translate.js" defer></script>
+  <!-- Loads shared header and footer partials. -->
   <script src="../../js/includes.js?v=20260802a" defer></script>
+  <!-- Loads the JavaScript file that controls this page: https://cdn.jsdelivr.net/npm/chart.js. -->
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <!-- Loads the JavaScript file that controls this page: ../../js/employer-dashboard.js?v=20260409e. -->
   <script type="module" src="../../js/employer-dashboard.js?v=20260409e"></script>
 </body>
 </html>

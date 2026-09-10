@@ -1,3 +1,6 @@
+/**
+ * EasyEarn file note: Handles the admin verifications page behavior and related user interactions.
+ */
 import { observeAuth, fetchAllProfiles, fetchProfile, updateEmployerVerification } from './supabase-data.js?v=20260611a';
 
 (function () {
@@ -26,6 +29,7 @@ import { observeAuth, fetchAllProfiles, fetchProfile, updateEmployerVerification
   let employerProfiles = [];
   let cachedVerificationItems = [];
 
+  // Formats or checks status so later code can use a clean value.
   function normalizeStatus(status) {
     const value = String(status || '').trim().toLowerCase();
     if (value === 'approved') return 'approved';
@@ -35,6 +39,7 @@ import { observeAuth, fetchAllProfiles, fetchProfile, updateEmployerVerification
     return 'pending';
   }
 
+  // Updates status after the user changes something or data is refreshed.
   function setStatus(message, type = '') {
     if (!statusEl) return;
     statusEl.textContent = message;
@@ -42,6 +47,7 @@ import { observeAuth, fetchAllProfiles, fetchProfile, updateEmployerVerification
     if (type) statusEl.classList.add(type);
   }
 
+  // Helper function for status label used by this script.
   function statusLabel(status) {
     const normalized = normalizeStatus(status);
     if (normalized === 'approved') return 'Approved';
@@ -51,6 +57,7 @@ import { observeAuth, fetchAllProfiles, fetchProfile, updateEmployerVerification
     return 'Pending';
   }
 
+  // Helper function for metric groups used by this script.
   function metricGroups(items) {
     return {
       pending: items.filter((item) => !['approved', 'rejected'].includes(item.normalizedStatus || normalizeStatus(item.payload.status))).length,
@@ -59,6 +66,7 @@ import { observeAuth, fetchAllProfiles, fetchProfile, updateEmployerVerification
     };
   }
 
+  // Updates metrics after the user changes something or data is refreshed.
   function updateMetrics(items) {
     const groups = metricGroups(items);
 
@@ -71,6 +79,7 @@ import { observeAuth, fetchAllProfiles, fetchProfile, updateEmployerVerification
     metrics.rejected.note.textContent = groups.rejected ? `${groups.rejected} request(s) were rejected.` : 'No rejected requests yet.';
   }
 
+  // Runs the employer identity step for this page workflow.
   async function resolveEmployerIdentity(userId) {
     try {
       const remote = await fetchProfile(userId, null);
@@ -88,6 +97,7 @@ import { observeAuth, fetchAllProfiles, fetchProfile, updateEmployerVerification
     }
   }
 
+  // Formats or checks doc links so later code can use a clean value.
   function buildDocLinks(payload) {
     const docs = [
       payload.registration ? `<a href="${payload.registration.content}" download="${payload.registration.name}">Registration document: ${payload.registration.name}</a>` : '',
@@ -98,6 +108,7 @@ import { observeAuth, fetchAllProfiles, fetchProfile, updateEmployerVerification
     return docs.map((item) => `<div>${item}</div>`).join('');
   }
 
+  // Formats or checks verification items so later code can use a clean value.
   async function buildVerificationItems() {
     const items = employerProfiles
       .filter((profile) => profile.role === 'employer')
@@ -137,6 +148,7 @@ import { observeAuth, fetchAllProfiles, fetchProfile, updateEmployerVerification
     }));
   }
 
+  // Renders queue into the HTML so the user can see it.
   async function renderQueue() {
     if (!queueEl) return;
 
@@ -210,6 +222,7 @@ import { observeAuth, fetchAllProfiles, fetchProfile, updateEmployerVerification
     queueEl.innerHTML = rendered.join('');
   }
 
+  // Updates request status after the user changes something or data is refreshed.
   async function updateRequestStatus(userId, nextStatus) {
     try {
       const target = cachedVerificationItems.find((item) => item.userId === userId);

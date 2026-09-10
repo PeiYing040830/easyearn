@@ -1,5 +1,7 @@
 <!DOCTYPE html>
+<!-- EasyEarn file note: Builds the dashboard page layout and connects it to shared styles/scripts. -->
 <html lang="en">
+<!-- Head section stores page settings, title, icons, and stylesheet links. -->
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,15 +10,21 @@
 <link rel="stylesheet" href="../../css/landing.css">
   <link rel="stylesheet" href="admin-pages.css?v=20260829e">
 </head>
+<!-- Body section contains everything the user can see or interact with. -->
 <body>
+  <!-- Shared header/navigation is injected here by includes.js. -->
   <div id="site-header"></div>
+  <!-- Main area contains the primary page content. -->
   <main class="admin-shell">
 
+    <!-- Section for the admin hero area of this page. -->
     <section class="admin-hero">
+      <!-- Container for the admin hero copy content and layout. -->
       <div class="admin-hero-copy">
         <div class="admin-badge">Admin Dashboard</div>
         <h1>Welcome back, <span id="admin-dashboard-welcome-name">Admin</span></h1>
         <p>Monitor users, reports, verifications, and platform health from one workspace.</p>
+        <!-- Container for the admin hero actions content and layout. -->
         <div class="admin-hero-actions">
           <a href="reports.html" class="btn-primary">Open Reports</a>
           <a href="verifications.html" class="btn-outline">Review Verifications</a>
@@ -64,6 +72,7 @@
 
       <!-- Moderation Queue -->
       <article class="admin-card">
+        <!-- Container for the admin section head content and layout. -->
         <div class="admin-section-head">
           <div>
             <div class="admin-badge">Moderation Queue</div>
@@ -71,6 +80,7 @@
             <p>These cards wire to report, verification, and safety collections.</p>
           </div>
         </div>
+        <!-- Container for the admin list content and layout. -->
         <div class="admin-list">
           <article class="admin-item">
             <strong>User report review</strong>
@@ -100,6 +110,7 @@
 
       <!-- Trend charts card -->
       <article class="admin-card">
+        <!-- Container for the admin section head content and layout. -->
         <div class="admin-section-head">
           <div>
             <div class="admin-badge">Trend View</div>
@@ -136,13 +147,18 @@
     </section>
   </main>
 
+  <!-- Inline script runs page-specific JavaScript behavior. -->
   <script>
     window.EASYEARN_BASE_PATH = '../../';
     window.EASYEARN_HEADER_PATH = '../../partials/header-admin.html';
   </script>
+  <!-- Loads translation support for multilingual users. -->
   <script src="../../js/translate.js" defer></script>
+  <!-- Loads shared header and footer partials. -->
   <script src="../../js/includes.js?v=20260802a" defer></script>
+  <!-- Loads the JavaScript file that controls this page: https://cdn.jsdelivr.net/npm/chart.js. -->
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <!-- Loads the JavaScript file that controls this page: ../../js/admin-dashboard.js?v=20260611a. -->
   <script type="module" src="../../js/admin-dashboard.js?v=20260611a"></script>
 </body>
 </html>

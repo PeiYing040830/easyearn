@@ -1,3 +1,6 @@
+/**
+ * EasyEarn file note: Handles the employer applicants page behavior and related user interactions.
+ */
 import {
   fetchEmployerApplications,
   fetchRatingsForReviewees,
@@ -43,12 +46,14 @@ import {
 
   // ── Helpers ────────────────────────────────────────────────────────────────
 
+  // Formats or checks HTML so later code can use a clean value.
   function escapeHtml(value) {
     return String(value ?? '')
       .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
       .replace(/"/g, '&quot;').replace(/'/g, '&#39;');
   }
 
+  // Formats or checks status so later code can use a clean value.
   function normalizeStatus(value) {
     const raw = String(value || '').toLowerCase();
     if (raw.includes('completion') && raw.includes('pend')) return 'completion_pending';
@@ -60,6 +65,7 @@ import {
     return 'pending';
   }
 
+  // Formats or checks status label so later code can use a clean value.
   function formatStatusLabel(status) {
     const map = {
       pending: 'Applied',
@@ -73,6 +79,7 @@ import {
     return map[normalizeStatus(status)] || status;
   }
 
+  // Helper function for open interview modal used by this script.
   function openInterviewModal(payload) {
     if (!interviewModal) return;
     if (interviewApplicantNameEl) interviewApplicantNameEl.textContent = payload.seekerName || 'Applicant';
@@ -85,12 +92,14 @@ import {
     interviewModal.style.display = 'flex';
   }
 
+  // Runs the interview modal step for this page workflow.
   function closeInterviewModal() {
     if (!interviewModal) return;
     interviewModal.style.display = 'none';
     if (interviewStatusEl) interviewStatusEl.textContent = '';
   }
 
+  // Helper function for to utc iso string from local input used by this script.
   function toUtcISOStringFromLocalInput(value) {
     if (!value) return '';
     const localDate = new Date(value);
@@ -98,6 +107,7 @@ import {
     return localDate.toISOString();
   }
 
+  // Loads seeker rating summary data so the page can display current information.
   function getSeekerRatingSummary(seekerId) {
     const summary = seekerRatingsById.get(seekerId) || null;
     if (!summary || !summary.count) {
@@ -120,6 +130,7 @@ import {
   let lineChart = null;
   let donutChart = null;
 
+  // Helper function for apply line used by this script.
   function applyLine(trend) {
     const canvas = document.getElementById('employer-applicants-line-canvas');
     if (!canvas) return;
@@ -162,10 +173,12 @@ import {
     });
   }
 
+  // Updates share after the user changes something or data is refreshed.
   function setShare(el, value, total) {
     if (el) el.textContent = `${total ? Math.round((value / total) * 100) : 0}%`;
   }
 
+  // Helper function for apply pie used by this script.
   function applyPie(values) {
     const canvas = document.getElementById('employer-applicants-donut-canvas');
     if (!canvas) return;
@@ -183,6 +196,7 @@ import {
     });
   }
 
+  // Formats or checks monthly trend so later code can use a clean value.
   function buildMonthlyTrend(appsList) {
     const now = new Date();
     const months = [];
@@ -210,6 +224,7 @@ import {
 
   // ── Render Stats ───────────────────────────────────────────────────────────
 
+  // Renders stats into the HTML so the user can see it.
   function renderStats(counts) {
     const total = counts.applied + counts.reviewed + counts.accepted + counts.rejected;
     Object.entries(stats).forEach(([key, g]) => {
@@ -228,6 +243,7 @@ import {
   // ── Build Applicant Card ───────────────────────────────────────────────────
   // Each application has _job and _applicant enriched by fetchEmployerApplications
 
+  // Formats or checks applicant card so later code can use a clean value.
   function buildApplicantCard(app) {
     const status       = normalizeStatus(app.status);
     const job          = app._job || {};
@@ -375,6 +391,7 @@ import {
 
   // ── Render List ────────────────────────────────────────────────────────────
 
+  // Renders applications into the HTML so the user can see it.
   function renderApplications() {
     if (!listEl) return;
 
@@ -395,6 +412,7 @@ import {
 
   // ── Full Refresh ───────────────────────────────────────────────────────────
 
+  // Helper function for refresh view used by this script.
   async function refreshView() {
     if (!currentUser) return;
     applications = await fetchEmployerApplications(currentUser.id);
@@ -449,6 +467,7 @@ import {
   const completeSaveBtn    = document.getElementById('complete-save-btn');
   const completeStatusEl   = document.getElementById('complete-modal-status');
 
+  // Helper function for open complete modal used by this script.
   function openCompleteModal(btn) {
     document.getElementById('complete-application-id').value = btn.dataset.applicationId || '';
     document.getElementById('complete-seeker-id').value      = btn.dataset.seekerId || '';
@@ -465,6 +484,7 @@ import {
     completeModal.style.display = 'flex';
   }
 
+  // Runs the complete modal step for this page workflow.
   function closeCompleteModal() {
     completeModal.style.display = 'none';
   }
@@ -506,6 +526,7 @@ import {
 
   // ── Rate Seeker Modal (created dynamically) ────────────────────────────────
 
+  // Helper function for open rate seeker modal used by this script.
   function openRateSeekerModal({ applicationId, seekerId, seekerName }) {
     const MODAL_ID = 'rate-seeker-modal';
 
@@ -537,6 +558,7 @@ import {
       // Star hover / click
       const starsRow = el.querySelector('#rsm-stars-row');
       const starInput = el.querySelector('#rsm-star-value');
+      // Connects this element event to the handler that should run next.
       starsRow.addEventListener('mouseover', (e) => {
         const b = e.target.closest('.rsm-star-btn');
         if (!b) return;
@@ -545,12 +567,14 @@ import {
           s.style.color = Number(s.dataset.star) <= v ? '#f59e0b' : '#d1d5db';
         });
       });
+      // Connects this element event to the handler that should run next.
       starsRow.addEventListener('mouseleave', () => {
         const v = Number(starInput.value);
         starsRow.querySelectorAll('.rsm-star-btn').forEach((s) => {
           s.style.color = Number(s.dataset.star) <= v ? '#f59e0b' : '#d1d5db';
         });
       });
+      // Connects this element event to the handler that should run next.
       starsRow.addEventListener('click', (e) => {
         const b = e.target.closest('.rsm-star-btn');
         if (!b) return;
@@ -563,6 +587,7 @@ import {
       starsRow.querySelectorAll('.rsm-star-btn').forEach((s) => { s.style.color = '#f59e0b'; });
 
       el.querySelector('#rsm-skip-btn').addEventListener('click', () => { el.style.display = 'none'; });
+      // Connects this element event to the handler that should run next.
       el.addEventListener('click', (e) => { if (e.target === el) el.style.display = 'none'; });
     }
 

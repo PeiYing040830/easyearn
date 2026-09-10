@@ -1,5 +1,7 @@
 <!DOCTYPE html>
+<!-- EasyEarn file note: Builds the jobs page layout and connects it to shared styles/scripts. -->
 <html lang="en">
+<!-- Head section stores page settings, title, icons, and stylesheet links. -->
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -48,11 +50,16 @@
     .tab-panel.active { display: block; }
   </style>
 </head>
+<!-- Body section contains everything the user can see or interact with. -->
 <body>
+  <!-- Shared header/navigation is injected here by includes.js. -->
   <div id="site-header"></div>
 
+  <!-- Main area contains the primary page content. -->
   <main class="jobseeker-shell">
+    <!-- Container for the jobseeker header content and layout. -->
     <div class="jobseeker-header jobs-browse-hero">
+      <!-- Container for the hero badge content and layout. -->
       <div class="hero-badge">Jobs</div>
       <h1>Browse &amp; manage your jobs</h1>
       <p>Find new gigs, save favourites, and track everything in one place.</p>
@@ -69,13 +76,16 @@
 
       <!-- Stats -->
       <section class="jobseeker-card">
+        <!-- Container for the section heading row content and layout. -->
         <div class="section-heading-row">
           <div>
+            <!-- Container for the hero badge content and layout. -->
             <div class="hero-badge">Overview</div>
             <h2>Your job activity</h2>
           </div>
           <a href="applications.html" class="btn-outline interview-action-btn">My Applications</a>
         </div>
+        <!-- Container for the jobseeker grid content and layout. -->
         <div class="jobseeker-grid application-stats-grid">
           <article class="jobseeker-card application-stat-card" style="border-top:3px solid #6366f1;">
             <span class="application-stat-label">Saved</span>
@@ -102,12 +112,15 @@
 
       <!-- Search / Filter -->
       <section class="jobseeker-card jobs-search-panel">
+        <!-- Container for the section heading row content and layout. -->
         <div class="section-heading-row">
           <div>
+            <!-- Container for the hero badge content and layout. -->
             <div class="hero-badge">Search</div>
             <h2>Filter listings</h2>
           </div>
         </div>
+        <!-- Container for the jobs filter grid content and layout. -->
         <div class="jobs-filter-grid">
           <label class="jobseeker-field">
             <span>Keyword</span>
@@ -131,6 +144,7 @@
             </select>
           </label>
         </div>
+        <!-- Container for the jobs filter actions content and layout. -->
         <div class="jobs-filter-actions">
           <button type="button" id="jobs-search-btn" class="btn-primary">Search Jobs</button>
           <button type="button" id="jobs-reset-btn" class="btn-outline">Reset Filters</button>
@@ -156,13 +170,16 @@
 
       <!-- Live Listings -->
       <section class="jobseeker-card recommendations-board">
+        <!-- Container for the section heading row content and layout. -->
         <div class="section-heading-row">
           <div>
+            <!-- Container for the hero badge content and layout. -->
             <div class="hero-badge">Live Listings</div>
             <h2>Approved jobs available now</h2>
             <p>Save or apply directly.</p>
           </div>
         </div>
+        <!-- Container for the jobseeker grid content and layout. -->
         <div id="jobs-live-results" class="jobseeker-grid recommendation-grid jobs-results-grid">
           <article class="jobseeker-item recommendation-item jobs-result-card">
             <strong>Loading jobs...</strong>
@@ -173,13 +190,16 @@
 
       <!-- Already Applied -->
       <section class="jobseeker-card recommendations-board">
+        <!-- Container for the section heading row content and layout. -->
         <div class="section-heading-row">
           <div>
+            <!-- Container for the hero badge content and layout. -->
             <div class="hero-badge">Already Applied</div>
             <h2>Jobs you've applied to</h2>
           </div>
           <a href="applications.html" class="btn-outline interview-action-btn">Track Applications</a>
         </div>
+        <!-- Container for the jobseeker grid content and layout. -->
         <div id="jobs-applied-results" class="jobseeker-grid recommendation-grid jobs-results-grid">
           <article class="jobseeker-item recommendation-item jobs-result-card">
             <strong>Loading...</strong>
@@ -194,12 +214,15 @@
 
       <!-- Stats -->
       <section class="jobseeker-card">
+        <!-- Container for the section heading row content and layout. -->
         <div class="section-heading-row">
           <div>
+            <!-- Container for the hero badge content and layout. -->
             <div class="hero-badge">Overview</div>
             <h2>Saved jobs summary</h2>
           </div>
         </div>
+        <!-- Container for the jobseeker grid content and layout. -->
         <div class="jobseeker-grid application-stats-grid">
           <article class="jobseeker-card application-stat-card" style="border-top:3px solid #6366f1;">
             <span class="application-stat-label">Total Saved</span>
@@ -221,13 +244,16 @@
 
       <!-- Saved List -->
       <section class="jobseeker-card">
+        <!-- Container for the section heading row content and layout. -->
         <div class="section-heading-row">
           <div>
+            <!-- Container for the hero badge content and layout. -->
             <div class="hero-badge">Bookmarked</div>
             <h2>Your saved listings</h2>
             <p>Apply or remove jobs you're no longer interested in.</p>
           </div>
         </div>
+        <!-- Container for the jobseeker list content and layout. -->
         <div id="saved-jobs-list" class="jobseeker-list saved-jobs-list">
           <article class="jobseeker-item saved-job-item">
             <strong>Loading saved jobs...</strong>
@@ -239,6 +265,7 @@
 
   </main>
 
+  <!-- Inline script runs page-specific JavaScript behavior. -->
   <script>
     window.EASYEARN_BASE_PATH = '../../';
     window.EASYEARN_HEADER_PATH = '../../partials/header-jobseeker.html';
@@ -263,10 +290,15 @@
       if (params.get('tab') === 'saved') switchTab('saved');
     });
   </script>
+  <!-- Loads translation support for multilingual users. -->
   <script src="../../js/translate.js" defer></script>
+  <!-- Loads shared header and footer partials. -->
   <script src="../../js/includes.js?v=20260802a" defer></script>
+  <!-- Loads the JavaScript file that controls this page: ../../js/jobseeker-jobs.js?v=20260413. -->
   <script type="module" src="../../js/jobseeker-jobs.js?v=20260413"></script>
+  <!-- Loads the JavaScript file that controls this page: ../../js/jobseeker-saved-jobs.js?v=20260413. -->
   <script type="module" src="../../js/jobseeker-saved-jobs.js?v=20260413"></script>
+  <!-- Inline script runs page-specific JavaScript behavior. -->
   <script type="module">
     // Update saved tab badge count after saved-jobs loads
     const observer = new MutationObserver(() => {

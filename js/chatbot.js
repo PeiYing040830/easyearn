@@ -1,3 +1,6 @@
+/**
+ * EasyEarn file note: Handles the chatbot page behavior and related user interactions.
+ */
 import { fetchKnowledgeBase, fetchProfile, getCurrentUser, logChatbotInteraction } from './supabase-data.js';
 
 const input = document.getElementById('chatbot-input');
@@ -250,6 +253,7 @@ const roleConfig = {
   },
 };
 
+// Formats or checks role so later code can use a clean value.
 function normalizeRole(role) {
   if (!role) {
     return 'guest';
@@ -265,10 +269,12 @@ function normalizeRole(role) {
   return 'guest';
 }
 
+// Loads current config data so the page can display current information.
 function getCurrentConfig() {
   return roleConfig[currentRole] || roleConfig.guest;
 }
 
+// Runs the role step for this page workflow.
 async function detectRole() {
   try {
     const user = await getCurrentUser();
@@ -285,6 +291,7 @@ async function detectRole() {
   }
 }
 
+// Loads knowledge base data so the page can display current information.
 async function loadKnowledgeBase() {
   try {
     knowledgeBase = await fetchKnowledgeBase();
@@ -294,6 +301,7 @@ async function loadKnowledgeBase() {
   }
 }
 
+// Creates message when the workflow needs a new record or message.
 function addMessage(sender, message) {
   const wrapper = document.createElement('div');
   wrapper.className = `chat-message ${sender}`;
@@ -307,6 +315,7 @@ function addMessage(sender, message) {
   body.scrollTop = body.scrollHeight;
 }
 
+// Creates typing indicator when the workflow needs a new record or message.
 function addTypingIndicator() {
   const indicator = document.createElement('div');
   indicator.className = 'chat-message bot';
@@ -322,12 +331,14 @@ function addTypingIndicator() {
   return indicator;
 }
 
+// Clears or removes typing indicator from the UI or database.
 function removeTypingIndicator(indicator) {
   if (indicator && indicator.parentNode) {
     indicator.parentNode.removeChild(indicator);
   }
 }
 
+// Formats or checks service reply so later code can use a clean value.
 function buildServiceReply(question) {
   const lower = question.toLowerCase();
   const roleSpecific = roleReplies[currentRole] || [];
@@ -341,6 +352,7 @@ function buildServiceReply(question) {
   return FALLBACK_REPLY;
 }
 
+// Helper function for find knowledge reply used by this script.
 function findKnowledgeReply(question) {
   const lower = question.toLowerCase();
   const entry = knowledgeBase.find((item) => {
@@ -355,10 +367,12 @@ function findKnowledgeReply(question) {
   return entry?.answer || null;
 }
 
+// Helper function for find canned reply used by this script.
 function findCannedReply(question) {
   return findKnowledgeReply(question) || buildServiceReply(question);
 }
 
+// Renders quick replies into the HTML so the user can see it.
 function renderQuickReplies() {
   if (!quickContainer) {
     return;
@@ -375,6 +389,7 @@ function renderQuickReplies() {
   });
 }
 
+// Helper function for apply chatbot context used by this script.
 function applyChatbotContext() {
   const config = getCurrentConfig();
 
@@ -401,7 +416,9 @@ function applyChatbotContext() {
   renderQuickReplies();
 }
 
+// Handles the send action triggered by the user.
 async function handleSend(messageOverride = '') {
+  // Helper function for message used by this script.
   const message = (messageOverride || input?.value || '').trim();
   if (!message) {
     return;
@@ -436,6 +453,7 @@ async function handleSend(messageOverride = '') {
   }
 }
 
+// Sets up chatbot hero slides when this script is loaded.
 function initChatbotHeroSlides() {
   const slides = Array.from(document.querySelectorAll('.chatbot-hero-slide'));
   if (slides.length <= 1) {
@@ -450,6 +468,7 @@ function initChatbotHeroSlides() {
   }, 4500);
 }
 
+// Waits until the HTML has loaded before running page setup code.
 document.addEventListener('DOMContentLoaded', async () => {
   initChatbotHeroSlides();
   await detectRole();

@@ -1,3 +1,6 @@
+/**
+ * EasyEarn file note: Handles the employer manage jobs page behavior and related user interactions.
+ */
 import {
   fetchEmployerJobs,
   fetchProfile,
@@ -26,6 +29,7 @@ import {
     closed: document.getElementById('jobs-closed-note')
   };
 
+  // Helper function for notify status used by this script.
   function notifyStatus(message, type = '') {
     const text = String(message || '');
     const shouldShow = type || /\b(saved|published|updated|success|unable|failed|error|cannot)\b/i.test(text);
@@ -34,6 +38,7 @@ import {
     window.EasyEarnToast?.show(text, toastType);
   }
 
+  // Updates status after the user changes something or data is refreshed.
   function setStatus(message, type = '') {
     if (!statusEl) return;
     statusEl.textContent = message;
@@ -42,6 +47,7 @@ import {
     notifyStatus(message, type);
   }
 
+  // Formats or checks expiry so later code can use a clean value.
   function formatExpiry(dateValue) {
     if (!dateValue) return '-';
     const date = new Date(dateValue);
@@ -53,6 +59,7 @@ import {
     });
   }
 
+  // Loads counts data so the page can display current information.
   function getCounts(jobs) {
     const counts = {
       published: 0,
@@ -83,6 +90,7 @@ import {
     return counts;
   }
 
+  // Updates metrics after the user changes something or data is refreshed.
   function updateMetrics(jobs) {
     const counts = getCounts(jobs);
     if (countEls.published) countEls.published.textContent = String(counts.published);
@@ -96,6 +104,7 @@ import {
     if (noteEls.closed) noteEls.closed.textContent = counts.closed ? 'Closed jobs can be reopened later.' : 'No closed jobs yet.';
   }
 
+  // Creates empty state when the workflow needs a new record or message.
   function createEmptyState() {
     return `
       <article class="employer-item">
@@ -107,6 +116,7 @@ import {
     `;
   }
 
+  // Creates job card when the workflow needs a new record or message.
   function createJobCard(job) {
     const status = String(job.status || 'pending').toLowerCase();
     const actionLabel = status === 'closed' ? 'Reopen' : 'Close';
@@ -135,6 +145,7 @@ import {
   let currentUserId = '';
   let currentProfile = null;
 
+  // Loads restriction message data so the page can display current information.
   function getRestrictionMessage(profile) {
     const status = String(profile?.accountStatus || 'active').toLowerCase();
     if (status === 'suspended') {
@@ -146,6 +157,7 @@ import {
     return '';
   }
 
+  // Sets up status buttons when this script is loaded.
   function bindStatusButtons() {
     const restricted = Boolean(getRestrictionMessage(currentProfile));
     listEl?.querySelectorAll('.manage-job-status-btn').forEach((button) => {
@@ -153,6 +165,7 @@ import {
         button.disabled = true;
         return;
       }
+      // Connects this element event to the handler that should run next.
       button.addEventListener('click', async () => {
         const jobId = button.dataset.jobId;
         const nextStatus = button.dataset.nextStatus;
@@ -176,6 +189,7 @@ import {
     });
   }
 
+  // Loads jobs data so the page can display current information.
   async function loadJobs(userId) {
     currentUserId = userId;
     setStatus('Loading your job listings...');

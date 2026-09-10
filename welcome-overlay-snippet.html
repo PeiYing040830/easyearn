@@ -1,3 +1,4 @@
+<!-- EasyEarn file note: Builds the welcome overlay snippet page layout and connects it to shared styles/scripts. -->
 <!-- Add before login.html </body> -->
 <style>
   /* Welcome overlay mascot. logo.gif replaces the cute character with the app mascot. */
@@ -77,6 +78,7 @@
   </div>
 </div>
 
+<!-- Inline script runs page-specific JavaScript behavior. -->
 <script>
   function showWelcomeOverlay(redirectUrl) {
     document.getElementById('login-loading-overlay').style.display = 'flex';

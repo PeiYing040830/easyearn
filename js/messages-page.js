@@ -1,3 +1,6 @@
+/**
+ * EasyEarn file note: Handles the messages page page behavior and related user interactions.
+ */
 import {
   createChatMessage,
   fetchChatMessages,
@@ -38,18 +41,21 @@ import {
   if (inputEl) inputEl.disabled = true;
   if (sendBtn) sendBtn.disabled = true;
 
+  // Formats or checks role so later code can use a clean value.
   function normalizeRole(value) {
     const roleValue = String(value || '').trim().toLowerCase();
     if (roleValue === 'jobseeker' || roleValue === 'job seeker') return 'seeker';
     return roleValue;
   }
 
+  // Helper function for expected role used by this script.
   function expectedRole() {
     if (role === 'admin') return 'admin';
     if (role === 'employer') return 'employer';
     return 'seeker';
   }
 
+  // Runs the by role step for this page workflow.
   function redirectByRole(actualRole) {
     if (actualRole === 'admin') {
       window.location.href = '../admin/dashboard.html';
@@ -62,6 +68,7 @@ import {
     window.location.href = '../jobseeker/dashboard.html';
   }
 
+  // Formats or checks HTML so later code can use a clean value.
   function escapeHtml(value) {
     return String(value ?? '')
       .replace(/&/g, '&amp;')
@@ -71,12 +78,14 @@ import {
       .replace(/'/g, '&#39;');
   }
 
+  // Updates status after the user changes something or data is refreshed.
   function setStatus(message, type = '') {
     if (!statusEl) return;
     statusEl.textContent = message;
     statusEl.className = 'messages-status ' + type;
   }
 
+  // Loads current display name data so the page can display current information.
   function getCurrentDisplayName() {
     return currentProfile?.name
       || currentUser?.user_metadata?.name
@@ -85,6 +94,7 @@ import {
       || (role === 'employer' ? 'Employer' : role === 'admin' ? 'Admin' : 'Job Seeker');
   }
 
+  // Loads counterpart rating data so the page can display current information.
   function getCounterpartRating(counterpartId) {
     const counterpartRole = counterpartRolesById.get(counterpartId) || '';
     if (counterpartRole === 'admin') return 'Admin support';
@@ -103,12 +113,14 @@ import {
     return `★ ${averageText} · ${ratingSummary.count} ${reviewLabel}`;
   }
 
+  // Helper function for empty state class used by this script.
   function emptyStateClass() {
     if (role === 'jobseeker') return 'jobseeker-item';
     if (role === 'admin') return 'admin-item';
     return 'employer-item';
   }
 
+  // Loads thread from query data so the page can display current information.
   function getThreadFromQuery() {
     const counterpartId = search.get('user') || '';
     if (!counterpartId) return null;
@@ -122,6 +134,7 @@ import {
 
   // ── Inject toolbar + image preview into form ──────────────────────────────
 
+  // Formats or checks chat extras so later code can use a clean value.
   function buildChatExtras() {
     if (!formEl) return;
     if (formEl.dataset.extrasBuilt) return;   // ← already built, skip
@@ -154,6 +167,7 @@ import {
     // Events
     document.getElementById('messages-attach-btn').addEventListener('click', () => fileInput.click());
 
+    // Connects this element event to the handler that should run next.
     fileInput.addEventListener('change', () => {
       const file = fileInput.files[0];
       if (!file) return;
@@ -180,6 +194,7 @@ import {
 
   // ── Render thread list ─────────────────────────────────────────────────────
 
+  // Renders thread list into the HTML so the user can see it.
   function renderThreadList() {
     if (!threadListEl) return;
     if (!threads.length) {
@@ -201,6 +216,7 @@ import {
 
   // ── Render messages ────────────────────────────────────────────────────────
 
+  // Renders messages into the HTML so the user can see it.
   function renderMessages(messages) {
     if (!threadBodyEl) return;
     if (!messages || !messages.length) {
@@ -232,6 +248,7 @@ import {
     threadBodyEl.scrollTop = threadBodyEl.scrollHeight;
   }
 
+  // Helper function for open thread used by this script.
   async function openThread(thread) {
     activeThread = thread;
     renderThreadList();
@@ -263,6 +280,7 @@ import {
     }
   }
 
+  // Loads threads data so the page can display current information.
   async function loadThreads() {
     threads = await fetchChatThreads(currentUser.id);
     const counterpartIds = Array.from(new Set(threads.map(function(thread) {
@@ -334,6 +352,7 @@ import {
       setStatus('Choose a conversation first before sending a message.', 'is-error');
       return;
     }
+    // Helper function for body text used by this script.
     const bodyText = (inputEl?.value || '').trim();
     if (!bodyText && !pendingImageFile) {
       setStatus('Type a message or attach an image before sending.', 'is-error');

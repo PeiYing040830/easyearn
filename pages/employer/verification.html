@@ -1,5 +1,7 @@
 <!DOCTYPE html>
+<!-- EasyEarn file note: Builds the verification page layout and connects it to shared styles/scripts. -->
 <html lang="en">
+<!-- Head section stores page settings, title, icons, and stylesheet links. -->
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,9 +10,13 @@
 <link rel="stylesheet" href="../../css/landing.css">
   <link rel="stylesheet" href="employer-pages.css?v=20260829e">
 </head>
+<!-- Body section contains everything the user can see or interact with. -->
 <body>
+  <!-- Shared header/navigation is injected here by includes.js. -->
   <div id="site-header"></div>
+  <!-- Main area contains the primary page content. -->
   <main class="employer-shell">
+    <!-- Section for the employer page header area of this page. -->
     <section class="employer-page-header">
       <div class="employer-badge">Verification</div>
       <h1>Employer Verification</h1>
@@ -25,8 +31,11 @@
         <p style="font-size:0.875rem; margin:0;">Fill in all required fields and upload supporting documents, then submit for admin review.</p>
       </div>
       <div style="display:grid; gap:16px;">
+        <!-- Container for the employer status row content and layout. -->
         <div class="employer-status-row"><strong>Company info</strong><div class="employer-status-track"><span id="verification-company-track" style="width:0%"></span></div><strong id="verification-company-value">0%</strong></div>
+        <!-- Container for the employer status row content and layout. -->
         <div class="employer-status-row"><strong>Documents</strong><div class="employer-status-track"><span id="verification-doc-track" style="width:0%"></span></div><strong id="verification-doc-value">0%</strong></div>
+        <!-- Container for the employer status row content and layout. -->
         <div class="employer-status-row"><strong>Admin review</strong><div class="employer-status-track"><span id="verification-review-track" style="width:0%"></span></div><strong id="verification-review-value">0%</strong></div>
       </div>
       <ul class="employer-checklist" style="margin:0;">
@@ -40,6 +49,7 @@
 
     <!-- Form Card: full width, 3-column grid -->
     <article class="employer-card">
+      <!-- Container for the employer section head content and layout. -->
       <div class="employer-section-head">
         <div>
           <div class="employer-badge">Required Items</div>
@@ -47,7 +57,9 @@
           <p>Provide your business details and attach the supporting files below.</p>
         </div>
       </div>
+      <!-- Form where users enter and submit verification details. -->
       <form id="verification-form">
+        <!-- Container for the employer form grid content and layout. -->
         <div class="employer-form-grid" style="grid-template-columns: repeat(3, minmax(0,1fr));">
 
           <label class="employer-field">
@@ -105,12 +117,16 @@
 
   </main>
 
+  <!-- Inline script runs page-specific JavaScript behavior. -->
   <script>
     window.EASYEARN_BASE_PATH = '../../';
     window.EASYEARN_HEADER_PATH = '../../partials/header-employer.html';
   </script>
+  <!-- Loads translation support for multilingual users. -->
   <script src="../../js/translate.js" defer></script>
+  <!-- Loads shared header and footer partials. -->
   <script src="../../js/includes.js?v=20260802a" defer></script>
+  <!-- Loads the JavaScript file that controls this page: ../../js/employer-verification.js?v=20260802d. -->
   <script type="module" src="../../js/employer-verification.js?v=20260802d"></script>
 </body>
 </html>

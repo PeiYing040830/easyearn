@@ -1,3 +1,6 @@
+/**
+ * EasyEarn file note: Handles the admin users page behavior and related user interactions.
+ */
 import { observeAuth, fetchAllProfiles, updateUserAccountStatus } from './supabase-data.js';
 
 (function () {
@@ -25,6 +28,7 @@ import { observeAuth, fetchAllProfiles, updateUserAccountStatus } from './supaba
   let currentAdminId = '';
   let cachedProfiles = [];
 
+  // Updates status after the user changes something or data is refreshed.
   function setStatus(message, type = '') {
     if (!statusEl) return;
     statusEl.textContent = message;
@@ -32,6 +36,7 @@ import { observeAuth, fetchAllProfiles, updateUserAccountStatus } from './supaba
     if (type) statusEl.classList.add(type);
   }
 
+  // Helper function for role label used by this script.
   function roleLabel(role) {
     if (role === 'jobseeker') return 'Job Seeker';
     if (role === 'employer') return 'Employer';
@@ -39,11 +44,13 @@ import { observeAuth, fetchAllProfiles, updateUserAccountStatus } from './supaba
     return 'Job Seeker';
   }
 
+  // Formats or checks role so later code can use a clean value.
   function normalizeRole(role) {
     const value = String(role || '').toLowerCase();
     return value === 'jobseeker' ? 'seeker' : (value || 'seeker');
   }
 
+  // Helper function for account status label used by this script.
   function accountStatusLabel(status) {
     const value = String(status || 'active').toLowerCase();
     if (value === 'suspended') return 'Locked';
@@ -51,6 +58,7 @@ import { observeAuth, fetchAllProfiles, updateUserAccountStatus } from './supaba
     return 'Active';
   }
 
+  // Updates metrics after the user changes something or data is refreshed.
   function updateMetrics(profiles) {
     const seekers = profiles.filter((item) => normalizeRole(item.role) === 'seeker').length;
     const employers = profiles.filter((item) => normalizeRole(item.role) === 'employer').length;
@@ -65,6 +73,7 @@ import { observeAuth, fetchAllProfiles, updateUserAccountStatus } from './supaba
     metrics.admin.note.textContent = admins ? `${admins} admin account(s).` : 'No admin records yet.';
   }
 
+  // Formats or checks date so later code can use a clean value.
   function formatDate(value) {
     if (!value) return '-';
     const date = new Date(value);
@@ -72,6 +81,7 @@ import { observeAuth, fetchAllProfiles, updateUserAccountStatus } from './supaba
     return date.toLocaleDateString('en-MY', { year: 'numeric', month: 'short', day: 'numeric' });
   }
 
+  // Loads filtered profiles data so the page can display current information.
   function getFilteredProfiles() {
     const roleFilter = roleFilterEl?.value || 'all';
     const accountFilter = accountFilterEl?.value || 'all';
@@ -93,6 +103,7 @@ import { observeAuth, fetchAllProfiles, updateUserAccountStatus } from './supaba
     });
   }
 
+  // Renders list into the HTML so the user can see it.
   function renderList(profiles) {
     if (!listEl) return;
 

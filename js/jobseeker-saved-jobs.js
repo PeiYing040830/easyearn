@@ -1,3 +1,6 @@
+/**
+ * EasyEarn file note: Handles the jobseeker saved jobs page behavior and related user interactions.
+ */
 import {
   fetchApplications,
   fetchJobs,
@@ -25,12 +28,14 @@ import {
   let savedJobIds = new Set();
   let applications = [];
 
+  // Formats or checks HTML so later code can use a clean value.
   function escapeHtml(value) {
     return String(value ?? '')
       .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
       .replace(/"/g, '&quot;').replace(/'/g, '&#39;');
   }
 
+  // Formats or checks saved job error so later code can use a clean value.
   function formatSavedJobError(error) {
     const detail = error?.message || error?.details || error?.hint || '';
     return detail
@@ -38,6 +43,7 @@ import {
       : 'Unable to update saved jobs right now. Please check Supabase policies for saved_jobs.';
   }
 
+  // Formats or checks job so later code can use a clean value.
   function normalizeJob(job) {
     return {
       id:       job.id,
@@ -54,10 +60,12 @@ import {
     };
   }
 
+  // Loads saved jobs data so the page can display current information.
   function getSavedJobs() {
     return allJobs.filter((job) => savedJobIds.has(job.id));
   }
 
+  // Renders stats into the HTML so the user can see it.
   function renderStats(savedJobs) {
     const liveJobs    = savedJobs.filter((j) => j.status === 'approved');
     const appliedJobs = savedJobs.filter((j) => applications.some((a) => a.job_id === j.id));
@@ -70,6 +78,7 @@ import {
     if (appliedNote) appliedNote.textContent = appliedJobs.length ? `${appliedJobs.length} already applied.` : 'No saved job applications yet.';
   }
 
+  // Renders saved jobs into the HTML so the user can see it.
   function renderSavedJobs(savedJobs) {
     if (!listEl) return;
 
@@ -114,6 +123,7 @@ import {
     }).join('');
   }
 
+  // Helper function for refresh used by this script.
   function refresh() {
     const saved = getSavedJobs();
     renderStats(saved);

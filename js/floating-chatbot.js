@@ -1,3 +1,6 @@
+/**
+ * EasyEarn file note: Handles the floating chatbot page behavior and related user interactions.
+ */
 import { fetchKnowledgeBase, fetchProfile, getCurrentUser, logChatbotInteraction } from './supabase-data.js';
 
 let knowledgeBase = [];
@@ -218,6 +221,7 @@ const roleConfig = {
   },
 };
 
+// Formats or checks role so later code can use a clean value.
 function normalizeRole(role) {
   if (!role) {
     return 'guest';
@@ -233,6 +237,7 @@ function normalizeRole(role) {
   return 'guest';
 }
 
+// Runs the role step for this page workflow.
 async function detectRole() {
   try {
     const user = await getCurrentUser();
@@ -255,6 +260,7 @@ async function detectRole() {
   }
 }
 
+// Loads knowledge base data so the page can display current information.
 async function loadKnowledgeBase() {
   try {
     knowledgeBase = await fetchKnowledgeBase();
@@ -264,10 +270,12 @@ async function loadKnowledgeBase() {
   }
 }
 
+// Loads config data so the page can display current information.
 function getConfig() {
   return roleConfig[currentRole] || roleConfig.guest;
 }
 
+// Helper function for find knowledge reply used by this script.
 function findKnowledgeReply(message) {
   const lower = message.toLowerCase();
   const entry = knowledgeBase.find((item) => {
@@ -282,6 +290,7 @@ function findKnowledgeReply(message) {
   return entry?.answer || null;
 }
 
+// Helper function for find canned reply used by this script.
 function findCannedReply(message) {
   const lower = message.toLowerCase();
   const combined = [...(roleReplies[currentRole] || []), ...generalReplies];
@@ -294,10 +303,12 @@ function findCannedReply(message) {
   return FALLBACK_REPLY;
 }
 
+// Formats or checks reply so later code can use a clean value.
 function buildReply(message) {
   return findKnowledgeReply(message) || findCannedReply(message);
 }
 
+// Creates chat UI when the workflow needs a new record or message.
 function createChatUI() {
   const chatbot = document.createElement('div');
   chatbot.id = 'floating-chatbot';
@@ -476,6 +487,7 @@ function createChatUI() {
   document.head.appendChild(style);
 }
 
+// Renders quick buttons into the HTML so the user can see it.
 function renderQuickButtons() {
   const quickActions = document.getElementById('chatbot-quick-actions');
   if (!quickActions) {
@@ -488,11 +500,13 @@ function renderQuickButtons() {
     button.type = 'button';
     button.className = 'chatbot-quick-btn';
     button.textContent = label;
+    // Connects this element event to the handler that should run next.
     button.addEventListener('click', () => handleSend(label));
     quickActions.appendChild(button);
   });
 }
 
+// Helper function for append message used by this script.
 function appendMessage(role, text) {
   const messages = document.getElementById('chatbot-messages');
   if (!messages) {
@@ -506,8 +520,10 @@ function appendMessage(role, text) {
   messages.scrollTop = messages.scrollHeight;
 }
 
+// Handles the send action triggered by the user.
 async function handleSend(forcedText = '') {
   const input = document.getElementById('chatbot-text');
+  // Helper function for text used by this script.
   const text = (forcedText || input?.value || '').trim();
   if (!text) {
     return;
@@ -539,6 +555,7 @@ async function handleSend(forcedText = '') {
   }
 }
 
+// Sets up events when this script is loaded.
 function bindEvents() {
   const toggle = document.getElementById('chatbot-toggle');
   const close = document.getElementById('chatbot-close');
@@ -562,6 +579,7 @@ function bindEvents() {
   });
 }
 
+// Sets up floating chat when this script is loaded.
 async function initFloatingChat() {
   // 1. Create UI first so it is visible immediately
   createChatUI();
@@ -587,5 +605,6 @@ async function initFloatingChat() {
 if (document.readyState === 'complete' || document.readyState === 'interactive') {
   initFloatingChat();
 } else {
+  // Waits until the HTML has loaded before running page setup code.
   document.addEventListener('DOMContentLoaded', initFloatingChat);
 }

@@ -1,3 +1,6 @@
+/**
+ * EasyEarn file note: Handles the jobs page behavior and related user interactions.
+ */
 // jobs page scripts
 import { supabase } from './supabase-config.js';
 import { fetchPublicProfilesByIds } from './supabase-data.js';
@@ -25,11 +28,13 @@ import { fetchPublicProfilesByIds } from './supabase-data.js';
     logistics: 'delivery'
   };
 
+  // Helper function for normalise category used by this script.
   function normaliseCategory(raw) {
     if (!raw) return 'other';
     return CATEGORY_MAP[String(raw).toLowerCase().trim()] || 'other';
   }
 
+  // Helper function for relative date used by this script.
   function relativeDate(dateStr) {
     if (!dateStr) return '';
     const diff = Math.floor((Date.now() - new Date(dateStr)) / 86400000);
@@ -38,9 +43,12 @@ import { fetchPublicProfilesByIds } from './supabase-data.js';
     return `Posted ${diff} days ago`;
   }
 
+  // Helper function for haversine km used by this script.
   function haversineKm(lat1, lng1, lat2, lng2) {
     const R = 6371;
+    // Helper function for d lat used by this script.
     const dLat = (lat2 - lat1) * Math.PI / 180;
+    // Helper function for d lng used by this script.
     const dLng = (lng2 - lng1) * Math.PI / 180;
     const a = Math.sin(dLat / 2) ** 2
       + Math.cos(lat1 * Math.PI / 180) * Math.cos(lat2 * Math.PI / 180)
@@ -49,6 +57,7 @@ import { fetchPublicProfilesByIds } from './supabase-data.js';
   }
 
   const geocodeCache = {};
+  // Helper function for geocode location used by this script.
   async function geocodeLocation(locationStr) {
     if (!locationStr) return null;
     const key = locationStr.toLowerCase().trim();
@@ -72,6 +81,7 @@ import { fetchPublicProfilesByIds } from './supabase-data.js';
     return null;
   }
 
+  // Helper function for normalise job used by this script.
   function normaliseJob(job = {}) {
     return {
       id: job.id || '',
@@ -90,6 +100,7 @@ import { fetchPublicProfilesByIds } from './supabase-data.js';
     };
   }
 
+  // Helper function for query jobs table used by this script.
   async function queryJobsTable(tableName) {
     const isLegacyJobsTable = tableName === 'jobs';
     const selectClause = isLegacyJobsTable
@@ -106,6 +117,7 @@ import { fetchPublicProfilesByIds } from './supabase-data.js';
     return (data || []).map(normaliseJob);
   }
 
+  // Loads jobs data so the page can display current information.
   async function fetchJobs() {
     let lastError = null;
 
@@ -122,6 +134,7 @@ import { fetchPublicProfilesByIds } from './supabase-data.js';
     return [];
   }
 
+  // Renders card into the HTML so the user can see it.
   function renderCard(job) {
     const title = escapeHtml(job.title);
     const location = escapeHtml(job.location);
@@ -166,12 +179,14 @@ import { fetchPublicProfilesByIds } from './supabase-data.js';
       </div>`;
   }
 
+  // Helper function for apply filters used by this script.
   async function applyFilters() {
     const grid = document.getElementById('jobs-grid');
     const empty = document.getElementById('jobs-empty');
     const searchInput = document.getElementById('jobs-search');
     if (!grid) return;
 
+    // Helper function for term used by this script.
     const term = (searchInput?.value || '').trim().toLowerCase();
 
     let filtered = allJobs.filter((job) => {
@@ -200,6 +215,7 @@ import { fetchPublicProfilesByIds } from './supabase-data.js';
     if (empty) empty.style.display = filtered.length === 0 ? 'block' : 'none';
   }
 
+  // Sets up location UI when this script is loaded.
   function initLocationUI() {
     const btnLocate = document.getElementById('btn-locate');
     const locBar = document.getElementById('location-bar');
@@ -208,6 +224,7 @@ import { fetchPublicProfilesByIds } from './supabase-data.js';
     const btnClear = document.getElementById('btn-clear-location');
     if (!btnLocate) return;
 
+    // Connects this element event to the handler that should run next.
     btnLocate.addEventListener('click', () => {
       if (!navigator.geolocation) {
         alert('Geolocation is not supported by your browser.');
@@ -269,6 +286,7 @@ import { fetchPublicProfilesByIds } from './supabase-data.js';
     });
   }
 
+  // Loads jobs data so the page can display current information.
   async function loadJobs() {
     const loading = document.getElementById('jobs-loading');
     const empty = document.getElementById('jobs-empty');
@@ -300,6 +318,7 @@ import { fetchPublicProfilesByIds } from './supabase-data.js';
     }
   }
 
+  // Sets up init when this script is loaded.
   function init() {
     const searchInput = document.getElementById('jobs-search');
     const filters = document.getElementById('jobs-filters');
@@ -319,11 +338,13 @@ import { fetchPublicProfilesByIds } from './supabase-data.js';
   }
 
   if (document.readyState === 'loading') {
+    // Waits until the HTML has loaded before running page setup code.
     document.addEventListener('DOMContentLoaded', init);
   } else {
     init();
   }
 
+  // Formats or checks HTML so later code can use a clean value.
   function escapeHtml(str) {
     return String(str)
       .replace(/&/g, '&amp;')

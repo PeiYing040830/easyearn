@@ -1,5 +1,7 @@
 <!DOCTYPE html>
+<!-- EasyEarn file note: Builds the work history page layout and connects it to shared styles/scripts. -->
 <html lang="en">
+<!-- Head section stores page settings, title, icons, and stylesheet links. -->
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,11 +10,17 @@
 <link rel="stylesheet" href="../../css/landing.css">
   <link rel="stylesheet" href="jobseeker-pages.css?v=20260829e">
 </head>
+<!-- Body section contains everything the user can see or interact with. -->
 <body>
+  <!-- Shared header/navigation is injected here by includes.js. -->
   <div id="site-header"></div>
+  <!-- Main area contains the primary page content. -->
   <main class="jobseeker-shell work-history-shell">
+    <!-- Section for the history hero panel area of this page. -->
     <section class="history-hero-panel">
+      <!-- Container for the jobseeker header content and layout. -->
       <div class="jobseeker-header history-hero-copy">
+        <!-- Container for the hero badge content and layout. -->
         <div class="hero-badge">Work History</div>
         <h1>Completed Jobs</h1>
         <p>Save completed gigs here so your earnings, resume, and job history stay consistent.</p>
@@ -25,6 +33,7 @@
       </aside>
     </section>
 
+    <!-- Section for the jobseeker grid area of this page. -->
     <section class="jobseeker-grid history-summary-grid history-metric-grid">
       <article class="jobseeker-card metric-card history-metric-card" style="border-top:3px solid #22c55e;">
         <span class="history-metric-icon">JG</span>
@@ -46,17 +55,22 @@
       </article>
     </section>
 
+    <!-- Section for the jobseeker grid area of this page. -->
     <section class="jobseeker-grid history-layout-grid">
       <article class="jobseeker-card chart-card history-editor-card">
+        <!-- Container for the section heading row content and layout. -->
         <div class="section-heading-row">
           <div>
+            <!-- Container for the hero badge content and layout. -->
             <div class="hero-badge">Add Completed Gig</div>
             <h2>Save work record</h2>
             <p>Each saved record can later appear in your resume and earnings dashboard.</p>
           </div>
         </div>
 
+        <!-- Form where users enter and submit work history details. -->
         <form id="work-history-form" class="profile-form">
+          <!-- Container for the profile form grid content and layout. -->
           <div class="profile-form-grid">
             <label class="profile-field">
               <span>Job title</span>
@@ -97,6 +111,7 @@
             </label>
           </div>
 
+          <!-- Container for the profile actions row content and layout. -->
           <div class="profile-actions-row history-form-actions action-with-status">
             <button type="submit" class="btn-primary" id="save-work-history-btn">Save Work Record</button>
             <p id="work-history-status" class="profile-inline-status action-status-message">Save result will appear here.</p>
@@ -105,13 +120,16 @@
       </article>
 
       <article class="jobseeker-card chart-card history-insight-card">
+        <!-- Container for the section heading row content and layout. -->
         <div class="section-heading-row">
           <div>
+            <!-- Container for the hero badge content and layout. -->
             <div class="hero-badge">Resume Status</div>
             <h2>Keep resume ready</h2>
             <p>Saved work records here feed directly into your resume preview and future PDF export.</p>
           </div>
         </div>
+        <!-- Container for the distribution list content and layout. -->
         <div class="distribution-list">
           <div class="distribution-row history-progress-row">
             <span class="history-progress-label">Saved records</span>
@@ -124,7 +142,9 @@
             <strong class="history-progress-value" id="history-resume-status">No</strong>
           </div>
         </div>
+        <!-- Container for the history resume card content and layout. -->
         <div class="history-resume-card">
+          <!-- Container for the history resume copy content and layout. -->
           <div class="history-resume-copy">
             <p>Your resume page reads from your saved profile and work_history table, so you only need to maintain one source of truth.</p>
             <small>Save completed gigs here and your resume preview will stay up to date automatically.</small>
@@ -134,15 +154,20 @@
       </article>
     </section>
 
+    <!-- Section for the jobseeker card area of this page. -->
     <section class="jobseeker-card history-records-card">
+      <!-- Container for the section heading row content and layout. -->
       <div class="section-heading-row">
         <div>
+          <!-- Container for the hero badge content and layout. -->
           <div class="hero-badge">Completed Gigs</div>
           <h2>Recent work record</h2>
           <p>These entries are loaded from your Supabase work_history table.</p>
         </div>
       </div>
+      <!-- Container for the jobseeker list content and layout. -->
       <div class="jobseeker-list history-list" id="history-list">
+        <!-- Container for the jobseeker item content and layout. -->
         <div class="jobseeker-item history-item">
           <div>
             <strong>No work history yet</strong>
@@ -187,12 +212,16 @@
     </div>
   </div>
 
+  <!-- Inline script runs page-specific JavaScript behavior. -->
   <script>
     window.EASYEARN_BASE_PATH = '../../';
     window.EASYEARN_HEADER_PATH = '../../partials/header-jobseeker.html';
   </script>
+  <!-- Loads translation support for multilingual users. -->
   <script src="../../js/translate.js" defer></script>
+  <!-- Loads shared header and footer partials. -->
   <script src="../../js/includes.js?v=20260802a" defer></script>
+  <!-- Loads the JavaScript file that controls this page: ../../js/jobseeker-work-history.js?v=20260802a. -->
   <script type="module" src="../../js/jobseeker-work-history.js?v=20260802a"></script>
 </body>
 </html>

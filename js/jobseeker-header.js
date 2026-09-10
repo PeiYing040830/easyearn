@@ -1,8 +1,12 @@
+/**
+ * EasyEarn file note: Handles the jobseeker header page behavior and related user interactions.
+ */
 import { fetchProfile, getInitials, observeAuth, signOutUser } from './supabase-data.js';
 
 (function () {
   'use strict';
 
+  // Updates header after the user changes something or data is refreshed.
   function updateHeader(name, photoSrc = '') {
     const navName = document.getElementById('nav-user-name');
     const navBadge = document.getElementById('nav-user-badge');
@@ -22,23 +26,27 @@ import { fetchProfile, getInitials, observeAuth, signOutUser } from './supabase-
     navBadge.textContent = getInitials(name || 'Job Seeker', 'JS');
   }
 
+  // Sets up logout when this script is loaded.
   function bindLogout() {
     const logoutBtn = document.getElementById('nav-logout-btn');
     if (!logoutBtn || logoutBtn.dataset.bound === 'true') return;
 
     logoutBtn.dataset.bound = 'true';
+    // Connects this element event to the handler that should run next.
     logoutBtn.addEventListener('click', async () => {
       await signOutUser();
       window.location.href = '../../logout.html';
     });
   }
 
+  // Formats or checks role so later code can use a clean value.
   function normalizeRole(role) {
     const value = String(role || '').trim().toLowerCase();
     if (value === 'jobseeker' || value === 'job seeker') return 'seeker';
     return value;
   }
 
+  // Runs the non jobseeker step for this page workflow.
   function redirectNonJobseeker(role) {
     if (role === 'admin') {
       window.location.href = '../admin/dashboard.html';

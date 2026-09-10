@@ -1,3 +1,6 @@
+/**
+ * EasyEarn file note: Handles the includes page behavior and related user interactions.
+ */
 function loadPartial(id, path) {
   const target = document.getElementById(id);
   if (!target) return Promise.resolve(false);
@@ -14,6 +17,7 @@ function loadPartial(id, path) {
     });
 }
 
+// Helper function for highlight current nav used by this script.
 function highlightCurrentNav() {
   const navLinks = document.querySelectorAll('#site-header .nav-links a[href]');
   if (!navLinks.length) return;
@@ -44,17 +48,21 @@ function highlightCurrentNav() {
   }
 }
 
+// Sets up hamburger menu when this script is loaded.
 function initHamburgerMenu() {
   const hamburgerBtn = document.getElementById('hamburger-btn');
   const navbar = document.querySelector('.marketing-navbar') || document.querySelector('.app-navbar');
   if (!hamburgerBtn || !navbar) return;
 
+  // Helper function for toggle menu used by this script.
   function toggleMenu() {
     navbar.classList.toggle('nav-active');
   }
 
+  // Connects this element event to the handler that should run next.
   hamburgerBtn.addEventListener('click', toggleMenu);
 
+  // Waits until the HTML has loaded before running page setup code.
   document.addEventListener('click', (e) => {
     if (!navbar.contains(e.target) && navbar.classList.contains('nav-active')) {
       navbar.classList.remove('nav-active');
@@ -62,6 +70,7 @@ function initHamburgerMenu() {
   });
 }
 
+// Formats or checks footer links so later code can use a clean value.
 function normalizeFooterLinks(basePath) {
   const footerLinks = document.querySelectorAll('#site-footer a[href]');
   if (!footerLinks.length) return;
@@ -79,12 +88,14 @@ function normalizeFooterLinks(basePath) {
   });
 }
 
+// Formats or checks logo path so later code can use a clean value.
 function normalizeLogoPath(basePath) {
   const logoImg = document.querySelector('#site-header .nav-logo');
   if (!logoImg) return;
   logoImg.setAttribute('src', `${basePath}images/logo.png`);
 }
 
+// Runs the favicon step for this page workflow.
 function ensureFavicon(basePath) {
   const existingIcon = document.querySelector('link[rel~="icon"]');
   if (existingIcon) return;
@@ -96,6 +107,7 @@ function ensureFavicon(basePath) {
   document.head.appendChild(icon);
 }
 
+// Waits until the HTML has loaded before running page setup code.
 document.addEventListener('DOMContentLoaded', () => {
   const basePath = window.EASYEARN_BASE_PATH || '';
   const headerPath = window.EASYEARN_HEADER_PATH || `${basePath}partials/header.html`;

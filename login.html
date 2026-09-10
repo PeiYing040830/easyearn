@@ -1,5 +1,7 @@
 <!DOCTYPE html>
+<!-- EasyEarn file note: Builds the login page layout and connects it to shared styles/scripts. -->
 <html lang="en">
+<!-- Head section stores page settings, title, icons, and stylesheet links. -->
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -157,6 +159,7 @@
   </style>
 </head>
 <body class="auth-bg-page">
+  <!-- Shared header/navigation is injected here by includes.js. -->
   <div id="site-header"></div>
 
   <div class="auth-container">
@@ -176,10 +179,12 @@
           <h1>Welcome back</h1>
           <p>Sign in to your EasyEarn account</p>
         </div>
+        <!-- Container for the form group content and layout. -->
         <div class="form-group">
           <label>Email</label>
           <input type="email" id="login-email" placeholder="Enter your email">
         </div>
+        <!-- Container for the form group content and layout. -->
         <div class="form-group">
           <label>Password</label>
           <div class="password-field">
@@ -198,14 +203,17 @@
           <h1>Create account</h1>
           <p>Join EasyEarn and start earning</p>
         </div>
+        <!-- Container for the form group content and layout. -->
         <div class="form-group">
           <label>Full Name</label>
           <input type="text" id="name" placeholder="Enter your full name">
         </div>
+        <!-- Container for the form group content and layout. -->
         <div class="form-group">
           <label>Email</label>
           <input type="email" id="email" placeholder="Enter your email">
         </div>
+        <!-- Container for the form group content and layout. -->
         <div class="form-group">
           <label>Password</label>
           <div class="password-field">
@@ -213,6 +221,7 @@
             <button class="password-toggle" type="button" data-toggle-target="password" aria-label="Show password">👀</button>
           </div>
         </div>
+        <!-- Container for the form group content and layout. -->
         <div class="form-group">
           <label>Confirm Password</label>
           <div class="password-field">
@@ -220,23 +229,28 @@
             <button class="password-toggle" type="button" data-toggle-target="confirm-password" aria-label="Show password">👀</button>
           </div>
         </div>
+        <!-- Container for the form group content and layout. -->
         <div class="form-group">
           <label>I am a...</label>
           <div class="role-selector">
+            <!-- Container for the role card content and layout. -->
             <div class="role-card selected" id="role-seeker" onclick="selectRole('seeker')">
               <span class="role-icon">💼</span>
               <span>Job Seeker</span>
             </div>
+            <!-- Container for the role card content and layout. -->
             <div class="role-card" id="role-employer" onclick="selectRole('employer')">
               <span class="role-icon">👨‍💼</span>
               <span>Employer</span>
             </div>
+            <!-- Container for the role card content and layout. -->
             <div class="role-card" id="role-admin" onclick="selectRole('admin')">
               <span class="role-icon">🔒</span>
               <span>Admin</span>
             </div>
           </div>
         </div>
+        <!-- Container for the form group content and layout. -->
         <div class="form-group admin-code" id="employer-code-group">
           <label>Employer Secure Code</label>
           <div class="password-field">
@@ -244,6 +258,7 @@
             <button class="password-toggle" type="button" data-toggle-target="employer-code" aria-label="Show secure code">👀</button>
           </div>
         </div>
+        <!-- Container for the form group content and layout. -->
         <div class="form-group admin-code" id="admin-code-group">
           <label>Admin Secure Code</label>
           <div class="password-field">
@@ -303,6 +318,7 @@
     </div>
   </div>
 
+  <!-- Inline script runs page-specific JavaScript behavior. -->
   <script>
     // Called by js/auth.js after a successful login/register, before redirecting
     window.showWelcomeOverlay = function(redirectUrl) {
@@ -327,9 +343,12 @@
   </script>
 
 
+  <!-- Loads translation support for multilingual users. -->
   <script src="js/translate.js" defer></script>
+  <!-- Loads shared header and footer partials. -->
   <script src="js/includes.js" defer></script>
 
+  <!-- Inline script runs page-specific JavaScript behavior. -->
   <script>
     // ── Tab switching ──
     function switchTab(tab) {
@@ -351,6 +370,7 @@
     if (initTab === 'register') switchTab('register');
   </script>
 
+  <!-- Loads the JavaScript file that controls this page: js/auth.js. -->
   <script type="module" src="js/auth.js"></script>
 </body>
 </html>

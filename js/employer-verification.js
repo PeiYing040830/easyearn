@@ -1,3 +1,6 @@
+/**
+ * EasyEarn file note: Handles the employer verification page behavior and related user interactions.
+ */
 import { fetchProfile, observeAuth, updateEmployerVerification, notifyAdmins } from './supabase-data.js?v=20260901a';
 
 (function () {
@@ -54,6 +57,7 @@ import { fetchProfile, observeAuth, updateEmployerVerification, notifyAdmins } f
     reviewNotes: ''
   };
 
+  // Helper function for notify status used by this script.
   function notifyStatus(message, type = '') {
     const text = String(message || '');
     const shouldShow = type || /\b(saved|submitted|approved|rejected|success|unable|failed|error|required|cannot)\b/i.test(text);
@@ -62,6 +66,7 @@ import { fetchProfile, observeAuth, updateEmployerVerification, notifyAdmins } f
     window.EasyEarnToast?.show(text, toastType);
   }
 
+  // Updates submit status after the user changes something or data is refreshed.
   function setSubmitStatus(message, type = '') {
     if (!submitStatusEl) return;
     submitStatusEl.textContent = message;
@@ -70,6 +75,7 @@ import { fetchProfile, observeAuth, updateEmployerVerification, notifyAdmins } f
     notifyStatus(message, type);
   }
 
+  // Updates field status after the user changes something or data is refreshed.
   function setFieldStatus(key, message, type = '') {
     const el = files[key]?.status;
     if (!el) return;
@@ -78,6 +84,7 @@ import { fetchProfile, observeAuth, updateEmployerVerification, notifyAdmins } f
     if (type === 'error') el.classList.add('is-error');
   }
 
+  // Updates busy after the user changes something or data is refreshed.
   function setBusy(button, busy) {
     if (!button) return;
     if (!button.dataset.defaultText) {
@@ -87,12 +94,14 @@ import { fetchProfile, observeAuth, updateEmployerVerification, notifyAdmins } f
     button.textContent = busy ? 'Submitting...' : button.dataset.defaultText;
   }
 
+  // Updates metric after the user changes something or data is refreshed.
   function setMetric(metric, percentage) {
     const rounded = Math.max(0, Math.min(100, Math.round(percentage)));
     if (metric.bar) metric.bar.style.width = `${rounded}%`;
     if (metric.value) metric.value.textContent = `${rounded}%`;
   }
 
+  // Helper function for read image or file used by this script.
   function readImageOrFile(file) {
     return new Promise((resolve, reject) => {
       const reader = new FileReader();
@@ -102,6 +111,7 @@ import { fetchProfile, observeAuth, updateEmployerVerification, notifyAdmins } f
     });
   }
 
+  // Loads image element data so the page can display current information.
   function loadImageElement(src) {
     return new Promise((resolve, reject) => {
       const image = new Image();
@@ -111,6 +121,7 @@ import { fetchProfile, observeAuth, updateEmployerVerification, notifyAdmins } f
     });
   }
 
+  // Helper function for compress if image used by this script.
   async function compressIfImage(file) {
     if (!file.type.startsWith('image/')) {
       return readImageOrFile(file);
@@ -146,6 +157,7 @@ import { fetchProfile, observeAuth, updateEmployerVerification, notifyAdmins } f
     return output;
   }
 
+  // Updates dashboard after the user changes something or data is refreshed.
   function updateDashboard(profile = {}) {
     const hasCompanyProfile = Boolean(
       (profile.companyName || profile.businessName || profile.name) &&
@@ -190,6 +202,7 @@ import { fetchProfile, observeAuth, updateEmployerVerification, notifyAdmins } f
     }
   }
 
+  // Runs the status with profile step for this page workflow.
   function syncStatusWithProfile(profile = {}) {
     savedPackage.status = profile.isVerified ? 'approved' : (profile.verificationStatus || savedPackage.status || 'pending');
     savedPackage.ssmNumber = profile.ssmNumber || savedPackage.ssmNumber || '';
@@ -211,6 +224,7 @@ import { fetchProfile, observeAuth, updateEmployerVerification, notifyAdmins } f
     if (savedPackage.contact) setFieldStatus('contact', `Saved: ${savedPackage.contact.name}`, 'success');
   }
 
+  // Helper function for prepare file used by this script.
   async function prepareFile(key) {
     const file = selectedFiles[key];
     if (!file) return savedPackage[key];
@@ -236,6 +250,7 @@ import { fetchProfile, observeAuth, updateEmployerVerification, notifyAdmins } f
     return payload;
   }
 
+  // Handles the submit action triggered by the user.
   async function handleSubmit(event) {
     event.preventDefault();
     if (!currentUser) return;
@@ -318,6 +333,7 @@ import { fetchProfile, observeAuth, updateEmployerVerification, notifyAdmins } f
     }
   }
 
+  // Sets up file inputs when this script is loaded.
   function bindFileInputs() {
     Object.entries(files).forEach(([key, field]) => {
       field.input?.addEventListener('change', () => {

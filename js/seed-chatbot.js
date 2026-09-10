@@ -1,3 +1,6 @@
+/**
+ * EasyEarn file note: Handles the seed chatbot page behavior and related user interactions.
+ */
 import {
   deleteKnowledgeEntry,
   fetchKnowledgeBase,
@@ -21,6 +24,7 @@ const insertStatusEl = document.getElementById('knowledge-insert-status');
 let knowledgeEntries = [];
 let editingEntryId = '';
 
+// Formats or checks date so later code can use a clean value.
 function formatDate(value) {
   if (!value) return 'No date';
   const date = new Date(value);
@@ -28,6 +32,7 @@ function formatDate(value) {
   return date.toLocaleString('en-MY', { dateStyle: 'medium', timeStyle: 'short' });
 }
 
+// Formats or checks search so later code can use a clean value.
 function matchesSearch(entry, term) {
   if (!term) return true;
   return [
@@ -38,6 +43,7 @@ function matchesSearch(entry, term) {
   ].some((value) => String(value || '').toLowerCase().includes(term));
 }
 
+// Helper function for append text used by this script.
 function appendText(parent, tagName, className, text) {
   const element = document.createElement(tagName);
   if (className) element.className = className;
@@ -46,6 +52,7 @@ function appendText(parent, tagName, className, text) {
   return element;
 }
 
+// Updates insert status after the user changes something or data is refreshed.
 function setInsertStatus(message, type = '') {
   if (!insertStatusEl) return;
   insertStatusEl.textContent = message;
@@ -53,6 +60,7 @@ function setInsertStatus(message, type = '') {
   insertStatusEl.classList.toggle('is-error', type === 'error');
 }
 
+// Clears or removes insert form from the UI or database.
 function clearInsertForm() {
   if (insertForm) insertForm.reset();
   editingEntryId = '';
@@ -60,6 +68,7 @@ function clearInsertForm() {
   setInsertStatus('Ready to add a new entry.');
 }
 
+// Renders knowledge list into the HTML so the user can see it.
 function renderKnowledgeList() {
   if (!listEl) return;
 
@@ -131,6 +140,7 @@ function renderKnowledgeList() {
   });
 }
 
+// Loads knowledge base data so the page can display current information.
 async function loadKnowledgeBase() {
   if (refreshBtn) refreshBtn.disabled = true;
   if (countEl) countEl.textContent = 'Loading...';
@@ -154,6 +164,7 @@ async function loadKnowledgeBase() {
   }
 }
 
+// Creates knowledge entry when the workflow needs a new record or message.
 async function insertKnowledgeEntry(event) {
   event.preventDefault();
 
@@ -191,6 +202,7 @@ async function insertKnowledgeEntry(event) {
   }
 }
 
+// Helper function for start edit entry used by this script.
 function startEditEntry(entryId) {
   const entry = knowledgeEntries.find((item) => item.id === entryId);
   if (!entry) return;
@@ -205,6 +217,7 @@ function startEditEntry(entryId) {
   insertForm?.scrollIntoView({ behavior: 'smooth', block: 'center' });
 }
 
+// Clears or removes entry from the UI or database.
 async function removeEntry(entryId) {
   const entry = knowledgeEntries.find((item) => item.id === entryId);
   if (!entry) return;
@@ -225,22 +238,27 @@ async function removeEntry(entryId) {
 }
 
 if (searchInput) {
+  // Connects this element event to the handler that should run next.
   searchInput.addEventListener('input', renderKnowledgeList);
 }
 
 if (refreshBtn) {
+  // Connects this element event to the handler that should run next.
   refreshBtn.addEventListener('click', loadKnowledgeBase);
 }
 
 if (insertForm) {
+  // Connects this element event to the handler that should run next.
   insertForm.addEventListener('submit', insertKnowledgeEntry);
 }
 
 if (clearBtn) {
+  // Connects this element event to the handler that should run next.
   clearBtn.addEventListener('click', clearInsertForm);
 }
 
 if (listEl) {
+  // Connects this element event to the handler that should run next.
   listEl.addEventListener('click', (event) => {
     const button = event.target.closest('button[data-entry-id]');
     if (!button) return;

@@ -1,3 +1,6 @@
+/**
+ * EasyEarn file note: Handles the report page behavior and related user interactions.
+ */
 import { observeAuth, fetchProfile, createReport, notifyAdmins } from './supabase-data.js';
 
 (function () {
@@ -6,6 +9,7 @@ import { observeAuth, fetchProfile, createReport, notifyAdmins } from './supabas
   let currentUser = null;
   let currentProfile = null;
 
+  // Sets up report hero slides when this script is loaded.
   function initReportHeroSlides() {
     const slides = document.querySelectorAll('.report-hero-slide');
     if (!slides.length) return;
@@ -18,6 +22,7 @@ import { observeAuth, fetchProfile, createReport, notifyAdmins } from './supabas
     }, 5000);
   }
 
+  // Formats or checks report type so later code can use a clean value.
   function mapReportType(label) {
     const value = String(label || '').toLowerCase();
     if (value.includes('suspicious') || value.includes('fake')) return 'fake_job';
@@ -26,10 +31,12 @@ import { observeAuth, fetchProfile, createReport, notifyAdmins } from './supabas
     return 'other';
   }
 
+  // Loads field data so the page can display current information.
   function getField(id) {
     return document.getElementById(id);
   }
 
+  // Runs the status element step for this page workflow.
   function ensureStatusElement(form) {
     let el = form.querySelector('.report-submit-status');
     if (el) return el;
@@ -40,16 +47,19 @@ import { observeAuth, fetchProfile, createReport, notifyAdmins } from './supabas
     return el;
   }
 
+  // Updates status after the user changes something or data is refreshed.
   function setStatus(form, message, isError = false) {
     const el = ensureStatusElement(form);
     el.textContent = message;
     el.style.color = isError ? '#d14343' : '#1f8f46';
   }
 
+  // Formats or checks valid email so later code can use a clean value.
   function isValidEmail(value) {
     return /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/i.test(String(value || '').trim());
   }
 
+  // Formats or checks valid optional URL so later code can use a clean value.
   function isValidOptionalUrl(value) {
     if (!value) return true;
     try {
@@ -60,12 +70,14 @@ import { observeAuth, fetchProfile, createReport, notifyAdmins } from './supabas
     }
   }
 
+  // Formats or checks allowed evidence file so later code can use a clean value.
   function isAllowedEvidenceFile(file) {
     if (!file) return true;
     const allowedTypes = ['application/pdf', 'image/png', 'image/jpeg', 'image/webp'];
     return allowedTypes.includes(file.type);
   }
 
+  // Formats or checks description so later code can use a clean value.
   function buildDescription() {
     const role = getField('report-role')?.value?.trim() || 'Other';
     const link = getField('report-link')?.value?.trim() || '';
@@ -78,6 +90,7 @@ import { observeAuth, fetchProfile, createReport, notifyAdmins } from './supabas
     return [roleLine, linkLine, evidenceLine, '', description].join('\n');
   }
 
+  // Helper function for validate form used by this script.
   function validateForm() {
     const name = getField('report-name')?.value?.trim();
     const email = getField('report-email')?.value?.trim();
@@ -116,12 +129,14 @@ import { observeAuth, fetchProfile, createReport, notifyAdmins } from './supabas
     return '';
   }
 
+  // Updates submitting after the user changes something or data is refreshed.
   function setSubmitting(form, button, submitting) {
     button.disabled = submitting;
     button.textContent = submitting ? 'Submitting...' : 'Submit Report';
     form.classList.toggle('is-submitting', submitting);
   }
 
+  // Helper function for prefill profile used by this script.
   function prefillProfile() {
     if (!currentUser) return;
 
@@ -145,6 +160,7 @@ import { observeAuth, fetchProfile, createReport, notifyAdmins } from './supabas
     }
   }
 
+  // Sets up report form when this script is loaded.
   function initReportForm() {
     const form = document.getElementById('report-form');
     if (!form) return;
@@ -152,6 +168,7 @@ import { observeAuth, fetchProfile, createReport, notifyAdmins } from './supabas
     const submitButton = form.querySelector('button[type="submit"]');
     if (!submitButton) return;
 
+    // Connects this element event to the handler that should run next.
     form.addEventListener('submit', async (event) => {
       event.preventDefault();
 
@@ -203,6 +220,7 @@ import { observeAuth, fetchProfile, createReport, notifyAdmins } from './supabas
     });
   }
 
+  // Helper function for boot used by this script.
   function boot() {
     initReportHeroSlides();
     initReportForm();
@@ -224,6 +242,7 @@ import { observeAuth, fetchProfile, createReport, notifyAdmins } from './supabas
   }
 
   if (document.readyState === 'loading') {
+    // Waits until the HTML has loaded before running page setup code.
     document.addEventListener('DOMContentLoaded', boot);
   } else {
     boot();

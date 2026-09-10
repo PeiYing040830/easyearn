@@ -1,3 +1,6 @@
+/**
+ * EasyEarn file note: Handles the prototype page behavior and related user interactions.
+ */
 (function () {
   const STORAGE_KEY = 'easyearnPrototypeState';
   const USERS_KEY = 'easyearnPrototypeUsers';
@@ -28,6 +31,7 @@
   let state = loadState();
   let session = loadSession();
 
+  // Loads state data so the page can display current information.
   function loadState() {
     try {
       return {
@@ -39,12 +43,14 @@
     }
   }
 
+  // Runs the state step for this page workflow.
   function saveState(nextState) {
     state = { ...state, ...nextState };
     localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
     renderState();
   }
 
+  // Loads users data so the page can display current information.
   function loadUsers() {
     try {
       return JSON.parse(localStorage.getItem(USERS_KEY) || '[]');
@@ -53,10 +59,12 @@
     }
   }
 
+  // Runs the users step for this page workflow.
   function saveUsers(users) {
     localStorage.setItem(USERS_KEY, JSON.stringify(users));
   }
 
+  // Loads session data so the page can display current information.
   function loadSession() {
     try {
       return JSON.parse(localStorage.getItem(SESSION_KEY) || 'null');
@@ -65,6 +73,7 @@
     }
   }
 
+  // Runs the session step for this page workflow.
   function saveSession(user) {
     session = user;
     if (user) {
@@ -75,30 +84,36 @@
     renderSession();
   }
 
+  // Helper function for text used by this script.
   function text(id, value) {
     const el = document.getElementById(id);
     if (el) el.textContent = value;
   }
 
+  // Updates disabled after the user changes something or data is refreshed.
   function setDisabled(id, disabled) {
     const el = document.getElementById(id);
     if (el) el.disabled = disabled;
   }
 
+  // Updates done after the user changes something or data is refreshed.
   function setDone(id, done) {
     const el = document.getElementById(id);
     if (el) el.classList.toggle('done', done);
   }
 
+  // Helper function for value used by this script.
   function value(id) {
     return document.getElementById(id)?.value.trim() || '';
   }
 
+  // Updates value after the user changes something or data is refreshed.
   function setValue(id, nextValue) {
     const el = document.getElementById(id);
     if (el) el.value = nextValue;
   }
 
+  // Shows the page message or section when the user needs feedback.
   function showPage(pageId) {
     const protectedPages = ['jobseeker', 'employer', 'admin'];
 
@@ -121,12 +136,14 @@
     });
   }
 
+  // Helper function for page for role used by this script.
   function pageForRole(role) {
     if (role === 'employer') return 'employer';
     if (role === 'admin') return 'admin';
     return 'jobseeker';
   }
 
+  // Renders session into the HTML so the user can see it.
   function renderSession(message) {
     const summary = session
       ? `Logged in as ${session.name} (${formatRole(session.role)})`
@@ -136,6 +153,7 @@
     text('auth-message', message || summary);
   }
 
+  // Formats or checks role so later code can use a clean value.
   function formatRole(role) {
     const labels = {
       jobseeker: 'Job Seeker',
@@ -145,6 +163,7 @@
     return labels[role] || 'Job Seeker';
   }
 
+  // Shows the panel message or section when the user needs feedback.
   function showPanel(panelId) {
     const panel = document.getElementById(panelId);
     if (!panel) return;
@@ -159,6 +178,7 @@
     });
   }
 
+  // Helper function for application rank used by this script.
   function applicationRank() {
     const order = {
       not_applied: 0,
@@ -170,6 +190,7 @@
     return order[state.applicationStatus] || 0;
   }
 
+  // Renders state into the HTML so the user can see it.
   function renderState() {
     const isVerified = state.verificationStatus === 'approved';
     const verificationPending = state.verificationStatus === 'pending';
@@ -259,6 +280,7 @@
     if (saveJobBtn) saveJobBtn.textContent = state.savedJob ? 'Saved' : 'Save Job';
   }
 
+  // Helper function for language text used by this script.
   function languageText(language) {
     const readableLabels = {
       en: 'Language demo: English interface selected.',
@@ -277,6 +299,7 @@
     return labels[language] || labels.en;
   }
 
+  // Formats or checks application status so later code can use a clean value.
   function formatApplicationStatus(status) {
     const labels = {
       not_applied: 'Not Applied',
@@ -289,10 +312,12 @@
   }
 
   document.querySelectorAll('.nav-btn, .go-page').forEach((button) => {
+    // Connects this element event to the handler that should run next.
     button.addEventListener('click', () => showPage(button.dataset.page));
   });
 
   document.querySelectorAll('.sub-btn').forEach((button) => {
+    // Connects this element event to the handler that should run next.
     button.addEventListener('click', () => showPanel(button.dataset.panel));
   });
 

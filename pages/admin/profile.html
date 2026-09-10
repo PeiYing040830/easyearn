@@ -1,5 +1,7 @@
 <!DOCTYPE html>
+<!-- EasyEarn file note: Builds the profile page layout and connects it to shared styles/scripts. -->
 <html lang="en">
+<!-- Head section stores page settings, title, icons, and stylesheet links. -->
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,8 +10,11 @@
 <link rel="stylesheet" href="../../css/landing.css">
   <link rel="stylesheet" href="admin-pages.css?v=20260829e">
 </head>
+<!-- Body section contains everything the user can see or interact with. -->
 <body>
+  <!-- Shared header/navigation is injected here by includes.js. -->
   <div id="site-header"></div>
+  <!-- Main area contains the primary page content. -->
   <main class="admin-shell">
     <div class="admin-header">
       <div class="admin-badge">Admin Profile</div>
@@ -17,8 +22,10 @@
       <p>Maintain your admin contact details and avatar so moderation actions feel complete and trustworthy.</p>
     </div>
 
+    <!-- Section for the admin grid area of this page. -->
     <section class="admin-grid two admin-profile-grid">
       <article class="admin-card">
+        <!-- Container for the admin section head content and layout. -->
         <div class="admin-section-head">
           <div>
             <div class="admin-badge">Profile Form</div>
@@ -26,7 +33,9 @@
             <p>These details can support admin visibility across dashboard, reviews, and moderation actions.</p>
           </div>
         </div>
+        <!-- Form where users enter and submit admin profile details. -->
         <form id="admin-profile-form">
+          <!-- Container for the admin form grid content and layout. -->
           <div class="admin-form-grid">
             <label class="admin-field">
               <span>Admin name</span>
@@ -58,6 +67,7 @@
               <textarea id="admin-bio" placeholder="Briefly describe your admin responsibility and moderation role."></textarea>
             </label>
           </div>
+          <!-- Container for the admin card actions content and layout. -->
           <div class="admin-card-actions admin-action-with-status">
             <button class="btn-primary" id="admin-save-profile-btn" type="submit">Save Profile</button>
             <p id="admin-profile-status" class="admin-inline-status admin-status-compact">Save result will appear here.</p>
@@ -66,6 +76,7 @@
       </article>
 
       <article class="admin-card">
+        <!-- Container for the admin section head content and layout. -->
         <div class="admin-section-head">
           <div>
             <div class="admin-badge">Profile Snapshot</div>
@@ -73,26 +84,35 @@
             <p>Your preview updates as you edit the form so header identity stays consistent.</p>
           </div>
         </div>
+        <!-- Container for the admin list content and layout. -->
         <div class="admin-list">
+          <!-- Container for the admin profile preview content and layout. -->
           <div class="admin-profile-preview">
+            <!-- Container for the admin profile avatar content and layout. -->
             <div class="admin-profile-avatar" id="admin-profile-avatar"></div>
             <div>
               <strong id="admin-profile-preview-name">Admin</strong>
               <p id="admin-profile-preview-meta">Add an avatar and contact details for a stronger moderation profile.</p>
             </div>
           </div>
+          <!-- Container for the admin status row content and layout. -->
           <div class="admin-status-row">
             <strong>Basic info</strong>
+            <!-- Container for the admin status track content and layout. -->
             <div class="admin-status-track"><span id="admin-basic-track" style="width: 0%;"></span></div>
             <strong id="admin-basic-value">0%</strong>
           </div>
+          <!-- Container for the admin status row content and layout. -->
           <div class="admin-status-row">
             <strong>Identity</strong>
+            <!-- Container for the admin status track content and layout. -->
             <div class="admin-status-track"><span id="admin-identity-track" style="width: 0%;"></span></div>
             <strong id="admin-identity-value">0%</strong>
           </div>
+          <!-- Container for the admin status row content and layout. -->
           <div class="admin-status-row">
             <strong>Moderation ready</strong>
+            <!-- Container for the admin status track content and layout. -->
             <div class="admin-status-track"><span id="admin-ready-track" style="width: 0%;"></span></div>
             <strong id="admin-ready-value">0%</strong>
           </div>
@@ -100,6 +120,7 @@
             <span>Profile readiness</span>
             <strong>Keep these details current before taking moderation actions.</strong>
           </div>
+          <!-- Container for the admin trust checklist content and layout. -->
           <div class="admin-trust-checklist">
             <strong>Trust checklist</strong>
             <ul>
@@ -114,12 +135,16 @@
     </section>
   </main>
   
+  <!-- Inline script runs page-specific JavaScript behavior. -->
   <script>
     window.EASYEARN_BASE_PATH='../../';
     window.EASYEARN_HEADER_PATH='../../partials/header-admin.html';
   </script>
+  <!-- Loads translation support for multilingual users. -->
   <script src="../../js/translate.js" defer></script>
+  <!-- Loads shared header and footer partials. -->
   <script src="../../js/includes.js?v=20260802a" defer></script>
+  <!-- Loads the JavaScript file that controls this page: ../../js/admin-profile.js. -->
   <script type="module" src="../../js/admin-profile.js"></script>
 </body>
 </html>
