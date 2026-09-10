@@ -142,6 +142,7 @@ h1 {
   transition: none !important;
   animation: none !important;
   filter: none !important;
+  display: none;
 }
 
 .password-toggle:hover {
