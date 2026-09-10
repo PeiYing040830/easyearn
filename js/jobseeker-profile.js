@@ -650,6 +650,9 @@ import {
         setPhotoStatus(photoWarning, 'error');
       }
 
+      payload.photo_url = currentPhotoUrl;
+      payload.photo_data = currentPhotoUrl;
+
       const resumePayload = buildResumeSnapshot(payload);
 
       await Promise.all([
