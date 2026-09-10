@@ -121,6 +121,11 @@ h1 {
   padding-right: 44px;
 }
 
+.password-field input::-ms-reveal,
+.password-field input::-ms-clear {
+  display: none;
+}
+
 .password-toggle {
   position: absolute;
   top: 50%;
@@ -142,7 +147,6 @@ h1 {
   transition: none !important;
   animation: none !important;
   filter: none !important;
-  display: none;
 }
 
 .password-toggle:hover {
