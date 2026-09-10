@@ -174,7 +174,6 @@
       height: 192px;
       object-fit: contain;
       display: block;
-      background: url("images/logo.png") center / contain no-repeat;
       filter: drop-shadow(0 8px 16px rgba(8,145,178,.16));
       z-index: 1;
     }
@@ -427,7 +426,7 @@
     <!-- Logout scene: EasyEarn mascot beside profile -->
     <div class="bye-scene">
       <div class="logout-mascot-wrap">
-        <img class="bye-plant-gif" src="images/waving.gif" alt="EasyEarn waving mascot">
+        <img class="bye-plant-gif" src="images/waving.gif" alt="EasyEarn waving mascot" loading="eager" decoding="async" fetchpriority="high">
         <span class="bye-hand-gif" aria-hidden="true"></span>
       </div>
 

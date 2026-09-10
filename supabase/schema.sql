@@ -563,7 +563,7 @@ begin
     new.email,
     coalesce(new.raw_user_meta_data->>'full_name', ''),
     case
-      when coalesce(new.raw_user_meta_data->>'role', 'seeker') in ('employer', 'seeker', 'jobseeker') then
+      when coalesce(new.raw_user_meta_data->>'role', 'seeker') in ('admin', 'employer', 'seeker', 'jobseeker') then
         case when new.raw_user_meta_data->>'role' = 'jobseeker' then 'seeker' else new.raw_user_meta_data->>'role' end
       else 'seeker'
     end,
@@ -884,7 +884,7 @@ to authenticated
 with check (
   auth.uid() = id
   and (
-    role in ('seeker', 'jobseeker', 'employer')
+    role in ('seeker', 'jobseeker', 'employer', 'admin')
     or public.is_admin_user(auth.uid())
   )
 );
