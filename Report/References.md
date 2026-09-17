@@ -1,165 +1,377 @@
-# References
+﻿# References
 
-Abd Samad, N., Siti Nurazira, M. D., & Zainudin, A. (2023). Motivational factors of gig economy participation among Malaysian youth. Asian Journal of Economics and Business, 4(2), 45–58.
+[1] World Bank, â€œWorking without borders: The promise and peril of online gig work,â€
 
-Ajzen, I., & Fishbein, M. (1980). Understanding attitudes and predicting social behaviour. Prentice-Hall.
+World Bank, 2023. [Online]. Available: https://www.worldbank.org
 
-Akerlof, G. A. (1970). The market for "lemons": Quality uncertainty and the market mechanism. The Quarterly Journal of Economics, 84(3), 488–500. https://doi.org/10.2307/1879431
+[2] International Labour Organisation, â€œWorld employment and social outlook 2021: The role
 
-Apple Developer Program. (2023). App Store review guidelines. Apple Inc. https://developer.apple.com/app-store/review/guidelines/
+of digital labour platforms in transforming the world of work,â€ International Labour Organisation, 2021. [Online]. Available: https://www.ilo.org
 
-Ba, S., & Pavlou, P. A. (2002). Evidence of the effect of trust-building technology in electronic markets: Price premiums and buyer behaviour. MIS Quarterly, 26(3), 243–268. https://doi.org/10.2307/4132332
+[3] N. Abd Samad, M. D. Siti Nurazira, and A. Zainudin, â€œMotivational factors of gig
 
-Bagozzi, R. P. (2007). The legacy of the technology acceptance model and a proposal for a paradigm shift. Journal of the Association for Information Systems, 8(4), 244–254. https://aisel.aisnet.org/jais/vol8/iss4/12/
+economy participation among Malaysian youth,â€ Asian J. Econ. Bus., vol. 4, no. 2, pp. 45-58, 2023.
 
-Bank Negara Malaysia. (2022). Financial technology enabler group: Payment systems policy. https://www.bnm.gov.my
+[4] N. Mohd Hed and N. A. Rosli, â€œNavigating the gig economy: What drives Malaysian
 
-Beck, K., Beedle, M., van Bennekum, A., Cockburn, A., Cunningham, W., Fowler, M., Grenning, J., Highsmith, J., Hunt, A., Jeffries, R., Kern, J., Marick, B., Martin, R. C., Mellor, S., Schwaber, K., Sutherland, J., & Thomas, D. (2001). Manifesto for agile software development. https://agilemanifesto.org/
+youth?,â€ J. Appl. Youth Stud., vol. 9, pp. 141-164, 2026, doi: 10.1007/s43151-025-00192- z.
 
-Bernama. (2024). Malaysia's gig economy surpasses 3 million workers. https://www.bernama.com
+[5] Malay Mail, â€œMDEC: Gig economy continues to grow despite normalisation of household,
 
-Boehm, B., & Turner, R. (2004). Balancing agility and discipline: A guide for the perplexed. Addison-Wesley. https://dl.acm.org/doi/10.5555/861419
+business activities,â€ Malay Mail, Dec. 17, 2023. [Online]. Available: https://www.malaymail.com/news/money/2023/12/17/mdec-gig-economy-continues-to-grow-despite-normalisation-of-household-business-activities/107968
 
-Canva. (2023). Canva: Visual communication platform. https://www.canva.com
+[6] GoGet, â€œHire verified, quality part-timers instantly,â€ GoGet. [Online]. Available:
 
-Chart.js. (2023). Chart.js documentation. https://www.chartjs.org/docs/latest/
+https://goget.my/business/
 
-Computer Crimes Act 1997 (Act 563). (1997). Laws of Malaysia. Commissioner for Law Revision Malaysia. https://www.agc.gov.my/
+[7] Randstad Malaysia, â€œTalent in Malaysia seeking more financial support from their
 
-Constantiou, I., Marton, A., & Tuunainen, V. K. (2017). Four models of sharing economy platforms. MIS Quarterly Executive, 16(4), 236–251. https://aisel.aisnet.org/misqe/vol16/iss4/3/
+employers: 2024 employer brand research,â€ Randstad Malaysia. [Online]. Available: https://www.randstad.com.my/hr-trends/employer-brand/employer-brand-research-job-mobility-2024/
 
-Consumer Protection Act 1999 (Act 599). (1999). Laws of Malaysia. Commissioner for Law Revision Malaysia. https://www.agc.gov.my/
+[8] Royal Malaysia Police, â€œ#BeSmartStayAlert #LetsFightScammerTogether [Posting
 
-Creswell, J. W. (2014). Research design: Qualitative, quantitative, and mixed methods approaches (4th ed.). SAGE Publications. https://study.sagepub.com/creswellrd4e
+Pilihan] Scam alert: Statistik kes penipuan tawaran pekerjaan sambilan,â€ Royal Malaysia Police. [Online]. Available: https://www.rmp.gov.my/news-detail/2026/01/27/besmartstayalert-letsfightscammertogether-posting-pilihan-scam-alert-statistik-kes-penipuan-tawaran-pekerjaan-sambilan
 
-Date, C. J. (2019). Database design and relational theory: Normal forms and all that jazz (2nd ed.). Apress. https://doi.org/10.1007/978-1-4842-5540-7
+[9] P. N. E. Nohuddin, Z. AbdKadir, and N. A. Noordin, â€œA framework for bridging the
 
-Davis, F. D. (1989). Perceived usefulness, perceived ease of use, and user acceptance of information technology. MIS Quarterly, 13(3), 319–340. https://doi.org/10.2307/249008
+digital divide: Improving connectivity and opportunities in rural Malaysia,â€ in Technology for Societal Transformation, 2025, pp. 215 -233. doi: 10.1007/978 -981-96- 1721-0_14.
 
-DeepL. (2023). DeepL translator: Supported languages. https://www.deepl.com/en/languages
+[10] R. Corten, J. Kas, T. Teubner, and M. Arets, â€œThe role of contextual and contentual
 
-Department of Statistics Malaysia. (2023). Labour force survey report, Malaysia 2023. https://www.dosm.gov.my
+signals for online trust: Evidence from a crowd work experiment,â€ Electron. Mark., vol. 33, p. Article 41, 2023, doi: 10.1007/s12525-023-00655-2.
 
-Department of Statistics Malaysia. (2024). Labour force survey report: Third quarter 2024. https://www.dosm.gov.my
+[11] United Nations Capital Development Fund, â€œThe gig economy and financial health: A
 
-Employment Act 1955 (Act 265). (1955). Laws of Malaysia. Commissioner for Law Revision Malaysia. https://www.agc.gov.my/
+snapshot of Malaysia and China,â€ United Nations Capital Development Fund. [Online]. Available: https://www.uncdf.org/article/6398/the-gig-economy-and-financial-health-a-snapshot-of-malaysia-and-china
 
-Etikan, I., Musa, S. A., & Alkassim, R. S. (2016). Comparison of convenience sampling and purposive sampling. American Journal of Theoretical and Applied Statistics, 5(1), 1–4. https://doi.org/10.11648/j.ajtas.20160501.11
+[12] M. Graham, I. Hjorth, and V. Lehdonvirta, â€œDigital labour and development: Impacts of
 
-Eurofound. (2018). Employment and working conditions of selected types of platform work. Publications Office of the European Union. https://www.eurofound.europa.eu/publications/report/2018/employment-and-working-conditions-of-selected-types-of-platform-work
+global digital labour platforms and the gig economy on worker livelihoods,â€ Transf. Eur. Rev. Labour Res., vol. 23, no. 2, pp. 135-162, 2017, doi: 10.1177/1024258916687250.
 
-Ferraiolo, D. F., Sandhu, R., Gavrila, S., Kuhn, D. R., & Chandramouli, R. (2003). Proposed NIST standard for role-based access control. ACM Transactions on Information and System Security, 4(3), 224–274. https://doi.org/10.1145/501978.501980
+[13] Department of Statistics Malaysia, â€œMicro, small & medium enterprises (MSMEs)
 
-Flanagan, D. (2020). JavaScript: The definitive guide (7th ed.). O'Reilly Media. https://www.oreilly.com/library/view/-/9781491952016
+performance 2025,â€ Department of Statistics Malaysia. [Online]. Available: https://www.dosm.gov.my/portal-main/release-content/micro-small--medium-enterprises-msmes-performance-2025
 
-Fowler, M. (2018). Refactoring: Improving the design of existing code (2nd ed.). Addison-Wesley.
+[14] M. Gusenbauer, S. KÃ¶nitzer, and M. Kitowski, â€œA remedy for the liability of smallness?
 
-Garrett, J. J. (2011). The elements of user experience: User-centered design for the web and beyond (2nd ed.). New Riders.
+How digital work platforms augment the smallest enterprises,â€ Rev. Manag. Sci., vol. 19, pp. 2867-2898, 2025, doi: 10.1007/s11846-025-00834-9.
 
-Gefen, D., Karahanna, E., & Straub, D. W. (2003). Trust and TAM in online shopping: An integrated model. MIS Quarterly, 27(1), 51–90. https://doi.org/10.2307/30036519
+[15] United Nations Capital Development Fund, â€œGoGet, a start-up in Malaysia, shares its B40
 
-GitHub. (2023). GitHub Pages documentation. https://docs.github.com/en/pages
+Challenge experience,â€ United Nations Capital Development Fund. [Online]. Available: https://www.uncdf.org/article/4628/goget-a-start-up-in-malaysia-shares-its-b40- challenge-experience
 
-GitHub. (2024). GitHub Pages: Websites for you and your projects. https://pages.github.com
+[16] A. SaulÄ«tis, â€œEvaluating multilingual digital resources: Machine translation adoption and
 
-GoGet. (2024). About GoGet. https://www.goget.my
+user satisfaction across six European countries,â€ vol. 60, no. 1, p. Article 7, 2026, doi: 10.1007/s10579-025-09884-7.
 
-Google. (2023). Google Translate. https://translate.google.com
+[17] Ministry of Human Resources Malaysia, â€œGig Workers Act 2025 (Act 872),â€ Ministry of
 
-Google. (2025). Google Fonts. https://fonts.google.com
+Human Resources Malaysia. [Online]. Available: https://www.mohr.gov.my/aktapekerjagig2025/
 
-Google Cloud. (2023). Cloud Translation API documentation. https://cloud.google.com/translate/docs
+[18] Supabase, â€œSupabase documentation: Database, authentication, and storage,â€ Supabase.
 
-Google Play Console. (2023). Android developer guide: Publish your app. https://developer.android.com/distribute/googleplay
+[Online]. Available: https://supabase.com/docs
 
-Graham, M., Hjorth, I., & Lehdonvirta, V. (2017). Digital labour and development: Impacts of global digital labour platforms and the gig economy on worker livelihoods. Transfer: European Review of Labour and Research, 23(2), 135–162. https://doi.org/10.1177/1024258916687250
+[19] Project Management Institute, A guide to the project management body of knowledge
 
-Hall, J. (2025). jsPDF: Client-side JavaScript PDF generation for everyone [Software library]. GitHub. https://github.com/parallax/jsPDF
+(PMBOKÂ® guide), 7th ed. Project Management Institute, 2021. [Online]. Available: https://www.pmi.org/pmbok-guide-standards/foundational/pmbok
 
-International Labour Organisation. (2021). World employment and social outlook 2021: The role of digital labour platforms in transforming the world of work. https://www.ilo.org
+[20] I. Sommerville, Software engineering , 10th ed. Pearson Education Limited, 2016.
 
-International Organization for Standardization. (2022). ISO/IEC/IEEE 29119-1:2022—Software and systems engineering—Software testing—Part 1: General concepts. https://www.iso.org/standard/81291.html
+[Online]. Available: https://www.pearson.com/en-gb/subject-catalog/p/Sommerville-Software-Engineering-Global-Edition-10th-Edition/P200000005464/9781292096148
 
-International Software Testing Qualifications Board. (n.d.). ISTQB glossary. https://glossary.istqb.org
+[21] R. S. Pressman and B. R. Maxim, Software engineering: A practitionerâ€™s approach , 9th
 
-JobStreet. (2024). About JobStreet. SEEK Asia. https://www.jobstreet.com.my
+ed. McGraw-Hill Education, 2020.
 
-Jones, M., Bradley, J., & Sakimura, N. (2015). JSON Web Token (JWT) (RFC 7519). Internet Engineering Task Force. https://www.rfc-editor.org/rfc/rfc7519
+[22] Bank Negara Malaysia, â€œFinancial technology enabler group: Payment systems policy,â€
 
-Kalai Vani, K., & Foo, C. C. (2024). Gig economy participation: Is higher education a barrier? UTAR News. https://news.utar.edu.my
+Bank Negara Malaysia. [Online]. Available: https://www.bnm.gov.my
 
-King, W. R., & He, J. (2006). A meta-analysis of the technology acceptance model. Information and Management, 43(6), 740–755. https://doi.org/10.1016/j.im.2006.05.003
+[23] Apple Developer Program, â€œApp Store review guidelines,â€ Apple Inc. [Online]. Available:
 
-Kuek, S. C., Paradi-Guilford, C., Fayomi, T., Imaizumi, S., Ipeirotis, P., Pina, P., & Singh, M. (2015). The global opportunity in online outsourcing. World Bank Group. https://openknowledge.worldbank.org/handle/10986/22284
+https://developer.apple.com/app-store/review/guidelines/
 
-Leach, P., Mealling, M., & Salz, R. (2005). A universally unique identifier (UUID) URN namespace (RFC 4122). Internet Engineering Task Force. https://www.rfc-editor.org/rfc/rfc4122
+[24] Google Play Console, â€œAndroid developer guide: Publish your app.â€ [Online]. Available:
 
-Lucide Contributors. (2025). Lucide icons documentation. https://lucide.dev
+https://developer.android.com/distribute/googleplay
 
-Malaysia Digital Economy Corporation. (2023). Gig economy report 2023. https://mdec.my
+[25] Google Cloud, â€œCloud Translation API documentation,â€ Google Cloud. [Online].
 
-Malaysian Communications and Multimedia Commission. (2023). Internet users survey 2023. https://www.mcmc.gov.my
+Available: https://cloud.google.com/translate/docs
 
-MDN Web Docs. (2023). HTML, CSS, and JavaScript references. Mozilla Foundation. https://developer.mozilla.org
+[26] F. D. Davis, â€œPerceived Usefulness, Perceived Ease of Use, and User Acceptance of
 
-Ministry of Human Resources Malaysia. (2025). Gig Workers Act 2025 (Act 872). https://www.mohr.gov.my/aktapekerjagig2025/
+Information Technology,â€ MIS Q., vol. 13, no. 3, pp. 319 -340, Sep. 1989, doi: 10.2307/249008.
 
-Mohd Hed, N., & Rosli, N. A. (2026). Navigating the gig economy: What drives Malaysian youth? Journal of Applied Youth Studies, 9, 141–164. https://doi.org/10.1007/s43151-025-00192-z
+[27] J. W. Creswell, Research design: Qualitative, quantitative, and mixed methods
 
-Nielsen, J. (1993). Usability engineering. Academic Press.
+approaches, 4th ed. SAGE Publications, 2014. [Online]. Available: https://oscarjaramillo.cl/wp-content/uploads/2015/12/version-nueva-Creswell-2008- Research-Design.pdf#page=6.00
 
-Nielsen, J. (2012). Usability 101: Introduction to usability. Nielsen Norman Group. https://www.nngroup.com/articles/usability-101-introduction-to-usability/
+[28] I. Ajzen and M. Fishbein, Understanding attitudes and predicting social behaviour .
 
-Organisation for Economic Co-operation and Development. (2019). OECD employment outlook 2019: The future of work. OECD Publishing. https://doi.org/10.1787/9ee00155-en
+Prentice-Hall, 1980.
 
-Open Web Application Security Project Foundation. (2021). OWASP top ten. https://owasp.org/www-project-top-ten/
+[29] V. Venkatesh and F. D. Davis, â€œA Theoretical Extension of the Technology Acceptance
 
-Park, I., Kim, D., Moon, J., Kim, S., Kang, Y., & Bae, S. (2022). Searching for new technology acceptance model under social context: Analyzing the determinants of acceptance of intelligent information technology in digital transformation and implications for the requisites of digital sustainability. Sustainability, 14(1), 490. https://doi.org/10.3390/su14010490
+Model: Four Longitudinal Field Studies,â€ Manag. Sci., vol. 46, no. 2, pp. 186 -204, Feb. 2000, doi: 10.1287/mnsc.46.2.186.11926.
 
-Pavlou, P. A. (2003). Consumer acceptance of electronic commerce: Integrating trust and risk with the technology acceptance model. International Journal of Electronic Commerce, 7(3), 101–134. https://www.tandfonline.com/doi/abs/10.1080/10864415.2003.11044275
+[30] V. Venkatesh, M. G. Morris, G. B. Davis, and F. D. Davis, â€œUser Acceptance of
 
-Personal Data Protection Act 2010 (Act 709). (2010). Laws of Malaysia. Commissioner for Law Revision Malaysia. https://www.agc.gov.my/
+Information Technology: Toward A Unified View,â€ MIS Q., vol. 27, no. 3, pp. 425-478, Sep. 2003, doi: 10.2307/30036540.
 
-Pillai, S., & Paul, J. (2023). Gig economy in Malaysia: Current, present and future. International Management and Business Review, 16(2), 62–67.
+[31] W. R. King and J. He, â€œA meta-analysis of the technology acceptance model,â€ Inf.
 
-PostgREST. (2025). PostgREST documentation. https://postgrest.org
+Manage., vol. 43, no. 6, pp. 740-755, Sep. 2006, doi: 10.1016/j.im.2006.05.003.
 
-Pressman, R. S., & Maxim, B. R. (2020). Software engineering: A practitioner's approach (9th ed.). McGraw-Hill Education.
+[32] I. Park, D. Kim, J. Moon, S. Kim, Y. Kang, and S. Bae, â€œSearching for New Technology
 
-Project Management Institute. (2021). A guide to the project management body of knowledge (PMBOK® guide) (7th ed.). https://www.pmi.org/pmbok-guide-standards/foundational/pmbok
+Acceptance Model under Social Context: Analyzing the Determinants of Acceptance of Intelligent Information Technology in Digital Transformation and Implications for the Requisites of Digital Sustainability,â€ Sustainability, vol. 14, no. 1, p. 579, Jan. 2022, doi: 10.3390/su14010579.
 
-RiceBowl. (2024). About RiceBowl. RiceBowl Networks Sdn Bhd. https://www.ricebowl.my
+[33] A. Schorr, â€œThe Technology Acceptance Model (TAM) and its importance for
 
-Royce, W. W. (1970). Managing the development of large software systems. Proceedings of IEEE WESCON, 26, 1–9. https://www.praxisframework.org/files/royce1970.pdf
+digitalization research: A review,â€ Open Educ. Stud., vol. 5, no. 1, 2023, [Online]. Available: https://www.researchgate.net/publication/372301809_The_Technology_Acceptance_M odel_TAM_and_its_Importance_for_Digitalization_Research_A_Review
 
-Rumbaugh, J., Jacobson, I., & Booch, G. (2004). The Unified Modelling Language reference manual (2nd ed.). Addison-Wesley. https://www.oreilly.com/library/view/unified-modeling-language/0321245628/
+[34] P. A. Pavlou, â€œConsumer acceptance of electronic commerce: Integrating trust and risk
 
-Saunders, M., Lewis, P., & Thornhill, A. (2019). Research methods for business students (8th ed.). Pearson. https://www.pearson.com/en-gb/subject-catalog/p/research-methods-for-business-students/P200000005358/9781292208800
+with the technology acceptance model,â€ Int. J. Electron. Commer., vol. 7, no. 3, pp. 101- 134, 2003.
 
-Schorr, A. (2023). The Technology Acceptance Model (TAM) and its importance for digitalization research: A review. Open Education Studies, 5(1). https://www.researchgate.net/publication/372301809_The_Technology_Acceptance_Model_TAM_and_its_Importance_for_Digitalization_Research_A_Review
+[35] I. Constantiou, A. Marton, and V. K. Tuunainen, â€œFour models of sharing economy
 
-Schwaber, K., & Sutherland, J. (2020). The Scrum guide: The definitive guide to Scrum—The rules of the game. Scrum.org. https://www.scrumguides.org/scrum-guide.html
+platforms,â€ MIS Q. Exec., vol. 16, no. 4, pp. 236-251, 2017.
 
-Shum, H. Y., He, X. D., & Li, D. (2018). From Eliza to XiaoIce: Challenges and opportunities with social chatbots. Frontiers of Information Technology & Electronic Engineering, 19(1), 10–26. https://doi.org/10.1631/FITEE.1700826
+[36] R. P. Bagozzi, â€œThe legacy of the technology acceptance model and a proposal for a
 
-Sommerville, I. (2016). Software engineering (10th ed.). Pearson Education Limited. https://www.pearson.com/en-gb/subject-catalog/p/Sommerville-Software-Engineering-Global-Edition-10th-Edition/P200000005464/9781292096148
+paradigm shift,â€ J. Assoc. Inf. Syst., vol. 8, no. 4, pp. 244-254, 2007.
 
-Supabase. (2023). Supabase documentation: Database, authentication, and storage. https://supabase.com/docs
+[37] D. Gefen, E. Karahanna, and D. W. Straub, â€œTrust and TAM in online shopping: An
 
-Troise, C., O'Driscoll, A., Tani, M., & Prisco, A. (2021). Online food delivery services and behavioural intention: A test of an integrated TAM and TPB framework. British Food Journal, 123(6), 2235–2258. https://doi.org/10.1108/BFJ-05-2020-0418
+integrated model,â€ MIS Q., vol. 27, no. 1, pp. 51-90, Mar. 2003, doi: 10.2307/30036519.
 
-Troopers. (2024). About Troopers. https://www.troopers.com.my
+[38] X. Hu, â€œThe Gig Economy Revisited: Synthesizing Knowledge and Pioneering Paths
 
-United Nations Capital Development Fund. (2019). Gig economy and the future of work. https://www.uncdf.org
+Forward,â€ J. Knowl. Econ., Jul. 2026, doi: 10.1007/s13132-026-03427-3.
 
-Venkatesh, V., & Bala, H. (2008). Technology acceptance model 3 and a research agenda on interventions. Decision Sciences, 39(2), 273–315. https://doi.org/10.1111/j.1540-5915.2008.00192.x
+[39] A. Ali et al. , â€œComparative Analysis on the Legal Status of GIG Workers Between
 
-Venkatesh, V., & Davis, F. D. (2000). A theoretical extension of the technology acceptance model: Four longitudinal field studies. Management Science, 46(2), 186–204. https://doi.org/10.1287/mnsc.46.2.186.11926
+Malaysia and Indonesia,â€ in Next-Generation Business Models: The Role of Advanced Technologies in Defining the Future, vol. 1572, B. Alareeni and A. Hamdan, Eds., in Lecture Notes in Networks and Systems, vol. 1572., Cham: Springer Nature Switzerland, 2025, pp. 306-315. doi: 10.1007/978-3-032-00441-3_29.
 
-Venkatesh, V., Morris, M. G., Davis, G. B., & Davis, F. D. (2003). User acceptance of information technology: Toward a unified view. MIS Quarterly, 27(3), 425–478. https://doi.org/10.2307/30036540
+[40] Q. Sallehuddin, â€œGig Workers Act 2025 comes into force today,â€ The Star, Mar. 31, 2026.
 
-von Hertzen, N. (2025). html2canvas: Screenshots with JavaScript [Software library]. GitHub. https://github.com/niklasvh/html2canvas
+[Online]. Available: https://www.thestar.com.my/news/nation/2026/03/31/gig-workers-act-2025-comes-into-force-today
 
-Whitty, M. T., & Buchanan, T. (2012). The online romance scam: A serious cybercrime. CyberPsychology, Behavior, and Social Networking, 15(3), 181–183. https://doi.org/10.1089/cyber.2011.0352
+[41] V. N. Rao, S. Dalal, A. Schwartz, A. Liaqat, D. Calacci, and A. Monroy-HernÃ¡ndez,
 
-World Bank. (2023). Working without borders: The promise and peril of online gig work. https://www.worldbank.org
+â€œFareShare: A Tool for Labor Organizers to Estimate Lost Wages and Contest Arbitrary AI and Algorithmic Deactivations,â€ Proc. ACM Hum.-Comput. Interact., vol. 10, no. 2, pp. 1-32, Apr. 2026, doi: 10.1145/3788052.
+
+[42] J. Hsieh et al., â€œGig2Gether: Datasharing to Empower, Unify and Demystify Gig Work,â€
+
+in Proceedings of the 2025 CHI Conference on Human Factors in Computing Systems, Yokohama Japan: ACM, Apr. 2025, pp. 1-25. doi: 10.1145/3706598.3714398.
+
+[43] J. Hui, M. E. Filipof, S. Lee, S. Corvite, M. Naseem, and T. R. Dillahunt, â€œâ€˜I Know I Can
+
+Do the Job, Itâ€™s Just Putting It Downâ€™: Using Personas as a Mirror to Identify Strengths,â€ in Proceedings of the 2026 CHI Conference on Human Factors in Computing Systems, Barcelona Spain: ACM, Apr. 2026, pp. 1-44. doi: 10.1145/3772318.3790914.
+
+[44] J. Wang, Q. Gao, and R. Zhang, â€œGig economy and its impact on individual employment:
+
+an empirical analysis,â€ Humanit. Soc. Sci. Commun., vol. 12, no. 1, p. 1703, Nov. 2025, doi: 10.1057/s41599-025-05970-x.
+
+[45] Y. Uchiyama and F. Furuoka, â€œOn-Demand App Gig Work for Youth: A Case in
+
+Malaysia,â€ in Youth and Employment, Singapore: Springer Nature Singapore, 2025, pp. 133-161. doi: 10.1007/978-981-95-3257-5_6.
+
+[46] M. R. Sarker et al. , â€œGender differences in job satisfaction among gig workers in
+
+Bangladesh,â€ Sci. Rep., vol. 14, no. 1, p. 17128, Jul. 2024, doi: 10.1038/s41598 -024- 68327-5.
+
+[47] R. H. L. Hernandez, Q. Song, Y. Kou, and X. Gui, â€œMaking the Gig Economy
+
+Infrastructure Work: Gig Driversâ€™ Adaptive, Algorithmic, and Social Knowledge Practices,â€ Comput. Support. Coop. Work CSCW, vol. 35, no. 1, p. 1, Mar. 2026, doi: 10.1007/s10606-026-09536-6.
+
+[48] MDN Web Docs, â€œHTML, CSS, and JavaScript references,â€ Mozilla Foundation.
+
+[Online]. Available: https://developer.mozilla.org
+
+[49] J. Hall, â€œjsPDF: Client-side JavaScript PDF generation for everyone [Software library],â€
+
+GitHub. [Online]. Available: https://github.com/parallax/jsPDF
+
+[50] GitHub, â€œGitHub Pages: Websites for you and your projects,â€ GitHub. [Online].
+
+Available: https://pages.github.com
+
+[51] Chart.js, â€œChart.js documentation.â€ [Online]. Available:
+
+https://www.chartjs.org/docs/latest/
+
+[52] DeepL, â€œDeepL translator: Supported languages.â€ [Online]. Available:
+
+https://www.deepl.com/en/languages
+
+[53] Google, â€œGoogle Translate.â€ [Online]. Available: https://translate.google.com
+
+[54] Canva, â€œCanva: Visual communication platform.â€ [Online]. Available:
+
+https://www.canva.com
+
+[55] J. Nielsen, Usability engineering. Academic Press, 1993.
+
+[56] JobStreet Malaysia, â€œPart Time Jobs in Malaysia,â€ JobStreet by SEEK. Accessed: Sep.
+
+09, 2026. [Online]. Available: https://my.jobstreet.com/jobs/in-Malaysia/part-time
+
+[57] RiceBowl Malaysia, â€œGet A Job Faster,â€ Google Play. Accessed: Sep. 09, 2026. [Online].
+
+Available: https://play.google.com/store/apps/details?id=my.ricebowl.applicant
+
+[58] JobStreet Malaysia, â€œJob Seeker Security Hub,â€ JobStreet by SEEK. Accessed: Sep. 09,
+
+2026. [Online]. Available: https://my.jobstreet.com/security-hub
+
+[59] JobStreet Malaysia, â€œCompany Reviews Community Guidelines,â€ JobStreet Help Centre.
+
+Accessed: Sep. 09, 2026. [Online]. Available: https://help.my.jobstreet.com/article/Company-reviews-community-guidelines-asia
+
+[60] RiceBowl Malaysia, â€œRiceBowl Safety Centre,â€ RiceBowl Malaysia. Accessed: Sep. 09,
+
+2026. [Online]. Available: https://www.ricebowl.my/zh/career-advice/safety-centre/
+
+[61] TROOPERS, â€œAbout Troopers.â€ [Online]. Available: https://www.troopers.com.my
+
+[62] Fiverr, â€œHow Fiverr works for clients,â€ Fiverr Help Center. Accessed: Sep. 09, 2026.
+
+[Online]. Available: https://help.fiverr.com/hc/en-us/articles/360010558038-How-Fiverr-works-for-clients
+
+[63] Upwork, â€œIntro to Upwork,â€ Upwork Help. [Online]. Available:
+
+https://support.upwork.com/hc/en-us/articles/34954643219987-Intro-to-Upwork
+
+[64] Upwork, â€œHow to start hiring on Upwork,â€ Upwork Help. Accessed: Sep. 09, 2026.
+
+[Online]. Available: https://support.upwork.com/hc/en-us/articles/211063398-How-to-start-hiring-on-Upwork
+
+[65] Taskrabbit, â€œTaskrabbit: Same Day Handyman, Moving & Mounting Services,â€
+
+Taskrabbit. [Online]. Available: https://www.taskrabbit.com/
+
+[66] Taskrabbit, â€œServices offered,â€ Taskrabbit. [Online]. Available:
+
+https://www.taskrabbit.com/services
+
+[67] Taskrabbit Support, â€œHow Do I Hire a Tasker?,â€ Taskrabbit Support. [Online]. Available:
+
+https://support.taskrabbit.com/hc/en-us/articles/46260422073755-How-Do-I-Hire-a-Tasker
+
+[68] V. Venkatesh and H. Bala, â€œTechnology Acceptance Model 3 and a Research Agenda on
+
+Interventions,â€ Decis. Sci., vol. 39, no. 2, pp. 273 -315, May 2008, doi: 10.1111/j.1540-5915.2008.00192.x.
+
+[69] M. Saunders, P. Lewis, and A. Thornhill, Research methods for business students, 8th ed.
+
+Pearson, 2019. [Online]. Available: https://www.pearson.com/en-gb/subject-catalog/p/research-methods-for-business-students/P200000005358/9781292208800
+
+[70] I. Etikan, S. A. Musa, and R. S. Alkassim, â€œComparison of Convenience Sampling and
+
+Purposive Sampling,â€ Am. J. Theor. Appl. Stat., vol. 5, no. 1, pp. 1 -4, 2016, doi: 10.11648/j.ajtas.20160501.11.
+
+[71] W. W. Royce, â€œManaging the development of large software systems,â€ in Proceedings of
+
+IEEE WESCON, 1970, pp. 1 -9. [Online]. Available: https://www.praxisframework.org/files/royce1970.pdf
+
+[72] K. Beck et al. , â€œManifesto for agile software development.â€ [Online]. Available:
+
+https://agilemanifesto.org/
+
+[73] K. Schwaber and J. Sutherland, â€œThe Scrum guide: The definitive guide to Scrum-The
+
+rules of the game.â€ [Online]. Available: https://www.scrumguides.org/scrum-guide.html
+
+[74] B. Boehm and R. Turner, Balancing agility and discipline: A guide for the perplexed .
+
+Addison-Wesley, 2004. [Online]. Available: https://dl.acm.org/doi/10.5555/861419
+
+[75] International Software Testing Qualifications Board, â€œISTQB glossary.â€ [Online].
+
+Available: https://glossary.istqb.org
+
+[76] Personal Data Protection Act 2010 (Act 709) . 2010. [Online]. Available:
+
+https://www.agc.gov.my/
+
+[77] GitHub, â€œGitHub Pages documentation.â€ [Online]. Available:
+
+https://docs.github.com/en/pages
+
+[78] Open Web Application Security Project Foundation, â€œOWASP top ten.â€ [Online].
+
+Available: https://owasp.org/www-project-top-ten/
+
+[79] J. Nielsen, â€œUsability 101: Introduction to usability,â€ Nielsen Norman Group. [Online].
+
+Available: https://www.nngroup.com/articles/usability-101-introduction-to-usability/
+
+[80] Computer Crimes Act 1997 (Act 563) . 1997. [Online]. Available:
+
+https://www.agc.gov.my/
+
+[81] Consumer Protection Act 1999 (Act 599) . 1999. [Online]. Available:
+
+https://www.agc.gov.my/
+
+[82] Employment Act 1955 (Act 265). 1955. [Online]. Available: https://www.agc.gov.my/
+
+[83] D. Flanagan, JavaScript: The definitive guide , 7th ed. Oâ€™Reilly Media, 2020. [Online].
+
+Available: https://www.oreilly.com/library/view/-/9781491952016
+
+[84] M. Fowler, Refactoring: Improving the design of existing code, 2nd ed. Addison-Wesley,
+
+2018.
+
+[85] D. F. Ferraiolo, R. Sandhu, S. Gavrila, D. R. Kuhn, and R. Chandramouli, â€œProposed
+
+NIST standard for role-based access control,â€ ACM Trans. Inf. Syst. Secur., vol. 4, no. 3, pp. 224-274, Aug. 2001, doi: 10.1145/501978.501980.
+
+[86] Eurofound, â€œEmployment and working conditions of selected types of platform work,â€
+
+Publications Office of the European Union, 2018. [Online]. Available: https://www.eurofound.europa.eu/publications/report/2018/employment-and-working-conditions-of-selected-types-of-platform-work
+
+[87] H. Shum, X. He, and D. Li, â€œFrom Eliza to XiaoIce: challenges and opportunities with
+
+social chatbots,â€ Front. Inf. Technol. Electron. Eng., vol. 19, no. 1, pp. 10-26, Jan. 2018, doi: 10.1631/FITEE.1700826.
+
+[88] C. J. Date, Database Design and Relational Theory: Normal Forms and All That Jazz .
+
+Berkeley, CA: Apress, 2019. doi: 10.1007/978-1-4842-5540-7.
+
+[89] P. Leach, M. Mealling, and R. Salz, â€œA universally unique identifier (UUID) URN
+
+namespace,â€ Internet Engineering Task Force, RFC 4122, 2005. [Online]. Available: https://www.rfc-editor.org/rfc/rfc4122
+
+[90] J. Rumbaugh, I. Jacobson, and G. Booch, The Unified Modelling Language reference
+
+manual, 2nd ed. Addison-Wesley, 2004. [Online]. Available: https://www.oreilly.com/library/view/unified-modeling-language/0321245628/
+
+[91] J. J. Garrett, The elements of user experience: User-centered design for the web and
+
+beyond, 2nd ed. New Riders, 2011.
+
+[92] Lucide Contributors, â€œLucide icons documentation,â€ Lucide. [Online]. Available:
+
+https://lucide.dev
+
+[93] N. von Hertzen, â€œhtml2canvas: Screenshots with JavaScript [Software library],â€ GitHub.
+
+[Online]. Available: https://github.com/niklasvh/html2canvas
+
+[94] M. Jones, J. Bradley, and N. Sakimura, â€œJSON Web Token (JWT),â€ Internet Engineering
+
+Task Force, RFC 7519, 2015. [Online]. Available: https://www.rfc-editor.org/rfc/rfc7519
+
+[95] PostgREST, â€œPostgREST documentation,â€ PostgREST documentation. [Online].
+
+Available: https://postgrest.org
+
+[96] International Organization for Standardization, ISO/IEC/IEEE 29119-1:2022-Software
+
+and systems engineering-Software testing-Part 1: General concepts, ISO/IEC/IEEE 29119-1:2022, 2022. [Online]. Available: https://www.iso.org/standard/81291.html
