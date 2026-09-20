@@ -4,17 +4,36 @@
 (function () {
   'use strict';
 
+  const googleChromeSelector = [
+    '.goog-te-banner-frame',
+    '.VIpgJd-ZVi9od-ORHb',
+    '.VIpgJd-ZVi9od-ORHb-OEVmcd',
+    'iframe.goog-te-banner-frame',
+    'iframe.skiptranslate',
+    'body > .skiptranslate',
+    'body > .VIpgJd-ZVi9od-ORHb',
+    'body > .VIpgJd-ZVi9od-ORHb-OEVmcd'
+  ].join(', ');
+
+  function setImportantStyle(node, property, value) {
+    node.style.setProperty(property, value, 'important');
+  }
+
   function hideGoogleTranslateChrome() {
-    document.documentElement.style.marginTop = '0';
-    document.body.style.top = '0';
-    document.body.style.position = 'static';
+    setImportantStyle(document.documentElement, 'margin-top', '0');
+    setImportantStyle(document.body, 'top', '0');
+    setImportantStyle(document.body, 'position', 'static');
 
     document
-      .querySelectorAll('.goog-te-banner-frame, iframe.skiptranslate, body > .skiptranslate')
+      .querySelectorAll(googleChromeSelector)
       .forEach(function (node) {
-        node.style.display = 'none';
-        node.style.visibility = 'hidden';
-        node.style.height = '0';
+        setImportantStyle(node, 'display', 'none');
+        setImportantStyle(node, 'visibility', 'hidden');
+        setImportantStyle(node, 'height', '0');
+        setImportantStyle(node, 'min-height', '0');
+        setImportantStyle(node, 'max-height', '0');
+        setImportantStyle(node, 'opacity', '0');
+        setImportantStyle(node, 'pointer-events', 'none');
       });
   }
 
