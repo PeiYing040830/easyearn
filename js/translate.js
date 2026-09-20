@@ -4,10 +4,42 @@
 (function () {
   'use strict';
 
+  function hideGoogleTranslateChrome() {
+    document.documentElement.style.marginTop = '0';
+    document.body.style.top = '0';
+    document.body.style.position = 'static';
+
+    document
+      .querySelectorAll('.goog-te-banner-frame, iframe.skiptranslate, body > .skiptranslate')
+      .forEach(function (node) {
+        node.style.display = 'none';
+        node.style.visibility = 'hidden';
+        node.style.height = '0';
+      });
+  }
+
+  function watchGoogleTranslateChrome() {
+    hideGoogleTranslateChrome();
+
+    if (window.easyEarnTranslateObserver) return;
+
+    window.easyEarnTranslateObserver = new MutationObserver(hideGoogleTranslateChrome);
+    window.easyEarnTranslateObserver.observe(document.documentElement, {
+      childList: true,
+      subtree: true,
+      attributes: true,
+      attributeFilter: ['style', 'class']
+    });
+
+    window.setInterval(hideGoogleTranslateChrome, 800);
+  }
+
   // Sets up init when this script is loaded.
   function init() {
     const el = document.getElementById('google_translate_element');
     if (!el) return;
+
+    watchGoogleTranslateChrome();
 
     window.googleTranslateElementInit = function () {
       if (typeof google !== 'undefined' && google.translate) {
@@ -21,6 +53,7 @@
           },
           'google_translate_element'
         );
+        hideGoogleTranslateChrome();
       }
     };
 

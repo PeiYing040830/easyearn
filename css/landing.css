@@ -653,13 +653,24 @@ body.theme-dark .admin-navbar .nav-translate {
   display: none !important;
 }
 
+.goog-te-banner-frame,
 .goog-te-banner-frame.skiptranslate,
-.goog-te-gadget-icon {
+.goog-te-gadget-icon,
+body > .skiptranslate,
+iframe.skiptranslate {
   display: none !important;
+  visibility: hidden !important;
+  height: 0 !important;
+  min-height: 0 !important;
+}
+
+html {
+  margin-top: 0 !important;
 }
 
 body {
   top: 0 !important;
+  position: static !important;
 }
 
 /* HERO */
