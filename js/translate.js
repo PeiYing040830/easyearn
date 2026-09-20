@@ -8,11 +8,9 @@
     '.goog-te-banner-frame',
     '.VIpgJd-ZVi9od-ORHb',
     '.VIpgJd-ZVi9od-ORHb-OEVmcd',
-    'iframe.goog-te-banner-frame',
-    'iframe.skiptranslate',
-    'body > .skiptranslate',
     'body > .VIpgJd-ZVi9od-ORHb',
-    'body > .VIpgJd-ZVi9od-ORHb-OEVmcd'
+    'body > .VIpgJd-ZVi9od-ORHb-OEVmcd',
+    'body > iframe.goog-te-banner-frame'
   ].join(', ');
 
   function setImportantStyle(node, property, value) {
