@@ -550,41 +550,6 @@ end;
 $function$;
 
 
-create or replace function public.notify_application_status_change()
-returns trigger
-language plpgsql
-security definer
-set search_path = public
-as $function$
-declare
-  job_title text;
-begin
-  if new.status is not distinct from old.status or new.seeker_id is null then
-    return new;
-  end if;
-
-  select title into job_title from public.job_listings where id = new.job_id;
-
-  insert into public.notifications
-    (user_id, type, message, target_table, target_id, actor_id)
-  values (
-    new.seeker_id,
-    'application_update',
-    format('Your application for %s is now %s.',
-      coalesce(job_title, 'a job'),
-      replace(coalesce(new.status, 'pending'), '_', ' ')),
-    'applications', new.id, auth.uid()
-  );
-  return new;
-end;
-$function$;
-
-drop trigger if exists trg_application_status_notification on public.applications;
-create trigger trg_application_status_notification
-after update of status on public.applications
-for each row execute function public.notify_application_status_change();
-
-
 create or replace function public.handle_new_auth_user()
 returns trigger
 language plpgsql
