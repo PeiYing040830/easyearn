@@ -265,18 +265,29 @@ import {
     if (sendBtn) sendBtn.disabled = false;
     setStatus('Chatting with ' + (thread.counterpartName || 'EasyEarn User') + '.');
     try {
-      await markChatThreadAsRead(currentUser.id, thread.counterpartId, thread.jobId || '');
       const messages = await fetchChatMessages(currentUser.id, thread.counterpartId, thread.jobId || '');
+      if (activeThread !== thread) return false;
       renderMessages(messages);
+      try {
+        await markChatThreadAsRead(currentUser.id, thread.counterpartId, thread.jobId || '', messages);
+      } catch (error) {
+        console.warn('Messages loaded, but marking them read failed:', error);
+        if (activeThread === thread) setStatus('Messages loaded, but read receipts could not be updated.', 'is-error');
+        return false;
+      }
+      if (activeThread !== thread) return false;
       threads = threads.map(function(item) {
         const sameThread = item.counterpartId === thread.counterpartId && String(item.jobId || '') === String(thread.jobId || '');
         return sameThread ? Object.assign({}, item, { unreadCount: 0 }) : item;
       });
       renderThreadList();
+      return true;
     } catch (error) {
       console.error('Failed to open messages thread:', error);
+      if (activeThread !== thread) return false;
       renderMessages([]);
       setStatus('Unable to load this conversation right now.', 'is-error');
+      return false;
     }
   }
 
@@ -334,8 +345,8 @@ import {
       if (!exists) threads.unshift(Object.assign({}, queryThread, { latestBody: '', latestAt: '', unreadCount: 0 }));
     }
     renderThreadList();
-    const initial = queryThread || threads[0] || null;
-    if (initial) openThread(initial);
+    const initial = activeThread || queryThread || threads[0] || null;
+    return initial ? await openThread(initial) : true;
   }
 
   threadListEl?.addEventListener('click', function(event) {
@@ -361,6 +372,7 @@ import {
 
     sendBtn.disabled = true;
     setStatus('Sending…');
+    let messageSaved = false;
 
     try {
       let imageUrl = '';
@@ -388,10 +400,19 @@ import {
         message_type: messageType
       });
 
+      messageSaved = true;
       if (inputEl) inputEl.value = '';
-      await loadThreads();
-      setStatus('Message sent.', 'is-success');
+      const refreshed = await loadThreads();
+      setStatus(refreshed
+        ? 'Message sent.'
+        : 'Message sent, but the conversation could not fully refresh. Please refresh; do not resend.',
+        refreshed ? 'is-success' : 'is-error');
     } catch (error) {
+      if (messageSaved) {
+        console.warn('Message saved, but refreshing conversations failed:', error);
+        setStatus('Message sent, but refreshing conversations failed. Please refresh; do not resend.', 'is-error');
+        return;
+      }
       console.error('Failed to send chat message:', error);
       const fallback = pendingImageFile
         ? 'Failed to send image. Please try a smaller file (max 3MB).'

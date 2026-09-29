@@ -2,6 +2,7 @@
  * EasyEarn file note: Handles the report page behavior and related user interactions.
  */
 import { observeAuth, fetchProfile, createReport, notifyAdmins } from './supabase-data.js';
+import { getReportReason, reportReasonOptions } from './report-reasons.js';
 
 (function () {
   'use strict';
@@ -20,15 +21,6 @@ import { observeAuth, fetchProfile, createReport, notifyAdmins } from './supabas
       index = (index + 1) % slides.length;
       slides[index].classList.add('is-active');
     }, 5000);
-  }
-
-  // Formats or checks report type so later code can use a clean value.
-  function mapReportType(label) {
-    const value = String(label || '').toLowerCase();
-    if (value.includes('suspicious') || value.includes('fake')) return 'fake_job';
-    if (value.includes('non-paying') || value.includes('payment') || value.includes('scam')) return 'scam';
-    if (value.includes('harassment') || value.includes('abuse')) return 'harassment';
-    return 'other';
   }
 
   // Loads field data so the page can display current information.
@@ -98,6 +90,8 @@ import { observeAuth, fetchProfile, createReport, notifyAdmins } from './supabas
     const description = getField('report-desc')?.value?.trim();
     const file = getField('report-file')?.files?.[0] || null;
 
+    if (!getReportReason(getField('report-type')?.value)) return 'Please select a report reason.';
+
     if (!name || !email || !description) {
       return 'Please fill in name, email, and description.';
     }
@@ -164,6 +158,8 @@ import { observeAuth, fetchProfile, createReport, notifyAdmins } from './supabas
   function initReportForm() {
     const form = document.getElementById('report-form');
     if (!form) return;
+    getField('report-type').innerHTML = reportReasonOptions();
+    getField('report-type').required = true;
 
     const submitButton = form.querySelector('button[type="submit"]');
     if (!submitButton) return;
@@ -180,8 +176,10 @@ import { observeAuth, fetchProfile, createReport, notifyAdmins } from './supabas
 
       const fullName = getField('report-name').value.trim();
       const email = getField('report-email').value.trim();
-      const reportType = mapReportType(getField('report-type')?.value);
+      const reason = getReportReason(getField('report-type')?.value);
+      const reportType = reason.type;
       const fullDescription = [
+        `Reason: ${reason.label}`,
         `Reporter name: ${fullName}`,
         `Reporter email: ${email}`,
         buildDescription()

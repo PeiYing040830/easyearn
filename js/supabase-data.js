@@ -1353,8 +1353,8 @@ export async function fetchChatThreads(userId) {
 }
 
 // Runs the chat thread as read step for this page workflow.
-export async function markChatThreadAsRead(userId, counterpartId = '', jobId = '') {
-  const messages = await fetchChatMessages(userId, counterpartId, jobId);
+export async function markChatThreadAsRead(userId, counterpartId = '', jobId = '', loadedMessages = null) {
+  const messages = loadedMessages ?? await fetchChatMessages(userId, counterpartId, jobId);
   const unreadIds = messages.filter((item) => !item.isRead && item.ownerId === userId).map((item) => item.id);
   if (!unreadIds.length) return [];
 

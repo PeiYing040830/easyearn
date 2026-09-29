@@ -14,6 +14,7 @@ import {
   createReport,
   insertWorkHistory
 } from './supabase-data.js';
+import { getReportReason, reportReasonOptions } from './report-reasons.js';
 
 (function () {
   'use strict';
@@ -528,14 +529,10 @@ import {
 
           <label style="display:block;margin-bottom:8px;font-weight:600;font-size:.9rem;">Reason</label>
           <select id="rem2-reason" style="width:100%;padding:.625rem;border:1px solid #d1d5db;border-radius:8px;font-family:inherit;font-size:.9rem;margin-bottom:16px;box-sizing:border-box;">
-            <option value="">— Select a reason —</option>
-            <option value="fake_job">Fake or misleading job listing</option>
-            <option value="scam">Did not pay / underpaid / scam</option>
-            <option value="harassment">Harassment or inappropriate behaviour</option>
-            <option value="other">Unsafe working conditions / other</option>
+            ${reportReasonOptions()}
           </select>
 
-          <label style="display:block;margin-bottom:8px;font-weight:600;font-size:.9rem;">Details <span style="font-weight:400;color:#94a3b8;">(optional)</span></label>
+          <label style="display:block;margin-bottom:8px;font-weight:600;font-size:.9rem;">Details <span id="rem2-details-hint" style="font-weight:400;color:#94a3b8;">(optional)</span></label>
           <textarea id="rem2-desc-input" rows="4"
             placeholder="Describe what happened..."
             style="width:100%;box-sizing:border-box;border:1px solid #e2e8f0;border-radius:8px;padding:.625rem;resize:vertical;font-family:inherit;margin-bottom:12px;"></textarea>
@@ -548,6 +545,11 @@ import {
         </div>`;
       document.body.appendChild(el);
 
+      el.querySelector('#rem2-reason').addEventListener('change', (event) => {
+        const required = event.target.value === 'other';
+        el.querySelector('#rem2-desc-input').required = required;
+        el.querySelector('#rem2-details-hint').textContent = required ? '(required)' : '(optional)';
+      });
       el.querySelector('#rem2-cancel-btn').addEventListener('click', () => { el.style.display = 'none'; });
       // Connects this element event to the handler that should run next.
       el.addEventListener('click', (e) => { if (e.target === el) el.style.display = 'none'; });
@@ -557,16 +559,23 @@ import {
     modal.querySelector('#rem2-desc').textContent = `Reporting ${employerName}${jobTitle ? ' for "' + jobTitle + '"' : ''}.`;
     modal.querySelector('#rem2-reason').value = '';
     modal.querySelector('#rem2-desc-input').value = '';
+    modal.querySelector('#rem2-desc-input').required = false;
+    modal.querySelector('#rem2-details-hint').textContent = '(optional)';
     modal.querySelector('#rem2-status').textContent = '';
     modal.style.display = 'flex';
 
     const submitBtn = modal.querySelector('#rem2-submit-btn');
+    submitBtn.disabled = false;
+    submitBtn.textContent = 'Submit Report';
+    submitBtn.style.background = '#dc2626';
+    modal.querySelector('#rem2-status').style.color = '#ef4444';
     submitBtn.onclick = async () => {
-      const reason      = modal.querySelector('#rem2-reason').value;
+      const reason      = getReportReason(modal.querySelector('#rem2-reason').value);
       const description = modal.querySelector('#rem2-desc-input').value.trim();
       const statusEl    = modal.querySelector('#rem2-status');
 
       if (!reason) { statusEl.textContent = 'Please select a reason.'; return; }
+      if (reason.id === 'other' && !description) { statusEl.textContent = 'Please describe the issue when selecting Other.'; return; }
       if (!currentUser) { statusEl.textContent = 'Not logged in.'; return; }
       // employerId may be null for old listings — report still submitted without reported_user
 
@@ -578,8 +587,8 @@ import {
         await createReport({
           reporter_id:   currentUser.id,
           reported_user: employerId,
-          report_type:   reason,
-          description:   description || `Report for job: "${jobTitle || 'unknown'}"`,
+          report_type:   reason.type,
+          description:   `Reason: ${reason.label}\nJob: ${jobTitle || 'unknown'}${description ? `\n\n${description}` : ''}`,
           status:        'open',
           admin_notes:   `application_id:${applicationId}`
         });
