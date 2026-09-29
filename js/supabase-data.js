@@ -100,25 +100,28 @@ export async function requireUser() {
 // Runs the auth step for this page workflow.
 export function observeAuth(callback) {
   let active = true;
-
-  getCurrentUser()
-    .then((user) => {
-      if (active) callback(user);
-    })
-    .catch((error) => {
-      console.error('Failed to restore auth session:', error);
-      if (active) callback(null);
-    });
+  let pendingNotification = null;
 
   const {
     data: { subscription }
-  } = supabase.auth.onAuthStateChange(async (_event, session) => {
+  } = supabase.auth.onAuthStateChange((event, session) => {
     if (!active) return;
-    callback(session?.user || null);
+    // INITIAL_SESSION runs after Supabase restores persisted authentication.
+    // Do not race it with getUser(), or turn network/page errors into logout.
+    if (!session?.user && event !== 'INITIAL_SESSION' && event !== 'SIGNED_OUT') return;
+    clearTimeout(pendingNotification);
+    // Page callbacks may query Supabase. Run them outside the auth event lock.
+    pendingNotification = setTimeout(() => {
+      if (!active) return;
+      Promise.resolve()
+        .then(() => callback(session?.user || null))
+        .catch((error) => console.error('Auth observer callback failed:', error));
+    }, 0);
   });
 
   return () => {
     active = false;
+    clearTimeout(pendingNotification);
     subscription?.unsubscribe();
   };
 }
