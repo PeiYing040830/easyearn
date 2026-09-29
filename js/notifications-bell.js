@@ -21,6 +21,8 @@ import { observeAuth, fetchNotifications, markNotificationRead, markAllNotificat
   let notifications = [];
   let isOpen = false;
   let pollTimer = null;
+  let fetchError = false;
+  let hasLoaded = false;
 
   // ── Helpers ────────────────────────────────────────────────────────────
 
@@ -66,6 +68,11 @@ import { observeAuth, fetchNotifications, markNotificationRead, markAllNotificat
     const base = (window.EASYEARN_BASE_PATH || '../../').replace(/\/$/, '');
     const isAdmin = window.location.href.includes('/admin/');
     if (n.type === 'new_message') return getChatLink(n);
+    if (n.target_table === 'applications' && !isAdmin) {
+      const page = window.location.pathname.includes('/employer/')
+        ? 'employer/applicants.html' : 'jobseeker/applications.html';
+      return `${base}/pages/${page}`;
+    }
     if (!isAdmin) return '';
     if (n.target_table === 'reports') return `${base}/pages/admin/reports.html`;
     if (n.target_table === 'verifications') return `${base}/pages/admin/verifications.html`;
@@ -79,7 +86,7 @@ import { observeAuth, fetchNotifications, markNotificationRead, markAllNotificat
     if (!notifications.length) {
       dropdown.innerHTML = `
         <div style="padding:1.2rem;text-align:center;color:var(--text-muted,#888);font-size:.875rem;">
-          No notifications yet
+          ${fetchError ? 'Unable to load notifications. Please try again.' : hasLoaded ? 'No notifications yet' : 'Loading notifications...'}
         </div>`;
       return;
     }
@@ -173,11 +180,19 @@ import { observeAuth, fetchNotifications, markNotificationRead, markAllNotificat
   // Helper function for refresh used by this script.
   async function refresh() {
     if (!currentUserId) return;
+    const userId = currentUserId;
     try {
-      notifications = await fetchNotifications(currentUserId, { limit: 25 });
+      const result = await fetchNotifications(userId, { limit: 25 });
+      if (userId !== currentUserId) return;
+      notifications = result;
+      fetchError = false;
+      hasLoaded = true;
       updateBadge();
       if (isOpen) renderDropdown();
     } catch (err) {
+      if (userId !== currentUserId) return;
+      fetchError = true;
+      if (isOpen) renderDropdown();
       console.warn('Notification fetch failed (non-fatal):', err);
     }
   }
@@ -195,7 +210,10 @@ import { observeAuth, fetchNotifications, markNotificationRead, markAllNotificat
     e.stopPropagation();
     isOpen = !isOpen;
     dropdown.style.display = isOpen ? 'block' : 'none';
-    if (isOpen) renderDropdown();
+    if (isOpen) {
+      renderDropdown();
+      refresh();
+    }
   });
 
   // Waits until the HTML has loaded before running page setup code.
@@ -209,7 +227,13 @@ import { observeAuth, fetchNotifications, markNotificationRead, markAllNotificat
   // ── Auth ───────────────────────────────────────────────────────────────
 
   observeAuth(async (user) => {
+    clearInterval(pollTimer);
+    notifications = [];
+    fetchError = false;
+    hasLoaded = false;
     currentUserId = user?.id || null;
+    updateBadge();
+    if (isOpen) renderDropdown();
     if (currentUserId) {
       await refresh();
       startPolling();
