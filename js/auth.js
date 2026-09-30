@@ -329,7 +329,21 @@ window.selectRole = function selectRole(role) {
 const loginBtn = document.getElementById('login-btn');
 if (loginBtn) {
   // Connects this element event to the handler that should run next.
-  loginBtn.addEventListener('click', handleLogin);
+  loginBtn.addEventListener('click', async () => {
+    if (loginBtn.disabled) return;
+    const originalText = loginBtn.textContent;
+    loginBtn.disabled = true;
+    loginBtn.textContent = 'Signing in...';
+    try {
+      await handleLogin();
+    } catch (error) {
+      console.error('Login request failed:', error);
+      showError(mapSupabaseAuthError(error, 'login'));
+    } finally {
+      loginBtn.disabled = false;
+      loginBtn.textContent = originalText;
+    }
+  });
 }
 
 const registerBtn = document.getElementById('register-btn');
