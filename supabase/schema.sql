@@ -584,6 +584,59 @@ as $function$
     and coalesce(auth.jwt() -> 'app_metadata' ->> 'role', '') = 'admin';
 $function$;
 
+-- SEC-020: enforce seeker lifecycle transitions even for direct API updates.
+create or replace function public.guard_seeker_application_status()
+returns trigger
+language plpgsql
+security invoker
+set search_path = public
+as $function$
+begin
+  -- SQL Editor maintenance and trusted administrator operations remain available.
+  if auth.uid() is null or public.is_admin_user(auth.uid()) then
+    return new;
+  end if;
+
+  if new.id is distinct from old.id
+     or new.seeker_id is distinct from old.seeker_id
+     or new.job_id is distinct from old.job_id then
+    raise exception 'Application identity cannot be changed.' using errcode = '42501';
+  end if;
+
+  if auth.uid() = old.seeker_id
+     and new.status is distinct from old.status then
+    if old.status = 'completion_pending'
+       and new.status = 'completed'
+       and old.deleted_at is null
+       and new.deleted_at is null
+       and exists (
+         select 1
+         from public.payments p
+         join public.job_listings j on j.id = old.job_id
+         where p.application_id = old.id
+           and p.payer_id = j.employer_id
+           and p.payee_id = old.seeker_id
+           and p.deleted_at is null
+           and p.amount > 0
+           and p.employer_paid_at is not null
+           and p.payee_confirmed is true
+           and p.seeker_confirmed_at is not null
+           and p.status = 'confirmed'
+       ) then
+      return new;
+    end if;
+    raise exception 'Seeker cannot change application status except to complete an awaiting-payment application after confirming payment.'
+      using errcode = '42501';
+  end if;
+  return new;
+end;
+$function$;
+
+drop trigger if exists trg_guard_seeker_application_status on public.applications;
+create trigger trg_guard_seeker_application_status
+before update on public.applications
+for each row execute function public.guard_seeker_application_status();
+
 create or replace function public.sync_job_openings_from_application()
 returns trigger
 language plpgsql
