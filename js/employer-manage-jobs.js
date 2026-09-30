@@ -3,6 +3,7 @@
  */
 import {
   fetchEmployerJobs,
+  fetchJobApplicantCounts,
   fetchProfile,
   observeAuth,
   updateJobListingStatus,
@@ -198,6 +199,8 @@ import {
       currentProfile = await fetchProfile(userId, null).catch(() => null);
       const restrictionMessage = getRestrictionMessage(currentProfile);
       const jobs = await fetchEmployerJobs(userId);
+      const applicantCounts = await fetchJobApplicantCounts(jobs.map((job) => job.id));
+      jobs.forEach((job) => { job.applicants_count = applicantCounts[job.id] ?? 0; });
       updateMetrics(jobs);
 
       if (!jobs.length) {
@@ -213,7 +216,7 @@ import {
       setStatus(restrictionMessage || 'Your listings are ready to manage.', restrictionMessage ? 'is-error' : 'is-success');
     } catch (error) {
       console.error('Failed to load employer jobs:', error);
-      if (listEl) listEl.innerHTML = createEmptyState();
+      if (listEl) listEl.innerHTML = '<article class="employer-item"><strong>Unable to load job listings or applicant counts.</strong><p>Please refresh to try again.</p></article>';
       setStatus(error?.message || 'Unable to load jobs right now.', 'is-error');
     }
   }

@@ -853,6 +853,19 @@ export async function updateReport(reportId, payload) {
 }
 
 // Loads employer jobs data so the page can display current information.
+export async function fetchJobApplicantCounts(jobIds = []) {
+  const entries = await Promise.all([...new Set(jobIds.filter(Boolean))].map(async (jobId) => {
+    const { count, error } = await supabase
+      .from(TABLES.applications)
+      .select('id', { count: 'exact', head: true })
+      .eq('job_id', jobId)
+      .is('deleted_at', null);
+    if (error) throw error;
+    return [jobId, count ?? 0];
+  }));
+  return Object.fromEntries(entries);
+}
+
 export async function fetchEmployerJobs(employerId) {
   const { data, error } = await supabase
     .from(TABLES.jobs)

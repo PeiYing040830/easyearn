@@ -252,7 +252,7 @@ Figure A3.23: Work History and Earnings Report
 
 ST-030: Employer job posting performance view
 
-Tests that provide the employer with the number of applicants or openings per listing that is accurate, and that the removal of a listing is immediate from the listing's view. As seen in Figure A3.24, employers see their job posting performance view with an accurate count of applicants/opportunities as well as a job post disappearing right after it was removed.
+Status: Pending retest. Manage Jobs displayed 0 applicants for all three listings, while database verification found 2 for Part-Time Barista & Caf? Crew, 1 for Cashier, and 1 for Event Crew. Openings matched the checked database values. Applicant-count corrections and Close behaviour must be verified after deployment before ST-030 can be marked Pass. Figure A3.24 is retained as existing evidence and does not establish that the corrected behaviour has passed.
 
 ![Figure A3.24 image 1](Appendix Diagram/figure-38.png)
 
@@ -380,7 +380,7 @@ EMP-003: Post Job Manage Jobs has a total of 2 Published, 0 Pending Review, 1 Ex
 
 Figure A4.14: Employer - Post Job
 
-EMP-004: Manage Jobs Everything on manage-jobs.html and on the job_listings table was correct for all three jobs, including their status, number of applicants, number of jobs open and their expiry date. Figure A4.15 displays the Manage Jobs page, which shows the status and number of applicants, number of openings, and expiry date for all three jobs.
+EMP-004: Manage Jobs. Applicant counts require retesting: the page displayed 0 for all three jobs, whereas database verification found counts of 2, 1, and 1. Openings matched the checked database values. Figure A4.15 shows the existing Manage Jobs view; it is not evidence that the applicant-count correction or Close behaviour has passed.
 
 ![Figure A4.15 image 1](Appendix Diagram/figure-56.png)
 
