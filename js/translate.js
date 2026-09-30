@@ -7,10 +7,34 @@
   const languages = [
     { code: 'en', label: 'English' },
     { code: 'ms', label: 'Bahasa Malaysia' },
-    { code: 'zh-CN', label: 'Chinese' },
+    { code: 'zh-CN', label: 'Chinese (Simplified)' },
     { code: 'ta', label: 'Tamil' },
     { code: 'id', label: 'Indonesian' },
-    { code: 'hi', label: 'Hindi' }
+    { code: 'hi', label: 'Hindi' },
+    { code: 'zh-TW', label: 'Chinese (Traditional)' },
+    { code: 'bn', label: 'Bengali' },
+    { code: 'th', label: 'Thai' },
+    { code: 'vi', label: 'Vietnamese' },
+    { code: 'ja', label: 'Japanese' },
+    { code: 'ko', label: 'Korean' },
+    { code: 'ar', label: 'Arabic' },
+    { code: 'es', label: 'Spanish' },
+    { code: 'fr', label: 'French' },
+    { code: 'de', label: 'German' },
+    { code: 'pt', label: 'Portuguese' },
+    { code: 'ru', label: 'Russian' },
+    { code: 'it', label: 'Italian' },
+    { code: 'nl', label: 'Dutch' },
+    { code: 'pl', label: 'Polish' },
+    { code: 'tr', label: 'Turkish' },
+    { code: 'sv', label: 'Swedish' },
+    { code: 'no', label: 'Norwegian' },
+    { code: 'da', label: 'Danish' },
+    { code: 'fi', label: 'Finnish' },
+    { code: 'el', label: 'Greek' },
+    { code: 'he', label: 'Hebrew' },
+    { code: 'cs', label: 'Czech' },
+    { code: 'ro', label: 'Romanian' }
   ];
 
   const googleChromeSelector = [
@@ -165,8 +189,9 @@
         new google.translate.TranslateElement(
           {
             pageLanguage: 'en',
-            includedLanguages:
-              'en,ms,zh-CN,zh-TW,ta,hi,bn,th,vi,id,ja,ko,ar,es,fr,de,pt,ru,it,nl,pl,tr,sv,no,da,fi,el,he,cs,ro',
+            includedLanguages: languages.map(function (language) {
+              return language.code;
+            }).join(','),
             layout: google.translate.TranslateElement.InlineLayout.SIMPLE,
             autoDisplay: false
           },

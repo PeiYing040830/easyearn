@@ -542,6 +542,9 @@ body.theme-dark .theme-toggle:hover {
   right: 0;
   z-index: 10000;
   width: 190px;
+  max-height: min(360px, 60vh);
+  overflow-y: auto;
+  overscroll-behavior: contain;
   padding: 6px;
   border: 1px solid #cfeff6;
   border-radius: 10px;
