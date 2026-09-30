@@ -129,7 +129,7 @@ document.addEventListener('DOMContentLoaded', () => {
       const script = document.createElement('script');
       script.id = 'easyearn-role-guard';
       script.type = 'module';
-      script.src = `${basePath}js/role-guard.js?v=20260802a`;
+      script.src = `${basePath}js/role-guard.js?v=20260930b`;
       document.body.appendChild(script);
     }
 
