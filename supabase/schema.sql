@@ -1182,6 +1182,53 @@ with check (
 );
 
 -- Ratings
+-- SEC-008/009: validate both write paths and hide invalid historical ratings.
+create or replace function public.valid_completed_rating(
+  app_id uuid, reviewer uuid, reviewee uuid, rating_role text
+)
+returns boolean
+language sql stable security definer
+set search_path = public
+as $function$
+  select exists (
+    select 1 from public.applications a
+    join public.job_listings j on j.id = a.job_id
+    where a.id = app_id and a.status = 'completed'
+      and a.deleted_at is null
+      and reviewer <> reviewee
+      and (
+        (reviewer = a.seeker_id and reviewee = j.employer_id
+          and rating_role = 'seeker')
+        or (reviewer = j.employer_id and reviewee = a.seeker_id
+          and rating_role = 'employer')
+      )
+  );
+$function$;
+revoke all on function public.valid_completed_rating(uuid, uuid, uuid, text) from public;
+grant execute on function public.valid_completed_rating(uuid, uuid, uuid, text) to anon, authenticated;
+
+drop policy if exists ratings_completed_read_gate on public.ratings;
+create policy ratings_completed_read_gate
+on public.ratings as restrictive for select to anon, authenticated
+using (public.valid_completed_rating(application_id, reviewer_id, reviewee_id, reviewer_role));
+
+drop policy if exists ratings_completed_insert_gate on public.ratings;
+create policy ratings_completed_insert_gate
+on public.ratings as restrictive for insert to anon, authenticated
+with check (
+  auth.uid() = reviewer_id
+  and public.valid_completed_rating(application_id, reviewer_id, reviewee_id, reviewer_role)
+);
+
+drop policy if exists ratings_completed_update_gate on public.ratings;
+create policy ratings_completed_update_gate
+on public.ratings as restrictive for update to anon, authenticated
+using (auth.uid() = reviewer_id)
+with check (
+  auth.uid() = reviewer_id
+  and public.valid_completed_rating(application_id, reviewer_id, reviewee_id, reviewer_role)
+);
+
 create policy ratings_public_read
 on public.ratings for select
 to anon, authenticated
