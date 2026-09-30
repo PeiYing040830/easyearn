@@ -139,6 +139,24 @@
     .auth-box { transition: max-width 0.25s ease; }
     .auth-box.wide { max-width: 480px; }
 
+    .registration-privacy-notice {
+      margin: 16px 0;
+      padding: 12px 14px;
+      border: 1px solid #bae6fd;
+      border-radius: 10px;
+      background: #f0f9ff;
+      color: #334155;
+      font-size: 13px;
+      line-height: 1.6;
+    }
+    .registration-privacy-notice a { color: #075985; text-decoration: underline; }
+    .registration-consent { display: flex; align-items: flex-start; gap: 10px; }
+    #register-privacy-consent { width: 18px; height: 18px; flex: 0 0 18px; margin: 3px 0 0; accent-color: #0891b2; cursor: pointer; }
+    .registration-consent label { margin: 0; font-weight: 400; cursor: pointer; }
+    .registration-privacy-notice a:focus-visible { outline: 2px solid currentColor; outline-offset: 3px; }
+    body.theme-dark .registration-privacy-notice { background: #0f172a; border-color: #334155; color: #e2e8f0; }
+    body.theme-dark .registration-privacy-notice a { color: #7dd3fc; }
+
     /* select styling */
     .form-group select {
       width: 100%;
@@ -266,7 +284,16 @@
             <button class="password-toggle" type="button" data-toggle-target="admin-code" aria-label="Show secure code">👀</button>
           </div>
         </div>
-        <button class="btn-primary" id="register-btn">Create Account</button>
+        <div class="registration-privacy-notice" id="registration-privacy-notice">
+          <div class="registration-consent">
+            <input type="checkbox" id="register-privacy-consent" required aria-describedby="registration-data-use">
+            <label for="register-privacy-consent">I agree to the collection and use of my account and profile data for EasyEarn services, and accept the Privacy Policy and Terms of Service.</label>
+          </div>
+          <p id="registration-data-use">Data is stored using Supabase. Relevant information is shared with employers or applicants for job applications and platform services, as described in our privacy policy.</p>
+          <a href="privacy.html" target="_blank" rel="noopener noreferrer">Privacy Policy (opens in a new tab)</a>
+          · <a href="terms.html" target="_blank" rel="noopener noreferrer">Terms of Service (opens in a new tab)</a>
+        </div>
+        <button class="btn-primary" id="register-btn" aria-describedby="registration-privacy-notice">Create Account</button>
         <p class="link-text">Already have an account? <a href="#" onclick="switchTab('login'); return false;">Login here</a></p>
       </div>
 

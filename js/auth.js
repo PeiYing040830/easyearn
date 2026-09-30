@@ -205,6 +205,12 @@ async function handleLogin() {
 // Handles the register action triggered by the user.
 async function handleRegister() {
   clearError();
+  const privacyConsent = document.getElementById('register-privacy-consent');
+  if (!privacyConsent?.checked) {
+    showError('Please agree to the data use notice, Privacy Policy and Terms of Service before creating an account.');
+    privacyConsent?.focus();
+    return;
+  }
 
   const name = document.getElementById('name')?.value.trim();
   const email = document.getElementById('email')?.value.trim();
