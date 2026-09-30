@@ -3718,3 +3718,51 @@ body.theme-dark .admin-page-header::after {
     bottom: 112px;
   }
 }
+
+/* Analytics: let nested grids and canvases shrink within the viewport. */
+.analytics-shell {
+  width: 100%;
+  min-width: 0;
+  max-width: 100%;
+}
+.analytics-shell .admin-card,
+.analytics-shell .admin-chart-duo,
+.analytics-shell .admin-chart,
+.analytics-shell .admin-pie-wrap,
+.analytics-shell .admin-section-head > div,
+.analytics-shell .admin-analytics-filter {
+  min-width: 0;
+  max-width: 100%;
+}
+.analytics-shell canvas {
+  max-width: 100%;
+}
+.analytics-shell .admin-table-wrap {
+  min-width: 0;
+  max-width: 100%;
+}
+.analytics-shell .admin-analytics-filter input,
+.analytics-shell .admin-analytics-filter select {
+  min-width: 0;
+}
+@media (max-width: 1280px) {
+  .analytics-shell .admin-grid.analytics-top-row,
+  .analytics-shell .admin-chart-duo-side {
+    grid-template-columns: minmax(0, 1fr) !important;
+  }
+}
+@media (max-width: 700px) {
+  .analytics-shell .admin-analytics-toolbar {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .analytics-shell .admin-section-head {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .analytics-shell .admin-chart {
+    padding: 12px;
+  }
+  .analytics-shell .admin-pie-legend {
+    overflow-wrap: anywhere;
+  }
+}
