@@ -150,6 +150,7 @@
       line-height: 1.6;
     }
     .registration-privacy-notice a { color: #075985; text-decoration: underline; }
+    .registration-policy-links { text-align: center; margin-top: 8px; }
     .registration-consent { display: flex; align-items: flex-start; gap: 10px; }
     #register-privacy-consent { width: 18px; height: 18px; flex: 0 0 18px; margin: 3px 0 0; accent-color: #0891b2; cursor: pointer; }
     .registration-consent label { margin: 0; font-weight: 400; cursor: pointer; }
@@ -290,8 +291,10 @@
             <label for="register-privacy-consent">I agree to the collection and use of my account and profile data for EasyEarn services, and accept the Privacy Policy and Terms of Service.</label>
           </div>
           <p id="registration-data-use">Data is stored using Supabase. Relevant information is shared with employers or applicants for job applications and platform services, as described in our privacy policy.</p>
-          <a href="privacy.html">Privacy Policy</a>
-          · <a href="terms.html">Terms of Service</a>
+          <div class="registration-policy-links">
+            <a href="privacy.html">Privacy Policy</a>
+            · <a href="terms.html">Terms of Service</a>
+          </div>
         </div>
         <button class="btn-primary" id="register-btn" aria-describedby="registration-privacy-notice">Create Account</button>
         <p class="link-text">Already have an account? <a href="#" onclick="switchTab('login'); return false;">Login here</a></p>
