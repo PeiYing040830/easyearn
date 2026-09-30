@@ -78,9 +78,21 @@ export async function getCurrentSession() {
 }
 
 // Helper function for sign out user used by this script.
+let voluntarySignOut = false;
+function showLogoutPage() {
+  window.location.href = new URL('../logout.html', import.meta.url).href;
+}
+
 export async function signOutUser() {
-  const { error } = await supabase.auth.signOut();
-  if (error) throw error;
+  voluntarySignOut = true;
+  try {
+    const { error } = await supabase.auth.signOut();
+    if (error) throw error;
+    showLogoutPage();
+  } catch (error) {
+    voluntarySignOut = false;
+    throw error;
+  }
 }
 
 // Runs the user step for this page workflow.
@@ -113,6 +125,10 @@ export function observeAuth(callback) {
     // Page callbacks may query Supabase. Run them outside the auth event lock.
     pendingNotification = setTimeout(() => {
       if (!active) return;
+      if (!session?.user && voluntarySignOut) {
+        showLogoutPage();
+        return;
+      }
       Promise.resolve()
         .then(() => callback(session?.user || null))
         .catch((error) => console.error('Auth observer callback failed:', error));
