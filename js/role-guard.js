@@ -1,7 +1,8 @@
 /**
  * EasyEarn file note: Handles the role guard page behavior and related user interactions.
  */
-import { fetchProfile, observeAuth } from './supabase-data.js';
+import { observeAuth } from './supabase-data.js';
+import { fetchAccountAccess, isAccountLocked, signOutLockedAccount } from './account-access.js';
 
 (function () {
   'use strict';
@@ -39,23 +40,65 @@ import { fetchProfile, observeAuth } from './supabase-data.js';
   const requiredRole = requiredRoleForCurrentPath();
   if (!requiredRole) return;
 
-  observeAuth(async (user) => {
+  let currentUser = null;
+  let checking = false;
+  let blocked = false;
+  const overlay = document.createElement('div');
+  overlay.setAttribute('role', 'alert');
+  overlay.style.cssText = 'position:fixed;inset:0;z-index:2147483647;display:grid;place-content:center;background:var(--card-bg,#fff);color:var(--text-primary,#111827);padding:24px;text-align:center;';
+  function showAccessMessage(message) {
+    overlay.textContent = message;
+    if (!overlay.isConnected) document.body.appendChild(overlay);
+    document.querySelector('main')?.setAttribute('inert', '');
+  }
+  function clearAccessMessage() {
+    overlay.remove();
+    document.querySelector('main')?.removeAttribute('inert');
+  }
+  showAccessMessage('Checking account access…');
+
+  async function checkAccess() {
+    if (!currentUser || checking || blocked) return;
+    checking = true;
+    const user = currentUser;
+    try {
+      const account = await fetchAccountAccess(user.id);
+      if (currentUser !== user) return;
+      if (isAccountLocked(account.account_status)) {
+        blocked = true;
+        showAccessMessage('Your account has been locked by the administrator. Please contact support.');
+        try { await signOutLockedAccount(); }
+        catch (error) { console.warn('Locked account sign-out failed:', error); }
+        window.location.replace(`${dashboardForRole('')}?reason=account_locked`);
+        return;
+      }
+      const actualRole = normalizeRole(account.role);
+      if (!roleMatches(requiredRole, actualRole)) {
+        window.location.replace(dashboardForRole(actualRole));
+        return;
+      }
+      clearAccessMessage();
+    } catch (error) {
+      console.error('Account access verification failed:', error);
+      showAccessMessage('Unable to verify account access. Retrying shortly. You can also refresh the page.');
+    } finally {
+      checking = false;
+    }
+  }
+
+  observeAuth((user) => {
+    currentUser = user;
     if (!user) {
+      if (blocked) return;
       window.location.href = dashboardForRole('');
       return;
     }
-
-    let actualRole = normalizeRole(user.user_metadata?.role);
-
-    try {
-      const profile = await fetchProfile(user.id, user);
-      actualRole = normalizeRole(profile.role || actualRole);
-    } catch (error) {
-      console.warn('Route role guard used auth metadata fallback:', error);
-    }
-
-    if (!roleMatches(requiredRole, actualRole)) {
-      window.location.href = dashboardForRole(actualRole);
-    }
+    checkAccess();
+  });
+  setInterval(checkAccess, 15000);
+  window.addEventListener('pageshow', checkAccess);
+  window.addEventListener('focus', checkAccess);
+  document.addEventListener('visibilitychange', () => {
+    if (!document.hidden) checkAccess();
   });
 })();

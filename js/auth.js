@@ -2,6 +2,7 @@
  * EasyEarn file note: Handles the auth page behavior and related user interactions.
  */
 import { supabase } from './supabase-config.js';
+import { fetchAccountAccess, isAccountLocked, signOutLockedAccount } from './account-access.js';
 
 const ADMIN_CODE = 'EASYEARN-ADMIN-2026';
 const EMPLOYER_CODE = 'EASYEARN-EMPLOYER-2026';
@@ -198,8 +199,18 @@ async function handleLogin() {
     return;
   }
 
-  await upsertProfile(data.user);
-  await redirectByRole(data.user);
+  try {
+    const account = await fetchAccountAccess(data.user.id);
+    if (isAccountLocked(account.account_status)) {
+      showError('Your account has been locked by the administrator. Please contact support.');
+      await signOutLockedAccount();
+      return;
+    }
+    await redirectByRole(data.user);
+  } catch (error) {
+    console.error('Account access check failed:', error);
+    showError('Unable to verify account access. Please try again.');
+  }
 }
 
 // Handles the register action triggered by the user.
@@ -328,3 +339,7 @@ if (registerBtn) {
 }
 
 setupPasswordToggles();
+
+if (new URLSearchParams(window.location.search).get('reason') === 'account_locked') {
+  showError('Your account has been locked by the administrator. Please contact support.');
+}
