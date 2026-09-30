@@ -512,8 +512,8 @@
     try {
       photoSrc = sessionStorage.getItem('ee_logout_photo') || null;
       userName = sessionStorage.getItem('ee_logout_name') || null;
-      sessionStorage.removeItem('ee_logout_photo');
-      sessionStorage.removeItem('ee_logout_name');
+      // Keep the snapshot for refreshes of this goodbye page.
+      // The next signed-in header replaces it with that user's profile.
     } catch(e) {}
 
     // Fallback: scan common storage patterns
