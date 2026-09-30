@@ -92,8 +92,10 @@ import {
 
   // Helper function for parse pay rate used by this script.
   function parsePayRate(value) {
-    const match = String(value || '').match(/(\d+(\.\d+)?)/);
-    return match ? Number(match[1]) : null;
+    const match = String(value ?? '').trim().match(/^(?:RM\s*)?(\d+(?:\.\d{1,2})?)(?:\s*\/\s*(?:h|hr|hour|hourly|day|daily|fixed))?$/i);
+    if (!match) return null;
+    const amount = Number(match[1]);
+    return Number.isFinite(amount) && amount > 0 ? amount : null;
   }
 
   // Helper function for infer pay type used by this script.
