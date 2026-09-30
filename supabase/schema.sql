@@ -1004,6 +1004,41 @@ for each row
 execute function public.prevent_self_admin_field_updates();
 
 -- Job listings
+-- Restrictive gate also applies when another permissive SELECT policy exists.
+create or replace function public.can_read_verified_job(
+  job_id uuid, owner_id uuid, job_status text, job_deleted boolean
+)
+returns boolean
+language sql stable security definer
+set search_path = public
+as $function$
+  select public.is_admin_user(auth.uid())
+    or owner_id = auth.uid()
+    or exists (
+      select 1 from public.applications a
+      where a.job_id = can_read_verified_job.job_id
+        and a.seeker_id = auth.uid() and a.deleted_at is null
+    )
+    or (
+      job_status = 'approved' and not job_deleted
+      and exists (
+        select 1 from public.users u
+        where u.id = owner_id and u.role = 'employer'
+          and u.is_verified is true
+          and coalesce(u.account_status, 'active') = 'active'
+          and u.deleted_at is null
+      )
+    );
+$function$;
+revoke all on function public.can_read_verified_job(uuid, uuid, text, boolean) from public;
+grant execute on function public.can_read_verified_job(uuid, uuid, text, boolean) to anon, authenticated;
+
+drop policy if exists job_listings_verified_read_gate on public.job_listings;
+create policy job_listings_verified_read_gate
+on public.job_listings as restrictive for select
+to anon, authenticated
+using (public.can_read_verified_job(id, employer_id, status, deleted_at is not null));
+
 create policy job_listings_public_read
 on public.job_listings for select
 to anon, authenticated

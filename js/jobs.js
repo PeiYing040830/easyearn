@@ -304,6 +304,8 @@ import { fetchPublicProfilesByIds } from './supabase-data.js';
         employerProfilesById = new Map();
         console.warn('Unable to load employer verification badges:', error);
       }
+      allJobs = allJobs.filter((job) => job.status === 'approved'
+        && employerProfilesById.get(job.employer_id)?.isVerified === true);
       if (loading) loading.style.display = 'none';
 
       if (!allJobs.length) {

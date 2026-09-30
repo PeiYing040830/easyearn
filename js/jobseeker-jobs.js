@@ -724,7 +724,8 @@ import {
           const expiry = new Date(job.expiry_date);
           if (!isNaN(expiry.getTime()) && expiry < now) return false;
         }
-        return status === 'approved' || appliedJobIds.has(job.id);
+        return appliedJobIds.has(job.id) || (status === 'approved'
+          && employerProfilesById.get(job.employer_id)?.isVerified === true);
       })
       .map(normalizeJob);
 
