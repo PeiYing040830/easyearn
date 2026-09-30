@@ -10,6 +10,23 @@ const PROFILE_TABLE = 'users';
 
 let selectedRole = 'seeker';
 
+async function awaitLoginStep(operation, step, timeoutMs = 20000) {
+  let timer;
+  try {
+    return await Promise.race([operation, new Promise((_, reject) => {
+      timer = setTimeout(() => {
+        const error = new Error(step + ' timed out. Refresh this page before trying again.');
+        error.code = 'LOGIN_STEP_TIMEOUT';
+        reject(error);
+      }, timeoutMs);
+    })]);
+  } finally {
+    clearTimeout(timer);
+  }
+}
+
+
+
 // Shows the error message or section when the user needs feedback.
 function showError(msg) {
   const el = document.getElementById('error-msg');
@@ -155,8 +172,8 @@ async function getRoleForUser(user) {
 }
 
 // Runs the by role step for this page workflow.
-async function redirectByRole(user) {
-  const role = await getRoleForUser(user);
+async function redirectByRole(user, verifiedRole) {
+  const role = verifiedRole ? normalizeRole(verifiedRole) : await getRoleForUser(user);
 
   let url = 'pages/jobseeker/dashboard.html';
   if (role === 'employer') url = 'pages/employer/dashboard.html';
@@ -188,10 +205,10 @@ async function handleLogin() {
     return;
   }
 
-  const { data, error } = await supabase.auth.signInWithPassword({
+  const { data, error } = await awaitLoginStep(supabase.auth.signInWithPassword({
     email,
     password
-  });
+  }), 'Sign-in request');
 
   if (error) {
     console.error('Email login failed:', error);
@@ -200,15 +217,17 @@ async function handleLogin() {
   }
 
   try {
-    const account = await fetchAccountAccess(data.user.id);
+    document.getElementById('login-btn').textContent = 'Checking account...';
+    const account = await awaitLoginStep(fetchAccountAccess(data.user.id), 'Account access check');
     if (isAccountLocked(account.account_status)) {
       showError('Your account has been locked by the administrator. Please contact support.');
-      await signOutLockedAccount();
+      await awaitLoginStep(signOutLockedAccount(), 'Locked account sign-out');
       return;
     }
-    await redirectByRole(data.user);
+    await redirectByRole(data.user, account.role);
   } catch (error) {
     console.error('Account access check failed:', error);
+    if (error.code === 'LOGIN_STEP_TIMEOUT') throw error;
     showError('Unable to verify account access. Please try again.');
   }
 }
@@ -334,14 +353,17 @@ if (loginBtn) {
     const originalText = loginBtn.textContent;
     loginBtn.disabled = true;
     loginBtn.textContent = 'Signing in...';
+    let timedOut = false;
     try {
       await handleLogin();
     } catch (error) {
       console.error('Login request failed:', error);
-      showError(mapSupabaseAuthError(error, 'login'));
+      timedOut = error.code === 'LOGIN_STEP_TIMEOUT';
+      showError(timedOut ? error.message : mapSupabaseAuthError(error, 'login'));
     } finally {
-      loginBtn.disabled = false;
-      loginBtn.textContent = originalText;
+      // Do not overlap a retry with an SDK operation still pending after timeout.
+      loginBtn.disabled = timedOut;
+      loginBtn.textContent = timedOut ? 'Refresh to retry' : originalText;
     }
   });
 }
