@@ -73,7 +73,7 @@
 
     .messages-thread-btn.is-active {
       border-color: rgba(22, 163, 74, 0.55);
-      box-shadow: 0 18px 40px rgba(22, 163, 74, 0.14);
+      box-shadow: 0 2px 6px -3px rgba(15, 23, 42, 0.12);
       background: #f0fdf4;
     }
 
@@ -424,6 +424,18 @@
       gap: 8px;
       padding: 16px;
       border-radius: 18px;
+      box-shadow: none;
+    }
+
+    .jobseeker-shell.messages-shell .messages-thread-btn:hover,
+    .jobseeker-shell.messages-shell .messages-thread-btn:focus-visible,
+    .jobseeker-shell.messages-shell .messages-thread-btn.is-active {
+      box-shadow: 0 2px 6px -3px rgba(15, 23, 42, 0.12);
+    }
+
+    .jobseeker-shell.messages-shell .messages-thread-btn:focus-visible {
+      outline: 2px solid #16a34a;
+      outline-offset: -3px;
     }
 
     .jobseeker-shell.messages-shell .messages-panel {
