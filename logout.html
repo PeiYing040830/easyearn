@@ -472,16 +472,19 @@
 
 <!-- Inline script runs page-specific JavaScript behavior. -->
 <script type="module">
-  // Safety net: sign out via Supabase in case user navigated here directly
+  // Direct visits also clear an existing session, without navigating here again.
   try {
-    const { createClient } = await import('./js/supabase-config.js').catch(() => ({}));
-    if (typeof createClient === 'undefined') {
-      // Try importing signOutUser directly
-      const { signOutUser } = await import('./js/supabase-data.js');
-      await signOutUser();
+    const { supabase } = await import('./js/supabase-config.js');
+    const { data, error } = await supabase.auth.getSession();
+    if (error) throw error;
+    if (data.session) {
+      const { error: signOutError } = await supabase.auth.signOut({ scope: 'local' });
+      if (signOutError) throw signOutError;
     }
-  } catch (e) {
-    // Already signed out or config unavailable — safe to ignore
+  } catch (error) {
+    console.error('Unable to finish signing out:', error);
+    document.querySelector('.subtitle').textContent =
+      'Unable to confirm logout. Please reconnect and try signing out again.';
   }
 </script>
 
