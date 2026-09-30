@@ -187,13 +187,28 @@ import {
     ['friendly communication', 'communication', 'communicate', 'friendly', 'interpersonal', 'greet', 'greeting'],
     ['attention to detail', 'detail', 'details', 'accurate', 'accuracy', 'careful'],
     ['punctuality', 'punctual', 'on time', 'time management', 'reliable'],
-    ['typhoid injection certificate', 'typhoid', 'injection', 'certificate', 'food handling certificate'],
     ['event support', 'event crew', 'event', 'crew', 'booth', 'usher'],
     ['f and b', 'f b', 'food and beverage', 'food', 'beverage', 'bakery', 'cafe'],
     ['packing', 'pack', 'packaging', 'arrange', 'stock'],
     ['sales', 'sell', 'selling', 'booth sales', 'retail'],
     ['barista', 'coffee', 'espresso', 'latte', 'cafe']
   ];
+
+  // Credentials must be explicitly listed; related work skills are not proof.
+  // Typhoid vaccination and food-handling training are separate credentials.
+  const CREDENTIAL_ALIASES = [
+    ['typhoid injection certificate', 'typhoid vaccination certificate', 'typhoid immunization certificate', 'typhoid immunisation certificate'],
+    ['food handling certificate', 'food handler certificate', 'food handlers certificate', 'food handling certification']
+  ];
+
+  function isCredentialSkill(skill) {
+    return /\b(certificate|certificates|certification|certifications|certified|license|licence|licensed|licenced|permit|credential|diploma|degree|typhoid|vaccination|immunization|immunisation)\b/.test(normalizeSkillKey(skill));
+  }
+
+  function credentialNames(skill) {
+    const key = normalizeSkillKey(skill);
+    return CREDENTIAL_ALIASES.find((names) => names.includes(key)) || [key];
+  }
 
   // Helper function for stem skill token used by this script.
   function stemSkillToken(token) {
@@ -276,6 +291,9 @@ import {
   // Helper function for skill matches text used by this script.
   function skillMatchesText(skill, text) {
     const haystack = normalizeSkillKey(text);
+    if (isCredentialSkill(skill)) {
+      return credentialNames(skill).some((name) => (` ${haystack} `).includes(` ${name} `));
+    }
     if (getSkillKeywords(skill).some((keyword) => haystack.includes(keyword))) return true;
 
     const haystackTokens = tokenizeSkill(haystack);
@@ -291,6 +309,12 @@ import {
 
   // Helper function for skills match used by this script.
   function skillsMatch(skillA, skillB) {
+    const a = normalizeSkillKey(skillA);
+    const b = normalizeSkillKey(skillB);
+    if (!a || !b) return false;
+    if (isCredentialSkill(a) || isCredentialSkill(b)) {
+      return credentialNames(a).includes(b);
+    }
     const aKeywords = getSkillKeywords(skillA);
     const bKeywords = getSkillKeywords(skillB);
     if (aKeywords.some((a) => bKeywords.some((b) => a === b || a.includes(b) || b.includes(a)))) {
@@ -303,6 +327,9 @@ import {
   // Loads matched skills data so the page can display current information.
   function getMatchedSkills(job, userSkills) {
     if (!userSkills.length) return [];
+    if (normalizeArray(job.skills).length) {
+      return userSkills.filter((skill) => job.skills.some((required) => skillsMatch(skill, required)));
+    }
     const source = [
       job.title,
       job.company,
@@ -387,6 +414,7 @@ import {
   // Formats or checks calculate match score so later code can use a clean value.
   function calculateMatchScore(job, userSkills) {
     if (!userSkills.length) return 0;
+    if (normalizeArray(job.skills).length) return getMatchedSkills(job, userSkills).length;
     const source = [
       job.title,
       job.company,
