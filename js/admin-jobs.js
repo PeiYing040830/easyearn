@@ -1,3 +1,4 @@
+import { escapeHtml } from './html-escape.js';
 /**
  * EasyEarn file note: Handles the admin jobs page behavior and related user interactions.
  */
@@ -160,11 +161,11 @@ import { observeAuth, fetchJobs, fetchProfilesByIds, updateJobListingStatus } fr
     if (!filtered.length) {
       queueEl.innerHTML = `
         <article class="admin-item">
-          <strong>No ${moderationLabel(activeFilter)} jobs</strong>
+          <strong>No ${escapeHtml(moderationLabel(activeFilter))} jobs</strong>
           <p>${activeFilter === 'pending'
             ? 'No jobs are waiting for review right now — all postings have been moderated.'
-            : `No jobs with status "${moderationLabel(activeFilter)}" found.`}</p>
-          <div class="admin-item-meta"><span>Filter: ${moderationLabel(activeFilter)}</span></div>
+            : `No jobs with status "${escapeHtml(moderationLabel(activeFilter))}" found.`}</p>
+          <div class="admin-item-meta"><span>Filter: ${escapeHtml(moderationLabel(activeFilter))}</span></div>
         </article>`;
       return;
     }
@@ -177,31 +178,31 @@ import { observeAuth, fetchJobs, fetchProfilesByIds, updateJobListingStatus } fr
       const openings = Number(job.openings_count ?? 1);
 
       return `
-        <article class="admin-item" data-job-id="${job.id}">
+        <article class="admin-item" data-job-id="${escapeHtml(job.id)}">
           <div class="admin-request-head">
             <div>
-              <strong>${job.title || 'Untitled job'}</strong>
-              <p>${employerName}</p>
+              <strong>${escapeHtml(job.title || 'Untitled job')}</strong>
+              <p>${escapeHtml(employerName)}</p>
             </div>
-            <span class="admin-status-pill">${moderationLabel(review.status)}</span>
+            <span class="admin-status-pill">${escapeHtml(moderationLabel(review.status))}</span>
           </div>
           <div class="admin-item-meta">
-            <span>Category: ${category}</span>
-            <span>Pay: ${pay}</span>
+            <span>Category: ${escapeHtml(category)}</span>
+            <span>Pay: ${escapeHtml(pay)}</span>
             <span>Openings: ${openings}</span>
-            <span>Listing: ${job.status || 'pending'}</span>
-            <span>Expiry: ${expiry}</span>
+            <span>Listing: ${escapeHtml(job.status || 'pending')}</span>
+            <span>Expiry: ${escapeHtml(expiry)}</span>
           </div>
-          <p>${job.description || 'No job description added yet.'}</p>
+          <p>${escapeHtml(job.description || 'No job description added yet.')}</p>
           <div class="admin-action-row">
             ${review.status !== 'approved'
-              ? `<button type="button" class="btn-primary" data-action="approve" data-job-id="${job.id}">Approve</button>`
+              ? `<button type="button" class="btn-primary" data-action="approve" data-job-id="${escapeHtml(job.id)}">Approve</button>`
               : `<button type="button" class="btn-outline" disabled style="opacity:.5;cursor:default;">Approved</button>`}
             ${review.status !== 'flagged'
-              ? `<button type="button" class="btn-outline" data-action="flag" data-job-id="${job.id}">Flag</button>`
+              ? `<button type="button" class="btn-outline" data-action="flag" data-job-id="${escapeHtml(job.id)}">Flag</button>`
               : `<button type="button" class="btn-outline" disabled style="opacity:.5;cursor:default;">Flagged</button>`}
             ${review.status !== 'removed'
-              ? `<button type="button" class="btn-outline" data-action="remove" data-job-id="${job.id}">Remove</button>`
+              ? `<button type="button" class="btn-outline" data-action="remove" data-job-id="${escapeHtml(job.id)}">Remove</button>`
               : `<button type="button" class="btn-outline" disabled style="opacity:.5;cursor:default;">Removed</button>`}
           </div>
         </article>`;

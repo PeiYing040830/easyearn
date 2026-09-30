@@ -1,3 +1,4 @@
+import { escapeHtml } from './html-escape.js';
 /**
  * EasyEarn file note: Handles the employer manage jobs page behavior and related user interactions.
  */
@@ -126,18 +127,18 @@ import {
     const openings = Number(job.openings_count ?? 1);
 
     return `
-      <article class="employer-item" data-job-id="${job.id}">
-        <strong>${job.title || 'Untitled Job'}</strong>
-        <p>${job.description || 'No description added yet.'}</p>
+      <article class="employer-item" data-job-id="${escapeHtml(job.id)}">
+        <strong>${escapeHtml(job.title || 'Untitled Job')}</strong>
+        <p>${escapeHtml(job.description || 'No description added yet.')}</p>
         <div class="employer-item-meta">
-          <span>Status: ${status.charAt(0).toUpperCase() + status.slice(1)}</span>
+          <span>Status: ${escapeHtml(status.charAt(0).toUpperCase() + status.slice(1))}</span>
           <span>Applicants: ${applicants}</span>
           <span>Openings: ${openings}</span>
           <span>Expiry: ${formatExpiry(job.expiry_date)}</span>
         </div>
         <div class="employer-card-actions">
-          <a href="manage-jobs.html?edit=${job.id}#job-form-section" class="btn-outline">Edit</a>
-          <button class="btn-outline manage-job-status-btn" type="button" data-job-id="${job.id}" data-next-status="${nextStatus}">${actionLabel}</button>
+          <a href="manage-jobs.html?edit=${escapeHtml(job.id)}#job-form-section" class="btn-outline">Edit</a>
+          <button class="btn-outline manage-job-status-btn" type="button" data-job-id="${escapeHtml(job.id)}" data-next-status="${nextStatus}">${actionLabel}</button>
         </div>
       </article>
     `;
