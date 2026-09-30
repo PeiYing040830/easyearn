@@ -7,6 +7,13 @@ import { observeAuth, fetchAllProfiles, fetchJobs, fetchReports, fetchPaymentDis
   'use strict';
 
   let lineChart = null;
+  const compactChartLayout = window.matchMedia('(max-width: 480px)');
+  compactChartLayout.addEventListener('change', () => {
+    if (!lineChart) return;
+    lineChart.options.maintainAspectRatio = !compactChartLayout.matches;
+    lineChart.resize();
+    lineChart.update('none');
+  });
   let donutChart = null;
   const metrics = {
     users: {
@@ -214,7 +221,7 @@ import { observeAuth, fetchAllProfiles, fetchJobs, fetchReports, fetchPaymentDis
       data: { labels, datasets },
       options: {
         responsive: true,
-        maintainAspectRatio: true,
+        maintainAspectRatio: !compactChartLayout.matches,
         plugins: {
           legend: {
             display: true,
