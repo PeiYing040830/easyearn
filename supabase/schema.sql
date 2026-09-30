@@ -1046,17 +1046,21 @@ with check (auth.uid() = user_id);
 create policy payments_insert_payer
 on public.payments for insert
 to authenticated
-with check (auth.uid() = payer_id);
-
-create policy payments_insert_seeker
-on public.payments for insert
-to authenticated
 with check (
-  exists (
-    select 1 from public.applications a
-    where a.id = payments.application_id and a.seeker_id = auth.uid()
+  auth.uid() = payer_id
+  and exists (
+    select 1
+    from public.applications a
+    join public.job_listings j on j.id = a.job_id
+    join public.users u on u.id = j.employer_id
+    where a.id = payments.application_id
+      and j.employer_id = auth.uid()
+      and u.role = 'employer'
+      and coalesce(u.account_status, 'active') = 'active'
+      and a.seeker_id = payments.payee_id
+      and a.deleted_at is null
+      and j.deleted_at is null
   )
-  and (payee_id is null or payee_id = auth.uid())
 );
 
 create policy payments_select_related_users

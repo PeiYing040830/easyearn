@@ -1630,11 +1630,13 @@ export async function createPayment(payload) {
 export async function markEmployerPaid(applicationId, seekerId = null, amount = 0) {
   const requestedAmount = Number(amount) || 0;
   // Check if a payment record already exists for this application
-  const { data: existing } = await supabase
+  const { data: existing, error: existingError } = await supabase
     .from(TABLES.payments)
     .select('id, amount')
     .eq('application_id', applicationId)
     .maybeSingle();
+
+  if (existingError) throw existingError;
 
   if (existing?.id) {
     const existingAmount = Number(existing.amount) || 0;
@@ -1685,24 +1687,9 @@ export async function fetchPaymentByApplication(applicationId) {
 
 // Runs the payment record for application step for this page workflow.
 export async function ensurePaymentRecordForApplication(applicationId, payeeId = null) {
-  const existing = await fetchPaymentByApplication(applicationId).catch(() => null);
+  const existing = await fetchPaymentByApplication(applicationId);
   if (existing?.id) return existing;
-
-  const { data: { user } } = await supabase.auth.getUser();
-  const { data, error } = await supabase
-    .from(TABLES.payments)
-    .insert({
-      application_id: applicationId,
-      payer_id: user?.id ?? null,
-      payee_id: payeeId ?? null,
-      amount: 0,
-      status: 'pending'
-    })
-    .select()
-    .maybeSingle();
-
-  if (error) throw error;
-  return data;
+  throw new Error('No payment record exists yet. Ask the employer to record payment first. For unpaid work, use Report Employer.');
 }
 
 // Loads payments by user data so the page can display current information.
@@ -1857,17 +1844,7 @@ export async function confirmPaymentReceived(applicationId) {
       .eq('id', payment.id);
     if (error) throw error;
   } else {
-    // No payment record yet — create a placeholder
-    const { error } = await supabase
-      .from(TABLES.payments)
-      .insert({
-        application_id: applicationId,
-        seeker_confirmed_at: new Date().toISOString(),
-        payee_confirmed: true,
-        status: 'confirmed',
-        amount: 0
-      });
-    if (error) throw error;
+    throw new Error('No payment record exists yet. Ask the employer to record payment before confirming receipt.');
   }
 
   await updateApplicationStatus(applicationId, 'completed');
