@@ -3,6 +3,7 @@
  */
 import {
   fetchApplications,
+  localCalendarDate,
   fetchJobs,
   fetchProfile,
   fetchPaymentByApplication,
@@ -536,7 +537,9 @@ import {
       for (const application of completedApps) {
         if (!confirmedApplicationIds.has(application.id)) continue;
         const job = jobsById.get(application.job_id) || {};
-        const completedDate = String(application.updated_at || application.applied_at || '').slice(0, 10);
+        const payment = paymentByApplicationId.get(application.id);
+        const completedDate = payment?.seeker_confirmed_at
+          ? localCalendarDate(payment.seeker_confirmed_at) : null;
         const key = [
           String(job.title || 'Completed Job').trim().toLowerCase(),
           String(job.company || job.company_name || job.employer_name || 'EasyEarn Employer').trim().toLowerCase(),
@@ -552,7 +555,7 @@ import {
           employer_name: job.company || job.company_name || job.employer_name || 'EasyEarn Employer',
           category: job.category || null,
           start_date: null,
-          end_date: completedDate || new Date().toISOString().slice(0, 10),
+          end_date: completedDate,
           earnings: getPaymentAmount(application.id)
         });
 

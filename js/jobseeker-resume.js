@@ -150,7 +150,8 @@ import {
       ...normalizeArray(data?.availability || data?.availabilityDays),
       data?.availabilityTime,
       data?.workMode
-    ].filter(Boolean);
+    ].filter(Boolean).map((value) => String(value).trim())
+      .filter((value, index, values) => value && values.findIndex((item) => item.toLowerCase() === value.toLowerCase()) === index);
 
     renderPhoto(name, photo);
     if (els.name) els.name.textContent = name;

@@ -3,6 +3,7 @@
  */
 import {
   fetchApplications,
+  localCalendarDate,
   fetchJobListing,
   updateApplicationStatus,
   deleteApplication,
@@ -496,7 +497,7 @@ import { getReportReason, reportReasonOptions } from './report-reasons.js';
     document.getElementById('wh-employer-name').value  = job.company_name || job.employer_name || '';
     document.getElementById('wh-category').value       = job.category || '';
     document.getElementById('wh-start-date').value     = '';
-    document.getElementById('wh-end-date').value       = new Date().toISOString().split('T')[0];
+    document.getElementById('wh-end-date').value       = localCalendarDate();
     if (whStatus) whStatus.textContent = '';
     whModal.style.display = 'flex';
   }
@@ -764,7 +765,7 @@ import { getReportReason, reportReasonOptions } from './report-reasons.js';
             employer_name: job.company_name || job.employer_name || 'Employer',
             category: job.category || null,
             start_date: null,
-            end_date: new Date().toISOString().split('T')[0],
+            end_date: localCalendarDate(),
             earnings: confirmedPayment.amount
           });
         }

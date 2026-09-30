@@ -472,7 +472,50 @@ export async function fetchWorkHistory(userId) {
     deduped.push(row);
   });
 
+  const unresolved = deduped.filter((row) => row.applicationId &&
+    /^(employer|easyearn employer|employer not set)$/i.test(row.company.trim()));
+  if (unresolved.length) {
+    try {
+      const { data: applications, error: applicationError } = await supabase
+        .from(TABLES.applications).select('id, job_id')
+        .in('id', unresolved.map((row) => row.applicationId));
+      if (applicationError) throw applicationError;
+      const jobIds = [...new Set((applications || []).map((row) => row.job_id).filter(Boolean))];
+      if (jobIds.length) {
+        const { data: jobs, error: jobError } = await supabase
+          .from(TABLES.jobs).select('id, employer_id').in('id', jobIds);
+        if (jobError) throw jobError;
+        const namedJobs = await resolveJobEmployerNames(jobs || []);
+        const byJob = new Map(namedJobs.map((job) => [job.id, job.company_name]));
+        const byApplication = new Map((applications || []).map((row) => [row.id, byJob.get(row.job_id)]));
+        unresolved.forEach((row) => { row.company = byApplication.get(row.applicationId) || row.company; });
+      }
+    } catch (error) {
+      console.warn('Work history employer names could not be loaded:', error);
+    }
+  }
   return deduped;
+}
+
+// Date-only fields use the local calendar day, not the UTC day before midnight.
+export function localCalendarDate(value = new Date()) {
+  if (typeof value === 'string' && /^\d{4}-\d{2}-\d{2}$/.test(value)) return value;
+  const date = value instanceof Date ? value : new Date(value);
+  if (Number.isNaN(date.getTime())) return '';
+  return `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}-${String(date.getDate()).padStart(2, '0')}`;
+}
+
+async function resolveJobEmployerNames(jobs) {
+  try {
+    const profiles = await fetchPublicProfilesByIds(jobs.map((job) => job.employer_id));
+    const names = new Map(profiles.map((profile) => [profile.id, profile.name]));
+    return jobs.map((job) => ({ ...job,
+      company_name: job.company_name || job.employer_name || names.get(job.employer_id) || ''
+    }));
+  } catch (error) {
+    console.warn('Job employer names could not be loaded:', error);
+    return jobs;
+  }
 }
 
 // Creates work history when the workflow needs a new record or message.
@@ -718,7 +761,7 @@ export async function fetchJobs() {
     .select('*');
 
   if (error) throw error;
-  return data || [];
+  return resolveJobEmployerNames(data || []);
 }
 
 // Loads reports data so the page can display current information.
@@ -830,7 +873,7 @@ export async function fetchJobListing(jobId) {
     .maybeSingle();
 
   if (error && error.code !== 'PGRST116') throw error;
-  return data || null;
+  return data ? (await resolveJobEmployerNames([data]))[0] : null;
 }
 
 // Creates job listing when the workflow needs a new record or message.
