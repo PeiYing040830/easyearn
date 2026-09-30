@@ -753,11 +753,10 @@ import { getReportReason, reportReasonOptions } from './report-reasons.js';
       confirmPayBtn.disabled = true;
       confirmPayBtn.textContent = 'Confirming…';
       try {
-        await confirmPaymentReceived(appId);
+        const confirmedPayment = await confirmPaymentReceived(appId);
         const app = applications.find((item) => item.id === appId);
         if (app) {
           const job = app._job || {};
-          const payment = paymentStatusMap[appId] || {};
           await insertWorkHistory({
             seeker_id: currentUser?.id,
             application_id: appId,
@@ -766,7 +765,7 @@ import { getReportReason, reportReasonOptions } from './report-reasons.js';
             category: job.category || null,
             start_date: null,
             end_date: new Date().toISOString().split('T')[0],
-            earnings: Number(payment.amount) || 0
+            earnings: confirmedPayment.amount
           });
         }
         if (paymentStatusMap[appId]) {

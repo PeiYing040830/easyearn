@@ -487,7 +487,18 @@ export async function insertWorkHistory(payload) {
       .limit(1);
 
     if (existingError) throw existingError;
-    if ((existing || []).length) return existing[0];
+    if ((existing || []).length) {
+      const earnings = Number(payload.earnings);
+      if (!Number.isFinite(earnings) || earnings <= 0) return existing[0];
+      const { data, error } = await supabase
+        .from(TABLES.workHistory)
+        .update({ earnings })
+        .eq('id', existing[0].id)
+        .select()
+        .maybeSingle();
+      if (error) throw error;
+      return data;
+    }
   }
 
   const row = {
@@ -1804,6 +1815,7 @@ export async function confirmPaymentReceived(applicationId) {
   }
 
   await updateApplicationStatus(applicationId, 'completed');
+  return { amount: Number(payment?.amount) || 0 };
 }
 
 // ── Skill Tags ─────────────────────────────────────────────────────────────
