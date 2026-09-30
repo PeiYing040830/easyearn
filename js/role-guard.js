@@ -54,8 +54,12 @@ import { fetchAccountAccess, isAccountLocked, signOutLockedAccount } from './acc
   function clearAccessMessage() {
     overlay.remove();
     document.querySelector('main')?.removeAttribute('inert');
+    document.querySelector('main')?.removeAttribute('aria-busy');
   }
-  showAccessMessage('Checking account access…');
+  // Keep the page shell visible; protected controls stay disabled until verified.
+  const main = document.querySelector('main');
+  main?.setAttribute('inert', '');
+  main?.setAttribute('aria-busy', 'true');
 
   async function checkAccess() {
     if (!currentUser || checking || blocked) return;

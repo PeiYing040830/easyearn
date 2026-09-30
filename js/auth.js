@@ -217,7 +217,6 @@ async function handleLogin() {
   }
 
   try {
-    document.getElementById('login-btn').textContent = 'Checking account...';
     const account = await awaitLoginStep(fetchAccountAccess(data.user.id), 'Account access check');
     if (isAccountLocked(account.account_status)) {
       showError('Your account has been locked by the administrator. Please contact support.');
