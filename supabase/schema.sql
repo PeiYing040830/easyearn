@@ -557,8 +557,7 @@ set search_path = public
 as $function$
 begin
   if new.role = 'employer'
-     and new.verification_status = 'submitted'
-     and (tg_op = 'INSERT' or old.verification_status is distinct from new.verification_status) then
+     and new.verification_status = 'submitted' then
     insert into public.notifications (
       user_id, type, message, is_read, target_table, target_id, is_admin, actor_id
     )
