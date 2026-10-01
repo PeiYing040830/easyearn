@@ -1,19 +1,26 @@
 /* Verification uses independent rows so hidden fields cannot shift uploads. */
 #verification-form {
-  max-width: 1100px;
-  margin-inline: auto;
+  width: 100%;
 }
 #verification-form .verification-grid {
   display: grid;
-  grid-template-columns: minmax(0, 1fr);
-  gap: 28px;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  align-items: start;
+  gap: 24px;
 }
-#verification-form .verification-details,
-#verification-form .verification-documents {
+#verification-form .verification-type-field {
+  grid-column: 1 / -1;
+}
+#verification-form .verification-type-field select {
+  width: 360px;
+  max-width: 100%;
+}
+#verification-form .verification-details {
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  column-gap: 24px;
-  row-gap: 10px;
+  gap: 20px;
+}
+#verification-form .verification-documents {
+  display: contents;
 }
 #verification-form .employer-field {
   min-width: 0;
@@ -21,17 +28,9 @@
   gap: 10px;
   align-content: start;
 }
-/* Share label and control tracks across each pair, including wrapped labels. */
-#verification-form .verification-details > .employer-field {
-  grid-row: span 2;
-  grid-template-rows: subgrid;
-}
-#verification-form .verification-documents > .employer-field {
-  grid-row: span 3;
-  grid-template-rows: subgrid;
-}
 #verification-form .employer-field > span {
   line-height: 1.5;
+  min-height: 40px;
 }
 #verification-form .employer-field > small {
   font-size: 13px;
@@ -64,10 +63,8 @@
   font-size: 13px;
   line-height: 1.6;
 }
-#verification-form:has(#verification-ssm-number:disabled) .verification-details {
-  grid-template-columns: minmax(0, 1fr);
-}
 #verification-form .verification-actions {
+  grid-column: 1 / -1;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -86,15 +83,22 @@
   font-size: 13px;
 }
 @media (max-width: 760px) {
-  #verification-form .verification-details,
-  #verification-form .verification-documents {
-    grid-template-columns: minmax(0, 1fr);
-    row-gap: 12px;
-  }
   #verification-form .verification-grid {
+    grid-template-columns: minmax(0, 1fr);
     gap: 24px;
   }
+  #verification-form .employer-field > span {
+    min-height: 0;
+  }
+  #verification-form .verification-type-field select,
   #verification-submit-btn {
     width: 100%;
+  }
+}
+
+@media (min-width: 761px) {
+  #verification-form .verification-type-field > select {
+    width: 360px;
+    max-width: 100%;
   }
 }
