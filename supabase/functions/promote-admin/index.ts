@@ -1,4 +1,5 @@
 import { createClient } from 'npm:@supabase/supabase-js@2';
+import { corsHeaders } from 'npm:@supabase/supabase-js@^2/cors';
 
 const supabaseUrl = Deno.env.get('SUPABASE_URL') || '';
 const serviceRoleKey = Deno.env.get('SUPABASE_SERVICE_ROLE_KEY') || '';
@@ -10,11 +11,9 @@ const allowedOrigins = new Set([
 ]);
 
 function responseHeaders(origin: string | null) {
-  const headers = new Headers({
-    'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type',
-    'Access-Control-Allow-Methods': 'POST, OPTIONS',
-    'Content-Type': 'application/json'
-  });
+  const headers = new Headers(corsHeaders);
+  headers.set('Access-Control-Allow-Methods', 'POST, OPTIONS');
+  headers.set('Content-Type', 'application/json');
   if (origin && allowedOrigins.has(origin)) {
     headers.set('Access-Control-Allow-Origin', origin);
     headers.set('Vary', 'Origin');
