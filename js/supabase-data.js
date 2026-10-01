@@ -78,19 +78,22 @@ export async function getCurrentSession() {
 }
 
 // Helper function for sign out user used by this script.
-let voluntarySignOut = false;
+// Versioned imports can instantiate this module more than once. Keep logout
+// intent shared within this document so every auth observer chooses one route.
+const signOutStateKey = Symbol.for('easyearn.signOutState');
+const signOutState = window[signOutStateKey] || (window[signOutStateKey] = { voluntary: false });
 function showLogoutPage() {
   window.location.href = new URL('../logout.html', import.meta.url).href;
 }
 
 export async function signOutUser() {
-  voluntarySignOut = true;
+  signOutState.voluntary = true;
   try {
     const { error } = await supabase.auth.signOut();
     if (error) throw error;
     showLogoutPage();
   } catch (error) {
-    voluntarySignOut = false;
+    signOutState.voluntary = false;
     throw error;
   }
 }
@@ -125,8 +128,8 @@ export function observeAuth(callback) {
     // Page callbacks may query Supabase. Run them outside the auth event lock.
     pendingNotification = setTimeout(() => {
       if (!active) return;
-      if (!session?.user && voluntarySignOut) {
-        showLogoutPage();
+      if (!session?.user && signOutState.voluntary) {
+        // signOutUser owns navigation after the sign-out request succeeds.
         return;
       }
       Promise.resolve()

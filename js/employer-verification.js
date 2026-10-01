@@ -1,7 +1,7 @@
 /**
  * EasyEarn file note: Handles the employer verification page behavior and related user interactions.
  */
-import { fetchProfile, observeAuth, updateEmployerVerification, notifyAdmins } from './supabase-data.js?v=20260901a';
+import { fetchProfile, observeAuth, updateEmployerVerification, notifyAdmins } from './supabase-data.js';
 
 (function () {
   'use strict';
