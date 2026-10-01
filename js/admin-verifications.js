@@ -1,3 +1,4 @@
+import { verificationRequirements, verificationPackageError } from './verification-rules.js';
 /**
  * EasyEarn file note: Handles the admin verifications page behavior and related user interactions.
  */
@@ -100,8 +101,8 @@ import { observeAuth, fetchAllProfiles, fetchProfile, updateEmployerVerification
   // Formats or checks doc links so later code can use a clean value.
   function buildDocLinks(payload) {
     const docs = [
-      payload.registration ? `<a href="${payload.registration.content}" download="${payload.registration.name}">Registration document: ${payload.registration.name}</a>` : '',
-      payload.contact ? `<a href="${payload.contact.content}" download="${payload.contact.name}">Contact proof: ${payload.contact.name}</a>` : ''
+      payload.registration ? `<a href="${payload.registration.content}" download="${payload.registration.name}">${verificationRequirements(payload.businessType).registrationLabel}: ${payload.registration.name}</a>` : '',
+      payload.contact ? `<a href="${payload.contact.content}" download="${payload.contact.name}">${verificationRequirements(payload.businessType).contactLabel}: ${payload.contact.name}</a>` : ''
     ].filter(Boolean);
 
     if (!docs.length) return '<p>No uploaded documents found.</p>';
@@ -204,7 +205,7 @@ import { observeAuth, fetchAllProfiles, fetchProfile, updateEmployerVerification
             <span class="admin-status-pill">${statusLabel(normalizedStatus)}</span>
           </div>
           <div class="admin-item-meta">
-            <span>SSM: ${payload.ssmNumber || '-'}</span>
+            <span>Registration: ${verificationRequirements(payload.businessType).individual ? 'Not required for personal hiring' : (payload.ssmNumber || '-')}</span>
             <span>Business: ${payload.businessType || '-'}</span>
             <span>Documents: ${documents}</span>
             <span>Status key: ${normalizedStatus}</span>
@@ -227,10 +228,9 @@ import { observeAuth, fetchAllProfiles, fetchProfile, updateEmployerVerification
     try {
       const target = cachedVerificationItems.find((item) => item.userId === userId);
       if (normalizeStatus(nextStatus) === 'approved') {
-        const hasSsm = Boolean(target?.payload?.ssmNumber);
-        const hasDocs = Number(target?.documents || 0) >= 2;
-        if (!hasSsm || !hasDocs) {
-          setStatus('Cannot approve yet. SSM number and both uploaded documents are required.', 'is-error');
+        const packageError = verificationPackageError(target?.payload || {});
+        if (packageError) {
+          setStatus(`Cannot approve yet. ${packageError}`, 'is-error');
           return;
         }
       }

@@ -1,3 +1,4 @@
+import { verificationRequirements, verificationPackageError } from './verification-rules.js';
 /**
  * EasyEarn file note: Handles the employer verification page behavior and related user interactions.
  */
@@ -56,6 +57,18 @@ import { fetchProfile, observeAuth, updateEmployerVerification, notifyAdmins } f
     contact: null,
     reviewNotes: ''
   };
+
+  function updateRequirements() {
+    const rules = verificationRequirements(details.businessType?.value || '');
+    details.ssmNumber.disabled = !rules.requiresRegistrationNumber;
+    details.ssmNumber.closest('label').style.display = rules.individual ? 'none' : '';
+    document.getElementById('verification-address-label').textContent = rules.addressLabel;
+    document.getElementById('verification-registration-label').textContent = rules.registrationLabel;
+    document.getElementById('verification-contact-label').textContent = rules.contactLabel;
+    document.getElementById('verification-contact-help').textContent = rules.individual
+      ? 'Government-issued identity proof. Address proof: a recent bill or official letter showing your name and address.'
+      : 'Identity proof or staff authorisation identifying the contact person.';
+  }
 
   // Helper function for notify status used by this script.
   function notifyStatus(message, type = '') {
@@ -169,7 +182,7 @@ import { fetchProfile, observeAuth, updateEmployerVerification, notifyAdmins } f
       .filter(Boolean)
       .length;
     const hasVerificationDetails = Boolean(
-      savedPackage.ssmNumber &&
+      (!verificationRequirements(savedPackage.businessType).requiresRegistrationNumber || savedPackage.ssmNumber) &&
       savedPackage.businessType &&
       savedPackage.businessAddress
     );
@@ -220,6 +233,8 @@ import { fetchProfile, observeAuth, updateEmployerVerification, notifyAdmins } f
     if (details.businessType) details.businessType.value = savedPackage.businessType;
     if (details.businessAddress) details.businessAddress.value = savedPackage.businessAddress;
 
+    updateRequirements();
+
     if (savedPackage.registration) setFieldStatus('registration', `Saved: ${savedPackage.registration.name}`, 'success');
     if (savedPackage.contact) setFieldStatus('contact', `Saved: ${savedPackage.contact.name}`, 'success');
   }
@@ -263,41 +278,16 @@ import { fetchProfile, observeAuth, updateEmployerVerification, notifyAdmins } f
       savedPackage.businessType = details.businessType?.value || '';
       savedPackage.businessAddress = details.businessAddress?.value.trim() || '';
 
-      if (!savedPackage.ssmNumber) {
-        setSubmitStatus('Please enter the SSM registration number first.', 'is-error');
-        details.ssmNumber?.focus();
-        return;
-      }
-
-      if (savedPackage.ssmNumber.length < 6) {
-        setSubmitStatus('SSM registration number must be at least 6 characters.', 'is-error');
-        details.ssmNumber?.focus();
-        return;
-      }
-
-      if (!savedPackage.businessType) {
-        setSubmitStatus('Please select the business type.', 'is-error');
-        details.businessType?.focus();
-        return;
-      }
-
-      if (!savedPackage.businessAddress) {
-        setSubmitStatus('Please enter the registered business address.', 'is-error');
-        details.businessAddress?.focus();
-        return;
-      }
-
-      if (savedPackage.businessAddress.length < 10) {
-        setSubmitStatus('Registered business address must be at least 10 characters.', 'is-error');
-        details.businessAddress?.focus();
-        return;
+      if (!verificationRequirements(savedPackage.businessType).requiresRegistrationNumber) {
+        savedPackage.ssmNumber = '';
       }
 
       await prepareFile('registration');
       await prepareFile('contact');
 
-      if (!savedPackage.registration || !savedPackage.contact) {
-        setSubmitStatus('Please upload the business registration document and contact proof first.', 'is-error');
+      const packageError = verificationPackageError(savedPackage);
+      if (packageError) {
+        setSubmitStatus(packageError, 'is-error');
         return;
       }
 
@@ -379,6 +369,22 @@ import { fetchProfile, observeAuth, updateEmployerVerification, notifyAdmins } f
     }
   });
 
+  details.businessType?.addEventListener('change', () => {
+    const wasIndividual = verificationRequirements(savedPackage.businessType).individual;
+    const isIndividual = verificationRequirements(details.businessType.value).individual;
+    if (wasIndividual !== isIndividual) {
+      for (const key of ['registration', 'contact']) {
+        savedPackage[key] = null;
+        selectedFiles[key] = null;
+        files[key].input.value = '';
+        setFieldStatus(key, 'Please upload the document for this employer type.');
+      }
+    }
+    savedPackage.businessType = details.businessType.value;
+    updateRequirements();
+    updateDashboard();
+  });
+  updateRequirements();
   bindFileInputs();
   form?.addEventListener('submit', handleSubmit);
 })();
