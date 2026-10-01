@@ -6,7 +6,6 @@ import {
   fetchApplications,
   fetchProfile,
   fetchRatings,
-  fetchPublicProfilesByIds,
   fetchSavedJobsCount,
   getInitials,
   observeAuth,
@@ -223,7 +222,6 @@ import {
     availability: document.getElementById('profile-preview-availability'),
     ratingValue: document.getElementById('profile-rating-value'),
     ratingNote: document.getElementById('profile-rating-note'),
-    reviewsList: document.getElementById('profile-reviews-list'),
     completedValue: document.getElementById('profile-completed-value'),
     completedNote: document.getElementById('profile-completed-note'),
     applicationsValue: document.getElementById('profile-applications-value'),
@@ -441,46 +439,6 @@ import {
     if (previewEls.savedNote) previewEls.savedNote.textContent = savedCount ? 'Ready to apply later' : 'No saved jobs yet';
   }
 
-  function escapeReviewText(value) {
-    return String(value ?? '').replace(/[&<>"']/g, (character) => ({
-      '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'
-    })[character]);
-  }
-
-  async function renderReceivedReviews(ratings = []) {
-    if (!previewEls.reviewsList) return;
-    const received = (ratings || []).filter((rating) => {
-      const role = String(rating.reviewer_role || '').toLowerCase();
-      return role === 'employer' && rating.reviewee_id === currentUser?.id;
-    });
-
-    if (!received.length) {
-      previewEls.reviewsList.innerHTML = '<p class="profile-reviews-empty">No employer reviews yet. Reviews will appear here after a completed job.</p>';
-      return;
-    }
-
-    let names = new Map();
-    try {
-      const profiles = await fetchPublicProfilesByIds(received.map((rating) => rating.reviewer_id));
-      names = new Map(profiles.map((profile) => [profile.id, profile.full_name || profile.name || 'Employer']));
-    } catch (error) {
-      console.warn('Review author names could not be loaded:', error);
-    }
-
-    previewEls.reviewsList.innerHTML = received.map((rating) => {
-      const stars = Math.max(0, Math.min(5, Math.round(Number(rating.stars) || 0)));
-      const date = rating.created_at ? new Date(rating.created_at).toLocaleDateString() : '';
-      return `<article class="profile-review-item">
-        <div class="profile-review-heading">
-          <strong>${escapeReviewText(names.get(rating.reviewer_id) || 'Employer')}</strong>
-          <span class="profile-review-stars" aria-label="${stars} out of 5 stars">${'★'.repeat(stars)}${'☆'.repeat(5 - stars)}</span>
-        </div>
-        <p>${escapeReviewText(String(rating.review || '').trim() || 'No written comment.')}</p>
-        ${date ? `<small>${escapeReviewText(date)}</small>` : ''}
-      </article>`;
-    }).join('');
-  }
-
   // Loads overview stats data so the page can display current information.
   async function loadOverviewStats(userId) {
     renderOverviewStats();
@@ -493,7 +451,6 @@ import {
     ]);
 
     renderOverviewStats({ ratings, history, applications, savedCount });
-    await renderReceivedReviews(ratings);
   }
 
   // Formats or checks payload so later code can use a clean value.

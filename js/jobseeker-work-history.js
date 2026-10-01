@@ -7,6 +7,7 @@ import {
   fetchJobs,
   fetchProfile,
   fetchPaymentByApplication,
+  fetchRatings,
   fetchWorkHistory,
   fetchRatingsByReviewer,
   getInitials,
@@ -52,6 +53,7 @@ import {
   let currentUser = null;
   let isSaving = false;
   let ratedApplicationIds = new Set(); // track which jobs seeker already rated
+  let employerRatingsByApplication = new Map();
 
   // ── Rate Employer Modal ───────────────────────────────────────────────────
   const rateModal = document.getElementById('rate-employer-modal');
@@ -394,6 +396,16 @@ import {
           <p>${escapeHtml(item.company || 'Employer not set')}</p>
           <p>${escapeHtml(item.completedOn || item.period || item.completedDate || 'Date not set')}</p>
           ${item.highlights?.length ? `<p>${escapeHtml(item.highlights[0])}</p>` : ''}
+          ${employerRatingsByApplication.has(item.applicationId) ? (() => {
+            const rating = employerRatingsByApplication.get(item.applicationId);
+            const stars = Math.max(0, Math.min(5, Math.round(Number(rating.stars) || 0)));
+            const date = rating.created_at ? new Date(rating.created_at).toLocaleDateString() : '';
+            return `<div class="history-employer-review">
+              <div class="history-review-heading"><strong>Employer rating</strong><span aria-label="${stars} out of 5 stars">${'★'.repeat(stars)}${'☆'.repeat(5 - stars)}</span></div>
+              <p>${escapeHtml(String(rating.review || '').trim() || 'No written comment.')}</p>
+              ${date ? `<small>${escapeHtml(date)}</small>` : ''}
+            </div>`;
+          })() : ''}
         </div>
         <div class="application-meta">
           ${item.location ? `<span>${escapeHtml(item.location)}</span>` : ''}
@@ -466,6 +478,17 @@ import {
   // Loads history data so the page can display current information.
   async function loadHistory(uid) {
     let items = await fetchWorkHistory(uid);
+
+    try {
+      const receivedRatings = await fetchRatings(uid);
+      employerRatingsByApplication = new Map((receivedRatings || [])
+        .filter((rating) => String(rating.reviewer_role || '').toLowerCase() === 'employer'
+          && rating.reviewee_id === uid && rating.application_id)
+        .map((rating) => [rating.application_id, rating]));
+    } catch (error) {
+      console.warn('Employer ratings could not be loaded for work history:', error);
+      employerRatingsByApplication = new Map();
+    }
 
     // Load existing ratings by this seeker so we know which jobs are already rated
     try {
