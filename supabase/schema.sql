@@ -563,7 +563,7 @@ begin
     )
     select
       admin.id,
-      'verification_request',
+      'admin_alert',
       coalesce(new.email, 'An employer') || ' submitted an employer verification request.',
       false,
       'verifications',
