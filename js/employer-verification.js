@@ -2,7 +2,7 @@ import { verificationRequirements, verificationPackageError, normalizeEmployerTy
 /**
  * EasyEarn file note: Handles the employer verification page behavior and related user interactions.
  */
-import { fetchProfile, observeAuth, updateEmployerVerification, notifyAdmins } from './supabase-data.js';
+import { fetchProfile, observeAuth, updateEmployerVerification } from './supabase-data.js';
 
 (function () {
   'use strict';
@@ -310,15 +310,6 @@ import { fetchProfile, observeAuth, updateEmployerVerification, notifyAdmins } f
         registrationDocData: savedPackage.registration?.content || '',
         contactDocName: savedPackage.contact?.name || '',
         contactDocData: savedPackage.contact?.content || ''
-      });
-      notifyAdmins({
-        type: 'verification_request',
-        message: `${currentUser.email || 'An employer'} submitted an employer verification request.`,
-        target_table: 'users',
-        target_id: currentUser.id,
-        actor_id: currentUser.id
-      }).catch((notifyError) => {
-        console.warn('Admin verification notification failed (non-fatal):', notifyError);
       });
       const profile = await fetchProfile(currentUser.id, currentUser);
       updateDashboard(profile);

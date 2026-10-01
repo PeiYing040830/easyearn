@@ -549,6 +549,41 @@ begin
 end;
 $function$;
 
+create or replace function public.notify_admins_new_verification()
+returns trigger
+language plpgsql
+security definer
+set search_path = public
+as $function$
+begin
+  if new.role = 'employer'
+     and new.verification_status = 'submitted'
+     and (tg_op = 'INSERT' or old.verification_status is distinct from new.verification_status) then
+    insert into public.notifications (
+      user_id, type, message, is_read, target_table, target_id, is_admin, actor_id
+    )
+    select
+      admin.id,
+      'verification_request',
+      coalesce(new.email, 'An employer') || ' submitted an employer verification request.',
+      false,
+      'verifications',
+      new.id,
+      true,
+      new.id
+    from public.users admin
+    where admin.role in ('admin', 'administrator');
+  end if;
+
+  return new;
+end;
+$function$;
+
+drop trigger if exists trg_notify_admins_new_verification on public.users;
+create trigger trg_notify_admins_new_verification
+after insert or update of verification_status on public.users
+for each row execute function public.notify_admins_new_verification();
+
 
 create or replace function public.handle_new_auth_user()
 returns trigger
