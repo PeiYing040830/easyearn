@@ -316,7 +316,18 @@ async function handleRegister() {
     });
     if (promotionError) {
       console.error('Admin authorization failed:', promotionError);
-      showError('Account created, but Admin authorization failed. Check the Admin Secure Code and Supabase Edge Function setup, then contact support if this continues.');
+      let authorizationDetail = promotionError.message || '';
+      try {
+        const response = promotionError.context;
+        const responseBody = response && typeof response.clone === 'function'
+          ? await response.clone().json()
+          : null;
+        authorizationDetail = responseBody?.error || authorizationDetail;
+      } catch (_) {
+        // Keep the function client's message when no JSON response is available.
+      }
+      const detailText = authorizationDetail ? ` (${authorizationDetail})` : '';
+      showError(`Account created, but Admin authorization failed${detailText}. The account already exists; deploy the promote-admin Edge Function and check its ADMIN_REGISTRATION_CODE secret before retrying.`);
       return;
     }
   } else if (data.user) {
