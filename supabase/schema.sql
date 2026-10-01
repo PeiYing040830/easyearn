@@ -583,6 +583,41 @@ create trigger trg_notify_admins_new_verification
 after insert or update of verification_status on public.users
 for each row execute function public.notify_admins_new_verification();
 
+create or replace function public.notify_employer_verification_approved()
+returns trigger
+language plpgsql
+security definer
+set search_path = public
+as $function$
+begin
+  if new.role = 'employer'
+     and new.is_verified is true
+     and new.verification_status = 'approved'
+     and (old.is_verified is distinct from true or old.verification_status is distinct from 'approved') then
+    insert into public.notifications (
+      user_id, type, message, is_read, target_table, target_id, is_admin, actor_id
+    )
+    values (
+      new.id,
+      'application_update',
+      'Your employer verification has been approved.',
+      false,
+      'verifications',
+      new.id,
+      false,
+      null
+    );
+  end if;
+
+  return new;
+end;
+$function$;
+
+drop trigger if exists trg_notify_employer_verification_approved on public.users;
+create trigger trg_notify_employer_verification_approved
+after update of verification_status, is_verified on public.users
+for each row execute function public.notify_employer_verification_approved();
+
 create or replace function public.get_admin_pending_verification_count()
 returns integer
 language sql
