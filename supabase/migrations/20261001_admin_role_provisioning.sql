@@ -51,6 +51,12 @@ create trigger sync_trusted_admin_role_to_profile
 after insert or update of raw_app_meta_data on auth.users
 for each row execute function public.sync_trusted_admin_role_to_profile();
 
+update public.users profile
+set role = 'admin'
+from auth.users auth_user
+where auth_user.id = profile.id
+  and coalesce(auth_user.raw_app_meta_data->>'role', '') in ('admin', 'administrator');
+
 drop policy if exists users_insert_own on public.users;
 create policy users_insert_own
 on public.users for insert

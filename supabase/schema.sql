@@ -666,6 +666,12 @@ create trigger sync_trusted_admin_role_to_profile
 after insert or update of raw_app_meta_data on auth.users
 for each row execute function public.sync_trusted_admin_role_to_profile();
 
+update public.users profile
+set role = 'admin'
+from auth.users auth_user
+where auth_user.id = profile.id
+  and coalesce(auth_user.raw_app_meta_data->>'role', '') in ('admin', 'administrator');
+
 create or replace function public.is_admin_user(actor_id uuid)
 returns boolean
 language sql
