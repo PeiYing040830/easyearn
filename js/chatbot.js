@@ -129,7 +129,7 @@ const generalReplies = [
   {
     triggers: ['language', 'bahasa', 'malay', 'english'],
     answer:
-      'EasyEarn currently supports English. Additional language support may be added in future updates.',
+      'EasyEarn offers a language selector with English, Bahasa Malaysia, Chinese (Simplified and Traditional), Tamil, and other listed languages. Choose a language from the selector in the page header.',
   },
   // Thanks & Farewell
   {
@@ -149,12 +149,12 @@ const roleReplies = {
     {
       triggers: ['apply', 'application', 'quick apply', 'upload resume', 'attach resume'],
       answer:
-        'Open Jobs, choose a listing, click Apply, then upload or attach your resume before submitting. Your application will appear in Applications with its current status.',
+        'In Saved Jobs, click Apply on a live listing with openings that you have not already applied to. You can also apply from a job listing. Your application will appear in Applications with its current status.',
     },
     {
       triggers: ['saved', 'save job', 'wishlist'],
       answer:
-        'Use Save Job on the Jobs page. Your saved roles now appear inside Applications under the saved jobs section.',
+        'Use Save Job on the Jobs page. Your saved listings appear in the Saved Jobs tab, where you can apply to eligible live jobs or remove them.',
     },
     {
       triggers: ['interview'],
@@ -181,12 +181,12 @@ const roleReplies = {
     {
       triggers: ['verification', 'ssm', 'business verification'],
       answer:
-        'Use Verification to submit your SSM number, business type, address, and the required documents. Admin approval will update your employer verification status.',
+        'In Verification, Individual Hirers do not need a registration number. Companies and Online Sellers must provide a registration number and the required documents. Admin review updates your employer verification status.',
     },
     {
       triggers: ['message', 'chat job seeker', 'contact applicant'],
       answer:
-        'Employer messaging is the next step to build. The intended flow is to contact applicants after reviewing them from the Applicants page.',
+        'Use Messages to open conversations and contact job seekers. You can also start or continue applicant conversations from the employer workflow.',
     },
     {
       triggers: ['openings', 'vacancies', 'how many'],
