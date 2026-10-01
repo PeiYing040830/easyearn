@@ -623,8 +623,8 @@ begin
     new.email,
     coalesce(new.raw_user_meta_data->>'full_name', ''),
     case
-      when coalesce(new.raw_user_meta_data->>'role', 'seeker') in ('admin', 'employer', 'seeker', 'jobseeker') then
-        case when new.raw_user_meta_data->>'role' = 'jobseeker' then 'seeker' else new.raw_user_meta_data->>'role' end
+      when coalesce(new.raw_app_meta_data->>'role', '') in ('admin', 'administrator') then 'admin'
+      when coalesce(new.raw_user_meta_data->>'role', 'seeker') = 'employer' then 'employer'
       else 'seeker'
     end,
     now()
@@ -633,6 +633,38 @@ begin
   return new;
 end;
 $function$;
+
+create or replace function public.sync_trusted_admin_role_to_profile()
+returns trigger
+language plpgsql
+security definer
+set search_path = public
+as $function$
+declare
+  trusted_role text;
+begin
+  trusted_role := coalesce(new.raw_app_meta_data->>'role', '');
+
+  if trusted_role in ('admin', 'administrator') then
+    update public.users set role = 'admin' where id = new.id;
+  elsif tg_op = 'UPDATE'
+    and coalesce(old.raw_app_meta_data->>'role', '') in ('admin', 'administrator') then
+    update public.users
+    set role = case
+      when coalesce(new.raw_user_meta_data->>'role', '') = 'employer' then 'employer'
+      else 'seeker'
+    end
+    where id = new.id;
+  end if;
+
+  return new;
+end;
+$function$;
+
+drop trigger if exists sync_trusted_admin_role_to_profile on auth.users;
+create trigger sync_trusted_admin_role_to_profile
+after insert or update of raw_app_meta_data on auth.users
+for each row execute function public.sync_trusted_admin_role_to_profile();
 
 create or replace function public.is_admin_user(actor_id uuid)
 returns boolean
@@ -997,7 +1029,7 @@ to authenticated
 with check (
   auth.uid() = id
   and (
-    role in ('seeker', 'jobseeker', 'employer', 'admin')
+    role in ('seeker', 'jobseeker', 'employer')
     or public.is_admin_user(auth.uid())
   )
 );

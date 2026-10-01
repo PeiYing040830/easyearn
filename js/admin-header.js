@@ -66,7 +66,7 @@ import { fetchProfile, getInitials, observeAuth, signOutUser } from './supabase-
 
     try {
       const profile = await fetchProfile(user.id, user);
-      const profileRole = normalizeRole(profile.role || user.user_metadata?.role);
+      const profileRole = normalizeRole(user.app_metadata?.role === 'admin' ? 'admin' : profile.role || user.user_metadata?.role);
 
       if (profileRole && profileRole !== 'admin') {
         updateHeader('Admin');
@@ -83,7 +83,7 @@ import { fetchProfile, getInitials, observeAuth, signOutUser } from './supabase-
       } catch (e) {}
     } catch (error) {
       console.error('Failed to load admin header data:', error);
-      const fallbackRole = normalizeRole(user.user_metadata?.role);
+      const fallbackRole = normalizeRole(user.app_metadata?.role === 'admin' ? 'admin' : user.user_metadata?.role);
       if (fallbackRole && fallbackRole !== 'admin') {
         updateHeader('Admin');
         redirectNonAdmin(fallbackRole);

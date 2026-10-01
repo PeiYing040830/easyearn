@@ -4,7 +4,6 @@
 import { supabase } from './supabase-config.js';
 import { fetchAccountAccess, isAccountLocked, signOutLockedAccount } from './account-access.js';
 
-const ADMIN_CODE = 'EASYEARN-ADMIN-2026';
 const EMPLOYER_CODE = 'EASYEARN-EMPLOYER-2026';
 const PROFILE_TABLE = 'users';
 
@@ -245,7 +244,6 @@ async function handleRegister() {
   const email = document.getElementById('email')?.value.trim();
   const password = document.getElementById('password')?.value.trim();
   const confirmPassword = document.getElementById('confirm-password')?.value.trim();
-  const adminCode = document.getElementById('admin-code')?.value.trim() || '';
   const employerCode = document.getElementById('employer-code')?.value.trim() || '';
 
   if (!name || !email || !password) {
@@ -283,8 +281,8 @@ async function handleRegister() {
     return;
   }
 
-  if (selectedRole === 'admin' && adminCode !== ADMIN_CODE) {
-    showError('Invalid admin secure code.');
+  if (!['seeker', 'employer'].includes(selectedRole)) {
+    showError('Admin accounts must be created by an administrator. Please choose Job Seeker or Employer.');
     return;
   }
 
@@ -328,16 +326,12 @@ async function handleRegister() {
 }
 
 window.selectRole = function selectRole(role) {
-  selectedRole = normalizeRole(role);
+  const requestedRole = normalizeRole(role);
+  selectedRole = ['seeker', 'employer'].includes(requestedRole) ? requestedRole : 'seeker';
   document.querySelectorAll('.role-card').forEach((card) => card.classList.remove('selected'));
   document.getElementById(`role-${selectedRole}`)?.classList.add('selected');
 
-  const adminGroup = document.getElementById('admin-code-group');
   const employerGroup = document.getElementById('employer-code-group');
-
-  if (adminGroup) {
-    adminGroup.classList.toggle('active', selectedRole === 'admin');
-  }
 
   if (employerGroup) {
     employerGroup.classList.toggle('active', selectedRole === 'employer');

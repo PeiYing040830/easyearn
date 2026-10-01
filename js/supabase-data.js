@@ -147,7 +147,8 @@ export function observeAuth(callback) {
 
 // Formats or checks profile row so later code can use a clean value.
 export function normalizeProfileRow(row = {}, user = null) {
-  const role = normalizeRoleValue(row.role || user?.user_metadata?.role || 'seeker');
+  const trustedRole = user?.app_metadata?.role === 'admin' ? 'admin' : '';
+  const role = normalizeRoleValue(trustedRole || row.role || user?.user_metadata?.role || 'seeker');
   const isEmployer = role === 'employer';
 
   return {
