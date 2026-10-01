@@ -496,6 +496,60 @@
   font-weight: 600;
 }
 
+.profile-reviews-card {
+  margin-bottom: 24px;
+}
+
+.profile-reviews-list {
+  display: grid;
+  gap: 12px;
+}
+
+.profile-review-item {
+  padding: 16px 18px;
+  border: 1px solid #dbe7f3;
+  border-radius: 16px;
+  background: #fbfffc;
+}
+
+.profile-review-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.profile-review-heading strong {
+  color: #0f172a;
+}
+
+.profile-review-stars {
+  color: #f59e0b;
+  letter-spacing: 0.08em;
+  white-space: nowrap;
+}
+
+.profile-review-item p {
+  margin: 10px 0 6px;
+  color: #475569;
+  white-space: pre-wrap;
+}
+
+.profile-review-item small,
+.profile-reviews-empty {
+  color: #64748b;
+}
+
+body.theme-dark .profile-review-item {
+  background: #17251d;
+  border-color: #334155;
+}
+
+body.theme-dark .profile-review-heading strong,
+body.theme-dark .profile-review-item p {
+  color: #e2e8f0;
+}
+
 .profile-strength-value {
   font-size: 34px;
   font-weight: 800;
