@@ -9,6 +9,7 @@
     <link rel="icon" type="image/png" href="/easyearn/images/logo.png?v=20260829b">
 <link rel="stylesheet" href="../../css/landing.css">
   <link rel="stylesheet" href="employer-pages.css?v=20260829e">
+  <link rel="stylesheet" href="../../css/employer-verification.css?v=20261001b">
 </head>
 <!-- Body section contains everything the user can see or interact with. -->
 <body>
@@ -54,15 +55,15 @@
         <div>
           <div class="employer-badge">Required Items</div>
           <h2>Malaysia verification package</h2>
-          <p>Choose your employer type first. Individual means hiring for personal, non-business needs. A Shopee or other online seller hiring for its business should select its business type. SSM or another applicable registration document is required for business review; a shop link alone is not sufficient.</p>
+          <p>Select your employer type, complete your details and upload the required documents for admin review.</p>
         </div>
       </div>
       <!-- Form where users enter and submit verification details. -->
       <form id="verification-form">
         <!-- Container for the employer form grid content and layout. -->
-        <div class="employer-form-grid" style="grid-template-columns: repeat(3, minmax(0,1fr));">
+        <div class="verification-grid">
 
-          <label class="employer-field" style="grid-column:1 / -1;">
+          <label class="employer-field full verification-type-field">
             <span>Employer Type</span>
             <select id="verification-business-type" required aria-describedby="verification-type-help">
               <option value="">Select your employer type</option>
@@ -73,16 +74,20 @@
             <small id="verification-type-help" aria-live="polite">Select a type to see the required documents. Individual hiring is for personal, non-business needs only.</small>
           </label>
 
+          <div class="verification-details">
           <label class="employer-field">
             <span>Registration number (SSM / applicable registry)</span>
             <input id="verification-ssm-number" type="text" minlength="6" placeholder="202401012345 (1234567-X)">
           </label>
 
-          <label class="employer-field">
+          <label class="employer-field verification-address-field">
             <span id="verification-address-label">Registered business / organisation address</span>
             <input id="verification-business-address" type="text" required minlength="10" placeholder="Full address as shown in your supporting document">
           </label>
 
+          </div>
+
+          <div class="verification-documents">
           <div class="employer-field">
             <span id="verification-registration-label">Business / organisation registration document</span>
             <label for="verification-registration-file" class="employer-upload-box">
@@ -103,10 +108,12 @@
             <small id="verification-contact-status" class="employer-inline-status">No file selected.</small>
           </div>
 
-          <!-- Submit aligned to bottom of 3rd column -->
-          <div class="employer-field" style="display:flex; flex-direction:column; justify-content:flex-end; gap:10px;">
-            <button class="btn-primary" id="verification-submit-btn" type="submit" style="width:100%;">Submit for Verification</button>
-            <p class="employer-inline-status" id="verification-submit-status" style="margin:0; text-align:center;">Upload your files first, then submit.</p>
+          </div>
+
+          <!-- Submit below both document uploads. -->
+          <div class="verification-actions">
+            <button class="btn-primary" id="verification-submit-btn" type="submit">Submit for Verification</button>
+            <p class="employer-inline-status" id="verification-submit-status">Upload your files first, then submit.</p>
           </div>
 
         </div>

@@ -1,0 +1,100 @@
+/* Verification uses independent rows so hidden fields cannot shift uploads. */
+#verification-form {
+  max-width: 1100px;
+  margin-inline: auto;
+}
+#verification-form .verification-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 28px;
+}
+#verification-form .verification-details,
+#verification-form .verification-documents {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  column-gap: 24px;
+  row-gap: 10px;
+}
+#verification-form .employer-field {
+  min-width: 0;
+  margin: 0;
+  gap: 10px;
+  align-content: start;
+}
+/* Share label and control tracks across each pair, including wrapped labels. */
+#verification-form .verification-details > .employer-field {
+  grid-row: span 2;
+  grid-template-rows: subgrid;
+}
+#verification-form .verification-documents > .employer-field {
+  grid-row: span 3;
+  grid-template-rows: subgrid;
+}
+#verification-form .employer-field > span {
+  line-height: 1.5;
+}
+#verification-form .employer-field > small {
+  font-size: 13px;
+  line-height: 1.6;
+  overflow-wrap: anywhere;
+}
+#verification-form .employer-field > input,
+#verification-form .employer-field > select {
+  box-sizing: border-box;
+  width: 100%;
+  min-width: 0;
+  height: 50px;
+  margin: 0;
+}
+#verification-type-help {
+  padding: 12px 16px;
+  border-left: 3px solid #d5ac76;
+  background: rgba(213, 172, 118, 0.08);
+  border-radius: 0 8px 8px 0;
+}
+#verification-form .employer-upload-box {
+  box-sizing: border-box;
+  min-height: 144px;
+  padding: 20px;
+  margin: 0;
+  align-content: center;
+  gap: 8px;
+}
+#verification-form .employer-upload-box small {
+  font-size: 13px;
+  line-height: 1.6;
+}
+#verification-form:has(#verification-ssm-number:disabled) .verification-details {
+  grid-template-columns: minmax(0, 1fr);
+}
+#verification-form .verification-actions {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  padding-top: 24px;
+  border-top: 1px solid rgba(160, 120, 80, 0.22);
+}
+#verification-submit-btn {
+  width: 320px;
+  max-width: 100%;
+  min-height: 50px;
+}
+#verification-submit-status {
+  margin: 0;
+  text-align: center;
+  font-size: 13px;
+}
+@media (max-width: 760px) {
+  #verification-form .verification-details,
+  #verification-form .verification-documents {
+    grid-template-columns: minmax(0, 1fr);
+    row-gap: 12px;
+  }
+  #verification-form .verification-grid {
+    gap: 24px;
+  }
+  #verification-submit-btn {
+    width: 100%;
+  }
+}
