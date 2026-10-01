@@ -24,6 +24,27 @@ import { observeAuth, fetchNotifications, markNotificationRead, markAllNotificat
   let fetchError = false;
   let hasLoaded = false;
 
+  function getDismissedVirtualKeys(userId = currentUserId) {
+    if (!userId) return [];
+    try {
+      const value = JSON.parse(localStorage.getItem(`ee-dismissed-admin-notifications:${userId}`) || '[]');
+      return Array.isArray(value) ? value : [];
+    } catch (_) {
+      return [];
+    }
+  }
+
+  function dismissVirtualNotifications(items, userId = currentUserId) {
+    if (!userId) return;
+    const keys = new Set(getDismissedVirtualKeys(userId));
+    (items || []).forEach((item) => {
+      if (item?._virtual && item._virtualKey) keys.add(item._virtualKey);
+    });
+    try {
+      localStorage.setItem(`ee-dismissed-admin-notifications:${userId}`, JSON.stringify(Array.from(keys)));
+    } catch (_) {}
+  }
+
   // ── Helpers ────────────────────────────────────────────────────────────
 
   // Helper function for time ago used by this script.
@@ -121,6 +142,7 @@ import { observeAuth, fetchNotifications, markNotificationRead, markAllNotificat
       e.stopPropagation();
       if (!currentUserId) return;
       try {
+        dismissVirtualNotifications(notifications, currentUserId);
         await markAllNotificationsRead(currentUserId);
         await refresh();
       } catch (err) {
@@ -140,7 +162,11 @@ import { observeAuth, fetchNotifications, markNotificationRead, markAllNotificat
       el.addEventListener('click', async () => {
         const n = notifications.find((x) => x.id === el.dataset.id);
         if (n && !n.is_read) {
-          try { await markNotificationRead(n.id); } catch (_) {}
+          if (n._virtual) {
+            dismissVirtualNotifications([n]);
+          } else {
+            try { await markNotificationRead(n.id); } catch (_) {}
+          }
           n.is_read = true;
           updateBadge();
           el.style.fontWeight = '400';
@@ -184,7 +210,8 @@ import { observeAuth, fetchNotifications, markNotificationRead, markAllNotificat
     try {
       const result = await fetchNotifications(userId, { limit: 25 });
       if (userId !== currentUserId) return;
-      notifications = result;
+      const dismissedKeys = new Set(getDismissedVirtualKeys(userId));
+      notifications = result.filter((item) => !item._virtual || !dismissedKeys.has(item._virtualKey));
       fetchError = false;
       hasLoaded = true;
       updateBadge();

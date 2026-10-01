@@ -1269,7 +1269,8 @@ async function fetchAdminQueueNotifications(userId) {
       is_read: false,
       created_at: latestCase,
       target_table: 'reports',
-      _virtual: true
+      _virtual: true,
+      _virtualKey: `admin-queue-reports:${openCases.length}`
     });
   }
 
@@ -1282,7 +1283,8 @@ async function fetchAdminQueueNotifications(userId) {
       is_read: false,
       created_at: new Date().toISOString(),
       target_table: 'verifications',
-      _virtual: true
+      _virtual: true,
+      _virtualKey: `admin-queue-verifications:${verificationCount}`
     });
   }
 
