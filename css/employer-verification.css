@@ -12,7 +12,7 @@
   grid-column: 1 / -1;
 }
 #verification-form .verification-type-field select {
-  width: 360px;
+  width: 100%;
   max-width: 100%;
 }
 #verification-form .verification-details {
@@ -93,12 +93,5 @@
   #verification-form .verification-type-field select,
   #verification-submit-btn {
     width: 100%;
-  }
-}
-
-@media (min-width: 761px) {
-  #verification-form .verification-type-field > select {
-    width: 360px;
-    max-width: 100%;
   }
 }
