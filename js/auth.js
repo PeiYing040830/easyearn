@@ -244,6 +244,7 @@ async function handleRegister() {
   const email = document.getElementById('email')?.value.trim();
   const password = document.getElementById('password')?.value.trim();
   const confirmPassword = document.getElementById('confirm-password')?.value.trim();
+  const adminCode = document.getElementById('admin-code')?.value.trim() || '';
   const employerCode = document.getElementById('employer-code')?.value.trim() || '';
 
   if (!name || !email || !password) {
@@ -281,8 +282,8 @@ async function handleRegister() {
     return;
   }
 
-  if (!['seeker', 'employer'].includes(selectedRole)) {
-    showError('Admin accounts must be created by an administrator. Please choose Job Seeker or Employer.');
+  if (selectedRole === 'admin' && !adminCode) {
+    showError('Please enter the Admin Secure Code.');
     return;
   }
 
@@ -309,7 +310,16 @@ async function handleRegister() {
     return;
   }
 
-  if (data.user) {
+  if (data.user && selectedRole === 'admin') {
+    const { error: promotionError } = await supabase.functions.invoke('promote-admin', {
+      body: { userId: data.user.id, adminCode }
+    });
+    if (promotionError) {
+      console.error('Admin authorization failed:', promotionError);
+      showError('Account created, but Admin authorization failed. Check the Admin Secure Code and Supabase Edge Function setup, then contact support if this continues.');
+      return;
+    }
+  } else if (data.user) {
     await upsertProfile(data.user, {
       name,
       role: selectedRole,
@@ -322,19 +332,32 @@ async function handleRegister() {
     return;
   }
 
-  await redirectByRole(data.user);
+  if (selectedRole === 'admin') {
+    const { error: refreshError } = await supabase.auth.refreshSession();
+    if (refreshError) {
+      console.warn('Admin session refresh failed:', refreshError);
+      showError('Admin account created. Please log in again to activate the Admin role.');
+      return;
+    }
+  }
+
+  await redirectByRole(data.user, selectedRole);
 }
 
 window.selectRole = function selectRole(role) {
   const requestedRole = normalizeRole(role);
-  selectedRole = ['seeker', 'employer'].includes(requestedRole) ? requestedRole : 'seeker';
+  selectedRole = ['seeker', 'employer', 'admin'].includes(requestedRole) ? requestedRole : 'seeker';
   document.querySelectorAll('.role-card').forEach((card) => card.classList.remove('selected'));
   document.getElementById(`role-${selectedRole}`)?.classList.add('selected');
 
+  const adminGroup = document.getElementById('admin-code-group');
   const employerGroup = document.getElementById('employer-code-group');
 
   if (employerGroup) {
     employerGroup.classList.toggle('active', selectedRole === 'employer');
+  }
+  if (adminGroup) {
+    adminGroup.classList.toggle('active', selectedRole === 'admin');
   }
 };
 

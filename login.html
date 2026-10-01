@@ -262,6 +262,10 @@
               <span class="role-icon">👨‍💼</span>
               <span>Employer</span>
             </div>
+            <div class="role-card" id="role-admin" onclick="selectRole('admin')">
+              <span class="role-icon">Admin</span>
+              <span>Admin</span>
+            </div>
             <!-- Container for the role card content and layout. -->
           </div>
         </div>
@@ -274,6 +278,13 @@
           </div>
         </div>
         <!-- Container for the form group content and layout. -->
+        <div class="form-group admin-code" id="admin-code-group">
+          <label>Admin Secure Code</label>
+          <div class="password-field">
+            <input type="password" id="admin-code" placeholder="Enter admin secure code" autocomplete="off">
+            <button class="password-toggle" type="button" data-toggle-target="admin-code" aria-label="Show secure code">👀</button>
+          </div>
+        </div>
         <div class="registration-privacy-notice" id="registration-privacy-notice">
           <div class="registration-consent">
             <input type="checkbox" id="register-privacy-consent" required aria-describedby="registration-data-use">
