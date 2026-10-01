@@ -1,4 +1,4 @@
-import { verificationRequirements, verificationPackageError } from './verification-rules.js';
+import { verificationRequirements, verificationPackageError } from './verification-rules.js?v=20261001b';
 /**
  * EasyEarn file note: Handles the admin verifications page behavior and related user interactions.
  */
@@ -206,7 +206,7 @@ import { observeAuth, fetchAllProfiles, fetchProfile, updateEmployerVerification
           </div>
           <div class="admin-item-meta">
             <span>Registration: ${verificationRequirements(payload.businessType).individual ? 'Not required for personal hiring' : (payload.ssmNumber || '-')}</span>
-            <span>Business: ${payload.businessType || '-'}</span>
+            <span>Employer Type: ${verificationRequirements(payload.businessType).employerType || '-'}</span>
             <span>Documents: ${documents}</span>
             <span>Status key: ${normalizedStatus}</span>
           </div>

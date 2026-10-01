@@ -1,4 +1,4 @@
-import { verificationRequirements, verificationPackageError } from './verification-rules.js';
+import { verificationRequirements, verificationPackageError, normalizeEmployerType } from './verification-rules.js?v=20261001b';
 /**
  * EasyEarn file note: Handles the employer verification page behavior and related user interactions.
  */
@@ -61,6 +61,14 @@ import { fetchProfile, observeAuth, updateEmployerVerification, notifyAdmins } f
   function updateRequirements() {
     const rules = verificationRequirements(details.businessType?.value || '');
     details.ssmNumber.disabled = !rules.requiresRegistrationNumber;
+    details.ssmNumber.required = rules.requiresRegistrationNumber;
+    document.getElementById('verification-type-help').textContent = !rules.employerType
+      ? 'Select a type to see the required documents. Individual hiring is for personal, non-business needs only.'
+      : rules.individual
+        ? 'Required: identity proof and proof of address. No SSM required. For personal, non-business hiring only; hiring for a shop or business must use a business category.'
+        : rules.employerType === 'Online Seller / E-commerce'
+          ? 'Required: registration number, registration document and contact person proof. Selling through Shopee or another platform does not replace these documents. A shop link alone is not sufficient.'
+          : 'Required: registration number (SSM / applicable registry), registration document and contact person proof. All documents are reviewed by an admin.';
     details.ssmNumber.closest('label').style.display = rules.individual ? 'none' : '';
     document.getElementById('verification-address-label').textContent = rules.addressLabel;
     document.getElementById('verification-registration-label').textContent = rules.registrationLabel;
@@ -219,7 +227,7 @@ import { fetchProfile, observeAuth, updateEmployerVerification, notifyAdmins } f
   function syncStatusWithProfile(profile = {}) {
     savedPackage.status = profile.isVerified ? 'approved' : (profile.verificationStatus || savedPackage.status || 'pending');
     savedPackage.ssmNumber = profile.ssmNumber || savedPackage.ssmNumber || '';
-    savedPackage.businessType = profile.businessType || savedPackage.businessType || '';
+    savedPackage.businessType = normalizeEmployerType(profile.businessType || savedPackage.businessType);
     savedPackage.businessAddress = profile.verificationAddress || savedPackage.businessAddress || '';
     savedPackage.registration = profile.registrationDocData
       ? { name: profile.registrationDocName || 'registration-file', content: profile.registrationDocData }

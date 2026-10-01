@@ -62,31 +62,25 @@
         <!-- Container for the employer form grid content and layout. -->
         <div class="employer-form-grid" style="grid-template-columns: repeat(3, minmax(0,1fr));">
 
-          <label class="employer-field">
-            <span>Registration number (SSM / applicable registry)</span>
-            <input id="verification-ssm-number" type="text" placeholder="202401012345 (1234567-X)">
+          <label class="employer-field" style="grid-column:1 / -1;">
+            <span>Employer Type</span>
+            <select id="verification-business-type" required aria-describedby="verification-type-help">
+              <option value="">Select your employer type</option>
+              <option value="Individual Hirer">Individual Hirer (personal, non-business hiring)</option>
+              <option value="Company / Business">Company / Business</option>
+              <option value="Online Seller / E-commerce">Online Seller / E-commerce (e.g. Shopee seller)</option>
+            </select>
+            <small id="verification-type-help" aria-live="polite">Select a type to see the required documents. Individual hiring is for personal, non-business needs only.</small>
           </label>
 
           <label class="employer-field">
-            <span>Employer / business type</span>
-            <select id="verification-business-type">
-              <option value="">Select one</option>
-              <option value="Sole Proprietorship">Sole Proprietorship</option>
-              <option value="Partnership">Partnership</option>
-              <option value="Enterprise">Enterprise</option>
-              <option value="Private Limited Company (Sdn. Bhd.)">Private Limited Company (Sdn. Bhd.)</option>
-              <option value="Public Limited Company (Berhad)">Public Limited Company (Berhad)</option>
-              <option value="Limited Liability Partnership (LLP)">Limited Liability Partnership (LLP)</option>
-              <option value="Freelancer / Individual Employer">Individual Employer (personal, non-business hiring)</option>
-              <option value="Non-Profit / NGO">Non-Profit / NGO</option>
-              <option value="Online Business / E-commerce">Online Business / E-commerce (e.g. Shopee seller)</option>
-              <option value="Other">Other registered organisation</option>
-            </select>
+            <span>Registration number (SSM / applicable registry)</span>
+            <input id="verification-ssm-number" type="text" minlength="6" placeholder="202401012345 (1234567-X)">
           </label>
 
           <label class="employer-field">
             <span id="verification-address-label">Registered business / organisation address</span>
-            <input id="verification-business-address" type="text" placeholder="Full address as shown in your supporting document">
+            <input id="verification-business-address" type="text" required minlength="10" placeholder="Full address as shown in your supporting document">
           </label>
 
           <div class="employer-field">
@@ -130,7 +124,7 @@
   <script src="../../js/translate.js" defer></script>
   <!-- Loads shared header and footer partials. -->
   <script src="../../js/includes.js?v=20260930b" defer></script>
-  <!-- Loads the JavaScript file that controls this page: ../../js/employer-verification.js?v=20261001a. -->
-  <script type="module" src="../../js/employer-verification.js?v=20261001a"></script>
+  <!-- Loads the JavaScript file that controls this page: ../../js/employer-verification.js?v=20261001b. -->
+  <script type="module" src="../../js/employer-verification.js?v=20261001b"></script>
 </body>
 </html>
