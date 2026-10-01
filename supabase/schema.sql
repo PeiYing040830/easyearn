@@ -584,6 +584,31 @@ create trigger trg_notify_admins_new_verification
 after insert or update of verification_status on public.users
 for each row execute function public.notify_admins_new_verification();
 
+create or replace function public.get_admin_pending_verification_count()
+returns integer
+language sql
+stable
+security definer
+set search_path = public
+as $function$
+  select case
+    when auth.uid() is not null and exists (
+      select 1 from public.users admin
+      where admin.id = auth.uid() and admin.role in ('admin', 'administrator')
+    ) then (
+      select count(*)::integer
+      from public.users employer
+      where employer.role = 'employer'
+        and coalesce(employer.is_verified, false) = false
+        and lower(coalesce(employer.verification_status, '')) in ('submitted', 'recheck')
+    )
+    else null
+  end;
+$function$;
+
+revoke all on function public.get_admin_pending_verification_count() from public;
+grant execute on function public.get_admin_pending_verification_count() to authenticated;
+
 
 create or replace function public.handle_new_auth_user()
 returns trigger

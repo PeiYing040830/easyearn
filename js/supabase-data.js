@@ -1236,15 +1236,17 @@ async function fetchAdminQueueNotifications(userId) {
 
   if (profileError || normalizeRoleValue(profile?.role) !== 'admin') return [];
 
-  const [reportsResult, disputesResult, profilesResult] = await Promise.allSettled([
+  const [reportsResult, disputesResult, verificationCountResult] = await Promise.allSettled([
     fetchReports(),
     fetchPaymentDisputes(),
-    fetchAllProfiles()
+    supabase.rpc('get_admin_pending_verification_count')
   ]);
 
   const reports = reportsResult.status === 'fulfilled' ? reportsResult.value : [];
   const disputes = disputesResult.status === 'fulfilled' ? disputesResult.value : [];
-  const profiles = profilesResult.status === 'fulfilled' ? profilesResult.value : [];
+  const verificationCount = verificationCountResult.status === 'fulfilled'
+    ? Number(verificationCountResult.value.data)
+    : 0;
   const activeReportStatuses = ['pending', 'open', 'submitted', 'flagged', 'under_review'];
   const openCases = [
     ...(reports || []).filter((report) =>
@@ -1252,11 +1254,6 @@ async function fetchAdminQueueNotifications(userId) {
     ),
     ...(disputes || [])
   ];
-  const pendingVerifications = (profiles || []).filter((profileItem) => {
-    if (profileItem.role !== 'employer' || profileItem.isVerified) return false;
-    return ['submitted', 'recheck'].includes(String(profileItem.verificationStatus || '').toLowerCase());
-  });
-
   const reminders = [];
   if (openCases.length) {
     const latestCase = openCases
@@ -1276,12 +1273,12 @@ async function fetchAdminQueueNotifications(userId) {
     });
   }
 
-  if (pendingVerifications.length) {
+  if (verificationCount > 0) {
     reminders.push({
       id: 'admin-queue-verifications',
       user_id: userId,
       type: 'admin_queue',
-      message: `${pendingVerifications.length} employer verification request(s) waiting for review.`,
+      message: `${verificationCount} employer verification request(s) waiting for review.`,
       is_read: false,
       created_at: new Date().toISOString(),
       target_table: 'verifications',
