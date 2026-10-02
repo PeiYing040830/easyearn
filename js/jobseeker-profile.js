@@ -82,9 +82,14 @@ import {
   function commitPendingSkillInput() {
     const searchInput = document.getElementById('skill-search');
     const suggestEl = document.getElementById('skill-suggestions');
-    const pendingValue = searchInput?.value.trim() || '';
-    if (!pendingValue) return;
-    if (!addSkill(pendingValue)) return;
+    const pendingValues = (searchInput?.value || '').split(/[,，]/).map((skill) => skill.trim()).filter(Boolean);
+    if (!pendingValues.length) return;
+    for (let index = 0; index < pendingValues.length; index += 1) {
+      if (!addSkill(pendingValues[index])) {
+        if (searchInput) searchInput.value = pendingValues.slice(index).join(', ');
+        return;
+      }
+    }
     if (searchInput) searchInput.value = '';
     if (suggestEl) suggestEl.style.display = 'none';
   }
@@ -128,7 +133,7 @@ import {
       searchInput.addEventListener('blur', () => setTimeout(() => { if (suggestEl) suggestEl.style.display = 'none'; }, 200));
       // Connects this element event to the handler that should run next.
       searchInput.addEventListener('keydown', (e) => {
-        if (e.key === 'Enter') {
+        if (e.key === 'Enter' || e.key === ',' || e.key === '，') {
           e.preventDefault();
           commitPendingSkillInput();
         }
