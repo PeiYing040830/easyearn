@@ -2111,6 +2111,76 @@ body.theme-dark .messages-bubble.is-duitnow.is-theirs {
   }
 }
 
+/* Applicants page: prevent long content and action labels from widening phone layouts. */
+@media (max-width: 560px) {
+  .employer-applicants-page,
+  .employer-applicants-page > *,
+  .employer-applicants-page .employer-card,
+  .employer-applicants-page .employer-item,
+  .employer-applicants-page .applicant-main {
+    box-sizing: border-box;
+    min-width: 0;
+    max-width: 100%;
+  }
+
+  .employer-applicants-page {
+    width: 100%;
+    overflow-x: clip;
+  }
+
+  .employer-applicants-page .employer-page-header,
+  .employer-applicants-page .employer-card {
+    width: 100%;
+  }
+
+  .employer-applicants-page .employer-section-head,
+  .employer-applicants-page .employer-section-head > div {
+    width: 100%;
+    min-width: 0;
+  }
+
+  .employer-applicants-page .employer-section-head h1,
+  .employer-applicants-page .employer-section-head h2,
+  .employer-applicants-page .employer-section-head p,
+  .employer-applicants-page .applicant-card h3,
+  .employer-applicants-page .applicant-card p,
+  .employer-applicants-page .applicant-card strong,
+  .employer-applicants-page .applicant-title-row,
+  .employer-applicants-page .employer-rating-copy {
+    min-width: 0;
+    max-width: 100%;
+    overflow-wrap: anywhere;
+  }
+
+  .employer-applicants-page .employer-card-actions,
+  .employer-applicants-page .jobs-card-actions {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    width: 100%;
+    min-width: 0;
+    max-width: 100%;
+  }
+
+  .employer-applicants-page .employer-card-actions > *,
+  .employer-applicants-page .jobs-card-actions > * {
+    box-sizing: border-box;
+    width: 100%;
+    min-width: 0;
+    max-width: 100%;
+    white-space: normal;
+    overflow-wrap: anywhere;
+    text-align: center;
+  }
+
+  .employer-applicants-page .employer-chart-duo,
+  .employer-applicants-page .employer-chart,
+  .employer-applicants-page .employer-chart canvas {
+    min-width: 0;
+    max-width: 100%;
+  }
+}
+
 /* ── Profile quick-stats grid ─────────────────────────────── */
 .employer-profile-stats-grid {
   display: grid;
