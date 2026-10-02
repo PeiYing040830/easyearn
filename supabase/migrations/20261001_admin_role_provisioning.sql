@@ -57,6 +57,59 @@ from auth.users auth_user
 where auth_user.id = profile.id
   and coalesce(auth_user.raw_app_meta_data->>'role', '') in ('admin', 'administrator');
 
+-- Notify employers when an admin approves, rejects, or requests changes to verification.
+create or replace function public.notify_employer_verification_result()
+returns trigger
+language plpgsql
+security definer
+set search_path = public
+as $function$
+declare
+  notification_message text;
+begin
+  if new.role = 'employer' then
+    if new.verification_status = 'approved' and new.is_verified is true then
+      notification_message := 'Your employer verification has been approved.';
+    elsif new.verification_status = 'rejected' then
+      notification_message := 'Your employer verification was rejected. Please review the admin notes and resubmit if needed.';
+    elsif new.verification_status = 'recheck' then
+      notification_message := 'Your employer verification needs changes. Please review the admin notes and resubmit.';
+    else
+      notification_message := null;
+    end if;
+  end if;
+
+  if new.role = 'employer'
+     and notification_message is not null
+     and (
+       old.verification_status is distinct from new.verification_status
+       or old.is_verified is distinct from new.is_verified
+     ) then
+    insert into public.notifications (
+      user_id, type, message, is_read, target_table, target_id, is_admin, actor_id
+    )
+    values (
+      new.id,
+      'application_update',
+      notification_message,
+      false,
+      'verifications',
+      new.id,
+      false,
+      null
+    );
+  end if;
+
+  return new;
+end;
+$function$;
+
+drop trigger if exists trg_notify_employer_verification_approved on public.users;
+drop trigger if exists trg_notify_employer_verification_result on public.users;
+create trigger trg_notify_employer_verification_result
+after update of verification_status, is_verified on public.users
+for each row execute function public.notify_employer_verification_result();
+
 drop policy if exists users_insert_own on public.users;
 create policy users_insert_own
 on public.users for insert
