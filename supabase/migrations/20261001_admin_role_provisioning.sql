@@ -110,6 +110,72 @@ create trigger trg_notify_employer_verification_result
 after update of verification_status, is_verified on public.users
 for each row execute function public.notify_employer_verification_result();
 
+-- Notify admins when employers submit new jobs for review.
+create or replace function public.notify_admins_new_job_listing()
+returns trigger
+language plpgsql
+security definer
+set search_path = public
+as $function$
+begin
+  if new.status in ('pending', 'submitted')
+     and (tg_op = 'INSERT' or old.status is distinct from new.status) then
+    insert into public.notifications (
+      user_id, type, message, is_read, target_table, target_id, is_admin, actor_id
+    )
+    select
+      admin.id,
+      'application_update',
+      coalesce(nullif(employer.full_name, ''), employer.email, 'An employer')
+        || ' submitted "' || coalesce(new.title, 'Untitled job') || '" for admin review.',
+      false,
+      'jobs',
+      new.id,
+      true,
+      new.employer_id
+    from public.users admin
+    left join public.users employer on employer.id = new.employer_id
+    where admin.role in ('admin', 'administrator');
+  end if;
+
+  return new;
+end;
+$function$;
+
+drop trigger if exists trg_notify_admins_new_job_listing on public.job_listings;
+create trigger trg_notify_admins_new_job_listing
+after insert or update of status on public.job_listings
+for each row execute function public.notify_admins_new_job_listing();
+
+-- Create Bell reminders for pending jobs that were already submitted before this trigger was installed.
+insert into public.notifications (
+  user_id, type, message, is_read, target_table, target_id, is_admin, actor_id
+)
+select
+  admin.id,
+  'application_update',
+  coalesce(nullif(employer.full_name, ''), employer.email, 'An employer')
+    || ' submitted "' || coalesce(job.title, 'Untitled job') || '" for admin review.',
+  false,
+  'jobs',
+  job.id,
+  true,
+  job.employer_id
+from public.job_listings job
+cross join public.users admin
+left join public.users employer on employer.id = job.employer_id
+where job.status in ('pending', 'submitted')
+  and admin.role in ('admin', 'administrator')
+  and not exists (
+    select 1
+    from public.notifications existing
+    where existing.user_id = admin.id
+      and existing.type = 'application_update'
+      and existing.target_table = 'jobs'
+      and existing.target_id = job.id
+      and existing.is_admin is true
+  );
+
 drop policy if exists users_insert_own on public.users;
 create policy users_insert_own
 on public.users for insert

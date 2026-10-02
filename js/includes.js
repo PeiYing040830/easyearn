@@ -190,7 +190,7 @@ document.addEventListener('DOMContentLoaded', () => {
       const bellScript = document.createElement('script');
       bellScript.id = 'easyearn-notif-bell';
       bellScript.type = 'module';
-      bellScript.src = `${basePath}js/notifications-bell.js?v=20260901a`;
+      bellScript.src = `${basePath}js/notifications-bell.js?v=20261002a`;
       document.body.appendChild(bellScript);
     }
 

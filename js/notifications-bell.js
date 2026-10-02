@@ -97,6 +97,7 @@ import { observeAuth, fetchNotifications, markNotificationRead, markAllNotificat
     if (!isAdmin) return '';
     if (n.target_table === 'reports') return `${base}/pages/admin/reports.html`;
     if (n.target_table === 'verifications') return `${base}/pages/admin/verifications.html`;
+    if (n.target_table === 'jobs') return `${base}/pages/admin/jobs.html`;
     return '';
   }
 
