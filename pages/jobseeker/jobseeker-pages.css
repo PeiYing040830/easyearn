@@ -4774,6 +4774,106 @@ body.theme-dark .jobs-browse-hero p {
     }
 }
 
+/* Keep every profile section inside the phone viewport, including JS-rendered fields. */
+@media (max-width: 600px) {
+  body.jobseeker-profile-page,
+  body.jobseeker-profile-page .jobseeker-shell,
+  body.jobseeker-profile-page #profile-form,
+  body.jobseeker-profile-page .profile-section-card,
+  body.jobseeker-profile-page .profile-actions-card {
+    min-width: 0;
+    max-width: 100%;
+  }
+
+  body.jobseeker-profile-page #profile-form {
+    width: 100%;
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  body.jobseeker-profile-page .jobseeker-shell {
+    width: 100%;
+    overflow-x: clip;
+  }
+
+  body.jobseeker-profile-page .profile-form-grid,
+  body.jobseeker-profile-page .profile-field,
+  body.jobseeker-profile-page .section-heading-row > div {
+    min-width: 0;
+    max-width: 100%;
+  }
+
+  body.jobseeker-profile-page .profile-field input:not([type="checkbox"]):not([type="file"]),
+  body.jobseeker-profile-page .profile-field select,
+  body.jobseeker-profile-page .profile-field textarea,
+  body.jobseeker-profile-page #skill-tag-picker,
+  body.jobseeker-profile-page #skill-search,
+  body.jobseeker-profile-page .profile-upload-box {
+    box-sizing: border-box;
+    width: 100%;
+    min-width: 0;
+    max-width: 100%;
+  }
+
+  body.jobseeker-profile-page #skill-suggestions {
+    box-sizing: border-box;
+    width: min(280px, 100%);
+    max-width: 100%;
+  }
+
+  body.jobseeker-profile-page .education-entry-card {
+    box-sizing: border-box;
+    width: 100%;
+    min-width: 0;
+    padding: 42px 12px 12px !important;
+  }
+
+  body.jobseeker-profile-page .education-entry-grid {
+    grid-template-columns: minmax(0, 1fr) !important;
+    gap: 12px !important;
+  }
+
+  body.jobseeker-profile-page .education-entry-grid > label,
+  body.jobseeker-profile-page .education-entry-grid input,
+  body.jobseeker-profile-page .education-entry-grid select {
+    box-sizing: border-box;
+    width: 100% !important;
+    min-width: 0;
+    max-width: 100%;
+  }
+
+  body.jobseeker-profile-page .education-entry-card > button[data-edu-remove] {
+    top: 10px !important;
+    right: 12px !important;
+  }
+
+  body.jobseeker-profile-page .day-checkbox-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    min-width: 0;
+  }
+
+  body.jobseeker-profile-page .day-checkbox {
+    min-width: 0;
+    padding-inline: 8px;
+  }
+
+  body.jobseeker-profile-page #add-education-btn,
+  body.jobseeker-profile-page #save-profile-btn {
+    box-sizing: border-box;
+    max-width: 100%;
+  }
+
+  body.jobseeker-profile-page .profile-actions-row {
+    width: 100%;
+    min-width: 0;
+    max-width: 100%;
+  }
+
+  body.jobseeker-profile-page .profile-inline-status {
+    min-width: 0;
+    overflow-wrap: anywhere;
+  }
+}
+
 /* Jobseeker header decoration: create a floral scene without adding extra HTML. */
 .jobseeker-header,
 body:not(.theme-dark) .jobseeker-header {
