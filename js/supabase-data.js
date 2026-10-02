@@ -1161,7 +1161,7 @@ export async function logChatbotInteraction(payload = {}) {
 export async function createNotification(payload) {
   const row = {
     user_id: payload.user_id,
-    type: payload.type || 'system',
+    type: payload.type === 'system' ? 'system' : 'application_update',
     message: payload.message || '',
     is_read: Boolean(payload.is_read || false),
     created_at: payload.created_at || new Date().toISOString(),
@@ -1196,7 +1196,7 @@ export async function notifyAdmins(payload) {
     .filter(Boolean)
     .map((adminId) => ({
       user_id: adminId,
-      type: payload.type || 'admin_alert',
+      type: 'application_update',
       message: payload.message || '',
       is_read: false,
       created_at: payload.created_at || new Date().toISOString(),
@@ -1225,71 +1225,6 @@ function safeParseJson(value) {
   } catch (_error) {
     return null;
   }
-}
-
-// Builds admin queue reminders so active admin work still appears if a notification row was missed.
-async function fetchAdminQueueNotifications(userId) {
-  const { data: profile, error: profileError } = await supabase
-    .from(TABLES.profiles)
-    .select('role')
-    .eq('id', userId)
-    .maybeSingle();
-
-  if (profileError || normalizeRoleValue(profile?.role) !== 'admin') return [];
-
-  const [reportsResult, disputesResult, verificationCountResult] = await Promise.allSettled([
-    fetchReports(),
-    fetchPaymentDisputes(),
-    supabase.rpc('get_admin_pending_verification_count')
-  ]);
-
-  const reports = reportsResult.status === 'fulfilled' ? reportsResult.value : [];
-  const disputes = disputesResult.status === 'fulfilled' ? disputesResult.value : [];
-  const verificationCount = verificationCountResult.status === 'fulfilled'
-    ? Number(verificationCountResult.value.data)
-    : 0;
-  const activeReportStatuses = ['pending', 'open', 'submitted', 'flagged', 'under_review'];
-  const openCases = [
-    ...(reports || []).filter((report) =>
-      activeReportStatuses.includes(String(report.status || 'pending').toLowerCase())
-    ),
-    ...(disputes || [])
-  ];
-  const reminders = [];
-  if (openCases.length) {
-    const latestCase = openCases
-      .map((item) => item.created_at || item.disputed_at || item.createdAt)
-      .filter(Boolean)
-      .sort()
-      .pop() || new Date().toISOString();
-    reminders.push({
-      id: 'admin-queue-reports',
-      user_id: userId,
-      type: 'admin_queue',
-      message: `${openCases.length} open report/dispute case(s) waiting for review.`,
-      is_read: false,
-      created_at: latestCase,
-      target_table: 'reports',
-      _virtual: true,
-      _virtualKey: `admin-queue-reports:${openCases.length}`
-    });
-  }
-
-  if (verificationCount > 0) {
-    reminders.push({
-      id: 'admin-queue-verifications',
-      user_id: userId,
-      type: 'admin_queue',
-      message: `${verificationCount} employer verification request(s) waiting for review.`,
-      is_read: false,
-      created_at: new Date().toISOString(),
-      target_table: 'verifications',
-      _virtual: true,
-      _virtualKey: `admin-queue-verifications:${verificationCount}`
-    });
-  }
-
-  return reminders;
 }
 
 // Formats or checks chat payload so later code can use a clean value.
@@ -1512,9 +1447,7 @@ export async function fetchNotifications(userId, { limit = 20 } = {}) {
     };
   });
 
-  const adminQueueNotifs = await fetchAdminQueueNotifications(userId);
-
-  return [...(notifRes.data || []), ...chatNotifs, ...adminQueueNotifs]
+  return [...(notifRes.data || []), ...chatNotifs]
     .sort((a, b) => new Date(b.created_at) - new Date(a.created_at))
     .slice(0, limit);
 }
@@ -1534,8 +1467,7 @@ export async function markAllNotificationsRead(userId) {
   const { error } = await supabase
     .from(TABLES.notifications)
     .update({ is_read: true })
-    .eq('user_id', userId)
-    .neq('type', 'system');
+    .eq('user_id', userId);
 
   if (error) throw error;
 }

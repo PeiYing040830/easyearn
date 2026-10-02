@@ -165,6 +165,7 @@ from public.job_listings job
 cross join public.users admin
 left join public.users employer on employer.id = job.employer_id
 where job.status in ('pending', 'submitted')
+  and (job.expiry_date is null or job.expiry_date >= current_date)
   and admin.role in ('admin', 'administrator')
   and not exists (
     select 1
@@ -187,3 +188,336 @@ with check (
     or public.is_admin_user(auth.uid())
   )
 );
+
+-- Standardize all persistent Bell event types on application_update (chat messages use system).
+-- This matches notifications_type_check on deployed projects and prevents admin_alert/new_report errors.
+
+create or replace function public.notify_new_application()
+returns trigger
+language plpgsql
+security definer
+set search_path = public
+as $function$
+begin
+  insert into public.notifications (
+    user_id, type, message, is_read, target_table, target_id, is_admin, actor_id
+  )
+  select
+    job.employer_id,
+    'application_update',
+    coalesce(nullif(seeker.full_name, ''), seeker.email, 'A job seeker')
+      || ' applied for "' || coalesce(job.title, 'your job listing') || '".',
+    false, 'applications', new.id, false, new.seeker_id
+  from public.job_listings job
+  left join public.users seeker on seeker.id = new.seeker_id
+  where job.id = new.job_id and job.employer_id is not null;
+  return new;
+end;
+$function$;
+
+drop trigger if exists trg_new_application on public.applications;
+create trigger trg_new_application after insert on public.applications
+for each row execute function public.notify_new_application();
+
+-- Give employers a persistent reminder for pending applications created before this migration.
+insert into public.notifications (
+  user_id, type, message, is_read, target_table, target_id, is_admin, actor_id
+)
+select
+  job.employer_id,
+  'application_update',
+  coalesce(nullif(seeker.full_name, ''), seeker.email, 'A job seeker')
+    || ' applied for "' || coalesce(job.title, 'your job listing') || '".',
+  false,
+  'applications',
+  application.id,
+  false,
+  application.seeker_id
+from public.applications application
+join public.job_listings job on job.id = application.job_id
+left join public.users seeker on seeker.id = application.seeker_id
+where application.status = 'pending'
+  and application.deleted_at is null
+  and job.employer_id is not null
+  and not exists (
+    select 1 from public.notifications existing
+    where existing.user_id = job.employer_id
+      and existing.target_table = 'applications'
+      and existing.target_id = application.id
+  );
+
+create or replace function public.notify_application_status_change()
+returns trigger
+language plpgsql
+security definer
+set search_path = public
+as $function$
+declare
+  recipient_id uuid;
+  notification_message text;
+  job_employer_id uuid;
+  job_title text;
+begin
+  if old.status is not distinct from new.status then return new; end if;
+  select employer_id, title into job_employer_id, job_title
+  from public.job_listings where id = new.job_id;
+
+  if new.status = 'reviewed' then
+    recipient_id := new.seeker_id;
+    notification_message := 'The employer has reviewed your application for "' || coalesce(job_title, 'a job') || '".';
+  elsif new.status = 'interview' then
+    recipient_id := new.seeker_id;
+    notification_message := 'You have an interview update for "' || coalesce(job_title, 'a job') || '". Check your Applications for details.';
+  elsif new.status = 'accepted' then
+    recipient_id := new.seeker_id;
+    notification_message := 'Your application for "' || coalesce(job_title, 'a job') || '" was accepted.';
+  elsif new.status = 'rejected' then
+    recipient_id := new.seeker_id;
+    notification_message := 'Your application for "' || coalesce(job_title, 'a job') || '" was not selected.';
+  elsif new.status = 'completion_pending' then
+    recipient_id := new.seeker_id;
+    notification_message := 'The employer marked "' || coalesce(job_title, 'your job') || '" complete. Confirm the work and payment in Applications.';
+  elsif new.status = 'completed' then
+    recipient_id := job_employer_id;
+    notification_message := 'The job seeker confirmed completion for "' || coalesce(job_title, 'your job') || '".';
+  else
+    return new;
+  end if;
+
+  if recipient_id is not null then
+    insert into public.notifications (
+      user_id, type, message, is_read, target_table, target_id, is_admin, actor_id
+    ) values (
+      recipient_id, 'application_update', notification_message, false,
+      'applications', new.id, false,
+      case when recipient_id = new.seeker_id then job_employer_id else new.seeker_id end
+    );
+  end if;
+  return new;
+end;
+$function$;
+
+drop trigger if exists trg_notify_application_status_change on public.applications;
+create trigger trg_notify_application_status_change after update of status on public.applications
+for each row execute function public.notify_application_status_change();
+
+create or replace function public.notify_admins_new_verification()
+returns trigger
+language plpgsql
+security definer
+set search_path = public
+as $function$
+begin
+  if new.role = 'employer'
+     and new.verification_status = 'submitted'
+     and (tg_op = 'INSERT' or old.verification_status is distinct from new.verification_status) then
+    insert into public.notifications (
+      user_id, type, message, is_read, target_table, target_id, is_admin, actor_id
+    )
+    select admin.id, 'application_update',
+      coalesce(new.email, 'An employer') || ' submitted an employer verification request.',
+      false, 'verifications', new.id, true, new.id
+    from public.users admin where admin.role in ('admin', 'administrator');
+  end if;
+  return new;
+end;
+$function$;
+
+drop trigger if exists trg_notify_admins_new_verification on public.users;
+create trigger trg_notify_admins_new_verification after insert or update of verification_status on public.users
+for each row execute function public.notify_admins_new_verification();
+
+create or replace function public.notify_employer_job_moderation()
+returns trigger
+language plpgsql
+security definer
+set search_path = public
+as $function$
+declare notification_message text;
+begin
+  if old.status is not distinct from new.status then return new; end if;
+  if new.status = 'approved' then
+    notification_message := 'Your job listing "' || coalesce(new.title, 'Untitled job') || '" was approved and is ready for job seekers.';
+  elsif new.status = 'flagged' then
+    notification_message := 'Your job listing "' || coalesce(new.title, 'Untitled job') || '" was flagged for review. Please check Manage Jobs.';
+  elsif new.status = 'removed' then
+    notification_message := 'Your job listing "' || coalesce(new.title, 'Untitled job') || '" was removed after admin review.';
+  elsif new.status = 'closed' then
+    notification_message := 'Your job listing "' || coalesce(new.title, 'Untitled job') || '" was closed.';
+  elsif new.status = 'expired' then
+    notification_message := 'Your job listing "' || coalesce(new.title, 'Untitled job') || '" has expired.';
+  else
+    return new;
+  end if;
+  insert into public.notifications (
+    user_id, type, message, is_read, target_table, target_id, is_admin, actor_id
+  ) values (
+    new.employer_id, 'application_update', notification_message, false,
+    'jobs', new.id, false, auth.uid()
+  );
+  return new;
+end;
+$function$;
+
+drop trigger if exists trg_notify_employer_job_moderation on public.job_listings;
+create trigger trg_notify_employer_job_moderation after update of status on public.job_listings
+for each row execute function public.notify_employer_job_moderation();
+
+create or replace function public.notify_report_parties()
+returns trigger
+language plpgsql
+security definer
+set search_path = public
+as $function$
+declare report_label text; notification_message text;
+begin
+  report_label := replace(coalesce(new.report_type, 'other'), '_', ' ');
+  if tg_op = 'INSERT' then
+    insert into public.notifications (
+      user_id, type, message, is_read, target_table, target_id, is_admin, actor_id
+    )
+    select admin.id, 'application_update', 'New ' || report_label || ' report is waiting for review.',
+      false, 'reports', new.id, true, new.reporter_id
+    from public.users admin where admin.role in ('admin', 'administrator');
+    return new;
+  end if;
+  if old.status is distinct from new.status and new.reporter_id is not null then
+    if new.status = 'resolved' then
+      notification_message := 'Your ' || report_label || ' report has been resolved by the EasyEarn team.';
+    elsif new.status = 'escalated' then
+      notification_message := 'Your ' || report_label || ' report has been escalated for further review.';
+    else
+      notification_message := null;
+    end if;
+    if notification_message is not null then
+      insert into public.notifications (
+        user_id, type, message, is_read, target_table, target_id, is_admin, actor_id
+      ) values (
+        new.reporter_id, 'application_update', notification_message, false,
+        'reports', new.id, false, auth.uid()
+      );
+    end if;
+  end if;
+  return new;
+end;
+$function$;
+
+drop trigger if exists trg_notify_report_parties on public.reports;
+create trigger trg_notify_report_parties after insert or update of status on public.reports
+for each row execute function public.notify_report_parties();
+
+create or replace function public.notify_payment_participants()
+returns trigger
+language plpgsql
+security definer
+set search_path = public
+as $function$
+declare notification_message text; target_user uuid;
+begin
+  if new.employer_paid_at is not null
+     and (tg_op = 'INSERT' or old.employer_paid_at is null)
+     and new.payee_id is not null then
+    insert into public.notifications (
+      user_id, type, message, is_read, target_table, target_id, is_admin, actor_id
+    ) values (
+      new.payee_id, 'application_update', 'Your employer marked the payment as paid. Please confirm receipt in Applications.',
+      false, 'applications', new.application_id, false, new.payer_id
+    );
+  end if;
+  if new.payee_confirmed is true
+     and (tg_op = 'INSERT' or old.payee_confirmed is distinct from new.payee_confirmed)
+     and new.payer_id is not null then
+    insert into public.notifications (
+      user_id, type, message, is_read, target_table, target_id, is_admin, actor_id
+    ) values (
+      new.payer_id, 'application_update', 'The job seeker confirmed receipt of payment.',
+      false, 'applications', new.application_id, false, new.payee_id
+    );
+  end if;
+  if new.status = 'disputed' and (tg_op = 'INSERT' or old.status is distinct from new.status)
+     and new.payer_id is not null then
+    insert into public.notifications (
+      user_id, type, message, is_read, target_table, target_id, is_admin, actor_id
+    ) values (
+      new.payer_id, 'application_update', 'A payment dispute was raised for one of your job payments. Check your Applicants page.',
+      false, 'applications', new.application_id, false, new.payee_id
+    );
+  end if;
+  if new.status = 'resolved' and (tg_op = 'INSERT' or old.status is distinct from new.status) then
+    notification_message := coalesce(nullif(new.admin_resolution, ''), 'The payment dispute has been resolved by an admin.');
+    for target_user in
+      select distinct party_id from unnest(array[new.payer_id, new.payee_id]) as party(party_id)
+      where party_id is not null
+    loop
+      insert into public.notifications (
+        user_id, type, message, is_read, target_table, target_id, is_admin, actor_id
+      ) values (
+        target_user, 'application_update', 'Payment dispute resolved: ' || notification_message,
+        false, 'applications', new.application_id, false, auth.uid()
+      );
+    end loop;
+  end if;
+  return new;
+end;
+$function$;
+
+drop trigger if exists trg_notify_payment_participants on public.payments;
+create trigger trg_notify_payment_participants after insert or update of employer_paid_at, payee_confirmed, status on public.payments
+for each row execute function public.notify_payment_participants();
+
+create or replace function public.notify_rating_reviewee()
+returns trigger
+language plpgsql
+security definer
+set search_path = public
+as $function$
+begin
+  insert into public.notifications (
+    user_id, type, message, is_read, target_table, target_id, is_admin, actor_id
+  ) values (
+    new.reviewee_id, 'application_update', 'You received a ' || new.stars::text || '-star rating.' ||
+      case when nullif(new.review, '') is not null then ' Open your profile to read the review.' else '' end,
+    false, 'ratings', new.id, false, new.reviewer_id
+  );
+  return new;
+end;
+$function$;
+
+drop trigger if exists trg_notify_rating_reviewee on public.ratings;
+create trigger trg_notify_rating_reviewee after insert on public.ratings
+for each row execute function public.notify_rating_reviewee();
+
+-- Existing open reports should appear as Admin Bell reminders after installing the trigger.
+insert into public.notifications (
+  user_id, type, message, is_read, target_table, target_id, is_admin, actor_id
+)
+select admin.id, 'application_update',
+  'New ' || replace(coalesce(report.report_type, 'other'), '_', ' ') || ' report is waiting for review.',
+  false, 'reports', report.id, true, report.reporter_id
+from public.reports report
+cross join public.users admin
+where lower(coalesce(report.status, 'open')) in ('pending', 'open', 'submitted', 'flagged', 'under_review')
+  and admin.role in ('admin', 'administrator')
+  and not exists (
+    select 1 from public.notifications existing
+    where existing.user_id = admin.id and existing.target_table = 'reports'
+      and existing.target_id = report.id and existing.is_admin is true
+  );
+
+-- Existing employer verification submissions should also receive an Admin Bell reminder.
+insert into public.notifications (
+  user_id, type, message, is_read, target_table, target_id, is_admin, actor_id
+)
+select admin.id, 'application_update',
+  coalesce(employer.email, 'An employer') || ' submitted an employer verification request.',
+  false, 'verifications', employer.id, true, employer.id
+from public.users employer
+cross join public.users admin
+where employer.role = 'employer'
+  and employer.verification_status = 'submitted'
+  and admin.role in ('admin', 'administrator')
+  and not exists (
+    select 1 from public.notifications existing
+    where existing.user_id = admin.id and existing.target_table = 'verifications'
+      and existing.target_id = employer.id and existing.is_admin is true
+  );

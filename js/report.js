@@ -1,7 +1,7 @@
 /**
  * EasyEarn file note: Handles the report page behavior and related user interactions.
  */
-import { observeAuth, fetchProfile, createReport, notifyAdmins } from './supabase-data.js';
+import { observeAuth, fetchProfile, createReport } from './supabase-data.js';
 import { getReportReason, reportReasonOptions } from './report-reasons.js';
 
 (function () {
@@ -194,16 +194,6 @@ import { getReportReason, reportReasonOptions } from './report-reasons.js';
           report_type: reportType,
           description: fullDescription,
           status: 'pending'
-        });
-
-        notifyAdmins({
-          type: 'new_report',
-          message: `New ${reportType.replace(/_/g, ' ')} report submitted by ${fullName}.`,
-          target_table: 'reports',
-          target_id: report?.id || null,
-          actor_id: currentUser?.id || null
-        }).catch((notifyError) => {
-          console.warn('Admin report notification failed (non-fatal):', notifyError);
         });
 
         setStatus(form, 'Report submitted successfully. Admin can review it from the reports queue.');

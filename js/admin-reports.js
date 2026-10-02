@@ -10,7 +10,6 @@ import {
   fetchAllApplications,
   fetchJobs,
   fetchProfilesByIds,
-  createNotification,
   updateUserAccountStatus,
   updateEmployerJobsStatus
 } from './supabase-data.js';

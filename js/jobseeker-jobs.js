@@ -11,7 +11,6 @@ import {
   fetchRatingsForReviewees,
   createApplication,
   deleteApplication,
-  createNotification,
   saveJob,
   removeSavedJob,
   normalizeArray,
@@ -979,23 +978,6 @@ import {
           status: 'pending',
           resume_url: resumeBase64 || null
         });
-
-        // Notify employer
-        try {
-          const jobRaw = allJobsRaw.find((j) => j.id === jobId);
-          const appliedJob = allJobs.find((j) => j.id === jobId);
-          const employerId = jobRaw?.employer_id || null;
-          if (employerId) {
-            const seekerName = profile?.name || currentUser.user_metadata?.name || 'A job seeker';
-            await createNotification({
-              user_id: employerId,
-              type: 'new_job',
-              message: `${seekerName} has applied for your job: "${appliedJob?.title || 'your job posting'}".`
-            });
-          }
-        } catch (notifErr) {
-          console.warn('Employer notification failed (non-fatal):', notifErr);
-        }
 
         modal.remove();
         applications = await fetchApplications(currentUser.id);
