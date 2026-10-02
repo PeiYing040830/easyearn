@@ -483,7 +483,15 @@ body.theme-dark .employer-navbar .theme-toggle:hover {
 .employer-field.full { grid-column: 1 / -1; }
 .employer-field span { font-size: 13px; font-weight: 700; color: #0f172a; }
 .employer-field input, .employer-field select, .employer-field textarea { width: 100%; min-height: 48px; padding: 12px 14px; border-radius: 14px; border: 1px solid #e4d5c6; background: #fffaf3; color: #0f172a; outline: none; transition: border-color 0.22s ease, box-shadow 0.22s ease, background-color 0.22s ease; }
-#job-expiry-date { box-sizing: border-box; display: block; width: 100%; max-width: 100%; min-width: 0; }
+#job-expiry-date {
+  box-sizing: border-box !important;
+  display: block;
+  width: 100% !important;
+  max-width: 100%;
+  min-width: 0;
+  inline-size: 100%;
+  max-inline-size: 100%;
+}
 .employer-upload-box {
   border: 1.5px dashed #fcd34d;
   border-radius: 12px;
@@ -2052,6 +2060,13 @@ body.theme-dark .messages-bubble.is-duitnow.is-theirs {
 }
 
 @media (max-width: 560px) {
+  #job-expiry-date {
+    box-sizing: border-box !important;
+    width: 100% !important;
+    max-width: 100%;
+    min-width: 0;
+  }
+
   .employer-shell {
     padding: 100px 14px 64px;
   }
