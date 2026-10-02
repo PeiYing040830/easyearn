@@ -48,6 +48,8 @@ import {
   // Renders chips into the HTML so the user can see it.
   function renderChips() {
     const chipsEl = document.getElementById('skill-chips');
+    const countEl = document.getElementById('skill-count');
+    if (countEl) countEl.textContent = `${selectedSkills.length}/${MAX_SKILLS} selected`;
     if (!chipsEl) return;
     chipsEl.replaceChildren();
     selectedSkills.forEach((skill, index) => {
@@ -119,6 +121,8 @@ import {
   document.addEventListener('DOMContentLoaded', () => {
     const searchInput = document.getElementById('skill-search');
     const suggestEl   = document.getElementById('skill-suggestions');
+    const addButton = document.getElementById('skill-add-btn');
+    if (addButton) addButton.addEventListener('click', commitPendingSkillInput);
     if (searchInput) {
       // Connects this element event to the handler that should run next.
       searchInput.addEventListener('input', () => showSuggestions(searchInput.value));
