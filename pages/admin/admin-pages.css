@@ -1462,10 +1462,10 @@ body.theme-dark .chatbot-knowledge-delete {
 @media (min-width: 561px) and (max-width: 900px) {
   .admin-users-page .admin-item-meta {
     display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-columns: repeat(5, minmax(0, 1fr));
     width: 100%;
     min-width: 0;
-    gap: 10px;
+    gap: 8px;
   }
 
   .admin-users-page .admin-item-meta span {
@@ -1473,6 +1473,9 @@ body.theme-dark .chatbot-knowledge-delete {
     width: 100%;
     min-width: 0;
     max-width: 100%;
+    padding: 7px 8px;
+    justify-content: center;
+    text-align: center;
     white-space: normal;
     overflow-wrap: anywhere;
   }
