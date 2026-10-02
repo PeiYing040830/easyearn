@@ -1920,6 +1920,37 @@ body.theme-dark .resume-shell {
   overflow: hidden;
 }
 
+/* Render a desktop-width resume when html2canvas exports from a phone. */
+.resume-paper.resume-pdf-export {
+  width: 1120px !important;
+  max-width: none !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+}
+
+.resume-paper.resume-pdf-export .resume-paper-header {
+  flex-direction: row !important;
+  align-items: flex-start !important;
+}
+
+.resume-paper.resume-pdf-export .resume-paper-grid {
+  grid-template-columns: 280px minmax(0, 1fr) !important;
+}
+
+.resume-paper.resume-pdf-export .resume-paper-contact {
+  min-width: 220px !important;
+  text-align: right !important;
+}
+
+.resume-paper.resume-pdf-export .resume-paper-sidebar {
+  border-right: 1px solid #e5e7eb !important;
+  border-bottom: 0 !important;
+}
+
+.resume-paper.resume-pdf-export .resume-result-grid {
+  grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+}
+
 .resume-paper-header {
   display: flex;
   justify-content: space-between;

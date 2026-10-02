@@ -312,7 +312,11 @@ import {
       const canvas = await window.html2canvas(resumePaper, {
         scale: 2,
         useCORS: true,
-        backgroundColor: '#ffffff'
+        backgroundColor: '#ffffff',
+        windowWidth: Math.max(window.innerWidth, 1200),
+        onclone: (clonedDocument) => {
+          clonedDocument.querySelector('.resume-paper')?.classList.add('resume-pdf-export');
+        }
       });
 
       const imageData = canvas.toDataURL('image/png');
