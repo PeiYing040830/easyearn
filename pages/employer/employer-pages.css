@@ -1437,12 +1437,30 @@ body.theme-dark .messages-shell .messages-bubble.is-duitnow.is-mine {
 /* ── Applicants Page ─────────────────────────────────────────────────────── */
 
 .employer-applicants-page .employer-pie-chart {
-  grid-template-columns: minmax(0, 220px) minmax(0, 1fr);
-  justify-content: start;
+  grid-template-columns: minmax(0, 180px) minmax(0, 1fr);
+  min-width: 0;
+  box-sizing: border-box;
 }
 
 .employer-applicants-page .employer-pie-wrap {
-  justify-content: start;
+  display: grid;
+  place-items: center;
+  width: 100%;
+  min-width: 0;
+  box-sizing: border-box;
+}
+
+.employer-applicants-page .employer-chart-duo,
+.employer-applicants-page .employer-chart-duo > *,
+.employer-applicants-page .employer-chart {
+  min-width: 0;
+  max-width: 100%;
+  box-sizing: border-box;
+}
+
+.employer-applicants-page .employer-chart canvas {
+  display: block;
+  max-width: 100%;
 }
 
 .employer-applicants-page .employer-card-actions {
@@ -1836,12 +1854,11 @@ body.theme-dark .messages-bubble.is-duitnow.is-theirs {
   }
 
   .employer-applicants-page .employer-pie-chart {
-    grid-template-columns: minmax(0, 220px) minmax(0, 1fr);
-    justify-content: start;
+    grid-template-columns: minmax(0, 180px) minmax(0, 1fr);
   }
 
   .employer-applicants-page .employer-pie-wrap {
-    justify-content: start;
+    justify-content: center;
   }
 }
 
@@ -2178,6 +2195,29 @@ body.theme-dark .messages-bubble.is-duitnow.is-theirs {
   .employer-applicants-page .employer-chart canvas {
     min-width: 0;
     max-width: 100%;
+  }
+
+  .employer-applicants-page .employer-pie-chart {
+    grid-template-columns: minmax(0, 1fr);
+    justify-items: stretch;
+  }
+
+  .employer-applicants-page .employer-pie-wrap {
+    width: 160px;
+    height: 160px;
+    max-width: 100%;
+    margin: 0 auto;
+    padding: 0;
+  }
+
+  .employer-applicants-page .employer-pie-wrap canvas {
+    width: 160px !important;
+    height: 160px !important;
+  }
+
+  .employer-applicants-page .employer-pie-legend {
+    width: 100%;
+    min-width: 0;
   }
 }
 
