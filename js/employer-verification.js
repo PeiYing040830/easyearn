@@ -44,6 +44,9 @@ import { fetchProfile, observeAuth, updateEmployerVerification } from './supabas
   };
 
   let currentUser = null;
+  let draftSaveTimer = null;
+  let draftSaveInProgress = false;
+  let draftSaveQueued = false;
   let selectedFiles = {
     registration: null,
     contact: null
@@ -113,6 +116,38 @@ import { fetchProfile, observeAuth, updateEmployerVerification } from './supabas
     }
     button.disabled = busy;
     button.textContent = busy ? 'Submitting...' : button.dataset.defaultText;
+  }
+
+  async function saveVerificationDraft() {
+    if (!currentUser) return;
+    if (draftSaveInProgress) {
+      draftSaveQueued = true;
+      return;
+    }
+    draftSaveInProgress = true;
+    try {
+      await updateEmployerVerification(currentUser.id, {
+        businessType: details.businessType?.value || '',
+        ssmNumber: details.ssmNumber?.value.trim() || '',
+        verificationAddress: details.businessAddress?.value.trim() || ''
+      });
+      setSubmitStatus('Draft updated. Upload the required documents and submit when ready.');
+    } catch (error) {
+      console.error('Failed to save verification draft:', error);
+      setSubmitStatus(error?.message || 'Unable to save your verification draft.', 'is-error');
+    } finally {
+      draftSaveInProgress = false;
+      if (draftSaveQueued) {
+        draftSaveQueued = false;
+        window.clearTimeout(draftSaveTimer);
+        draftSaveTimer = window.setTimeout(saveVerificationDraft, 0);
+      }
+    }
+  }
+
+  function scheduleVerificationDraftSave() {
+    window.clearTimeout(draftSaveTimer);
+    draftSaveTimer = window.setTimeout(saveVerificationDraft, 350);
   }
 
   // Updates metric after the user changes something or data is refreshed.
@@ -382,6 +417,19 @@ import { fetchProfile, observeAuth, updateEmployerVerification } from './supabas
     savedPackage.businessType = details.businessType.value;
     updateRequirements();
     updateDashboard();
+    window.clearTimeout(draftSaveTimer);
+    saveVerificationDraft();
+  });
+  [details.ssmNumber, details.businessAddress].forEach((field) => {
+    field?.addEventListener('input', scheduleVerificationDraftSave);
+    field?.addEventListener('change', () => {
+      window.clearTimeout(draftSaveTimer);
+      saveVerificationDraft();
+    });
+    field?.addEventListener('blur', () => {
+      window.clearTimeout(draftSaveTimer);
+      saveVerificationDraft();
+    });
   });
   updateRequirements();
   bindFileInputs();
