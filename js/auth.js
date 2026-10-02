@@ -334,8 +334,12 @@ async function handleRegister() {
       } catch (_) {
         // Keep the function client's message when no JSON response is available.
       }
-      const detailText = authorizationDetail ? ` (${authorizationDetail})` : '';
-      showError(`Account created, but Admin authorization failed${detailText}. The account already exists; deploy the promote-admin Edge Function and check its ADMIN_REGISTRATION_CODE secret before retrying.`);
+      if (authorizationDetail.includes('Invalid Admin Secure Code')) {
+        showError('Account created, but Admin authorization failed: the entered Admin Secure Code does not match the ADMIN_REGISTRATION_CODE secret. This email is already registered, so do not register again. Check the secret value, then authorize this existing account.');
+      } else {
+        const detailText = authorizationDetail ? ` (${authorizationDetail})` : '';
+        showError(`Account created, but Admin authorization failed${detailText}. This email is already registered. Fix the reported function issue, then authorize this existing account; do not register again.`);
+      }
       return;
     }
   } else if (data.user) {

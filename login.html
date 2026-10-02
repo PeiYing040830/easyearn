@@ -388,7 +388,11 @@
       document.getElementById('tab-' + tab).classList.add('active');
       document.getElementById('panel-' + tab).classList.add('active');
       box.classList.toggle('wide', tab === 'register');
-      clearError();
+      const errorMessage = document.getElementById('error-msg');
+      if (errorMessage) {
+        errorMessage.textContent = '';
+        errorMessage.style.display = 'none';
+      }
       // update URL without reload
       const url = new URL(window.location);
       url.searchParams.set('tab', tab);
@@ -401,6 +405,6 @@
   </script>
 
   <!-- Loads the JavaScript file that controls this page: js/auth.js. -->
-  <script type="module" src="js/auth.js?v=20261002a"></script>
+  <script type="module" src="js/auth.js?v=20261002b"></script>
 </body>
 </html>
