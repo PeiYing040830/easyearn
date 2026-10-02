@@ -181,6 +181,7 @@ export function normalizeProfileRow(row = {}, user = null) {
     companyName: row.company_name || row.companyName || row.full_name || '',
     businessName: row.business_name || row.businessName || row.full_name || '',
     businessType: row.business_type || row.businessType || '',
+    businessCategory: row.business_category || row.businessCategory || row.business_type || row.businessType || '',
     website: row.website || '',
     companyOverview: row.company_overview || row.companyOverview || '',
     isVerified: Boolean(row.is_verified || false),
@@ -306,6 +307,9 @@ export async function upsertProfile(userId, payload) {
   }
   if (payload.business_type !== undefined || payload.businessType !== undefined) {
     row.business_type = payload.business_type || payload.businessType || null;
+  }
+  if (payload.business_category !== undefined || payload.businessCategory !== undefined) {
+    row.business_category = payload.business_category || payload.businessCategory || null;
   }
   if (payload.ssm_number !== undefined || payload.ssmNumber !== undefined) {
     row.ssm_number = payload.ssm_number || payload.ssmNumber || null;

@@ -105,7 +105,9 @@ import {
     if (fields.companyName) fields.companyName.value = profile.companyName || profile.businessName || profile.name || '';
     if (fields.contactEmail) fields.contactEmail.value = profile.email || currentUser?.email || '';
     if (fields.phone) fields.phone.value = profile.phone || '';
-    if (fields.businessType) fields.businessType.value = profile.businessType || fields.businessType.value;
+    const verificationTypes = ['Individual Hirer', 'Company / Business', 'Online Seller / E-commerce'];
+    const legacyBusinessCategory = verificationTypes.includes(profile.businessType) ? '' : profile.businessType;
+    if (fields.businessType) fields.businessType.value = profile.businessCategory || legacyBusinessCategory || fields.businessType.value;
     if (fields.location) fields.location.value = profile.location || '';
     if (fields.website) fields.website.value = profile.website || '';
     if (fields.overview) fields.overview.value = profile.companyOverview || profile.bio || '';
@@ -333,7 +335,7 @@ import {
         phone: payload.phone,
         location: payload.location,
         bio: payload.companyOverview,
-        businessType: payload.businessType,
+        businessCategory: payload.businessType,
         website: payload.website,
         companyOverview: payload.companyOverview,
         photo_data: currentLogo,

@@ -43,6 +43,7 @@ create table if not exists public.users (
   skill_tags text[],
   created_at timestamp with time zone default now(),
   business_type text,
+  business_category text,
   website text,
   company_overview text,
   ssm_number text,
@@ -218,6 +219,7 @@ alter table public.users add column if not exists is_verified boolean default fa
 alter table public.users add column if not exists skill_tags text[];
 alter table public.users add column if not exists created_at timestamp with time zone default now();
 alter table public.users add column if not exists business_type text;
+alter table public.users add column if not exists business_category text;
 alter table public.users add column if not exists website text;
 alter table public.users add column if not exists company_overview text;
 alter table public.users add column if not exists ssm_number text;
