@@ -842,6 +842,8 @@ export async function createReport(payload) {
     admin_notes: payload.admin_notes || null
   };
 
+  if (payload.job_id) row.job_id = payload.job_id;
+
   const { data, error } = await supabase
     .from(TABLES.reports)
     .insert(row)

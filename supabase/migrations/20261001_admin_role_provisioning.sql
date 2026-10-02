@@ -521,3 +521,68 @@ where employer.role = 'employer'
     where existing.user_id = admin.id and existing.target_table = 'verifications'
       and existing.target_id = employer.id and existing.is_admin is true
   );
+-- Auto-flag approved job listings after reports from five distinct users.
+-- Re-running this section is safe; duplicate reports from one reporter count once.
+alter table public.reports add column if not exists job_id uuid;
+
+create index if not exists idx_reports_job_reporter_status
+  on public.reports(job_id, reporter_id, status)
+  where job_id is not null and reporter_id is not null;
+
+create or replace function public.flag_approved_job_after_report_threshold()
+returns trigger
+language plpgsql
+security definer
+set search_path = public
+as $function$
+declare
+  prior_reporters integer;
+  distinct_reporters integer;
+  flagged_job_id uuid;
+begin
+  if new.job_id is null or new.reporter_id is null
+     or lower(coalesce(new.status, 'open')) not in ('pending', 'open', 'submitted', 'flagged', 'under_review') then
+    return new;
+  end if;
+
+  select count(distinct report.reporter_id)::integer
+    into prior_reporters
+  from public.reports report
+  where report.job_id = new.job_id
+    and report.id <> new.id
+    and report.reporter_id is not null
+    and lower(coalesce(report.status, 'open')) in ('pending', 'open', 'submitted', 'flagged', 'under_review');
+
+  select count(distinct report.reporter_id)::integer
+    into distinct_reporters
+  from public.reports report
+  where report.job_id = new.job_id
+    and report.reporter_id is not null
+    and lower(coalesce(report.status, 'open')) in ('pending', 'open', 'submitted', 'flagged', 'under_review');
+
+  if prior_reporters < 5 and distinct_reporters >= 5 then
+    update public.job_listings
+       set status = 'flagged'
+     where id = new.job_id and status = 'approved'
+     returning id into flagged_job_id;
+
+    if flagged_job_id is not null then
+      insert into public.notifications (
+        user_id, type, message, is_read, target_table, target_id, is_admin, actor_id
+      )
+      select admin.id, 'application_update',
+        'A job was automatically flagged after reports from 5 different users. Please review the listing.',
+        false, 'jobs', flagged_job_id, true, new.reporter_id
+      from public.users admin
+      where admin.role in ('admin', 'administrator');
+    end if;
+  end if;
+
+  return new;
+end;
+$function$;
+
+drop trigger if exists trg_flag_approved_job_after_report_threshold on public.reports;
+create trigger trg_flag_approved_job_after_report_threshold
+after insert on public.reports
+for each row execute function public.flag_approved_job_after_report_threshold();

@@ -1,7 +1,7 @@
 /**
  * EasyEarn file note: Handles the report page behavior and related user interactions.
  */
-import { observeAuth, fetchProfile, createReport } from './supabase-data.js';
+import { observeAuth, fetchProfile, createReport } from './supabase-data.js?v=20261002a';
 import { getReportReason, reportReasonOptions } from './report-reasons.js';
 
 (function () {
@@ -80,6 +80,12 @@ import { getReportReason, reportReasonOptions } from './report-reasons.js';
     const roleLine = `Reporter role: ${role}`;
 
     return [roleLine, linkLine, evidenceLine, '', description].join('\n');
+  }
+
+  function linkedJobId() {
+    const link = getField('report-link')?.value?.trim() || '';
+    const match = link.match(/[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}/i);
+    return match ? match[0] : null;
   }
 
   // Helper function for validate form used by this script.
@@ -191,6 +197,7 @@ import { getReportReason, reportReasonOptions } from './report-reasons.js';
         const report = await createReport({
           reporter_id: currentUser?.id || null,
           reported_user: null,
+          job_id: linkedJobId(),
           report_type: reportType,
           description: fullDescription,
           status: 'pending'

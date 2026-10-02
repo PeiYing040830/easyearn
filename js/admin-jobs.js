@@ -2,7 +2,7 @@ import { escapeHtml } from './html-escape.js';
 /**
  * EasyEarn file note: Handles the admin jobs page behavior and related user interactions.
  */
-import { observeAuth, fetchJobs, fetchProfilesByIds, updateJobListingStatus } from './supabase-data.js';
+import { observeAuth, fetchJobs, fetchReports, fetchProfilesByIds, updateJobListingStatus } from './supabase-data.js?v=20261002a';
 
 (function () {
   'use strict';
@@ -28,6 +28,7 @@ import { observeAuth, fetchJobs, fetchProfilesByIds, updateJobListingStatus } fr
 
   let currentUser = null;
   let cachedJobs = [];
+  let reportCountByJob = new Map();
   let employerNameMap = new Map();
   let activeFilter = 'pending'; // default: show pending review queue
 
@@ -106,6 +107,19 @@ import { observeAuth, fetchJobs, fetchProfilesByIds, updateJobListingStatus } fr
     }
   }
 
+  async function loadJobReportCounts() {
+    const reports = await fetchReports();
+    const reportersByJob = new Map();
+    for (const report of reports) {
+      if (!report.job_id || !report.reporter_id || !['open', 'pending', 'submitted', 'flagged', 'under_review'].includes(String(report.status || '').toLowerCase())) continue;
+      if (!reportersByJob.has(report.job_id)) reportersByJob.set(report.job_id, new Set());
+      reportersByJob.get(report.job_id).add(report.reporter_id);
+    }
+    reportCountByJob = new Map(
+      Array.from(reportersByJob, ([jobId, reporters]) => [jobId, reporters.size])
+    );
+  }
+
   // Updates metrics after the user changes something or data is refreshed.
   function updateMetrics(jobsWithReview) {
     const live = jobsWithReview.filter((item) => item.review.status === 'approved').length;
@@ -176,6 +190,7 @@ import { observeAuth, fetchJobs, fetchProfilesByIds, updateJobListingStatus } fr
       const expiry = job.expiry_date || '-';
       const category = job.category || '-';
       const openings = Number(job.openings_count ?? 1);
+      const reports = reportCountByJob.get(job.id) || 0;
 
       return `
         <article class="admin-item" data-job-id="${escapeHtml(job.id)}">
@@ -192,6 +207,7 @@ import { observeAuth, fetchJobs, fetchProfilesByIds, updateJobListingStatus } fr
             <span>Openings: ${openings}</span>
             <span>Listing: ${escapeHtml(job.status || 'pending')}</span>
             <span>Expiry: ${escapeHtml(expiry)}</span>
+            <span>Active reports: ${reports}/5 unique users</span>
           </div>
           <p>${escapeHtml(job.description || 'No job description added yet.')}</p>
           <div class="admin-action-row">
@@ -218,6 +234,12 @@ import { observeAuth, fetchJobs, fetchProfilesByIds, updateJobListingStatus } fr
       await updateJobListingStatus(jobId, nextStatus);
       cachedJobs = await fetchJobs();
       await buildEmployerNameMap(cachedJobs);
+      try {
+        await loadJobReportCounts();
+      } catch (error) {
+        console.warn('Failed to load job report totals:', error);
+        reportCountByJob = new Map();
+      }
       await renderQueue();
     } catch (error) {
       console.error('Failed to update job moderation:', error);
@@ -245,6 +267,13 @@ import { observeAuth, fetchJobs, fetchProfilesByIds, updateJobListingStatus } fr
       console.error('Failed to load admin jobs queue:', error);
       cachedJobs = [];
       setStatus('Unable to load job listings right now. Check Supabase select policy for job_listings.', 'is-error');
+    }
+
+    try {
+      await loadJobReportCounts();
+    } catch (error) {
+      console.warn('Failed to load job report totals:', error);
+      reportCountByJob = new Map();
     }
 
     await renderQueue();

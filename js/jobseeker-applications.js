@@ -14,7 +14,7 @@ import {
   confirmPaymentReceived,
   createReport,
   insertWorkHistory
-} from './supabase-data.js';
+} from './supabase-data.js?v=20261002a';
 import { getReportReason, reportReasonOptions } from './report-reasons.js';
 
 (function () {
@@ -324,6 +324,7 @@ import { getReportReason, reportReasonOptions } from './report-reasons.js';
     const reportBtn = `
       <button type="button" class="report-employer-btn"
         data-application-id="${escapeHtml(app.id)}"
+        data-job-id="${escapeHtml(job.id || app.job_id || '')}"
         data-employer-id="${escapeHtml(employerId)}"
         data-employer-name="${escapeHtml(company)}"
         data-job-title="${escapeHtml(jobTitle)}"
@@ -516,7 +517,7 @@ import { getReportReason, reportReasonOptions } from './report-reasons.js';
   // ── Report Employer Modal ─────────────────────────────────────────────────
 
   // Helper function for open report employer modal used by this script.
-  function openReportEmployerModal({ applicationId, employerId, employerName, jobTitle }) {
+  function openReportEmployerModal({ applicationId, jobId, employerId, employerName, jobTitle }) {
     const MODAL_ID = 'report-employer-modal';
 
     if (!document.getElementById(MODAL_ID)) {
@@ -588,6 +589,7 @@ import { getReportReason, reportReasonOptions } from './report-reasons.js';
         await createReport({
           reporter_id:   currentUser.id,
           reported_user: employerId,
+          job_id:        jobId,
           report_type:   reason.type,
           description:   `Reason: ${reason.label}\nJob: ${jobTitle || 'unknown'}${description ? `\n\n${description}` : ''}`,
           status:        'open',
@@ -800,6 +802,7 @@ import { getReportReason, reportReasonOptions } from './report-reasons.js';
     if (reportBtn2) {
       openReportEmployerModal({
         applicationId: reportBtn2.dataset.applicationId,
+        jobId:         reportBtn2.dataset.jobId,
         employerId:    reportBtn2.dataset.employerId,
         employerName:  reportBtn2.dataset.employerName || 'Employer',
         jobTitle:      reportBtn2.dataset.jobTitle || ''

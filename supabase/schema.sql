@@ -312,6 +312,7 @@ alter table public.ratings add column if not exists created_at timestamp with ti
 alter table public.reports add column if not exists reporter_id uuid;
 alter table public.reports add column if not exists reported_user uuid;
 alter table public.reports add column if not exists report_type text;
+alter table public.reports add column if not exists job_id uuid;
 alter table public.reports add column if not exists description text;
 alter table public.reports add column if not exists status text default 'pending'::text;
 alter table public.reports add column if not exists admin_notes text;
@@ -858,6 +859,68 @@ drop trigger if exists trg_notify_report_parties on public.reports;
 create trigger trg_notify_report_parties
 after insert or update of status on public.reports
 for each row execute function public.notify_report_parties();
+
+create index if not exists idx_reports_job_reporter_status
+  on public.reports(job_id, reporter_id, status)
+  where job_id is not null and reporter_id is not null;
+
+create or replace function public.flag_approved_job_after_report_threshold()
+returns trigger
+language plpgsql
+security definer
+set search_path = public
+as $function$
+declare
+  prior_reporters integer;
+  distinct_reporters integer;
+  flagged_job_id uuid;
+begin
+  if new.job_id is null or new.reporter_id is null
+     or lower(coalesce(new.status, 'open')) not in ('pending', 'open', 'submitted', 'flagged', 'under_review') then
+    return new;
+  end if;
+
+  select count(distinct report.reporter_id)::integer
+    into prior_reporters
+  from public.reports report
+  where report.job_id = new.job_id
+    and report.id <> new.id
+    and report.reporter_id is not null
+    and lower(coalesce(report.status, 'open')) in ('pending', 'open', 'submitted', 'flagged', 'under_review');
+
+  select count(distinct report.reporter_id)::integer
+    into distinct_reporters
+  from public.reports report
+  where report.job_id = new.job_id
+    and report.reporter_id is not null
+    and lower(coalesce(report.status, 'open')) in ('pending', 'open', 'submitted', 'flagged', 'under_review');
+
+  if prior_reporters < 5 and distinct_reporters >= 5 then
+    update public.job_listings
+       set status = 'flagged'
+     where id = new.job_id and status = 'approved'
+     returning id into flagged_job_id;
+
+    if flagged_job_id is not null then
+      insert into public.notifications (
+        user_id, type, message, is_read, target_table, target_id, is_admin, actor_id
+      )
+      select admin.id, 'application_update',
+        'A job was automatically flagged after reports from 5 different users. Please review the listing.',
+        false, 'jobs', flagged_job_id, true, new.reporter_id
+      from public.users admin
+      where admin.role in ('admin', 'administrator');
+    end if;
+  end if;
+
+  return new;
+end;
+$function$;
+
+drop trigger if exists trg_flag_approved_job_after_report_threshold on public.reports;
+create trigger trg_flag_approved_job_after_report_threshold
+after insert on public.reports
+for each row execute function public.flag_approved_job_after_report_threshold();
 
 create or replace function public.notify_payment_participants()
 returns trigger
