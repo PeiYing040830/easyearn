@@ -49,7 +49,12 @@ import {
   function renderChips() {
     const chipsEl = document.getElementById('skill-chips');
     const countEl = document.getElementById('skill-count');
+    const searchInput = document.getElementById('skill-search');
     if (countEl) countEl.textContent = `${selectedSkills.length}/${MAX_SKILLS} selected`;
+    if (searchInput) {
+      searchInput.disabled = selectedSkills.length >= MAX_SKILLS;
+      searchInput.placeholder = searchInput.disabled ? '' : 'Type a skill, press Enter or comma…';
+    }
     if (!chipsEl) return;
     chipsEl.replaceChildren();
     selectedSkills.forEach((skill, index) => {
@@ -130,13 +135,22 @@ import {
       // Connects this element event to the handler that should run next.
       searchInput.addEventListener('input', () => showSuggestions(searchInput.value));
       // Connects this element event to the handler that should run next.
-      searchInput.addEventListener('blur', () => setTimeout(() => { if (suggestEl) suggestEl.style.display = 'none'; }, 200));
       // Connects this element event to the handler that should run next.
       searchInput.addEventListener('keydown', (e) => {
-        if (e.key === 'Enter' || e.key === ',' || e.key === '，') {
+        if (e.key === 'Enter' || e.key === ',' || e.key === String.fromCharCode(0xFF0C)) {
           e.preventDefault();
           commitPendingSkillInput();
+        } else if (e.key === 'Backspace' && !searchInput.value && selectedSkills.length) {
+          selectedSkills.pop();
+          renderChips();
+          updateHiddenInput();
         }
+      });
+      searchInput.addEventListener('blur', () => {
+        setTimeout(() => {
+          if (searchInput.value.trim()) commitPendingSkillInput();
+          if (suggestEl) suggestEl.style.display = 'none';
+        }, 200);
       });
     }
     const pickerEl = document.getElementById('skill-tag-picker');
