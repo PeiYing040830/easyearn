@@ -21,8 +21,22 @@ import {
   'use strict';
 
   // ── Skill Tag Picker ──────────────────────────────────────────────────────
+  const MAX_SKILLS = 5;
   let allSkillTags = [];
   let selectedSkills = [];
+
+  function addSkill(value) {
+    const skill = String(value || '').trim();
+    if (!skill || selectedSkills.some((item) => item.toLowerCase() === skill.toLowerCase())) return true;
+    if (selectedSkills.length >= MAX_SKILLS) {
+      setStatus(`You can add up to ${MAX_SKILLS} skills. Remove one before adding another.`, true);
+      return false;
+    }
+    selectedSkills.push(skill);
+    renderChips();
+    updateHiddenInput();
+    return true;
+  }
 
   // Sets up skill picker when this script is loaded.
   async function initSkillPicker(existingSkills = []) {
@@ -36,18 +50,24 @@ import {
   function renderChips() {
     const chipsEl = document.getElementById('skill-chips');
     if (!chipsEl) return;
-    chipsEl.innerHTML = selectedSkills.map(skill => `
-      <span style="display:inline-flex;align-items:center;gap:4px;background:#d1fae5;color:#065f46;padding:3px 10px;border-radius:99px;font-size:0.82rem;font-weight:600">
-        ${skill}
-        <button type="button" data-skill="${skill}" style="background:none;border:none;cursor:pointer;font-size:0.9rem;line-height:1;color:#065f46;padding:0 2px">×</button>
-      </span>`).join('');
-    chipsEl.querySelectorAll('button[data-skill]').forEach(btn => {
-      // Connects this element event to the handler that should run next.
-      btn.addEventListener('click', () => {
-        selectedSkills = selectedSkills.filter(s => s !== btn.dataset.skill);
+    chipsEl.replaceChildren();
+    selectedSkills.forEach((skill, index) => {
+      const chip = document.createElement('span');
+      chip.style.cssText = 'display:inline-flex;align-items:center;gap:4px;background:#d1fae5;color:#065f46;padding:3px 10px;border-radius:99px;font-size:0.82rem;font-weight:600';
+      const label = document.createElement('span');
+      label.textContent = skill;
+      const removeButton = document.createElement('button');
+      removeButton.type = 'button';
+      removeButton.setAttribute('aria-label', `Remove ${skill}`);
+      removeButton.textContent = String.fromCharCode(0xD7);
+      removeButton.style.cssText = 'background:none;border:none;cursor:pointer;font-size:0.9rem;line-height:1;color:#065f46;padding:0 2px';
+      removeButton.addEventListener('click', () => {
+        selectedSkills.splice(index, 1);
         renderChips();
         updateHiddenInput();
       });
+      chip.append(label, removeButton);
+      chipsEl.append(chip);
     });
   }
 
@@ -63,11 +83,7 @@ import {
     const suggestEl = document.getElementById('skill-suggestions');
     const pendingValue = searchInput?.value.trim() || '';
     if (!pendingValue) return;
-    if (!selectedSkills.includes(pendingValue)) {
-      selectedSkills.push(pendingValue);
-      renderChips();
-      updateHiddenInput();
-    }
+    if (!addSkill(pendingValue)) return;
     if (searchInput) searchInput.value = '';
     if (suggestEl) suggestEl.style.display = 'none';
   }
@@ -92,7 +108,7 @@ import {
       item.addEventListener('mousedown', (e) => {
         e.preventDefault();
         const tag = item.dataset.tag;
-        if (!selectedSkills.includes(tag)) { selectedSkills.push(tag); renderChips(); updateHiddenInput(); }
+        if (!addSkill(tag)) return;
         const searchInput = document.getElementById('skill-search');
         if (searchInput) searchInput.value = '';
         suggestEl.style.display = 'none';
