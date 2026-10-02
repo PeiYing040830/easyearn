@@ -6,7 +6,7 @@
  * Handles the notification bell UI injected into role headers.
  * Polls for unread notifications and shows a dropdown list.
  */
-import { observeAuth, fetchNotifications, markNotificationRead, markAllNotificationsRead } from './supabase-data.js';
+import { observeAuth, fetchNotifications, markNotificationRead, markAllNotificationsRead } from './supabase-data.js?v=20261002a';
 
 (function () {
   'use strict';

@@ -1447,9 +1447,27 @@ export async function fetchNotifications(userId, { limit = 20 } = {}) {
     };
   });
 
-  return [...(notifRes.data || []), ...chatNotifs]
+  // Hide accidental duplicate rows for the same event. Keep separate notices
+  // when the same application changes status again later.
+  const seenEvents = new Map();
+  const dedupedNotifications = [...(notifRes.data || []), ...chatNotifs]
     .sort((a, b) => new Date(b.created_at) - new Date(a.created_at))
-    .slice(0, limit);
+    .filter((notification) => {
+      const eventKey = [
+        notification.user_id,
+        notification.type,
+        notification.target_table || '',
+        notification.target_id || '',
+        String(notification.message || '').trim()
+      ].join('|');
+      const createdAt = new Date(notification.created_at).getTime();
+      const previousAt = seenEvents.get(eventKey);
+      if (previousAt !== undefined && Math.abs(previousAt - createdAt) <= 60_000) return false;
+      seenEvents.set(eventKey, createdAt);
+      return true;
+    });
+
+  return dedupedNotifications.slice(0, limit);
 }
 
 // Runs the notification read step for this page workflow.
