@@ -3,7 +3,7 @@
  */
 /**
  * notifications-bell.js
- * Handles the notification bell UI injected into header-jobseeker and header-employer.
+ * Handles the notification bell UI injected into role headers.
  * Polls for unread notifications and shows a dropdown list.
  */
 import { observeAuth, fetchNotifications, markNotificationRead, markAllNotificationsRead } from './supabase-data.js';
@@ -23,6 +23,42 @@ import { observeAuth, fetchNotifications, markNotificationRead, markAllNotificat
   let pollTimer = null;
   let fetchError = false;
   let hasLoaded = false;
+
+  const mobileDropdownPositionStyles = [
+    'position', 'top', 'right', 'left', 'width', 'max-width', 'max-height', 'z-index'
+  ];
+  const originalDropdownPositionStyles = new Map(mobileDropdownPositionStyles.map((property) => [
+    property,
+    [dropdown.style.getPropertyValue(property), dropdown.style.getPropertyPriority(property)]
+  ]));
+
+  function positionDropdownForViewport() {
+    if (window.matchMedia('(max-width: 480px)').matches) {
+      const navbar = document.querySelector('.app-navbar');
+      const navbarBottom = navbar ? navbar.getBoundingClientRect().bottom : 64;
+      dropdown.style.setProperty('position', 'fixed', 'important');
+      dropdown.style.setProperty('top', `${Math.ceil(navbarBottom + 8)}px`, 'important');
+      dropdown.style.setProperty('right', '12px', 'important');
+      dropdown.style.setProperty('left', 'auto', 'important');
+      const dropdownWidth = Math.min(320, Math.max(0, window.innerWidth - 24));
+      const availableHeight = window.innerHeight - navbarBottom - 16;
+      const dropdownHeight = Math.max(160, Math.min(360, availableHeight));
+      dropdown.style.setProperty('width', `${dropdownWidth}px`, 'important');
+      dropdown.style.setProperty('max-width', `${dropdownWidth}px`, 'important');
+      dropdown.style.setProperty('max-height', `${dropdownHeight}px`, 'important');
+      dropdown.style.setProperty('z-index', '10010', 'important');
+      return;
+    }
+
+    originalDropdownPositionStyles.forEach(([value, priority], property) => {
+      if (value) dropdown.style.setProperty(property, value, priority);
+      else dropdown.style.removeProperty(property);
+    });
+  }
+
+  window.addEventListener('resize', () => {
+    if (isOpen) positionDropdownForViewport();
+  });
 
   // ── Helpers ────────────────────────────────────────────────────────────
 
@@ -222,6 +258,7 @@ import { observeAuth, fetchNotifications, markNotificationRead, markAllNotificat
     isOpen = !isOpen;
     dropdown.style.display = isOpen ? 'block' : 'none';
     if (isOpen) {
+      positionDropdownForViewport();
       renderDropdown();
       refresh();
     }
