@@ -319,10 +319,18 @@ async function handleRegister() {
       let authorizationDetail = promotionError.message || '';
       try {
         const response = promotionError.context;
-        const responseBody = response && typeof response.clone === 'function'
-          ? await response.clone().json()
-          : null;
-        authorizationDetail = responseBody?.error || authorizationDetail;
+        if (response && typeof response.clone === 'function') {
+          const responseText = await response.clone().text();
+          let responseBody = null;
+          try { responseBody = JSON.parse(responseText); } catch (_) { /* Keep plain text responses too. */ }
+          authorizationDetail = responseBody?.error
+            || responseBody?.message
+            || responseText
+            || authorizationDetail;
+          if (response.status) authorizationDetail = `HTTP ${response.status}: ${authorizationDetail}`;
+        } else if (response?.message) {
+          authorizationDetail = response.message;
+        }
       } catch (_) {
         // Keep the function client's message when no JSON response is available.
       }
