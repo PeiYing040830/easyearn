@@ -30,7 +30,7 @@ function sameSecret(value: string, expected: string) {
   return difference === 0;
 }
 
-Deno.serve(async (request) => {
+Deno.serve(async (request: Request) => {
   const origin = request.headers.get('origin');
   const headers = responseHeaders(origin);
 
@@ -58,7 +58,7 @@ Deno.serve(async (request) => {
   if (!sameSecret(String(payload.adminCode || ''), expectedCode)) {
     return new Response(JSON.stringify({ error: 'Invalid Admin Secure Code.' }), { status: 403, headers });
   }
-  if (!/^[0-9a-f-]{36}$/i.test(String(payload.userId || ''))) {
+  if (typeof payload.userId !== 'string' || !/^[0-9a-f-]{36}$/i.test(payload.userId)) {
     return new Response(JSON.stringify({ error: 'Invalid account.' }), { status: 400, headers });
   }
 

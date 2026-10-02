@@ -1,5 +1,6 @@
 {
   "css.lint.vendorPrefix": "ignore",
   "scss.lint.vendorPrefix": "ignore",
-  "liveServer.settings.port": 5501
+  "liveServer.settings.port": 5501,
+  "deno.enablePaths": ["./supabase/functions"]
 }
