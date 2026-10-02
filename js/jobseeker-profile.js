@@ -11,7 +11,6 @@ import {
   observeAuth,
   signOutUser,
   upsertProfile,
-  upsertResume,
   fetchSkillTags,
   fetchWorkHistory,
   incrementSkillTagUsage
@@ -515,38 +514,6 @@ import {
     return null;
   }
 
-  // Formats or checks resume snapshot so later code can use a clean value.
-  function buildResumeSnapshot(profileData) {
-    const availability = [
-      ...(profileData.availability_days || []),
-      profileData.availability_time,
-      profileData.work_mode
-    ].filter(Boolean);
-
-    return {
-      id: currentUser.id,
-      user_id: currentUser.id,
-      name: profileData.name,
-      email: profileData.email,
-      phone: profileData.phone,
-      location: profileData.location,
-      headline: profileData.headline,
-      bio: profileData.bio,
-      photo_url: profileData.photo_url,
-      photo_data: profileData.photo_data,
-      skills: profileData.skills,
-      preferred_categories: profileData.preferred_categories,
-      experience_years: profileData.experience_years,
-      expected_rate: profileData.expected_rate,
-      availability,
-      availability_days: profileData.availability_days,
-      availability_time: profileData.availability_time,
-      work_mode: profileData.work_mode,
-      education: profileData.education || [],
-      updated_at: profileData.updated_at
-    };
-  }
-
   // Helper function for read image file used by this script.
   function readImageFile(file) {
     return new Promise((resolve, reject) => {
@@ -669,12 +636,9 @@ import {
       payload.photo_url = currentPhotoUrl;
       payload.photo_data = currentPhotoUrl;
 
-      const resumePayload = buildResumeSnapshot(payload);
-
-      await Promise.all([
-        upsertProfile(currentUser.id, payload),
-        upsertResume(currentUser.id, resumePayload)
-      ]);
+      // Profiles and resumes both persist to public.users, so save the row once
+      // to avoid two concurrent upserts racing over the same skill_tags array.
+      await upsertProfile(currentUser.id, payload);
 
       updateHeaderName(payload.name || 'Job Seeker', currentPhotoUrl);
       renderPreview();
