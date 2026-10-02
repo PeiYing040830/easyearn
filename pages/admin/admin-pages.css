@@ -1379,6 +1379,62 @@ body.theme-dark .chatbot-knowledge-delete {
   }
 }
 
+/* Keep user directory cards readable at phone widths. */
+@media (max-width: 560px) {
+  .admin-users-page,
+  .admin-users-page > *,
+  .admin-users-page .admin-card,
+  .admin-users-page .admin-item,
+  .admin-users-page .admin-request-head,
+  .admin-users-page .admin-request-head > div {
+    box-sizing: border-box;
+    min-width: 0;
+    max-width: 100%;
+  }
+
+  .admin-users-page {
+    width: 100%;
+    overflow-x: clip;
+  }
+
+  .admin-users-page .admin-request-head {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+
+  .admin-users-page .admin-request-head strong,
+  .admin-users-page .admin-request-head p {
+    overflow-wrap: anywhere;
+  }
+
+  .admin-users-page .admin-status-pill {
+    max-width: 100%;
+  }
+
+  .admin-users-page .admin-item-meta {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    width: 100%;
+    min-width: 0;
+  }
+
+  .admin-users-page .admin-item-meta span {
+    min-width: 0;
+    max-width: 100%;
+    white-space: normal;
+    overflow-wrap: anywhere;
+  }
+
+  .admin-users-page .admin-action-row,
+  .admin-users-page .admin-action-row > * {
+    box-sizing: border-box;
+    width: 100%;
+    min-width: 0;
+    max-width: 100%;
+  }
+}
+
 body.theme-dark .admin-navbar .nav-links a:hover {
   color: #c4b5fd;
   background: rgba(109, 40, 217, 0.16);
