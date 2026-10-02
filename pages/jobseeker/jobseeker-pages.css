@@ -2200,6 +2200,54 @@ body.theme-dark .resume-shell {
   }
 }
 
+@media (max-width: 480px) {
+  body.jobseeker-profile-page .jobseeker-shell {
+    --jobseeker-page-gutter: 16px;
+    --jobseeker-section-gap: 18px;
+  }
+
+  body.jobseeker-profile-page .profile-top-grid {
+    gap: 16px;
+    margin-bottom: 0;
+  }
+
+  body.jobseeker-profile-page .profile-completeness-card,
+  body.jobseeker-profile-page .profile-section-card {
+    margin-bottom: 0;
+  }
+
+  body.jobseeker-profile-page .profile-section-card {
+    padding: 22px 18px;
+  }
+
+  body.jobseeker-profile-page .profile-form-grid {
+    width: 100%;
+    min-width: 0;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 14px;
+  }
+
+  body.jobseeker-profile-page .profile-field,
+  body.jobseeker-profile-page .profile-field input,
+  body.jobseeker-profile-page .profile-field select,
+  body.jobseeker-profile-page .profile-field textarea {
+    width: 100%;
+    min-width: 0;
+    max-width: 100%;
+  }
+
+  body.jobseeker-profile-page .profile-overview-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px;
+    margin-top: 18px;
+  }
+
+  body.jobseeker-profile-page .profile-overview-metric {
+    min-height: 108px;
+    padding: 14px;
+  }
+}
+
 @media (max-width: 960px) {
   .resume-toolbar-card,
   .resume-paper-header,
