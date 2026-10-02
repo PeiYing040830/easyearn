@@ -1,5 +1,7 @@
 -- EasyEarn full Supabase rebuild script.
 -- Built from the live Supabase snapshot exported on 2026-05-03.
+-- Includes all migrations through 20261003_admin_bell_queue_notifications.sql.
+-- Former migration files have been consolidated into this script.
 -- Synced against the live database on 2026-06-27 to add unique constraints on
 -- applications(job_id, seeker_id) and ratings(application_id, reviewer_id) that
 -- existed live but were missing from this file, and to correct the saved_jobs
@@ -798,6 +800,46 @@ create trigger trg_notify_employer_verification_result
 after update of verification_status, is_verified on public.users
 for each row execute function public.notify_employer_verification_result();
 
+create or replace function public.notify_admins_new_report()
+returns trigger
+language plpgsql
+security definer
+set search_path = public
+as $function$
+begin
+  if lower(coalesce(new.status, 'pending')) in ('pending', 'open', 'submitted', 'flagged', 'under_review') then
+    insert into public.notifications (
+      user_id, type, message, is_read, target_table, target_id, is_admin, actor_id
+    )
+    select
+      admin.id,
+      'application_update',
+      'New ' || replace(coalesce(new.report_type, 'other'), '_', ' ') || ' report is waiting for review.',
+      false,
+      'reports',
+      new.id,
+      true,
+      new.reporter_id
+    from public.users admin
+    where admin.role in ('admin', 'administrator')
+      and not exists (
+        select 1
+        from public.notifications existing
+        where existing.user_id = admin.id
+          and existing.target_table = 'reports'
+          and existing.target_id = new.id
+          and existing.is_admin is true
+      );
+  end if;
+  return new;
+end;
+$function$;
+
+drop trigger if exists trg_notify_admins_new_report on public.reports;
+create trigger trg_notify_admins_new_report
+after insert on public.reports
+for each row execute function public.notify_admins_new_report();
+
 create or replace function public.notify_report_parties()
 returns trigger
 language plpgsql
@@ -810,21 +852,8 @@ declare
 begin
   report_label := replace(coalesce(new.report_type, 'other'), '_', ' ');
 
+  -- Admin insert reminders are handled by notify_admins_new_report.
   if tg_op = 'INSERT' then
-    insert into public.notifications (
-      user_id, type, message, is_read, target_table, target_id, is_admin, actor_id
-    )
-    select
-      admin.id,
-      'application_update',
-      'New ' || report_label || ' report is waiting for review.',
-      false,
-      'reports',
-      new.id,
-      true,
-      new.reporter_id
-    from public.users admin
-    where admin.role in ('admin', 'administrator');
     return new;
   end if;
 
@@ -1080,7 +1109,7 @@ begin
   values (
     new.id,
     new.email,
-    coalesce(new.raw_user_meta_data->>'full_name', ''),
+    coalesce(new.raw_user_meta_data->>'full_name', new.raw_user_meta_data->>'name', ''),
     case
       when coalesce(new.raw_app_meta_data->>'role', '') in ('admin', 'administrator') then 'admin'
       when coalesce(new.raw_user_meta_data->>'role', 'seeker') = 'employer' then 'employer'
@@ -2046,3 +2075,157 @@ where not exists (
   from public.chatbot_knowledge existing
   where lower(existing.question) = lower(seed.question)
 );
+
+-- Consolidated migration data repairs and notification backfills.
+-- Separate business categories before restoring submitted verification types.
+-- Preserve existing industry values such as Retail, Restaurant, SME, etc.
+-- Verification type is selected separately on the verification form.
+update public.users
+set business_category = business_type,
+    business_type = case
+      when verification_status = 'submitted'
+        and nullif(trim(ssm_number), '') is not null
+        and nullif(trim(registration_doc_name), '') is not null
+        and nullif(trim(contact_doc_name), '') is not null
+        and (lower(business_type) like '%e-commerce%' or lower(business_type) like '%online seller%')
+        then 'Online Seller / E-commerce'
+      when verification_status = 'submitted'
+        and nullif(trim(ssm_number), '') is not null
+        and nullif(trim(registration_doc_name), '') is not null
+        and nullif(trim(contact_doc_name), '') is not null
+        then 'Company / Business'
+      else null
+    end
+where role = 'employer'
+  and business_type is not null
+  and business_type not in (
+    'Individual Hirer',
+    'Company / Business',
+    'Online Seller / E-commerce'
+  )
+  and business_category is null;
+
+-- Restore a valid verification classification for complete packages whose old
+-- business_type value was an industry label (for example, Retail).
+update public.users
+set business_type = case
+  when lower(coalesce(business_category, '')) like '%e-commerce%'
+    or lower(coalesce(business_category, '')) like '%online seller%'
+    then 'Online Seller / E-commerce'
+  else 'Company / Business'
+end
+where role = 'employer'
+  and business_type is null
+  and verification_status = 'submitted'
+  and nullif(trim(ssm_number), '') is not null
+  and nullif(trim(registration_doc_name), '') is not null
+  and nullif(trim(contact_doc_name), '') is not null;
+
+-- Give employers a persistent reminder for pending applications created before this migration.
+insert into public.notifications (
+  user_id, type, message, is_read, target_table, target_id, is_admin, actor_id
+)
+select
+  job.employer_id,
+  'application_update',
+  coalesce(nullif(seeker.full_name, ''), seeker.email, 'A job seeker')
+    || ' applied for "' || coalesce(job.title, 'your job listing') || '".',
+  false,
+  'applications',
+  application.id,
+  false,
+  application.seeker_id
+from public.applications application
+join public.job_listings job on job.id = application.job_id
+left join public.users seeker on seeker.id = application.seeker_id
+where application.status = 'pending'
+  and application.deleted_at is null
+  and job.employer_id is not null
+  and not exists (
+    select 1 from public.notifications existing
+    where existing.user_id = job.employer_id
+      and existing.target_table = 'applications'
+      and existing.target_id = application.id
+  );
+
+-- Backfill active reports already in the moderation queue.
+insert into public.notifications (
+  user_id, type, message, is_read, target_table, target_id, is_admin, actor_id
+)
+select
+  admin.id,
+  'application_update',
+  'New ' || replace(coalesce(report.report_type, 'other'), '_', ' ') || ' report is waiting for review.',
+  false,
+  'reports',
+  report.id,
+  true,
+  report.reporter_id
+from public.reports report
+cross join public.users admin
+where lower(coalesce(report.status, 'pending')) in ('pending', 'open', 'submitted', 'flagged', 'under_review')
+  and admin.role in ('admin', 'administrator')
+  and not exists (
+    select 1
+    from public.notifications existing
+    where existing.user_id = admin.id
+      and existing.target_table = 'reports'
+      and existing.target_id = report.id
+      and existing.is_admin is true
+  );
+
+-- Backfill employer verification submissions still awaiting review.
+insert into public.notifications (
+  user_id, type, message, is_read, target_table, target_id, is_admin, actor_id
+)
+select
+  admin.id,
+  'application_update',
+  coalesce(employer.email, 'An employer') || ' submitted an employer verification request.',
+  false,
+  'verifications',
+  employer.id,
+  true,
+  employer.id
+from public.users employer
+cross join public.users admin
+where employer.role = 'employer'
+  and employer.verification_status = 'submitted'
+  and admin.role in ('admin', 'administrator')
+  and not exists (
+    select 1
+    from public.notifications existing
+    where existing.user_id = admin.id
+      and existing.target_table = 'verifications'
+      and existing.target_id = employer.id
+      and existing.is_admin is true
+  );
+
+-- Backfill pending, unexpired jobs that need admin review.
+insert into public.notifications (
+  user_id, type, message, is_read, target_table, target_id, is_admin, actor_id
+)
+select
+  admin.id,
+  'application_update',
+  coalesce(nullif(employer.full_name, ''), employer.email, 'An employer')
+    || ' submitted "' || coalesce(job.title, 'Untitled job') || '" for admin review.',
+  false,
+  'jobs',
+  job.id,
+  true,
+  job.employer_id
+from public.job_listings job
+cross join public.users admin
+left join public.users employer on employer.id = job.employer_id
+where job.status in ('pending', 'submitted')
+  and (job.expiry_date is null or job.expiry_date >= current_date)
+  and admin.role in ('admin', 'administrator')
+  and not exists (
+    select 1
+    from public.notifications existing
+    where existing.user_id = admin.id
+      and existing.target_table = 'jobs'
+      and existing.target_id = job.id
+      and existing.is_admin is true
+  );
