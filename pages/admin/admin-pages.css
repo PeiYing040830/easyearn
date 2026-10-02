@@ -1348,6 +1348,85 @@ body.theme-dark .chatbot-knowledge-delete {
 }
 
 @media (max-width: 560px) {
+  body.admin-users-directory-page {
+    overflow-x: hidden;
+  }
+
+  body.admin-users-directory-page .admin-navbar {
+    box-sizing: border-box;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    justify-items: stretch;
+    align-content: center;
+    width: 100%;
+    min-width: 0;
+    padding: 8px 14px;
+    row-gap: 8px;
+  }
+
+  body.admin-users-directory-page .admin-navbar .nav-brand {
+    grid-row: 1;
+    min-width: 0;
+    margin: 0;
+  }
+
+  body.admin-users-directory-page .admin-navbar .nav-tools {
+    grid-row: 2;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    min-width: 0;
+    margin: 0;
+    gap: 6px;
+    flex-wrap: nowrap;
+  }
+
+  body.admin-users-directory-page .admin-navbar .theme-toggle,
+  body.admin-users-directory-page .admin-navbar .nav-translate,
+  body.admin-users-directory-page .admin-navbar .nav-user,
+  body.admin-users-directory-page .admin-navbar #nav-notif-btn {
+    box-sizing: border-box;
+    width: 40px;
+    min-width: 40px;
+    height: 40px;
+    min-height: 40px;
+    padding: 0;
+    flex: 0 0 40px;
+  }
+
+  body.admin-users-directory-page .admin-navbar .nav-user {
+    display: flex;
+    justify-content: center;
+  }
+
+  body.admin-users-directory-page .admin-navbar .nav-user-badge {
+    width: 30px;
+    height: 30px;
+    min-width: 30px;
+  }
+
+  body.admin-users-directory-page .admin-navbar .nav-logout {
+    box-sizing: border-box;
+    min-width: 0;
+    padding: 8px 10px;
+    font-size: 14px;
+    white-space: nowrap;
+    flex: 0 0 auto;
+  }
+
+  body.admin-users-directory-page .admin-navbar #hamburger-btn {
+    width: 32px;
+    min-width: 32px;
+    height: 32px;
+    padding: 4px;
+    flex: 0 0 32px;
+  }
+
+  body.admin-users-directory-page .admin-navbar .nav-links {
+    grid-row: 3;
+  }
+
   .admin-shell {
     padding: 100px 14px 34px;
   }
