@@ -1,4 +1,6 @@
-﻿eca5efc,2026-10-03 03:41:16 +0800,Peiying0830,Configure Deno support and fix admin function types
+﻿"Commit","Date","Author","Message"
+020116e,2026-10-04 12:29:48 +0800,Peiying0830,Add commit history export
+eca5efc,2026-10-03 03:41:16 +0800,Peiying0830,Configure Deno support and fix admin function types
 939c297,2026-10-03 03:37:09 +0800,Peiying0830,Fix applicants chart layout and remove outdated notes
 cc2d0de,2026-10-03 03:35:54 +0800,Peiying0830,Consolidate Supabase migrations into schema
 7d24b30,2026-10-03 00:59:02 +0800,Peiying0830,Notify admins about moderation queue items
