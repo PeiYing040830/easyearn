@@ -1,0 +1,278 @@
+﻿eca5efc,2026-10-03 03:41:16 +0800,Peiying0830,Configure Deno support and fix admin function types
+939c297,2026-10-03 03:37:09 +0800,Peiying0830,Fix applicants chart layout and remove outdated notes
+cc2d0de,2026-10-03 03:35:54 +0800,Peiying0830,Consolidate Supabase migrations into schema
+7d24b30,2026-10-03 00:59:02 +0800,Peiying0830,Notify admins about moderation queue items
+28deb77,2026-10-03 00:46:54 +0800,Peiying0830,Match job seeker skill input to employer flow
+d1fb811,2026-10-03 00:23:32 +0800,Peiying0830,Support adding profile skills on mobile keyboards
+797023f,2026-10-03 00:13:32 +0800,Peiying0830,Remove skill add button from profile
+3832201,2026-10-03 00:10:39 +0800,Peiying0830,Make custom profile skills easy to add
+9dc5a71,2026-10-02 23:55:38 +0800,Peiying0830,Avoid duplicate job seeker profile writes
+cf88d06,2026-10-02 23:46:28 +0800,Peiying0830,Fix job seeker profile skill tags
+9baa6fc,2026-10-02 23:28:05 +0800,Peiying0830,Show up to five user tags per tablet row
+765383d,2026-10-02 23:26:07 +0800,Peiying0830,Limit admin user tags to two columns on tablet
+ed5ab42,2026-10-02 22:52:58 +0800,Peiying0830,Prevent admin users horizontal overflow on mobile
+3927094,2026-10-02 22:47:09 +0800,Peiying0830,Fix admin users mobile layout
+7b3073a,2026-10-02 22:42:52 +0800,Peiying0830,Add missing job reference to reports
+c8e8336,2026-10-02 22:36:43 +0800,Peiying0830,Fix employer applicants mobile overflow
+541cc33,2026-10-02 17:19:53 +0800,Peiying0830,Autosave employer verification drafts
+05f5563,2026-10-02 17:17:50 +0800,Peiying0830,Preserve submitted employer verification types
+2f03f0a,2026-10-02 17:16:23 +0800,Peiying0830,Separate employer category from verification type
+cf6f228,2026-10-02 16:53:34 +0800,Peiying0830,Wrap profile save status on mobile
+9432bb2,2026-10-02 16:51:01 +0800,Peiying0830,Fix jobseeker profile mobile overflow
+96484d7,2026-10-02 16:44:05 +0800,Peiying0830,Tighten job seeker profile mobile layout
+bedbc50,2026-10-02 15:15:31 +0800,Peiying0830,Auto-flag jobs with repeated reports
+0d3c1cc,2026-10-02 13:16:48 +0800,Peiying0830,Improve mobile resume PDF layout
+774dc1f,2026-10-02 13:07:02 +0800,Peiying0830,Deduplicate repeated bell notifications
+27c34a4,2026-10-02 13:01:02 +0800,Peiying0830,Combine job seeker dashboard styles
+47e8722,2026-10-02 12:53:17 +0800,Peiying0830,Fix notification dropdown on mobile role pages
+c24fd2c,2026-10-02 10:29:01 +0800,Peiying0830,Fix mobile job expiry date overflow
+d0a5f45,2026-10-02 10:20:32 +0800,Peiying0830,Audit and complete notification workflows
+9975638,2026-10-02 10:03:57 +0800,Peiying0830,Notify admins when employers submit jobs
+6773d40,2026-10-02 10:00:34 +0800,Peiying0830,Fix mobile job expiry date field overflow
+97013a8,2026-10-02 09:47:25 +0800,Peiying0830,Notify employers about verification decisions
+b20a96d,2026-10-02 09:31:22 +0800,Peiying0830,Fix admin registration errors and tab switching
+b75411f,2026-10-02 09:06:34 +0800,Peiying0830,Refresh login auth module cache
+28d00ee,2026-10-02 08:05:38 +0800,Peiying0830,Show Edge Function response details on admin signup
+32177b5,2026-10-02 07:58:40 +0800,Peiying0830,Fix Admin Edge Function CORS headers
+81e31e8,2026-10-01 23:38:31 +0800,Peiying0830,Expose admin authorization setup errors
+dce9653,2026-10-01 22:27:41 +0800,Peiying0830,Show employer reviews with seeker work history
+9e6061b,2026-10-01 22:23:26 +0800,Peiying0830,Show received employer reviews on seeker profile
+2e77072,2026-10-01 22:13:42 +0800,Peiying0830,Notify employers when verification is approved
+09d2510,2026-10-01 22:03:59 +0800,Peiying0830,Use allowed type for verification alerts
+dddf65b,2026-10-01 22:01:20 +0800,Peiying0830,Notify admins on repeated verification submissions
+c985e2e,2026-10-01 21:55:14 +0800,Peiying0830,Restore admin role lock icon
+8634b8a,2026-10-01 21:53:16 +0800,Peiying0830,Restore secure admin registration
+379264d,2026-10-01 21:34:13 +0800,Peiying0830,Backfill trusted admin profiles
+7580dd2,2026-10-01 21:23:39 +0800,Peiying0830,Secure admin account provisioning
+a162888,2026-10-01 21:01:06 +0800,Peiying0830,Make mark all read dismiss admin queue alerts
+7de6e06,2026-10-01 20:57:34 +0800,Peiying0830,Make verification queue visible to every admin
+0b0cbd7,2026-10-01 20:49:01 +0800,Peiying0830,Fix admin verification notifications
+536f29d,2026-10-01 20:10:01 +0800,Peiying0830,Update chatbot answers for current features
+a73b3a2,2026-10-01 14:12:31 +0800,Peiying0830,Make employer type dropdown full width
+baadbe8,2026-10-01 14:07:17 +0800,Peiying0830,Arrange employer verification in three columns with compact type selector
+ef25b8e,2026-10-01 14:02:23 +0800,Peiying0830,Align employer verification form fields and document uploads
+53d6cf5,2026-10-01 13:28:40 +0800,Peiying0830,Simplify employer verification into three employer types
+ba7b0c8,2026-10-01 13:14:30 +0800,Peiying0830,Support employer verification requirements by employer type
+d1b0637,2026-10-01 11:18:03 +0800,Peiying0830,Fix logout redirect race across auth module instances
+150a031,2026-09-30 22:43:45 +0800,Peiying0830,Fix admin messages mobile header overlap
+35601cc,2026-09-30 22:30:27 +0800,Peiying0830,Fix mobile chart layouts across all roles
+d7026bb,2026-09-30 19:03:43 +0800,Peiying0830,Keep admin analytics charts and filters within mobile layout
+a93fb33,2026-09-30 17:33:59 +0800,Peiying0830,Restore full welcome growth animation before redirect
+c711702,2026-09-30 17:29:16 +0800,Peiying0830,Preserve goodbye profile snapshot across page refreshes
+bb23d5a,2026-09-30 17:28:05 +0800,Peiying0830,Stop goodbye page from repeatedly redirecting to itself
+1cb3437,2026-09-30 17:23:38 +0800,Peiying0830,Refresh shared script versions to load updated access guard
+73d3050,2026-09-30 17:22:40 +0800,Peiying0830,Remove blocking access splash and shorten login transition
+762916e,2026-09-30 17:00:03 +0800,Peiying0830,Bound login waits and identify stalled authentication stage
+757c906,2026-09-30 16:56:13 +0800,Peiying0830,Show login progress and catch sign-in request errors
+cd6ceae,2026-09-30 16:50:37 +0800,Peiying0830,Preserve goodbye page during voluntary logout
+a54ea83,2026-09-30 16:45:55 +0800,Peiying0830,Restrict ratings to completed application participants
+1d8821f,2026-09-30 16:22:31 +0800,Peiying0830,Reject malformed pay rates instead of extracting embedded digits
+f7a8342,2026-09-30 16:16:42 +0800,Peiying0830,Escape job content in employer and admin listings
+2ff4a37,2026-09-30 15:53:24 +0800,Peiying0830,Require verified employers for public job visibility
+ab93f33,2026-09-30 14:49:44 +0800,Peiying0830,Guard seeker application status transitions
+f369f73,2026-09-30 14:30:41 +0800,Peiying0830,Remove applied SEC-006 standalone SQL script
+84e4689,2026-09-30 14:27:37 +0800,Peiying0830,Restrict payment creation to the owning employer
+53e8d71,2026-09-30 11:50:08 +0800,Peiying0830,Block locked accounts at login and recheck protected page access
+e7dce1f,2026-09-30 11:27:50 +0800,Peiying0830,Center registration privacy and terms links
+6d786f2,2026-09-30 11:24:10 +0800,Peiying0830,Open registration policy links in the same tab
+c5b3123,2026-09-30 11:19:24 +0800,Peiying0830,Add required registration privacy and terms acknowledgement
+f2afc33,2026-09-30 11:06:04 +0800,Peiying0830,Fix applicant counts in Manage Jobs and mark report tests pending
+e03fa7c,2026-09-30 11:02:53 +0800,Peiying0830,Fix employer names and local dates in work history and resume
+a56d573,2026-09-30 10:46:55 +0800,Peiying0830,Sync existing work history earnings on payment confirmation
+7266aa7,2026-09-30 10:08:31 +0800,Peiying0830,Prevent fuzzy skill matches from implying credentials
+bf27068,2026-09-30 09:55:20 +0800,Peiying0830,Soften jobseeker conversation card shadows
+21000f8,2026-09-30 09:54:07 +0800,Peiying0830,Restore all 30 languages in translation menu
+13f4b96,2026-09-30 04:31:32 +0800,Peiying0830,Revert application status notification SQL in local schema
+8c83e80,2026-09-30 04:29:01 +0800,Peiying0830,Expand report reasons and distinguish chat refresh failures
+f7c3f0d,2026-09-30 03:27:33 +0800,Peiying0830,Fix auth session restoration on page refresh
+338639f,2026-09-30 03:08:45 +0800,Peiying0830,Fix application status notifications and bell refresh
+1f1ce07,2026-09-23 05:04:36 +0800,Peiying0830,Remove user manual appendix file
+78a38ef,2026-09-21 05:46:05 +0800,Peiying0830,Use custom language selector
+88245a2,2026-09-21 05:42:32 +0800,Peiying0830,Keep Google Translate menu clickable
+6c703df,2026-09-21 05:40:49 +0800,Peiying0830,Strengthen Google Translate banner hiding
+1fa643e,2026-09-21 05:38:47 +0800,Peiying0830,Hide Google Translate banner
+e4937f9,2026-09-18 16:23:30 +0800,Peiying0830,Add FYP2 progress reports
+3f3330a,2026-09-17 23:35:18 +0800,Peiying0830,Add U EDU meeting link
+554fec2,2026-09-17 23:28:39 +0800,Peiying0830,Update report from regenerated PDF
+dad1453,2026-09-10 09:25:38 +0800,Peiying0830,Show admin queue reminders in notifications
+f6a731d,2026-09-10 09:11:39 +0800,Peiying0830,Update FYP notes and U Edu example
+83e8cbe,2026-09-10 09:10:43 +0800,Peiying0830,Fix admin registration role and logout mascot display
+44badba,2026-09-10 08:49:43 +0800,Peiying0830,Preload logout mascot assets
+ecb42c1,2026-09-10 08:42:41 +0800,Peiying0830,Add U Edu example document
+68bcb13,2026-09-10 08:40:59 +0800,Peiying0830,Persist profile photo before resume sync
+86565c0,2026-09-10 08:23:54 +0800,Peiying0830,Expand employer verification business types
+5dcf64e,2026-09-10 08:12:44 +0800,Peiying0830,Restore custom password visibility toggle
+1dbf295,2026-09-10 08:07:03 +0800,Peiying0830,Apply site-wide updates
+426d3f0,2026-09-10 08:05:18 +0800,Peiying0830,Hide duplicate password visibility icon
+6880267,2026-09-06 00:44:10 +0800,Peiying0830,Align application summary with completion flow
+3d226d3,2026-09-06 00:28:22 +0800,Peiying0830,Require final earnings for payment confirmation
+e636ff4,2026-09-06 00:00:52 +0800,Peiying0830,Align completion and payment confirmation flow
+114c0e4,2026-09-05 23:30:01 +0800,Peiying0830,Clarify security monitoring and review wording
+e311f23,2026-09-02 12:30:32 +0800,Peiying0830,Rewrite user manual for implemented system
+f6de5bb,2026-09-02 12:25:43 +0800,Peiying0830,Point registration CTAs to register tab
+106974f,2026-09-02 12:15:35 +0800,Peiying0830,Align user manual registration flow
+ad76a4a,2026-09-01 22:35:45 +0800,Peiying0830,Add EasyEarn user manual
+896f4f9,2026-09-01 15:07:26 +0800,Peiying0830,Restore admin notification bell
+c7d59eb,2026-08-30 15:08:31 +0800,Peiying0830,Clean up Chapter 4 testing markdown
+ed03b41,2026-08-30 15:02:13 +0800,Peiying0830,Update final report content and appendix
+03d07cc,2026-08-29 21:26:10 +0800,Peiying0830,Refresh chatbot knowledge before replies
+deba907,2026-08-29 21:20:20 +0800,Peiying0830,Expand chatbot admin content width
+31fe40f,2026-08-29 21:14:09 +0800,Peiying0830,Align chatbot admin layout
+eb2d239,2026-08-29 21:10:31 +0800,Peiying0830,Tighten chatbot admin page spacing
+7180339,2026-08-29 20:46:48 +0800,Peiying0830,Harden registration role handling
+3518002,2026-08-29 20:13:22 +0800,Peiying0830,Fix admin role and applicant profile access
+3c10420,2026-08-29 19:47:06 +0800,Peiying0830,Merge branch 'main' of https://github.com/PeiYing040830/easyearn
+42045f8,2026-08-29 19:47:03 +0800,Peiying0830,Merge branch 'main' of https://github.com/PeiYing040830/easyearn
+4e9a06e,2026-08-29 19:46:49 +0800,Peiying0830,Remove chatbot seed tool section
+35228ef,2026-08-29 19:46:47 +0800,Peiying0830,Remove chatbot seed tool section
+91ef2eb,2026-08-29 19:44:52 +0800,Peiying0830,Make chatbot admin page responsive
+920d4b6,2026-08-29 19:44:50 +0800,Peiying0830,Make chatbot admin page responsive
+d2bf125,2026-08-29 19:42:15 +0800,Peiying0830,Merge branch 'main' of https://github.com/PeiYing040830/easyearn
+d208a2c,2026-08-29 19:42:11 +0800,Peiying0830,Merge branch 'main' of https://github.com/PeiYing040830/easyearn
+a5d21fe,2026-08-29 19:41:26 +0800,Peiying0830,Normalize action spacing
+32dcc04,2026-08-29 19:41:22 +0800,Peiying0830,Normalize action spacing
+c7634a7,2026-08-29 19:34:29 +0800,Peiying0830,Merge branch 'main' of https://github.com/PeiYing040830/easyearn
+3080993,2026-08-29 19:34:22 +0800,Peiying0830,Merge branch 'main' of https://github.com/PeiYing040830/easyearn
+5ab6e76,2026-08-29 19:33:59 +0800,Peiying0830,Add chatbot knowledge CRUD
+9b4e971,2026-08-29 19:33:45 +0800,Peiying0830,Add chatbot knowledge CRUD
+90e5211,2026-08-29 19:29:45 +0800,Peiying0830,Merge branch 'main' of https://github.com/PeiYing040830/easyearn
+488d976,2026-08-29 19:29:00 +0800,Peiying0830,Add chatbot knowledge insert form
+0edc2e6,2026-08-29 19:28:46 +0800,Peiying0830,Add chatbot knowledge insert form
+7706441,2026-08-29 19:24:39 +0800,Peiying0830,Merge branch 'main' of https://github.com/PeiYing040830/easyearn
+d94b6ed,2026-08-29 19:24:28 +0800,Peiying0830,Use project favicon path
+cdcb6c0,2026-08-29 19:24:18 +0800,Peiying0830,Use project favicon path
+a1fea2b,2026-08-29 19:22:33 +0800,Peiying0830,Merge branch 'main' of https://github.com/PeiYing040830/easyearn
+876e4de,2026-08-29 19:21:21 +0800,Peiying0830,Remove embedded easyearn gitlink
+8cab512,2026-08-29 19:17:59 +0800,Peiying0830,Bust favicon cache
+4e18f96,2026-08-29 19:17:44 +0800,Peiying0830,Bust favicon cache
+89c0cc1,2026-08-29 19:14:41 +0800,Peiying0830,Update easyearn deployment pointer
+3abe37f,2026-08-29 19:10:30 +0800,Peiying0830,Merge branch 'main' of https://github.com/PeiYing040830/easyearn
+01e20d2,2026-08-29 19:10:07 +0800,Peiying0830,Merge branch 'main' of https://github.com/PeiYing040830/easyearn
+2ca64ef,2026-08-29 19:09:43 +0800,Peiying0830,Fix chatbot seed spacing
+bab1d02,2026-08-29 19:09:27 +0800,Peiying0830,Fix chatbot seed spacing
+11f208b,2026-08-29 18:39:14 +0800,Peiying0830,Add chatbot knowledge search
+d8245cc,2026-08-29 18:38:43 +0800,Peiying0830,Add chatbot knowledge search
+149e905,2026-08-29 18:32:26 +0800,Peiying0830,Move chatbot seed into admin
+8e1daab,2026-08-29 18:31:59 +0800,Peiying0830,Move chatbot seed into admin
+ac313d6,2026-08-29 18:26:35 +0800,Peiying0830,Merge branch 'main' of https://github.com/PeiYing040830/easyearn
+4f9eba5,2026-08-29 18:08:40 +0800,Peiying0830,Clean up console warnings
+6b4c992,2026-08-29 18:08:07 +0800,Peiying0830,Clean up console warnings
+f69e974,2026-08-29 17:57:55 +0800,Peiying0830,Merge branch 'main' of https://github.com/PeiYing040830/easyearn
+a8d7b5d,2026-08-29 17:57:49 +0800,Peiying0830,Fix recursive RLS admin checks
+bb60e0e,2026-08-29 17:55:28 +0800,Peiying0830,Merge branch 'main' of https://github.com/PeiYing040830/easyearn
+9c4f7fb,2026-08-29 17:43:21 +0800,Peiying0830,Fix recursive RLS admin checks
+da3261c,2026-08-29 17:39:11 +0800,Peiying0830,Add easyearn files
+d7f3c50,2026-08-29 17:22:44 +0800,Peiying0830,Fix recursive RLS admin checks
+e4b7a8d,2026-08-29 17:10:31 +0800,Peiying0830,Merge branch 'main' of https://github.com/PeiYing040830/easyearn
+1823b3b,2026-08-29 17:09:17 +0800,Peiying0830,Fix recursive RLS admin checks
+73152b4,2026-08-29 16:48:30 +0800,Peiying0830,Merge branch 'main' of https://github.com/PeiYing040830/easyearn
+71f349e,2026-08-29 16:48:26 +0800,Peiying0830,Tighten users RLS for PDPA
+ea5f4df,2026-08-29 16:48:03 +0800,Peiying0830,Merge branch 'main' of https://github.com/PeiYing040830/easyearn
+6cc6743,2026-08-29 16:47:49 +0800,Peiying0830,Remove standalone PDPA fix migration
+64f6c4f,2026-08-29 16:44:54 +0800,Peiying0830,Tighten users RLS for PDPA
+64e27b4,2026-08-25 16:25:29 +0800,Peiying0830,update report markdown and add testing appendices
+31aa060,2026-08-24 10:10:24 +0800,Peiying0830,Update research methodology
+30e150e,2026-08-24 10:09:58 +0800,Peiying0830,Add Report folder
+0c04453,2026-08-05 01:38:21 +0800,Peiying0830,Polish auth and logout UI
+a42176d,2026-08-04 12:17:21 +0800,Peiying0830,Update EasyEarn decorative headers and logout mascot
+05d6cc7,2026-08-02 23:51:45 +0800,Peiying0830,Polish role dashboards and admin UI
+e4db88d,2026-07-29 12:07:12 +0800,Peiying0830,spinning wheel
+180f93f,2026-07-27 17:41:50 +0800,Peiying0830,validation commit
+73e337f,2026-07-27 16:20:24 +0800,Peiying0830,commit
+680ff48,2026-07-27 16:18:11 +0800,Peiying0830,fix transition
+923b68e,2026-07-24 00:31:52 +0800,Peiying0830,PDF Job Seeker
+52c6cf1,2026-07-20 00:41:00 +0800,Peiying0830,Add forgot password and reset password pages
+ca3f744,2026-07-20 00:32:30 +0800,Peiying0830,Add jobseeker messages page, sync admin messaging styles
+6cae2cf,2026-07-19 21:31:11 +0800,Peiying0830,Fix bottom spacing on messages panel using margin instead of padding
+ff49ef2,2026-07-19 21:28:23 +0800,Peiying0830,Add bottom spacing to messages form
+1368d31,2026-07-19 21:15:04 +0800,Peiying0830,Remove redundant Completed filter button on applications page
+950f3f6,2026-07-09 01:13:24 +0800,Peiying0830,Remove Total Earnings input from completion request; amount set by employer at payment confirmation
+8979161,2026-07-09 00:18:19 +0800,Peiying0830,Fix: resume page now filters work history by payment confirmation
+834e141,2026-07-08 23:28:33 +0800,Peiying0830,fix welcome.jpg absolute path to relative path
+a0b70c4,2026-07-08 23:14:33 +0800,Peiying0830,retrigger deploy
+cc30752,2026-07-08 22:54:41 +0800,Peiying0830,fix logo path, background image path, register spacing, resume references dedup, and merge sql scripts
+7beaf58,2026-06-27 06:21:12 +0800,Peiying0830,Update schema and jobseeker page styles
+93afcbd,2026-06-27 04:49:40 +0800,Peiying0830,Tune login page spacing
+631b9ff,2026-06-27 04:47:43 +0800,Peiying0830,Adjust login page vertical spacing
+864ca8f,2026-06-27 04:45:46 +0800,Peiying0830,Increase register page spacing
+c6a7568,2026-06-27 04:42:50 +0800,Peiying0830,Adjust auth page spacing
+e2a9ff8,2026-06-27 04:35:56 +0800,Peiying0830,Update css version bump
+262bfb8,2026-06-27 04:30:53 +0800,Peiying0830,Nudge login box slightly lower
+6816377,2026-06-27 04:26:57 +0800,Peiying0830,Center login box, top-align register box via :has() to avoid clipping
+bac6e9b,2026-06-27 04:18:32 +0800,Peiying0830,Increase top gap on auth box, fixed top alignment instead of centering
+bc43324,2026-06-27 04:15:09 +0800,Peiying0830,Retrigger deploy
+9ca542e,2026-06-27 04:09:42 +0800,Peiying0830,Fix register box top gap clipped on full screen (align-items safe center)
+4f297ec,2026-06-27 03:59:54 +0800,Peiying0830,Add top spacing above auth tab toggle on login page
+c7c076a,2026-06-27 03:42:53 +0800,Peiying0830,Remove top gap on hamburger dropdown, keep edge gap only
+c26c619,2026-06-27 03:40:10 +0800,Peiying0830,Restore floating hamburger dropdown with edge gap
+ff8cb2b,2026-06-27 03:36:20 +0800,Peiying0830,Make mobile hamburger dropdown full-width instead of floating corner panel
+af1fafb,2026-06-27 03:32:35 +0800,Peiying0830,Align top gap across admin/employer/jobseeker shells at all breakpoints
+3d63888,2026-06-27 03:23:13 +0800,Peiying0830,Align employer dashboard top gap with jobseeker dashboard on mobile
+5714d06,2026-06-27 03:19:37 +0800,Peiying0830,Fix oversized top gap on employer dashboard at mobile width
+1187f65,2026-06-27 03:12:16 +0800,Peiying0830,Fix education entry grid overflow pushing Year field outside card
+f778402,2026-06-27 03:07:51 +0800,Peiying0830,Fix grid overflow on jobseeker pages at mobile width
+da5620e,2026-06-27 02:59:15 +0800,Peiying0830,Fix floating chatbot dark mode styling
+f66fd36,2026-06-27 02:38:37 +0800,Peiying0830,redeploy: admin logout button style
+7c02f03,2026-06-27 02:32:02 +0800,Peiying0830,fix: admin logout button white/purple, hover purple/white
+f94ad0d,2026-06-27 02:31:07 +0800,Peiying0830,fix: employer messages form full width layout like jobseeker
+043132b,2026-06-27 02:27:40 +0800,Peiying0830,fix: align admin messages form layout to jobseeker pattern
+3a068a0,2026-06-27 02:22:26 +0800,Peiying0830,fix: admin messages panel full width at tablet
+03a332f,2026-06-27 02:14:53 +0800,Peiying0830,fix: hide sidebar at tablet, full width panel
+ad4504a,2026-06-27 01:00:37 +0800,Peiying0830,fix: admin messages form grid areas at 980px
+02d991c,2026-06-27 00:44:57 +0800,Peiying0830,fix: messages form single column at tablet width
+801cede,2026-06-27 00:39:57 +0800,Peiying0830,fix: attach image above textarea, send message beside
+ddce124,2026-06-26 06:16:14 +0800,Peiying0830,fix: enlarge admin messages textarea
+3e17068,2026-06-26 06:10:51 +0800,Peiying0830,fix: reduce padding-top gap at 768px
+4bb11b9,2026-06-26 06:05:18 +0800,Peiying0830,fix: verification form button overlap at 768px
+74d4a92,2026-06-26 05:55:35 +0800,Peiying0830,fix: employer verification layout on 768px
+365d650,2026-06-26 05:48:19 +0800,Peiying0830,fix: chart overflow on mobile 375px
+a0f802c,2026-06-26 05:22:59 +0800,Peiying0830,fix: navbar overflow on mobile 375px
+0c70744,2026-06-26 03:36:20 +0800,Peiying0830,fix: restore jobseeker header bg image in dark mode, fix text overflow
+c18b597,2026-06-26 03:32:16 +0800,Peiying0830,fix: force jobseeker tags green in dark mode
+6823060,2026-06-26 03:29:16 +0800,Peiying0830,fix: remove conflicting dashboard hero copy dark mode rules
+8e7801c,2026-06-26 03:25:21 +0800,Peiying0830,fix: dashboard hero copy text visibility in dark mode
+700933b,2026-06-26 03:22:19 +0800,Peiying0830,fix: jobseeker pages hero banner dark mode
+dc43b78,2026-06-26 03:21:11 +0800,Peiying0830,fix: dashboard hero copy dark mode
+5614c84,2026-06-26 03:11:53 +0800,Peiying0830,fix: login page mobile height gap
+130de88,2026-06-26 03:08:50 +0800,Peiying0830,fix: nav-login color in hamburger dropdown
+429145d,2026-06-26 02:29:30 +0800,Peiying0830,fix: report form full width on mobile
+40976cc,2026-06-26 02:13:28 +0800,Peiying0830,fix: dark mode about/chatbot, report mobile overflow, clean landing.css
+1163273,2026-06-26 02:13:05 +0800,Peiying0830,fix: about dark mode, report mobile overflow, chatbot dark mode
+3f5d3f4,2026-06-26 01:57:01 +0800,Peiying0830,fix: force hamburger icon white in dark mode
+a56293c,2026-06-26 01:42:47 +0800,Peiying0830,fix: hamburger icon visible in dark mode
+42ccc7d,2026-06-26 01:41:06 +0800,Peiying0830,fix: hamburger dark mode bg + remove Get Started button style in dropdown
+2c37329,2026-06-26 01:35:23 +0800,Peiying0830,fix: remove body padding-top that caused seam under navbar
+7c9314f,2026-06-26 01:33:41 +0800,Peiying0830,fix: remove hardcoded white background, restore dark mode
+d3548ba,2026-06-26 01:20:58 +0800,Peiying0830,fix: hamburger works on all pages, remove header shadow seam, restore translate icon on mobile
+4723ba7,2026-06-26 01:08:30 +0800,Peiying0830,fix: soften header shadow, fix hamburger spacing
+d5c7ed2,2026-06-26 01:01:37 +0800,Peiying0830,fix: compact dropdown menu, restore translate icon
+fddc4b6,2026-06-26 00:57:32 +0800,Peiying0830,fix: add hamburger btn to all header partials
+ec426ec,2026-06-26 00:50:17 +0800,Peiying0830,feat: add mobile responsive hamburger menu with english code comments
+ec821e6,2026-06-26 00:48:40 +0800,Peiying0830,chore: increase hamburger breakpoint to 1024px for half screen support
+215cfca,2026-06-26 00:47:40 +0800,Peiying0830,chore: increase hamburger breakpoint to 1024px for half screen support
+e9d6dd1,2026-06-26 00:42:19 +0800,Peiying0830,feat: add mobile responsive hamburger menu with english code comments
+f6a16d8,2026-06-26 00:28:24 +0800,Peiying0830,remove broken navbar override and stray escape artifact in style.css
+68872d1,2026-06-26 00:18:16 +0800,Peiying0830,restore missing nav markup in header.html
+0adce54,2026-06-26 00:12:25 +0800,Peiying0830,fix: successfully added sticky header style manually
+1522d28,2026-06-26 00:05:49 +0800,Peiying0830,fix: make header fully stick at top
+f9de0a0,2026-06-25 23:45:50 +0800,Peiying0830,show full nav menu on small screens (remove hamburger-only hiding rule)
+2b70605,2026-06-25 23:41:42 +0800,Peiying0830,fix navbar layout after hamburger removal
+18800b7,2026-06-25 23:35:46 +0800,Peiying0830,remove hamburger js binding
+3a84395,2026-06-25 23:32:38 +0800,Peiying0830,remove hamburger menu (not functional)
+4026950,2026-06-25 03:30:58 +0800,Peiying0830,nav links second row on small screen
+565e929,2026-06-25 03:30:05 +0800,Peiying0830,fix navbar sticky
+8fce686,2026-06-25 03:27:21 +0800,Peiying0830,fix hamburger js
+1194b02,2026-06-25 03:21:47 +0800,Peiying0830,fix hamburger position
+2fdd1d6,2026-06-25 03:19:03 +0800,Peiying0830,fix report form mobile overflow
+2ab73e8,2026-06-25 03:17:48 +0800,Peiying0830,move hamburger to nav-tools
+49213b8,2026-06-25 03:16:10 +0800,Peiying0830,fix hamburger css
+cd3370f,2026-06-25 03:15:26 +0800,Peiying0830,hamburger align right
+c55c094,2026-06-25 03:11:04 +0800,Peiying0830,fix includes.js trailing characters
+9577d28,2026-06-25 03:10:21 +0800,Peiying0830,fix includes.js syntax error
+ed4c3e1,2026-06-25 03:08:15 +0800,Peiying0830,fix style.css image paths
+bbb69df,2026-06-25 03:03:51 +0800,Peiying0830,add hamburger menu
+738b408,2026-06-25 03:01:03 +0800,Peiying0830,fix background image path
+a958707,2026-06-25 02:46:45 +0800,Peiying0830,fix logo path for subpages
+6995419,2026-06-25 02:41:46 +0800,Peiying0830,fix all image paths
+f2b8e70,2026-06-25 02:40:02 +0800,Peiying0830,fix image paths
+fb24060,2026-06-25 02:20:39 +0800,Peiying0830,first commit
