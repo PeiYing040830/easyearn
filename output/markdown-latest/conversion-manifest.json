@@ -1,0 +1,124 @@
+[
+  {
+    "source": "C:\\Users\\User\\OneDrive\\桌面\\Testing\\EasyEarn_Compatibility_Testing.xlsx",
+    "sha256": "1c29090da78230f0e47a25b9c6f5f360740b8ba99a5a81e39f84be32e429b7a2",
+    "modified": "2026-10-04T12:01:48.252309",
+    "output": "EasyEarn_Compatibility_Testing.md",
+    "sheets": [
+      "Summary",
+      "Browser Compatibility",
+      "Responsive Design",
+      "Feature Compatibility",
+      "Session & Auth",
+      "UI & Display",
+      "Form & Input"
+    ],
+    "nonempty_cells": 890,
+    "formulas": 0,
+    "all_text_cells_verified": true
+  },
+  {
+    "source": "C:\\Users\\User\\OneDrive\\桌面\\Testing\\EasyEarn_Security_Testing.xlsx",
+    "sha256": "9f1da48073a565932bf465ec6d6fdf11e96707971693f04591efcd9b990d3fe6",
+    "modified": "2026-10-04T12:03:17",
+    "output": "EasyEarn_Security_Testing.md",
+    "sheets": [
+      "Summary",
+      "RLS - Data Isolation",
+      "Auth & Access Control",
+      "Upload Security",
+      "Input Sanitisation",
+      "Rating & Business Rules",
+      "Report Security",
+      "Analytics & Chatbot",
+      "PDPA & Compliance",
+      "Employer Verification"
+    ],
+    "nonempty_cells": 1113,
+    "formulas": 11,
+    "all_text_cells_verified": true
+  },
+  {
+    "source": "C:\\Users\\User\\OneDrive\\桌面\\Testing\\EasyEarn_System_Testing.xlsx",
+    "sha256": "8ff3b08baec8dbe6f091db184af132d6d3b7fc96422e0347418288b92fbc2ba0",
+    "modified": "2026-10-03T13:28:00",
+    "output": "EasyEarn_System_Testing.md",
+    "sheets": [
+      "Summary",
+      "E2E Workflow",
+      "Integration",
+      "Performance",
+      "Recovery",
+      "Business Logic",
+      "Reporting",
+      "Compliance"
+    ],
+    "nonempty_cells": 1292,
+    "formulas": 0,
+    "all_text_cells_verified": true
+  },
+  {
+    "source": "C:\\Users\\User\\OneDrive\\桌面\\UAT\\UAT - AMH.docx",
+    "sha256": "728d4ea1bab7317d3d3de31fe9181dd87e03af5b83f753fc4a105ddbbe88951f",
+    "modified": "2026-10-03T20:23:31",
+    "output": "UAT - AMH.md",
+    "tables": 6,
+    "checkmarks": 11,
+    "text_runs_verified": 198
+  },
+  {
+    "source": "C:\\Users\\User\\OneDrive\\桌面\\UAT\\UAT - CJQ.docx",
+    "sha256": "088db467cbaebe8476443307853803d74f05d564f0515e62cac3e5acd3d98574",
+    "modified": "2026-10-02T16:32:49",
+    "output": "UAT - CJQ.md",
+    "tables": 6,
+    "checkmarks": 11,
+    "text_runs_verified": 205
+  },
+  {
+    "source": "C:\\Users\\User\\OneDrive\\桌面\\UAT\\UAT - LJH.docx",
+    "sha256": "30cc07f190b237faad8c1d12d8d00f77b8e51d1f7d8379bca7ecc4b3a618acee",
+    "modified": "2026-10-03T20:22:52",
+    "output": "UAT - LJH.md",
+    "tables": 6,
+    "checkmarks": 11,
+    "text_runs_verified": 202
+  },
+  {
+    "source": "C:\\Users\\User\\OneDrive\\桌面\\UAT\\UAT - SPY.docx",
+    "sha256": "b25165cd70a26f37064c1bb1b215b6c1be68f5d86f2e72f7d13df05c55426c3f",
+    "modified": "2026-10-03T20:22:06",
+    "output": "UAT - SPY.md",
+    "tables": 6,
+    "checkmarks": 11,
+    "text_runs_verified": 210
+  },
+  {
+    "source": "C:\\Users\\User\\OneDrive\\桌面\\UAT\\UAT - WKN.docx",
+    "sha256": "c202b5f78281c92051a3fafdb52483df4e0a034239336fb4a34a99822569b54e",
+    "modified": "2026-10-03T17:49:52",
+    "output": "UAT - WKN.md",
+    "tables": 6,
+    "checkmarks": 11,
+    "text_runs_verified": 205
+  },
+  {
+    "source": "C:\\Users\\User\\OneDrive\\桌面\\Final Report_Len Pei Ying_QIU-202404-007159.pdf",
+    "sha256": "450959675a9be318cf1d6922bb7be3b72308417f137fc91a9dc37d8358de5dd1",
+    "modified": "2026-10-04T21:04:32.299989",
+    "output": "Final Report_Len Pei Ying_QIU-202404-007159.md",
+    "method": "Report revised in place using all three testing workbooks and five UAT forms: 87 test narratives, complete UAT appendix, recomputed questionnaire, qualified findings and limitations, repaired navigation.",
+    "revision_date": "2026-10-07",
+    "output_sha256": "048e8f57af2bd9bf64659a1dab31ef8787e23b94b52909993eaaaa741dfc603c",
+    "evidence_sources": [
+      "EasyEarn_Compatibility_Testing.md",
+      "EasyEarn_Security_Testing.md",
+      "EasyEarn_System_Testing.md",
+      "UAT - AMH.md",
+      "UAT - CJQ.md",
+      "UAT - LJH.md",
+      "UAT - SPY.md",
+      "UAT - WKN.md"
+    ]
+  }
+]
