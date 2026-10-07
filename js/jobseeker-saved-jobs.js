@@ -48,7 +48,7 @@ import {
     return {
       id:       job.id,
       title:    job.title || 'Untitled Job',
-      company:  job.company || job.employer_name || 'EasyEarn Employer',
+      company:  job.company || job.company_name || job.employer_name || 'EasyEarn Employer',
       category: job.category || 'General',
       location: job.location || 'Location not specified',
       type:     String(job.job_type || '').toLowerCase() || 'flexible',

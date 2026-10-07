@@ -1,1 +1,6 @@
 easyearn/
+
+# Local report conversion intermediates and duplicate exports.
+/tmp/pdfs/
+/output/report-markdown/
+/output/EasyEarn_Markdown_Latest.zip
