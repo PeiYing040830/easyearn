@@ -1,13 +1,12 @@
 /**
  * EasyEarn file note: Handles the jobseeker saved jobs page behavior and related user interactions.
  */
+import { showApplyModal } from './job-application-modal.js?v=20261007a';
 import {
   fetchApplications,
   fetchJobs,
   fetchSavedJobIds,
-  saveJob,
   removeSavedJob,
-  createApplication,
   normalizeArray,
   observeAuth
 } from './supabase-data.js';
@@ -155,27 +154,7 @@ import {
     if (applyBtn && currentUser && !applyBtn.disabled) {
       const jobId = applyBtn.dataset.jobId;
       if (!jobId) return;
-      applyBtn.disabled = true;
-      applyBtn.textContent = 'Applying...';
-      try {
-        await createApplication({ job_id: jobId, user_id: currentUser.id, status: 'pending' });
-        window.location.href = 'applications.html';
-      } catch (err) {
-        const code = String(err?.code || '');
-        const msg  = String(err?.message || '').toLowerCase();
-        if (code === '23505' || msg.includes('duplicate') || msg.includes('unique')) {
-          window.location.href = 'applications.html';
-        } else if (msg.includes('no openings available')) {
-          applyBtn.disabled = true;
-          applyBtn.textContent = 'Full';
-          alert('This job has no openings left.');
-        } else {
-          console.error('Apply failed:', err);
-          applyBtn.disabled = false;
-          applyBtn.textContent = 'Apply';
-          alert('Unable to apply right now. Please check Supabase policies.');
-        }
-      }
+      showApplyModal({ jobId, userId: currentUser.id, triggerBtn: applyBtn });
     }
   });
 
