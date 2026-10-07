@@ -1,381 +1,1024 @@
-﻿## 4.3 Testing
+## 4.3 Testing
 
-Five complementary testing methods were used: System Testing (ST), User Acceptance Testing (UAT), Usability Testing, Security Testing (SEC), and Compatibility Testing (CT). The methods are used to assess various quality characteristics of EasyEarn, such as functional correctness, user acceptance, usability, security and cross-environment behaviour. System Testing is the testing that checks the end-to-end (E2E) functionality of EasyEarn.
+Five complementary testing methods were used: System Testing, UAT, Usability Testing, Security Testing, and Compatibility Testing. The methods are used to assess various quality characteristics of EasyEarn, such as functional correctness, user acceptance, usability, security and cross-environment behaviour. System Testing is the testing that checks the E2E functionality of EasyEarn.
 
 ### 4.3.1 System Testing
 
-To test the end-to-end functionality of EasyEarn, seven categories of System Testing were performed, which included E2E Workflow, Integration, Performance, Recovery, Business Logic, Reporting and Compliance. There were a total of 34 System Test cases which were run and all were passed. The system was tested to ensure that the completed EasyEarn system and the connected components satisfy the defined functional and non-functional requirements in realistic use cases using System Testing. Security Testing and Compatibility Testing are treated separately (in Sections 4.3.4 and 4.3.5) since they test different aspects of the quality of the system. The seven System Testing categories are summarised in Figure 4.2. In this section, one representative test case is presented for each category of the System Testing test cases, while the other System Testing test cases and the supporting evidence are given in Appendix 3 [96].
+The latest System Testing workbook records 34 cases. The category totals below are derived from the individual case records, rather than inferred from screenshots.
 
-![Figure 4.2 image 1](Diagram/figure-02.png)
+| Category | Recorded cases | Pass | Other results |
+| --- | --- | --- | --- |
+| E2E Workflow | 6 | 6 | 0 |
+| Integration | 6 | 6 | 0 |
+| Performance | 4 | 4 | 0 |
+| Recovery | 4 | 4 | 0 |
+| Business Logic | 6 | 6 | 0 |
+| Reporting | 4 | 4 | 0 |
+| Compliance | 4 | 4 | 0 |
 
-Figure 4.2: EasyEarn System Testing Summary
+System Testing was conducted to evaluate the completed EasyEarn system across seven categories: E2E Workflow, Integration, Performance, Recovery, Business Logic, Reporting and Compliance. 34 System Testing test cases (ST-001-ST-034) were run and all of the test cases passed. The tests focused on the core workflows, front-end-to-Supabase integration, performance, failure handling and business rules, reporting accuracy, and selected compliance system controls. Security Testing and Compatibility Testing were evaluated separately in Sections 4.3.4 and 4.3.5. Figure 4.2 summarises the seven System Testing categories. The following is a representative test case for each category; the other test cases and supporting evidence are given in Appendix 3 [96].
+
+![Report figure](<Diagram/Final_Report_Len_Pei_Ying_QIU-202404-007159.pdf-0272-01.png>)
+
+_Figure 4.2: EasyEarn System Testing Summary_
 
 #### 4.3.1.1 End-to-End Workflow
 
-End-to-End (E2E) Workflow Testing is applied to verify whether a complete user process can be executed successfully from beginning to end across a collection of interacting workflows within a system, rather than testing each function separately. It helps d etermine whether the system behaves correctly throughout the entire user journey up to its expected completion or end state, including the interactions between related modules and stored data [96]. EasyEarn E2E Workflow Testing covered processes such as Job Seeker and Employer registration, job application, applicant management, job completion, payment confirmation and moderation. One representative E2E Workflow test case is presented below, while the remaining E2E Workflow test cases and supporting evidence are provided in Appendix 3.1.
+E2E Workflow Testing tests the ability of a complete user workflow to complete successfully across interconnected sets of system functions [96]. In EasyEarn, the testing covered registration, job applications, applicant management, job completion, payment confirmation and moderation, with additional test cases and evidence provided in Appendix 3.1.
 
-ST-003: Hire-to-completion flow
+##### ST-003: Hire-to-Completion Flow
 
-This test includes all of the following: Job Application through to Job Acceptance, through to Job Completion, to Job Rating and to Job History. It validates that status for every application is kept in sync during the workflow and that a work history is c reated when the application is completed. The application moving forward through the interview and completion process and into the rating process and work history record is shown in Figure 4.3.
+**Recorded result: Pass.**
 
-![Figure 4.3 image 1](Diagram/figure-03.png)
+The application successfully progressed through Reviewed, Interview, Accepted, Completion Pending and Completed. The Job Seeker confirmed interview attendance and payment receipt successfully. A 5-star rating and review were submitted for the Employer, and the completed job was added to the Job Seeker's Work History.
 
-Figure 4.3: Hire-to-completion flow
+**Expected result:** Application status transitions correctly through Pending → Reviewed → Interview → Accepted → Completion Pending → Completed. Interview attendance is recorded successfully. After the Job Seeker confirms payment received, the completed job is added to Work History. The Job Seeker's rating and review are saved and displayed on the Employer's Ratings page.
+
+**Test procedure:**
+
+1. Employer marks the application as Reviewed.
+2. Employer schedules an interview date and location.
+3. Job Seeker confirms interview attendance.
+4. Employer accepts the applicant after the interview.
+5. Employer confirms work/payment, moving the application to Completion Pending.
+6. Job Seeker confirms payment received, completing the application.
+7. Job Seeker submits a star rating and review for the Employer.
+8. Verify that the completed job appears in Work History.
+
+**Test input:** Application ID: System-generated
+Interview Date/Time: Valid future date/time
+Interview Location: W&amp;X Bakery, Ipoh
+Rating: 5 stars
+Review: Great employer and smooth working experience.
+
+**Recorded comments:** The complete hire-to-completion workflow functioned as expected across the Employer and Job Seeker modules.
+
+Figure 4.3 retains the original screenshot associated with this case. The result and comments above follow the latest testing workbook.
+
+![Report figure](<Diagram/Final_Report_Len_Pei_Ying_QIU-202404-007159.pdf-0273-01.png>)
+
+_Figure 4.3: Hire-to-completion flow_
 
 #### 4.3.1.2 Integration
 
-Integration Testing is used to check the interactions between the different modules, services and data-processing components of a system when they are integrated together. It targets interfaces and data exchanges between interconnected components to ensure failures due to faulty communication, data transfer, or system integration can be identified [96]. EasyEarn involved Integration Testing to confirm the interaction between the Frontend (JavaScript), Supabase database, database triggers, notifications, Employer Verification workflow, asynchronous messaging, and the chatbot knowledge base and saved-job functions. The following is one representative Integration test case, and the remaining Integration test cases and supporting evidence can be found in Appendix 3.2.
+Integration Testing determines if the system components that are connected communicate and work properly together [96]. EasyEarn testing covered interactions among the JavaScript frontend, Supabase database, triggers, notifications, Employer Verification, asynchronous messaging, chatbot knowledge and saved jobs, with additional evidence provided in Appendix 3.2.
 
-ST-007: Application CRUD and openings_count trigger
+##### ST-007: Application CRUD and openings_count trigger
 
-An application is created, updated, and deleted properly, and the necessary database function to update the job's openings count is called, not allowing the count to fall below zero. The application record is created, updated and deleted as shown in Figure 4.4, and the job's openings_count field updates correctly with each of these operations.
+**Recorded result: Pass.**
 
-![Figure 4.4 image 1](Diagram/figure-04.png)
+The job listing initially showed 1 available opening. After the Job Seeker submitted an application, the available opening decreased from 1 to 0. When the Job Seeker cancelled the application, the available opening returned from 0 to 1. The openings count remained consistent throughout the test and did not become negative.
 
-Figure 4.4: Application CRUD and openings_count trigger
+**Expected result:** The available openings count decreases from 1 to 0 when the Job Seeker submits an application. After the Job Seeker cancels the application, the openings count returns from 0 to 1 and remains consistent without becoming negative.
+
+**Test procedure:**
+
+1. Verify the job listing shows 1 available opening before application.
+2. Job Seeker submits an application for the job.
+3. Verify the available opening decreases from 1 to 0.
+4. Job Seeker cancels/withdraws the application.
+5. Verify the available opening increases from 0 back to 1.
+6. Verify the openings count remains consistent and does not become negative.
+
+**Test input:** Job ID: System-generated
+Initial openings_count: 1
+Action: Apply, then Cancel Application
+
+**Recorded comments:** The openings count was correctly synchronized with the Job Seeker application and cancellation actions.
+
+Figure 4.4 retains the original screenshot associated with this case. The result and comments above follow the latest testing workbook.
+
+![Report figure](<Diagram/Final_Report_Len_Pei_Ying_QIU-202404-007159.pdf-0274-01.png>)
+
+_Figure 4.4: Application CRUD and openings_count trigger_
 
 #### 4.3.1.3 Performance
 
-Performance testing was conducted to verify the system would perform correctly if it were subjected to data processing, user action or operations that would put an added strain on the system. It can aid in determining performance issues such as response time, processing behaviour and complex or time-sensitive situations [96]. EasyEarn job listing loading and filtering, multiple concurrent job applications, PDF resume generation and Admin Analytics Dashboard rendering were the areas of focus for EasyEarn in the Performance Testing area. The operations are chosen because they are used within the platform and are data intensive or time sensitive. The following example Performance test case is presented; the other Performance test cases and supporting evidence are contained in Appendix 3.3.
+Performance Testing evaluates system response and behaviour during selected time-sensitive or data-processing operations [96]. EasyEarn testing covered job-page loading and filtering, concurrent applications, PDF resume generation and Admin Analytics rendering, with additional evidence provided in Appendix 3.3.
 
-ST-014: Concurrent application race condition
+##### ST-014: Concurrent Application Race Condition
 
-Tests the case where multiple applications are submitted simultaneously to a job with exactly one remaining slot, and validates that the database trigger is satisfied by exactly one application. The following Figure 4.5 illustrates the simultaneous applications submitted to a job with one slot still available, in which the database trigger allows exactly one of these applications.
+**Recorded result: Pass.**
 
-![Figure 4.5 image 1](Diagram/figure-05.png)
+During the near-simultaneous application test for a job with one remaining opening, one Job Seeker was able to submit the application successfully. For the second Job Seeker, the Apply button changed to Full, preventing another application from being submitted after the final opening had been taken. No overbooking occurred.
 
-Figure 4.5: Concurrent Application Race Condition
+**Expected result:** Database-level trigger serialises the openings deduction so exactly one application succeeds when only one opening exists; no negative counts.
+
+**Test procedure:**
+
+1. Seeker A and Seeker B both load the same job listing.
+2. Both submit an application within the same second.
+3. Verify only one application succeeds in consuming the opening.
+4. Verify the second receives the 'No openings available' error.
+5. Confirm openings_count never goes below zero.
+
+**Test input:** 2 concurrent INSERT requests on applications, same job_id
+
+**Recorded comments:** The system prevented a second application after the final available opening was taken.
+
+Figure 4.5 retains the original screenshot associated with this case. The result and comments above follow the latest testing workbook.
+
+![Report figure](<Diagram/Final_Report_Len_Pei_Ying_QIU-202404-007159.pdf-0275-01.png>)
+
+_Figure 4.5: Concurrent Application Race Condition_
 
 #### 4.3.1.4 Recovery
 
-Recovery Testing is used to evaluate a system's response to failures and/or interruptions, and its ability to return to a stable and consistent state without producing incorrect, incomplete, or inconsistent data. Some systems depend on external services, a uthentication sessions, and database transactions they use, and a failure during normal system operation might occur [96]. EasyEarn's Recovery Testing included application submission failure, application expiry, and Supabase connectivity failure. These tests were performed to see if the system can deal with such cases correctly and keep the data in the system consistent during testing. The following is one of the Recovery test cases and supporting evidence; Appendix 3.4 contains the other Recovery test cases with supporting evidence.
+Recovery Testing checks the response of the system to failure and disruption without compromising stability and consistency of the data state [96]. The connectivity loss, sessionrelated interruptions and failed transactions were covered in EasyEarn testing, and further test cases and evidence were supplied in Appendix 3.4.
 
-ST-019: Failed application submission rollback
+##### ST-019: Failed Application Submission Rollback
 
-This test ensures that if the application submission fails due to some error in the database, the transaction is rolled back and the system data does not change. As illustrated in Figure 4.6, the failure to submit an application does not leave incomplete or corrupted database information.
+**Recorded result: Pass.**
 
-![Figure 4.6 image 1](Diagram/figure-06.png)
+A direct database insert was attempted for a job with openings_count = 0. The database trigger rejected the insert with the error "No openings available for this job listing." A verification query confirmed that no application record was created for the tested Job Seeker and job combination, and the job's openings_count remained unchanged at 0.
 
-Figure 4.6: Failed Application Submission Rollback
+**Expected result:** The exception raised inside the trigger rolls back the entire INSERT transaction, leaving both applications and job_listings tables in a consistent, unchanged state.
+
+**Test procedure:**
+
+1. Seeker attempts to apply to a job with 0 remaining openings.
+2. Verify the INSERT is rejected by the database trigger.
+3. Verify no partial/orphaned application row is created.
+4. Verify the seeker sees a clear 'no openings available' message.
+5. Confirm the job_listings.openings_count value is unchanged.
+
+**Test input:** Job ID with openings_count = 0
+
+**Recorded comments:** The failed application was fully rolled back, leaving no partial record and keeping openings_count unchanged.
+
+Figure 4.6 retains the original screenshot associated with this case. The result and comments above follow the latest testing workbook.
+
+![Report figure](<Diagram/Final_Report_Len_Pei_Ying_QIU-202404-007159.pdf-0276-01.png>)
+
+_Figure 4.6: Failed Application Submission Rollback_
 
 #### 4.3.1.5 Business Logic
 
-Business Logic Testing is performed to ensure that the rules and condition which govern the system's behavior are correctly coded. These rules specify the way that data is used within the system, what users can do and what the system will do if certain conditions are fulfilled. Business Logic Testing by EasyEarn included calculations for job-matching, location-distance bonuses, application status transitions, rating eligibility, moderation queue classification and Employer Verification Badge behaviour. These rules directly affect certain core EasyEarn functions and should work in harmony with how the system is intended to be used. The following represents one representative Business Logic test case; the other Business Logic test cases, as well as supporting evidence, are given in Appendix 3.5.
+Business Logic Testing is used to determine if the rules that govern the behavior of a system are functioning as expected. For location bonuses, application-status transitions, and rating eligibility, EasyEarn testing was conducted on these features and the behaviour of the Employer Verification Badge during moderation was provided in Appendix 3.5.
 
-ST-023: Application Status Transition Constraints
+##### ST-023: Application Status Transition Constraints
 
-Tests ensure that only valid forward status changes can be made through the employer UI, with a verifier that reversal of a completed application or seeker self-editing is not allowed. Figure 4.7 is the employer UI that can only accept valid forward changes in status, which prevents the seekers from changing status and editing their own applications.
+**Recorded result: Pass.**
 
-![Figure 4.7 image 1](Diagram/figure-07.png)
+The forward application workflow had already been completed successfully during ST-003. During this test, a Reviewed application could not be moved backward to an earlier status. For a Completed application, the Employer view no longer provided any status-transition control; only non-status actions such as Message, Paid and Rated remained. Therefore, the completed application could not be reversed through the Employer UI.
 
-Figure 4.7: Application Status Transition Constraints
+**Expected result:** The Employer UI allows the intended forward workflow while preventing reverse status changes. A Completed application cannot be changed back to an earlier application status through the UI.
+
+**Test procedure:**
+
+1. Employer moves an application forward through the permitted status workflow.
+2. Verify a Reviewed application cannot be moved backward to an earlier status through the Employer UI.
+3. Open a Completed application and check available status controls.
+4. Verify no status control allows a Completed application to be reversed to Pending/Reviewed/Accepted.
+
+**Test input:** Observed workflow: forward status changes through Employer UI; Reviewed cannot be reversed; Completed application
+
+**Recorded comments:** The Employer UI enforced forward-only status progression and prevented completed applications from being reversed.
+
+Figure 4.7 retains the original screenshot associated with this case. The result and comments above follow the latest testing workbook.
+
+![Report figure](<Diagram/Final_Report_Len_Pei_Ying_QIU-202404-007159.pdf-0277-01.png>)
+
+_Figure 4.7: Application Status Transition Constraints_
 
 #### 4.3.1.6 Reporting
 
-Reporting Testing checks the information displayed in dashboards, generated reports, and calculated summary information against the information in the underlying system. Accurate reporting is significant because the information created is pertinent for Job Seekers, Employers and Admins to keep an eye on applications, work history, job performance and platform activities [96]. For EasyEarn, Reporting Testing took place on the Admin Analytics Dashboard, job listing reports, Job Seeker work history and earnings information, and Employer job posting performance information. The tests were conducted to verify the consistency of th e displayed values and the summary information with the corresponding information in the database. Below is one Reporting test case, and the other Reporting test cases and supporting evidence are detailed in Appendix 3.6.
+Reporting Testing determines if system-generated values and summaries match the data stored in the system [96]. EasyEarn testing covered Admin Analytics, job-listing reports, Job Seeker work history and earnings, and Employer job-performance information, with additional evidence provided in Appendix 3.6.
 
-ST-027: Admin analytics dashboard accuracy
+##### ST-027: Admin Analytics Dashboard Accuracy
 
-Tests for each summary number on the dashboard to see that they are equal to the number of underlying database rows and that the proportions of the chart correspond to the proportions of the rows. Admin page numbers for analytics dashboard appear in the same proportion as the numbers in the database, as seen in Figure 4.8.
+**Recorded result: Pass.**
 
-![Figure 4.8 image 1](Diagram/figure-08.png)
+The Admin Analytics page displayed User Growth = 8, Job Volume = 5 and Report Load = 2. Supabase verification queries returned 8 active users, 5 active job listings, 2 report records and 1 approved employer verification. The chart displayed 50% User Growth, 31% Job Volume, 13% Report Load and 6% Verification Load, which matched the rounded proportions of the underlying values 8:5:2:1.
 
-Figure 4.8: Admin Analytics Dashboard Accuracy
+**Expected result:** The Analytics summary metrics must match the corresponding database counts. The distribution chart must reflect the same underlying values for users, jobs, reports and approved verifications.
+
+**Test procedure:**
+
+1. Log in as Admin and open the Analytics page.
+2. Compare User Growth with the count of active user records in public.users.
+3. Compare Job Volume with the count of active job listings in public.job_listings.
+4. Compare Report Load with the count of report records in public.reports.
+5. Compare Verification Load chart share with the number of approved employer verifications and verify the displayed chart proportions.
+
+**Test input:** Observed dashboard: 8 users, 5 jobs, 2 reports; approved employer verifications: 1
+
+**Recorded comments:** The analytics summary values and chart proportions matched the verified database counts.
+
+Figure 4.8 retains the original screenshot associated with this case. The result and comments above follow the latest testing workbook.
+
+![Report figure](<Diagram/Final_Report_Len_Pei_Ying_QIU-202404-007159.pdf-0278-01.png>)
+
+_Figure 4.8: Admin Analytics Dashboard Accuracy_
 
 #### 4.3.1.7 Compliance
 
-Compliance-related System Testing checks whether selected system functions operate in alignment with the privacy, transparency and user-protection considerations taken into account during the design of EasyEarn. EasyEarn includes tests for system features related to the PDPA 2010 and the Gig Workers Act 2025, such as access to privacy information, processing of Employer verification documents, administrative audit logs and compliance reminders. These tests are not intended to provide formal legal or regulatory certification o f the system implementation and behaviour, but are intended to confirm the implementation and behaviour of selected system controls related to compliance [17], [76], [96]. Below is one of the test cases in Compliance and Appendix 3.7 provides a listing of all Compliance test cases and evidence.
+Compliance-related System Testing consisted of the evaluation of selected EasyEarn controls related to privacy, transparency and user-protection aspects, such as privacy information access, handling of Employer verification documents, audit records, and compliance reminders [17], [76], [96]. These tests were for selected controls already implemented and were not legal or regulatory certification. Additional test cases and evidence are provided in Appendix 3.7.
 
-ST-032: PDPA-aligned document handling
+##### ST-032: PDPA-Aligned Document Handling
 
-This test evaluates the desired use of sensitive Employer verification documents, and which access control is applied to these documents. The purpose of EasyEarn is to limit access to the sensitive verification data by user roles. The new RLS policies determine access to Employer verification information by record ownership and the Administrator role. Unauthenticated users are not allowed to access the protected v erification information, and authenticated users who are not the owner of the Employer record are not allowed to access the protected verification information. As seen in Figure 4.9, access to the Employer verification information is denied as per the defined RLS policies, verifying that unauthorized users are not able to get the protected document information.
+**Recorded result: Pass.**
 
-![Figure 4.9 image 1](Diagram/figure-09.png)
+Employer verification documents were stored in each employer's own users record. W&amp;X Bakery and SugarShine each had their own registration and contact documents, while CarePlus had none submitted. A Job Seeker attempting to access the Employer verification area was redirected back to the Job Seeker section and could not view employer verification documents. Admin could access the Verifications area and review the submitted employer documents.
 
-Figure 4.9: PDPA-aligned Document Handling
+**Expected result:** Verification document data is stored in the relevant employer's users record; Job Seekers cannot access the Employer verification area, while Admin can review submitted verification documents.
 
-The 34 System Testing test cases have all passed. The findings show that the primary EasyEarn workflows, integrations, performance-related operations, recovery behaviour, business rules, reporting functions and selected compliance-related controls were performed as outlined in the test scenarios. The tests in particular showed that application workflows would run properly from one module to another, that database triggers would keep important system rules, that concurrent applications would be properly controlled, that failed transactions would not corrupt the stored data, and that the system-generated reports would accurately mirror the underlying state of the database. The complete set of System Testing cases and supporting evidence that are not presented in this section are provided in Appendix 3 [96].
+**Test procedure:**
+
+1. Submit employer verification with registration and contact documents.
+2. Verify documents are stored only in fields scoped to that employer's row (registration_doc_data, contact_doc_data).
+3. Verify a seeker or another employer account cannot query another employer's verification documents.
+4. Verify admin-only access is required to view submitted documents during review.
+
+**Test input:** Employer verification data stored in public.users; W&amp;X Bakery and SugarShine contain both registration and contact documents.
+
+**Recorded comments:** Verification document access was restricted by role and record ownership in the tested scenarios.
+
+Figure 4.9 retains the original screenshot associated with this case. The result and comments above follow the latest testing workbook.
+
+![Report figure](<Diagram/Final_Report_Len_Pei_Ying_QIU-202404-007159.pdf-0279-01.png>)
+
+_Figure 4.9: PDPA-aligned Document Handling_
+
+Overall, all 34 System Testing test cases across the seven categories of E2E Workflow, Integration, Performance, Recovery, Business Logic, Reporting and Compliance achieved a Pass result. The tested EasyEarn workflows, system integrations, operations related to performance, recovery behaviour, business rules, reporting functions and selected compliancerelated controls functioned as designed in the scenarios evaluated. The remaining System Testing test cases and supporting evidence are provided in Appendix 3.
 
 ### 4.3.2 User Acceptance Testing (UAT)
 
-To help determine if EasyEarn fulfilled its expected functional needs for its three primary user groups, Job Seeker, Employer and Admin, UAT was performed. To simulate real system usage, the tests were conducted using designated user accounts and test data stored in Supabase. A total of 36 functional UAT test cases were created, comprising 12 test cases for each user role. Five testers participated in the UAT, with each assigned test case executed once by the respective tester. To test the cross-browser and device consistency, Compatibility Testing was carried out in Section 4.3.5. The distribution and outcomes of 36 test cases for UAT are summarised in Figure 4.10. This section includes one test case for each user role, and additional UAT test cases and evidence are included in Appendix 4.
+User Acceptance Testing assessed whether five participants could complete the principal Job Seeker, Employer and Admin workflows. Each completed five tasks per role, giving 15 functional tasks per participant and 75 task executions overall. All 75 executions are marked Pass in the supplied forms. These are 15 distinct task definitions repeated by five participants, not 75 distinct test cases.
 
-![Figure 4.10 image 1](Diagram/figure-10.png)
+The forms record sessions between 5 and 15 September 2026. Table 4.5a identifies the participants, recorded devices and outcomes. All five selected Accept for Overall Acceptance. Their Additional Comments / Suggestions fields contain a dash; no substantive free-text suggestion is recorded there.
 
-![Figure 4.10 image 2](Diagram/figure-11.png)
+_Table 4.5a: UAT Participant and Execution Summary_
 
-Figure 4.10: Summary of UAT
+| Tester | Date recorded | Device recorded | Job Seeker | Employer | Admin | Overall acceptance |
+| --- | --- | --- | --- | --- | --- | --- |
+| Ang Mun Hin | 08/09/2026 | MSI Raider GE78 HX 14V, Intel Core i9, Windows 11 | 5/5 Pass | 5/5 Pass | 5/5 Pass | Accept |
+| Chan Jade Qi | 05/09/2026 | Pavilion Plus 14, Tranquil Pink, Windows 11 | 5/5 Pass | 5/5 Pass | 5/5 Pass | Accept |
+| Lee Jian Hou | 10/09/2026 | HONOR Pad 9, Android, Chrome | 5/5 Pass | 5/5 Pass | 5/5 Pass | Accept |
+| Seah Pei Yan | 10/09/2026 | iPhone 15 Pro Max, Safari | 5/5 Pass | 5/5 Pass | 5/5 Pass | Accept |
+| Wong Ke Ni | 15/09/2026 | HONOR X9b, Android, Chrome | 5/5 Pass | 5/5 Pass | 5/5 Pass | Accept |
+
+The two Windows forms identify the laptop and operating system but do not identify a browser. The iPhone form explicitly records Safari; the HONOR Pad 9 and HONOR X9b forms explicitly record Android and Chrome. These UAT environments provide participant-level workflow evidence and do not replace the separate Compatibility Testing suite.
+
+Figure 4.10 is the original UAT summary illustration. The current task totals are calculated from the forms reproduced in Appendix 4.
+
+![Report figure](<Diagram/Final_Report_Len_Pei_Ying_QIU-202404-007159.pdf-0280-01.png>)
+
+_Figure 4.10: Summary of User Acceptance Testing Results_
 
 #### 4.3.2.1 Job Seeker UAT
 
-Job Seeker UAT determines if the primary functions offered to Job Seekers can be successfully performed by the user. A total of 12 test cases were created covering Registration and Login, Dashboard, Job Search and Browse, Job Application, Saved Jobs, In-Progress Work, Interviews, Work History, Resume Management, Messages, Profile Management, Logout and Session. All test cases were conducted using a designated Job Seeker account and test data stored in Supabase. The prefix â€œJSâ€ denotes the Job Seeker UAT test cases. The following Job Seeker UAT test case is presented and the remainder of the Job Seeker test cases and evidence are found in Appendix 4.1. JS-004: Job Application This test checks whether the Job Seeker can view submitted job applications and whether the displayed status and available actions are appropriate for each application stage. In the tested account, the Cashier application was in the Completion Pending stag e and displayed the â€œConfirm Payment Receivedâ€ action, while the Part-Time Barista & Cafe Crew application was in the Completed stage and displayed the â€œRatedâ€ status. Figure 4.11 shows the application status timeline and the corresponding actions available to the Job Seeker.
+All five participants completed the five Job Seeker tasks, producing 25 Pass records. The task labels below follow the current UAT forms.
 
-![Figure 4.11 image 1](Diagram/figure-12.png)
+| Task | Recorded outcome |
+| --- | --- |
+| Register and Login | 5 Pass / 0 Fail |
+| Job Search &amp; Browse | 5 Pass / 0 Fail |
+| Job Application | 5 Pass / 0 Fail |
+| Work History &amp; Rate Employer | 5 Pass / 0 Fail |
+| Resume Management | 5 Pass / 0 Fail |
 
-Figure 4.11: Job Seeker - Job Application Status and Completion Confirmation
+Figure 4.11 retains the original representative illustration. Appendix 4 contains the complete current forms, including steps, remarks and participant details.
+
+![Report figure](<Diagram/Final_Report_Len_Pei_Ying_QIU-202404-007159.pdf-0281-01.png>)
+
+_Figure 4.11: Representative Job Seeker UAT Results_
 
 #### 4.3.2.2 Employer UAT
 
-Employer UAT helps verify that Employers' major functions can be accomplished with the system and that the system is able to furnish the desired information and controls during the recruitment process. In total, 12 test cases were created for Registration and Login, Dashboard, Post Job, Manage Jobs, View Applicants, Shortlist/Accept Applicant, Ratings, Messages, Profile Management, Verification, Job Completion Confirmation and Logout and Session. All test cases were conducted using a designated Employer account and test data stored in Supabase. The UAT test cases of Employers are identified with the prefix â€œEMPâ€. The following is one of the Employer test cases and evidence, with the remainder of the Employer test cases and evidence included in Appendix 4.2. EMP-005: View Applicants This test will check if the Employer will be able to see the applicants and get the proper Application, Job Seeker and information about the status. The tested Employer account showed two applications, one of which was completed with the right job title, r ating, review details, date of application and possible actions, and it was completed by the same Job Seeker. The Applicants page displays the completed applicant records and their status and action details as shown in Figure 4.12.
+All five participants completed the five Employer tasks, producing 25 Pass records. The task labels below follow the current UAT forms.
 
-![Figure 4.12 image 1](Diagram/figure-13.png)
+| Task | Recorded outcome |
+| --- | --- |
+| Post Job | 5 Pass / 0 Fail |
+| View Applicants | 5 Pass / 0 Fail |
+| Accept / Reject Applicant | 5 Pass / 0 Fail |
+| Employer Verification | 5 Pass / 0 Fail |
+| Job Completion &amp; Rate Job Seeker | 5 Pass / 0 Fail |
 
-Figure 4.12: Employer - View Applicants
+Figure 4.12 retains the original representative illustration. Appendix 4 contains the complete current forms, including steps, remarks and participant details.
+
+![Report figure](<Diagram/Final_Report_Len_Pei_Ying_QIU-202404-007159.pdf-0282-01.png>)
+
+_Figure 4.12: Representative Employer UAT Results_
 
 #### 4.3.2.3 Admin UAT
 
-Admin UAT tests the success of the administrative tasks of EasyEarn for managing the platform, moderating and supporting its users. There are 12 test cases developed to cover Login, Dashboard Overview, Employer Account Lock/ Unlock, Job Seeker Account Lock/ Unlock, Approve Job, Flag/ Remove Job, Verifications, Reports, Analytics, Messages/ Support, Profile Management and Logout and Session. All test cases were conducted with an actual Admin account with all data in Supabase. The prefix â€œADMâ€ is used to identify the Admin UAT test cases. The following representative Admin UAT test case is shown; other Admin test cases and supporting evidence for these test cases are in Appendix 4.3. ADM-006: Flag/Remove Job This test checks if an Admin can mark and delete a bad job listing and keep the moderation information. This test succeeded in marking the tested job as â€œFlaggedâ€ and removing it from the Jobs page after performing its Remove action, as well as keeping its audit record. The flagged job listing, the removal from the public Jobs page and the flagged moderation record are illustrated in Figure 4.13.
+All five participants completed the five Admin tasks, producing 25 Pass records. The task labels below follow the current UAT forms.
 
-![Figure 4.13 image 1](Diagram/figure-14.png)
+| Task | Recorded outcome |
+| --- | --- |
+| Lock / Unlock Employer | 5 Pass / 0 Fail |
+| Approve Job | 5 Pass / 0 Fail |
+| Flag / Remove Job | 5 Pass / 0 Fail |
+| Employer Verification Review | 5 Pass / 0 Fail |
+| Reports | 5 Pass / 0 Fail |
 
-Figure 4.13: Admin - Flag/Remove Job
+Figure 4.13 retains the original representative illustration. Appendix 4 contains the complete current forms, including steps, remarks and participant details.
 
-All 36 UAT test cases were passed in all three job roles: Job Seeker, Employer and Admin. The results showed that EasyEarn's main workflows and functions could be accomplished with a real user and Supabase data. All UAT test cases and supporting evidence not included in this section are included in Appendix 4.
+![Report figure](<Diagram/Final_Report_Len_Pei_Ying_QIU-202404-007159.pdf-0283-01.png>)
+
+_Figure 4.13: Representative Admin UAT Results_
+
+The UAT results support successful completion of the selected workflows using the recorded accounts, tasks and devices. The five-person sample does not establish population-wide acceptance, independent security assurance or performance under concurrent load.
 
 ### 4.3.3 Usability Testing
 
-Usability Testing was conducted using the heuristic evaluation method based on Nielsen's 10 Usability Heuristics [55]. Heuristic evaluation involves systematically reviewing a UI against established usability principles to identify usability problems and assess their severity, rather than relying solely on responses from end-user participants. The evaluation of EasyEarn was conducted by the author across three role-based interfaces: Job Seeker, Employer and Admin. During each evaluation, the deployed system and relevant source code were reviewed to support the findings. Each of Nielsen's 10 heuristics was assessed accord ing to whether the system met the heuristic requirements and, where a usability issue was identified, the issue was rated using Nielsen's 0 -4 severity scale, where 0 represents no usability problem, and 4 represents a usability catastrophe [55]. The overall heuristic evaluation results are presented in Table 4.5.
+Usability was evaluated through Section D of the five UAT forms and the previously documented heuristic evaluation. Section D contains ten statements rated from 1 (Strongly Disagree) to 5 (Strongly Agree). The questionnaire measures the participants’ recorded perceptions after completing the functional tasks; it is not a formal TAM validation or an accessibility conformance assessment.
 
-**Table 4.5: Heuristic Evaluation Results**
+The forms contain 50 ratings: 42 Strongly Agree responses and 8 Agree responses, with no scores of 1, 2 or 3. The weighted mean is (42 × 5 + 8 × 4) / 50 = 4.84/5. All five participants selected Accept for Overall Acceptance.
 
-Heuristic Application in EasyEarn Severity Compliance Visibility of System Status Notification bell updates are made by periodic polling; the application status timeline shows status changes, and the Admin Dashboard shows updated application statistics on the platform. 2-Minor Partially Met Match Between System and the Real World Job categories, RM currency formatting and role-specific terminology (Job Seeker/Employer/Admin) are aligned with the context of the gig economy in Malaysia. 0-None Met User Control and Freedom Users can edit or delete job postings where permitted, log out at any time, remove saved jobs, and switch between the Login and Register tabs on the same page. 0-None Met Consistency and Standards The same theme is used throughout all pages in each role, using shared partials for header-*.html and footer.html that are themed in green/amber/purple/teal. 1-Cosmetic Partially Met Error Prevention Multiple job postings are rejected and a helpful message is displayed when they are duplicated, and fields with required information are not accepted. 0-None Met Recognition Rather Than Recall Role-specific navbar and dashboard summary cards help users not have to memorise the routes between sessions. 0-None Met Flexibility and Efficiency of Use Novice and frequent users are not overwhelmed by the amount of time they take to use the job search and category/location filters, the dark mode toggle, and the saved-jobs feature. 0-None Met Aesthetic and Minimalist Design Shared card layout maintains a clean and uncluttered appearance of public-facing and dashboard pages, with only relevant information appearing on each page, depending on the user role. 0-None Met Help Users Recognise, Diagnose, and Recover from Errors If the password is wrong or there are missing items in input forms, the error messages are displayed directly, clearly and offer suggestions for corrective action. 0-None Met Help and Documentation An in-context chatbot widget is provided on every page of the dashboard. Only FAQ keywords are covered, not free-form queries. 2-Minor Partially Met The evaluation resulted in problems with three out of the ten heuristics: Visibility of System Status (H1), Consistency and Standards (H4) and Help and Documentation (H10). The other seven heuristics were completely met; each had a 0 (not a usability probl em) severity rating. Each issue, its location, levels of severity and potential solution are outlined in Table 4.6, while all of the ten heuristics are cross-referenced with their related issues (or noted where they were not found) in Table 4.8.
+_Table 4.5: End-user Usability Questionnaire Results_
 
-**Table 4.6: Identified Usability Issues and Solutions**
+| No. | Evaluation item | Agree (4) | Strongly Agree (5) | Mean score |
+| --- | --- | --- | --- | --- |
+| 1 | The navigation menu makes it easy to find the functions I need. | 0 | 5 | 5.00 |
+| 2 | Job information, buttons and instructions are clear and easy to understand. | 0 | 5 | 5.00 |
+| 3 | Job search, filters and Near Me are easy to use. | 0 | 5 | 5.00 |
+| 4 | Application status and next actions are clearly displayed. | 0 | 5 | 5.00 |
+| 5 | Forms and system messages help me complete tasks and correct mistakes. | 2 | 3 | 4.60 |
+| 6 | The layout, buttons and design are consistent throughout EasyEarn. | 0 | 5 | 5.00 |
+| 7 | Employer verification requirements are clear and understandable. | 3 | 2 | 4.40 |
+| 8 | The chatbot and available guidance are helpful when I need assistance. | 3 | 2 | 4.40 |
+| 9 | The translation feature is easy to access and use. | 0 | 5 | 5.00 |
+| 10 | Overall, I can complete the main EasyEarn tasks easily and efficiently. | 0 | 5 | 5.00 |
+| Overall | 50 ratings | 8 | 42 | 4.84 |
 
-No. Issue Heuristic Violated Location Severity Proposed Solution 1 Chatbot only works for keyword-based answer types for FAQ answers and not free-form natural language queries. H10-Help and Documentation Floating chatbot widget (all dashboard pages) 2-Minor Migrate to a Have a light backend that uses an intent-matching or Large Language Model (LLM) service to handle free-form questions (as detailed in Section 5.5). 2 The colour of the background behind the navbar is different to the background colour of the rest of the page. H4-Consistency and Standards Job Seeker and Admin dashboard navbars 1-Cosmetic Match the background colour token of the navbar to the page-level CSS variable for each role. 3 This is a bug where the two-column stat-card grid does not show up H4-Consistency and Standards The page you are at is called your 1-Cosmetic Make the 700px media query more specific, or below the breakpoint of 700px on the Applications page, since a wider media query is more specific, so it is being replaced. applications page. set the media queries in the following order: broader breakpoint, narrower breakpoint. 4 Notification bell uses a 30-second-polling mechanism instead of push notifications, causing an apparent delay when the status changes. H1-Visibility of System Status Notification bell (all roles) 2-Minor Use Supabase Realtime subscriptions instead of polling to send notification updates in real-time. During the HE, two of the usability issues found were deemed to have a greater impact on the user's experience than the other issues. These were explored in more depth and similarities and differences in the heuristic that was affected, the problem seen, level of severity, and impact on users were discussed. These two usability issues of greater impact are compared in Table 4.7.
+_Table 4.5b: Usability Scores by Participant_
 
-**Table 4.7: Comparison for the Two Higher-Impact Issues**
+| Participant | Ratings | Score total / 50 | Mean / 5 |
+| --- | --- | --- | --- |
+| Ang Mun Hin | 10 | 47 | 4.70 |
+| Chan Jade Qi | 10 | 50 | 5.00 |
+| Lee Jian Hou | 10 | 47 | 4.70 |
+| Seah Pei Yan | 10 | 48 | 4.80 |
+| Wong Ke Ni | 10 | 50 | 5.00 |
 
-Issue Before After (Proposed) Help and Documentation (H10, Issue 1) The user inputs words into the chatbot and the stored words in the database are known as the "seeds". If the user inputs words into the chatbot that match any one of the "seeds", a message will be returned to the user. If the user doesn't type any words that Chatbot comes with a lightweight layer of intent matching (or LLM-assisted response generation), which can capture free-form text and paraphrase the seeded answers, match any "seeds", no message will be returned to the user and the user will have to try again. not need an exact keyword match. Visibility of System Status (H1, Issue 4) notifications-bell.js will pull the server every 30 seconds (setInterval(refresh, 30000)); any change in status (Accepted, etc.) will only show up in the notification bell 30 seconds after the change actually occurs. The notification bell is subscribing to a Supabase Realtime channel, which eliminates the polling delay and status changes are pushed to the client and shown in the bell within about 1 second of when they occur. The usability problems identified as part of the heuristic evaluation were also categorised by the Nielsen heuristic; they had the effect of. This will give a summary of which usability principles were related to the issues that were observed and will help to summarise the areas that might need further improvement. Table 4.8 shows the heuristics and the usability issues identified in EasyEarn.
+Seven items received a mean score of 5.00. Forms and system messages scored 4.60; employer-verification clarity and chatbot guidance each scored 4.40. These relatively lower scores identify possible improvement areas, even though all recorded responses were positive. The questionnaire contains only five respondents, and the high scores should be interpreted within that sample.
 
-**Table 4.8: Heuristics and Issues Found**
+The author’s separate heuristic evaluation identified four issues across Visibility of System Status, Consistency and Standards, and Help and Documentation. Its existing observations and severity classifications are retained in Tables 4.6–4.8 because the supplied files contain no replacement heuristic assessment. Passing functional or compatibility tests does not by itself demonstrate that every heuristic issue has been resolved.
 
-Heuristic Issue(s) Found Notes H1-Visibility of System Status Issue 4 Notification bell status updates do not reflect the real-time status, with a maximum delay of 30 seconds. H2-Match Between System and the Real World None identified The terms and currency are always used in the context of the Malaysian gig economy. H3-User Control and Freedom None identified It is possible for users to edit, delete and reverse all actions as per all three roles. H4-Consistency and Standards Issues 2, 3 Both issues are cosmetic and confined to specific pages/viewports rather than systemic. H5-Error Prevention None identified Duplicate submission and required-field validation were confirmed to be working. H6-Recognition Rather Than Recall None identified Persistent navigation and dashboard summaries require less memory. H7-Flexibility and Efficiency of Use None identified The novice and frequent users are able to use filters, dark mode and saved jobs without issues. H8-Aesthetic and Minimalist Design None identified Shared card layout helps to maintain a clear page layout throughout all roles. H9-Help Users Recognise, Diagnose, and Recover from Errors None identified In all cases tested, there were clear and actionable inline error messages. H10-Help and Documentation Issue 1 The coverage of the chatbot is limited to keywords from the answers in the FAQ; see Section 5.3 and 5.5.
+_Table 4.6: Heuristic Evaluation Issues and Proposed Solutions_
+
+|**No.**|<br>**Issue**|**Heuristic**<br>**Violated**|**Location**|**Severity**|**Proposed Solution**|
+|---|---|---|---|---|---|
+|**1**|The chatbot can only<br>handle a set of pre-|H10 - Help<br>and|Floating<br>chatbot|2 -<br>Minor|Implement<br>a<br>lightweight<br>intent-|
+||defined<br>FAQ|Documentat|widget (all||matching service or|
+||keywords, and free-|ion|dashboard||Large<br>Language|
+||form<br>natural||pages)||Model (LLM)-as-a-|
+||language<br>questions||||service tool to be|
+||are not supported.||||used alongside the|
+||||||existing<br>FAQ<br>knowledge base for<br>handling<br>free-form<br>questions.|
+|**2**|The<br>navbar|H4 -|Job Seeker|1 -|Match the colour of|
+||background colour is|Consistency|and Admin|Cosmetic|the<br>navbar|
+||inconsistent with the|and|dashboard||background to the|
+||page background on|Standards|navbars||page-level<br>colour|
+||some<br>role<br>dashboards.||||token<br>or<br>CSS<br>variable.|
+|**3**|Below 700px, the|H4 -|Job Seeker|1 -|Make<br>the<br>700px|
+||Applications<br>page|Consistency|Applications|Cosmetic|media query more|
+||stat-card grid does|and|page||specific, or order the|
+||not appear as desired|Standards|||media<br>queries<br>to|
+||due<br>to<br>a<br>CSS||||make the narrower|
+||specificity issue.||||one<br>the<br>most<br>specific.|
+|**4**|The notification bell|H1 -|Notification|2 -|Use<br>Supabase|
+||is polling for 30|Visibility of|bell across|Minor|Realtime|
+||seconds instead of|System|all roles||subscriptions instead|
+||push-based|Status|||of periodic polling to|
+||notification updates,||||ensure<br>that|
+
+|which may cause the|notifications are sent|
+|---|---|
+|status change to be|to the client more|
+|delayed.|quickly.|
+
+The heuristic findings were evaluated in conjunction with the lower end-user ratings of Employer verification clarity and chatbot guidance. The result of the chatbot was similar to that of H10, and there was no distinct heuristic violation found for Employer verification clarity.
+
+Among the four usability issues identified in Table 4.6, two were rated as minor and were considered to have a greater effect on UX than the two cosmetic issues. These were limited help and documentation support (H10) and delayed notification updates (H1). Table 4.7 compares the current implementation of these two issues with their proposed improvements.
+
+_Table 4.7: Comparison for the Two Higher-Impact Issues_
+
+|**Issue**|**Current Implementation**|**Proposed**|**Improve**|**ment**|
+|---|---|---|---|---|
+|**Help and**|The chatbot answers primarily based|Integrate|<br>light|<br>intent|
+|**Documentation**|on set FAQ keywords. If a question is|matching|/LLM|response|
+|**(H10)**|not similar to the stored keywords, it|handling|for free-for|m inputs and|
+||may not get the desired answer.|preserve|the FAQ|knowledge|
+|||base.|||
+|**Visibility of**|The notification bell refreshes every|Use<br>|Supabase|Realtime|
+|**System Status**|30 seconds, which can make it take a|subscripti|ons to push|notification|
+|**(H1)**|bit longer for it to display the latest|updates|to the c|lient more|
+||status changes.|promptly|.||
+
+Table 4.7 presents the comparison between two higher-impact usability issues found in the heuristic evaluation: limited chatbot support under Help and Documentation (H10) and delayed notification updates under Visibility of System Status (H1). Both issues were rated as minor because they could affect the UX but did not prevent users from completing the main system tasks. All other usability problems were cosmetic and mainly were related to consistency and responsiveness of layout. To provide an overall summary of the heuristic evaluation, Table 4.8 maps all ten Nielsen heuristics to the issues identified in EasyEarn.
+
+To provide an overall summary of the heuristic evaluation, Table 4.8 maps all ten Nielsen usability heuristics to the issues identified in EasyEarn. The table shows which heuristics were associated with usability issues and which were found to have no specific issue during the evaluation. This provides a consolidated view of the usability strengths and areas for improvement across the Job Seeker, Employer and Admin interfaces.
+
+_Table 4.8: Heuristics and Issues Found_
+
+|**Heuristic**|**Issue(s) Found**|**Notes**|
+|---|---|---|
+|H1 - Visibility of|Issue 4|Notification updates can take up to 30 seconds|
+|System Status||since the notification bell operates on periodic<br>polling instead of push updates.|
+|H2 - Match Between|None identified|Job categories, RM currency formatting, role|
+|System and the Real||names and application status terms match the|
+|World||setting of the gig work in Malaysia.|
+|H3 - User Control and|None identified|Actions supported can be edited and deleted or|
+|Freedom||reversed, as applicable to the user's role and the<br>state of the workflow.|
+|H4 - Consistency and|Issues 2 and 3|There were two cosmetic consistency problems:|
+|Standards||navbar background inconsistencies and a<br>responsive stat-card layout problem below the<br>700px breakpoint.|
+
+|H5 - Error Prevention|None identified|Validation and duplicate-submission prevention|
+|---|---|---|
+|||for required field data was verified to be<br>working for the scenarios tested.|
+|H6 - Recognition<br>Rather Than Recall|None identified|Persistent navigation, role-specific menus and<br>dashboard summaries minimize navigation path<br>and system state memory.|
+|H7 - Flexibility and|None identified|Filters, dark mode and saved jobs offer shortcuts|
+|Efficiency of Use||and repeated-use support, but don't stop novice<br>users from enjoying the same capabilities.|
+|H8 - Aesthetic and|None identified|Common card layouts and specific content for|
+|Minimalist Design||roles keep the interface system coherent and<br>form task-oriented groups.|
+|H9 - Help Users|None identified|Clear and actionable error messages were|
+|Recognise, Diagnose,<br>and Recover from<br>Errors||displayed for the tested invalid inputs and failed<br>actions.|
+|H10 - Help and|Issue 1|The chatbot offers answers based on FAQs but|
+|Documentation||can only match keywords and cannot handle<br>free-form natural language questions.|
+
+Overall, usability issues were identified under three of the ten heuristics: Visibility of System Status (H1), Consistency and Standards (H4), and Help and Documentation (H10). The remaining seven heuristics did not show a specific usability issue during the evaluation. Identified issues were minimal in that they were cosmetic issues and did not hinder completion of the main EasyEarn tasks.
 
 #### 4.3.3.1 Justification for Non-Violations
 
-However, for seven heuristics where no issues were found, the following reasons justify a full grade of â€œMetâ€, and only a shallow pass is considered a lack of a finding. Match Between System and the Real World (H2) was judged fulfilled as all the UI labels, currency values, and status terms were verified against the conventions used in the Malaysian gig economy, such as RM formatting, role names, and job statuses for the three interfaces, with no generic or mistranslated terminology identified. The user is tested for User Control and Freedom by attempting to change the state of each of the available user actions, such as editing, deleting, logging out and unsaving a bookmarked job, and the user does not become trapped in an undesired state of the interface. Filters, dark mode, and the saved-jobs list reduced the number of steps for a returning user to perform the same task, such as finding a saved job, but did not increase the number of steps for a new user, so none of these affected Flexibility and Efficiency of Use (H7). For Aesthetic and Minimalist Design (H8), each dashboard page was reviewed for information that was not pertinen t to the task at hand. The shared card design was determined to only show information relevant to the role, and no other irrelevant information was found. The other four heuristics were less likely to be tricked into a seemingly legitimate way of doing things; for this reason, they are highlighted here. The remaining three heuristics (Error Prevention, Recognition Rather Than Recall, and Help Users Recognise, Diagnose, and Recover from Errors) were considered more directly: the error was elicited, and the system's response was verified to be correct; these are addressed in Table 4.8. Of the four issues found, two are minor, two are cosmetic in nature, and none are severe enough to impede task completion. The Help and Documentation issue (H10, severity 2) is a result of the fact that the chatbot is limited to using a set of FAQs for answers, and not free-form natural language queries, which is a known l imitation of the rule-based implementation and is detailed further as a limitation in Section 5.3, with a suggestion for an upgrade path in Section 5.5. The Notification bell issue (H1, severity 2) is caused by the 30-second polling interval in the notifications-bell.js file, and not by real-time push updates, such that status changes take up to 30 seconds before showing. It is proposed to migrate to Supabase Realtime subscriptions. The two Consistency and Standards issues are cosmetic only: navbar background colour on the Job Seeker and Admin dashboards are not aligned; and a CSS specificity conflict makes the Applications page's stat-card grid render incorrectly below the 700px breakpoint. The results of the heuristic evaluation confirm the results from the UAT (Section 4.3.2) in general. The UATs confirmed that the primary workflows of Job Seeker, Employer and Admin could be completed successfully and the heuristic evaluations determined th at there were a few minor interface issues that did not hinder the completion of the task. The notification delay and the responsive layout issues in particular were deemed to be issues that can be improved upon and not critical functional defects. The two types of testing thus yielded complementary results: UAT indicated that tasks required to be accomplished were completed successfully; heuristic evaluation pointed out usability issues that could be improved. A restriction of this evaluation is that it was conducted by a single evaluator who was also the system developer. So, the above four issues are indicative and not exhaustive. Multiple evaluators can help in heuristic evaluation since different evaluators might point out different kinds of usability problems [55]. The results of this evaluation should thus be viewed in conjunction with the UAT results in section 4.3.2, in which 36 functional test cases were run by five testers for the Job Seeker, Employer and Admin roles.
+For the seven heuristics where no specific usability issue was identified, the “Met” assessment was based on direct review of the deployed EasyEarn interfaces and the tested system behaviour. Match Between System and the Real World (H2) was judged as met because job categories, the format of RM currency, user-role terminology and application-status labels were presented consistently in the context of gig-work in Malaysia. User Control and Freedom (H3) was found to be met as users were able to edit, delete, logout and remove saved jobs where permitted, based on their role and workflow state.
+
+Required field Validation and Duplicate submission controls were tested and found to be functioning as expected, and Error Prevention H5 was therefore judged met. Recognition Rather Than Recall (H6) was supported by sustained navigation and role-specific menus and dashboard summaries, decreasing the need for users to remember paths or states in the system. Flexibility and Efficiency of Use (H7) was supported by functions such as filters, dark mode and saved jobs, which provided convenient access without preventing new users from completing the same tasks. Aesthetic and Minimalist Design (H8) was classified as met, as the common card designs and the content relevant to the task remained clearly visible and the function was kept in focus. Help Users Recognise, Diagnose, and Recover from Errors (H9) was also rated as met, as clear error messages in the form of actionable instructions were displayed for the tested incorrect inputs or failed actions.
+
+Overall, four usability issues were identified across three heuristics: Visibility of System Status (H1), Consistency and Standards (H4), and Help and Documentation (H10). Two issues were rated as minor and two as cosmetic, with none preventing completion of the main EasyEarn tasks. The results were generally similar to the end-user usability questionnaire that gave a mean score of 4.84 out of 5.00 on 50 usability ratings.
+
+A limitation of the heuristic evaluation is that it was conducted by a single evaluator who was also the system developer. Therefore, the identified issues may not represent all possible usability problems. The heuristic findings should be considered in conjunction with the UAT results that included 50 usability ratings and 75 functional task executions by 5 testers in the Job Seeker, Employer and Admin roles.
 
 ### 4.3.4 Security Testing
 
-Security Testing was carried out to see how far the security controls put in place in EasyEarn are effective in securing user data, limiting access for unauthorised users and minimising common application-level security threats. The eight types of Security Testing conducted were: RLS-Data Isolation, Auth & Access Control, Upload Security, Input Sanitisation, Rating & Business Rules, Report Security, Analytics & Chatbot and PDPA & Compliance. A total of 29 Security Testing (SEC -001 to SEC -029) test cases were run. The testing was centred on the security measures taken via Supabase RLS, user authentication and access control, file upload validation, input handling, business rules and privacy access related to data. The eight Security Testing categories are summarised in Figure 4.14. The following is a description of one test case for each category; more of these are found in Appendix 5 [78], [96].
+The latest Security Testing workbook records 30 cases. The category totals below are derived from the individual case records, rather than inferred from screenshots.
 
-![Figure 4.14 image 1](Diagram/figure-15.png)
+| Category | Recorded cases | Pass | Other results |
+| --- | --- | --- | --- |
+| RLS - Data Isolation | 11 | 11 | 0 |
+| Auth &amp; Access Control | 5 | 5 | 0 |
+| Upload Security | 1 | 1 | 0 |
+| Input Sanitisation | 2 | 2 | 0 |
+| Rating &amp; Business Rules | 2 | 2 | 0 |
+| Report Security | 2 | 2 | 0 |
+| Analytics &amp; Chatbot | 2 | 2 | 0 |
+| PDPA &amp; Compliance | 4 | 4 | 0 |
+| Employer Verification | 1 | 1 | 0 |
 
-Figure 4.14: EasyEarn Security Testing Summary
+Security Testing was conducted to evaluate the security controls implemented in EasyEarn for protecting user data, restricting unauthorised access and reducing common application-level security risks [78], [96]. The testing was organised into nine categories: RLS - Data Isolation, Auth & Access Control, Upload Security, Input Sanitisation, Rating & Business Rules, Report Security, Analytics & Chatbot, PDPA & Compliance, and Employer Verification & Visibility. A total of 30 Security Testing test cases (SEC-001 to SEC-030) were executed, and all 30 test cases achieved a Pass result in the final testing round. The testing centred on Supabase RLS, authentication and RBAC, file-upload restrictions, handling of input, rating and reporting restrictions, access to administrative data, privacy-related restrictions, and Employer verification-based job visibility. Figure 4.14 summarises the nine Security Testing categories. In this section, one representative test case from each category is presented, with the other test cases and supporting evidence given in Appendix 5.
+
+![Report figure](<Diagram/Final_Report_Len_Pei_Ying_QIU-202404-007159.pdf-0291-04.png>)
+
+_Figure 4.14: EasyEarn Security Testing Summary_
 
 #### 4.3.4.1 Row Level Security (RLS) - Data Isolation
 
-RLS-Data Isolation Testing tests whether Supabase RLS policies are correctly limiting users to data they are allowed to access. These controls are crucial for EasyEarn, as they allow the storage of user-sensitive content like applications, notifications, payments, saved jobs, user profiles and work history in common database tables. The tests then test if unauthorised users can read, update or delete records of other users directly from the database or via normal application functions. A representative RLS-Data Isolation test case is given below; the other test cases and supporting evidence are provided in Appendix 5.1.
+RLS - Data Isolation Testing evaluated whether Supabase RLS controls restrict users to records they are authorised to access. EasyEarn testing covered applications, notifications, job listings, user profiles, work history and other user-related records, with additional test cases and evidence provided in Appendix 5.1.
 
-SEC-001: Seeker cannot read another seeker's applications
+##### SEC-001: Seeker Cannot Read Another Seeker's Applications
 
-This test ensures that one Job Seeker is not able to access records of another Job Seeker's application. When using the application_select_own policy, the query is limited based on a user identifier of the authenticated user, and the query result excludes unauthorised application records. The test verifies that Seeker B is unable to obtain the application records of Seeker A by using the application query as shown in Figure 4.15.
+**Recorded result: Pass.**
 
-![Figure 4.15 image 1](Diagram/figure-16.png)
+While authenticated as ABCD, fetchApplications(ABCD_ID) returned exactly 1 application (id 888c03d0-98d9-4e89-bce4-5e0f4ef799c1, seeker_id = ABCD). Using the same authenticated session, fetchApplications(LEN_ID) returned an empty array []. Len Pei Ying's 4 application records were not exposed to ABCD.
 
-Figure 4.15: RLS - Data Isolation (Seeker Application Read Isolation)
+**Expected result:** ABCD's own application is returned, while a query for Len Pei Ying's applications returns no rows. RLS must prevent cross-seeker application disclosure even when another seeker's ID is supplied by the client.
+
+**Test procedure:**
+
+1. Log in as Job Seeker ABCD.
+2. Import the EasyEarn data module and call fetchApplications() using ABCD's own seeker ID.
+3. In the same authenticated ABCD session, call fetchApplications() using Len Pei Ying's seeker ID.
+4. Compare the returned arrays.
+
+**Test input:** Authenticated user: ABCD (d1ff41b4-fb7d-4398-a270-c405c83fc795)
+Other seeker: Len Pei Ying (31c79f9e-2dee-44f9-80d7-2a70725dbb52)
+
+**Recorded comments:** Runtime RLS isolation was confirmed using ABCD's authenticated Supabase session: own row visible, another seeker's rows filtered out.
+
+Figure 4.15 retains the original screenshot associated with this case. The result and comments above follow the latest testing workbook.
+
+![Report figure](<Diagram/Final_Report_Len_Pei_Ying_QIU-202404-007159.pdf-0292-05.png>)
+
+_Figure 4.15: RLS - Data Isolation (Seeker Application Read Isolation)_
 
 #### 4.3.4.2 Auth & Access Control
 
-Auth & Access Control Testing is used to determine if EasyEarn properly authenticates users and denies access as per their assigned roles and session status. Tests include role-based page access, registration controls, handling of passwords, expired sessions and access to Admin-only functions. These controls are used to ensure that users do not have access to functions or information that is not authorised for their role. One example test case is included below; the other test cases and supporting evidence are included in Appendix 5.2.
+Auth & Access Control Testing evaluated whether authentication, session and role-based restrictions prevent users from accessing functions or data outside their authorised role. The testing included registration controls, cross-role access, session handling, Admin-only functions, as well as some additional evidence in Appendix 5.2.
 
-SEC-024: Admin page access blocked for non-admin users
+##### SEC-024: Admin Page Access Blocked for Non-Admin Users
 
-This test ensures that users who do not have the Admin role are not able to access pages that are only available for the Admin. It verifies the user's role for the authenticated user before showing administrative content and redirects non-admin sessions from restricted pages. Access controls are also applied at the database level to admin-only data. Figure 4.16 displays a non-admin session being redirected away from an admin page that was accessed directly in the URL.
+**Recorded result: Pass.**
 
-![Figure 4.16 image 1](Diagram/figure-17.png)
+While authenticated as Job Seeker ABCD, direct navigation to the Admin Users page was blocked. The system redirected the non-admin session back to the Job Seeker Dashboard, and admin content was not displayed.
 
-Figure 4.16: Auth & Access Control - Admin Page Access Restriction
+**Expected result:** Non-admin users are redirected away from admin pages; admin content is not rendered.
+
+**Test procedure:**
+
+1. Log in as Seeker.
+2. Navigate directly to pages/admin/users.html.
+3. Observe behaviour.
+
+**Test input:** Auth: Seeker session
+Files: admin-header.js, auth.js (requireAdmin)
+
+**Recorded comments:** Non-admin direct URL access was correctly prevented by the admin access guard.
+
+Figure 4.16 retains the original screenshot associated with this case. The result and comments above follow the latest testing workbook.
+
+![Report figure](<Diagram/Final_Report_Len_Pei_Ying_QIU-202404-007159.pdf-0293-03.png>)
+
+_Figure 4.16: Auth & Access Control - Admin Page Access Restriction_
 
 #### 4.3.4.3 Upload Security
 
-Upload Security Testing is used to check if files uploaded via EasyEarn are tested by the file-type restriction and/or the file-size restriction that is applied. Testing is directed at user-uploaded files since inappropriate files can pose security threats if uploaded without adequate validation. The following is one representative Upload Security test case. Since this category contains only one test case, it is not repeated in Appendix 5.3.
+Upload Security Testing was used to assess the file-type and file-size limits for profile images and Employer verification documents. This category contains one test case, SEC-016, which is presented below.
 
-SEC-016: Profile photo and verification document upload restrictions
+##### SEC-016: Profile Photo and Verification Document Upload Restrictions
 
-This test ensures that EasyEarn adheres to the upload size and file-type limits set for profile images and Employer verification documents. The upload functions have a limit of 2 MB. The test also found that complete Multipurpose Internet Mail Extensions (MIME)-type validation is not currently implemented, and this is noted as an outstanding security risk for future improvement. In Figure 4.17, the image of a person with a large profile picture is not accepted for upload.
+**Recorded result: Pass.**
 
-![Figure 4.17 image 1](Diagram/figure-18.png)
+Profile photo upload with an 11.46 MB PNG was rejected with 'Profile photo must be 2MB or smaller.' A plain-text file renamed with a .jpg extension was not saved and produced 'Unable to process the selected image.' An oversized Employer Verification document was rejected with 'Each file must be 2MB or smaller.' These tests confirm enforcement of file size limits and rejection of a non-image file disguised with an image extension.
 
-Figure 4.17: Upload Security - File Type and Size Restrictions
+**Expected result:** Files larger than 2MB rejected; non-image MIME types rejected even if extension is spoofed.
+
+**Test procedure:**
+
+1. Attempt to upload a 3MB image as profile photo.
+2. Attempt to upload .exe renamed to .jpg.
+3. Attempt oversized SSM document on verification form.
+4. Verify rejected uploads show error and are not sent to storage.
+
+**Test input:** File 1: 3MB .png
+File 2: malware.exe renamed .jpg
+Files: jobseeker-profile.js, employer-profile.js, employer-verification.js
+
+**Recorded comments:** Upload controls correctly blocked oversized files and a spoofed non-image file. The tested invalid files were not accepted for storage.
+
+Figure 4.17 retains the original screenshot associated with this case. The result and comments above follow the latest testing workbook.
+
+![Report figure](<Diagram/Final_Report_Len_Pei_Ying_QIU-202404-007159.pdf-0294-01.png>)
+
+_Figure 4.17: Upload Security - File Type and Size Restrictions_
 
 #### 4.3.4.4 Input Sanitisation
 
-Input Sanitisation Testing is a technique that tests EasyEarn's handling of user input and requests to the database to prevent common injection attacks. Tests focus on Cross-Site Scripting (XSS) payload handling and SQL injection resistance, and analyse the display of dynamic content and how database requests are submitted through the Supabase JavaScript client and through PostgREST. The other test case and supporting evidence are given in Appendix 5.4.
+Input Sanitisation Testing evaluated how EasyEarn handles potentially malicious user input, including Cross-Site Scripting (XSS) and SQL injection-related input. One representative test case is presented below, while the additional test case and evidence are provided in Appendix 5.4.
 
-SEC-017: Input sanitisation against XSS
+##### SEC-017: Input Sanitisation Against XSS
 
-This test verifies that script payloads submitted through the tested input fields are not executed when displayed. In the tested scenario, the submitted payload was displayed as non-executable content and did not run as JavaScript. This indicates that the tested input and output handling reduced the risk of XSS for the selected fields, as shown in Figure 4.18.
+**Recorded result: Pass.**
 
-![Figure 4.18 image 1](Diagram/figure-19.png)
+XSS testing was completed across job descriptions, rating reviews, and chat messages using payloads such as &lt;script&gt;alert(1)&lt;/script&gt; and &lt;img src=x onerror=alert(1)&gt;. In the verified-employer W&amp;X Bakery retest, the job description payload was rendered as escaped text on the Job Seeker page and no alert executed. The same image/onerror payload was submitted in an employer rating review and in chat messages; no JavaScript alert executed on either side of the conversation. Normal functions such as viewing the job and applying remained available.
 
-Figure 4.18: Input Sanitisation - XSS Prevention
+**Expected result:** Script/HTML payloads are rendered as harmless text, not executed, anywhere displayed back to other users.
+
+**Test procedure:**
+
+1. Post a job listing with &lt;script&gt;alert(1)&lt;/script&gt; in description.
+2. View the listing on the public Jobs page.
+3. Submit a rating review with &lt;img onerror=alert(1)&gt; payload.
+4. View the review on Employer Ratings page.
+
+**Test input:** Payload: &lt;script&gt;alert(1)&lt;/script&gt; and &lt;img src=x onerror=alert(1)&gt;
+Files: employer-post-job.js, employer-ratings.js, messages-page.js
+
+**Recorded comments:** Retest passed. User-controlled HTML/JavaScript payloads did not execute in the tested job description, rating review, or chat display paths. Job description content was shown as escaped text.
+
+Figure 4.18 retains the original screenshot associated with this case. The result and comments above follow the latest testing workbook.
+
+![Report figure](<Diagram/Final_Report_Len_Pei_Ying_QIU-202404-007159.pdf-0295-01.png>)
+
+_Figure 4.18: Input Sanitisation - XSS Prevention_
 
 #### 4.3.4.5 Rating & Business Rules
 
-Rating & Business Rules Security Testing checks whether the restrictions applied to ratings and reviews prevent inappropriate or unauthorised rating activities. The tests cover rating eligibility after completed work and self-rating prevention. These rules are security-relevant because weaknesses could affect the reliability of trust and reputation data within the platform. Below is one representative test case and the rest of the evidence is in Appendix 5.5.
+Rating & Business Rules Security Testing evaluated whether rating-related restrictions prevent invalid or unauthorised rating activities. The testing covered rating eligibility and self-rating prevention, with additional evidence provided in Appendix 5.5.
 
-SEC-008: Seeker cannot submit a rating for a pending application
+##### SEC-008: Seeker Cannot Submit a Rating for a Pending Application
 
-This test confirms that the rating function will not be displayed on the normal UI until an application is in the Completed status. The Rate Employer action will not be displayed when an application is pending. This is not fully implemented at the database level as of yet, and this is noted as a residual security risk in chapter 5.3.1. As shown in Figure 4.19, the button Rate Employer will only appear if the application is completed.
+**Recorded result: Pass.**
 
-![Figure 4.19 image 1](Diagram/figure-20.png)
+Initial test failed because Job Seeker ABCD could force a rating insert for a pending application and the rating was visible on the Employer Ratings page. After the database security fix, the same pending-application rating attempt was rejected with HTTP 403 and no new rating row was created; the Employer Ratings page no longer showed the pending test rating. Regression verification confirmed legitimate completed-application ratings remained available: Tsuki's completed applications 112ba3b2-819e-4009-a948-525e136ebba1 and 32ea3d8c-152d-4e74-897d-a5a5e1f32030 retained valid rating rows, including seeker-to-employer and employer-to-seeker ratings. Retest passed.
 
-Figure 4.19: Rating & Business Rules - Rating Eligibility Guard
+**Expected result:** Rating UI is not surfaced for pending applications; if forced via API, the insert succeeds at DB level but is never shown to the employer.
+
+**Test procedure:**
+
+1. Log in as S.
+2. Attempt to call upsertRating() for the pending application.
+3. Check UI and DB.
+
+**Test input:** Auth: S
+Application status: pending
+Files: supabase-data.js (upsertRating), jobseeker-work-history.js
+
+**Recorded comments:** Retest passed after database-level rating validation was added. Pending applications are now blocked from rating creation/visibility, while valid completed-application ratings continue to work.
+
+Figure 4.19 retains the original screenshot associated with this case. The result and comments above follow the latest testing workbook.
+
+![Report figure](<Diagram/Final_Report_Len_Pei_Ying_QIU-202404-007159.pdf-0296-01.png>)
+
+_Figure 4.19: Rating & Business Rules - Rating Eligibility Guard_
 
 #### 4.3.4.6 Report Security
 
-Report Security Testing looks at whether EasyEarn's reporting function prevents the reporting of, or access to, reports by unauthenticated or unauthorised users. The tests check if anonymous users can submit reports, and if users can view report records of other users. These controls are required due to the content of report records that might contain data about users, job postings and moderation tasks. The following is an example of a Report Security test case; the other test case and supporting evidence are given in Appendix 5.6.
+Report Security Testing determined that report submission and report records are controlled only to authenticated and authorised users. Testing included unauthenticated report submission and cross-user report access; further evidence is included in Appendix 5.6.
 
-SEC-011: Seeker cannot read another user's submitted reports
+##### SEC-011: Seeker Cannot Read Another User's Submitted Reports
 
-This test ensures that a Job Seeker is not able to access report records from another user. The reports_select_own policy ensures that only the user who logged in to the system is able to retrieve reports, and specific access is granted for authorised Admin users. The testing confirms that any report record that is not made by the Job Seeker is not returned. In Figure 4.20, only the user's own reports will be returned by the reports query.
+**Recorded result: Pass.**
 
-![Figure 4.20 image 1](Diagram/figure-21.png)
+While authenticated as Job Seeker ABCD (user ID d1ff41b4-fb7d-4398-a270-c405c83fc795), a direct query to the reports table returned an empty array with no error. Known reports belonging to Tsuki (d43f9652-89ed-45af-b429-bf361646a11a) and Len (fcc3189e-0e67-40f8-b688-c79842ba481f) were not returned. This confirms that another seeker's submitted reports are hidden by RLS.
 
-Figure 4.20: Report Security - Report Read Isolation
+**Expected result:** Only S2's own report rows (reporter_id = auth.uid()) are returned; S1's reports are hidden.
+
+**Test procedure:**
+
+1. Log in as S2.
+2. Query reports table without reporter_id filter.
+3. Check rows returned.
+
+**Test input:** Auth: S2
+Files: schema.sql (reports_select_own, reports_admin_select policies)
+
+**Recorded comments:** RLS correctly limits report visibility to the authenticated user's own reports; unrelated seeker reports were not exposed.
+
+Figure 4.20 retains the original screenshot associated with this case. The result and comments above follow the latest testing workbook.
+
+![Report figure](<Diagram/Final_Report_Len_Pei_Ying_QIU-202404-007159.pdf-0296-07.png>)
+
+_Figure 4.20: Report Security - Report Read Isolation_
 
 #### 4.3.4.7 Analytics & Chatbot
 
-Analytics & Chatbot Security Testing checks if access to any information related to the analytics of the Chatbot and any access to the chats is denied based on the role of the user. These records may include information that is only suitable for a platform-level account and would not be suitable for a Job Seeker or Employer account. The tests thus check whether the non-admin users can retrieve these records using the access-control policies configured in Supabase. The following is one of the Analytics & Chatbot test cases, with the other test case and supporting evidence included in Appendix 5.7.
+Analytics & Chatbot Security Testing examined whether analytics and chatbot data is limited by user role. The tests were focused on restricting non-admin users from accessing administrative analytics and chatbot log information, and further evidence is included in Appendix 5.7.
 
-SEC-025: Admin analytics data is not accessible to non-admin users
+##### SEC-025: Admin Analytics Data is Not Accessible to Non-Admin Users
 
-This test is to ensure that platform analytics data is only accessible to authorised Admin users. The analytics_admin_select policy is used to limit SELECT operations based on the Admin role. If a non-admin session tries to get analytics information, then no analytics information is returned. In Figure 4.21, a non-admin session is not receiving any analytics data.
+**Recorded result: Pass.**
 
-![Figure 4.21 image 1](Diagram/figure-22.png)
+While authenticated as Job Seeker ABCD, a direct SELECT query against public.analytics returned HTTP status 200 with data as an empty array and error = null. No analytics rows were exposed to the non-admin account, confirming that analytics data is restricted to admin users by RLS.
 
-Figure 4.21: Analytics & Chatbot - Analytics Access Restriction
+**Expected result:** No rows returned for non-admin users; analytics data is admin-only.
+
+**Test procedure:**
+
+1. Log in as Seeker.
+2. Query analytics table directly.
+3. Check rows returned.
+
+**Test input:** Auth: Seeker
+Files: schema.sql (analytics_admin_select policy)
+
+**Recorded comments:** Admin analytics data is correctly hidden from non-admin users; the Job Seeker session could not read any analytics rows.
+
+Figure 4.21 retains the original screenshot associated with this case. The result and comments above follow the latest testing workbook.
+
+![Report figure](<Diagram/Final_Report_Len_Pei_Ying_QIU-202404-007159.pdf-0297-05.png>)
+
+_Figure 4.21: Analytics & Chatbot - Analytics Access Restriction_
 
 #### 4.3.4.8 PDPA & Compliance
 
-PDPA & Compliance Security Testing is used to assess certain data-handling and access-control procedures being used by EasyEarn from a privacy and personal-data protection perspective in line with the PDPA 2010. The tests are based on minimisation of data, access to Employer verification docs, limitations on changing status of verification, and the ability to see closed job postings. These tests are designed to evaluate certain technical controls that have been in place on EasyEarn and are not a formal legal compliance audit. Below is one representative PDPA & Compliance test case and Appendix 5.8 contains the remaining test cases and supporting evidence.
+PDPA & Compliance Security Testing evaluated selected EasyEarn privacy and access-control measures related to personal data, Employer verification information and job-listing visibility. These tests were for selected technical controls and were not part of a legal compliance audit. Additional test cases and evidence are provided in Appendix 5.8.
 
-SEC-026: Personal data fields are not exposed in public job listing queries
+##### SEC-026: Personal Data Fields are Not Exposed in Public Job Listing Queries
 
-This test confirms that queries for public job listings do not reveal unwanted personal data about the user from user records. The public listing query returns information relating to the job without making any connections with personal user data fields fo r anonymous users. This is in line with the principle of data minimisation, which aims to reduce data returned via publicly accessible job postings. As shown in Figure 4.22, the public job listing query only returns the job-specific fields, but no information about the employer.
+**Recorded result: Pass.**
 
-![Figure 4.22 image 1](Diagram/figure-23.png)
+While unauthenticated, a direct SELECT * query on public.job_listings returned five public job rows. The returned objects contained job-specific fields only, including id, employer_id, title, description, category, location, job_type, pay_rate, pay_type, skill_tags, expiry_date, status, created_at, openings_count, deleted_at, approved_by and approved_at. No employer personal profile fields such as email, phone, bio, SSM number, registration document data or contact document data were included in the public job listing response.
 
-Figure 4.22: PDPA & Compliance - Job Listing Data Minimisation
+**Expected result:** Job listing rows do not include employer personal contact fields; only job-specific fields (title, location, pay, category, etc.) are returned.
 
-In total, 29 cases of Security Testing were run on the security controls deployed throughout EasyEarn's database access, authentication, file upload, input handling, rating, reporting, administrative information and handling of privacy-related data. The results indicated that many unauthorised operations were limited and data pertaining to certain roles were kept secure based on the scenarios tested. There were several remaining security concerns, however, such as partial MIME-type validation and some database-level business-rule validation. These are other risks which are discussed in detail in Chapter 5.3. 1. The full Security Testing cases and evidence that are not included in this section are included in Appendix 5.
+**Test procedure:**
+
+1. Without logging in, open the public Jobs page.
+2. Inspect job listing data returned from Supabase.
+3. Verify employer personal data (phone, email, bio) is not embedded in the job listing response.
+
+**Test input:** Auth: none (anon)
+Files: jobseeker-jobs.js, schema.sql (job_listings_public_read policy)
+
+**Recorded comments:** Public job listing queries expose job information only; employer personal/contact and verification-document fields are not embedded in the job listing response.
+
+Figure 4.22 retains the original screenshot associated with this case. The result and comments above follow the latest testing workbook.
+
+![Report figure](<Diagram/Final_Report_Len_Pei_Ying_QIU-202404-007159.pdf-0298-03.png>)
+
+_Figure 4.22: PDPA & Compliance - Job Listing Data Minimisation_
+
+#### 4.3.4.9 Employer Verification & Visibility
+
+Employer Verification & Visibility Testing determined if public job visibility is appropriately limited based on the Employer's verification status. This category contains only one test case, SEC-030, which is presented in full below. Since there are no additional test cases in this category, SEC-030 is not repeated in Appendix 5.9.
+
+##### SEC-030: Employer Verification & Job Visibility
+
+**Recorded result: Pass.**
+
+Initial test identified that an approved CarePlus job was publicly visible even though the employer had not passed verification. After adding the verified-employer database read gate, the CarePlus job remained available in the Employer Dashboard for management but disappeared from Public / Job Seeker Browse Jobs. The visibility rule was therefore corrected and the retest passed.
+
+**Expected result:** An unverified employer may create and manage its own listing, but the job must not be publicly visible to Job Seekers until the employer is verified.
+
+**Test procedure:**
+
+1. Log in as unverified employer CarePlus and create/save a test job.
+2. Admin approves the CarePlus job.
+3. Open Public / Job Seeker Browse Jobs and verify the CarePlus job is not visible.
+4. Return to CarePlus Employer Dashboard and verify the employer can still manage its own job.
+
+**Test input:** Employer: CarePlus (unverified)
+Initial observation: approved CarePlus job was visible to Job Seekers.
+Fix: public job visibility requires job status = approved AND employer is_verified = true.
+
+**Recorded comments:** Initial issue identified and resolved. Retest passed after security fix. Public visibility now requires both an approved job and a verified, active employer.
+
+Figure 4.23 retains the original screenshot associated with this case. The result and comments above follow the latest testing workbook.
+
+![Report figure](<Diagram/Final_Report_Len_Pei_Ying_QIU-202404-007159.pdf-0299-03.png>)
+
+_Figure 4.23: Employer Verification and Job Visibility Restriction_
+
+Overall, all 23 Compatibility Testing test cases across the six testing categories achieved a Pass result in the final testing round. In the directly tested environments, the platform features, authentication-session behaviour, the interface components and form controls performed as expected for the selected functions. The findings are limited to the browsers, devices, operating systems and viewport conditions that were directly tested. Other Security Testing test cases and supporting evidence are included in Appendix 5.
 
 ### 4.3.5 Compatibility Testing
 
-Compatibility Testing was performed to determine that EasyEarn runs effectively on the various browsers, screen resolutions, devices and interaction contexts. The categories of Compatibility Testing performed were: Browser Compatibility, Responsive Design, Feature Compatibility, Session & Auth, UI & Display and Form & Input. A total of 23 test cases (CT-001 to CT -023) were executed, and all test cases achieved a Pass result. The testing concentrated on browser-dependent functions, responsivity of the layout, platform features, logon behaviour, UI presentation and form controls. Figure 4.23 shows the six Compatibility Testing categories. The following is a single representative test case for each category; the other Compatibility Testing test cases and supporting evidence are contained in Appendix 6.
+The latest Compatibility Testing workbook records 23 cases. The category totals below are derived from the individual case records, rather than inferred from screenshots.
 
-![Figure 4.23 image 1](Diagram/figure-24.png)
+| Category | Recorded cases | Pass | Other results |
+| --- | --- | --- | --- |
+| Browser Compatibility | 4 | 4 | 0 |
+| Responsive Design | 5 | 5 | 0 |
+| Feature Compatibility | 6 | 6 | 0 |
+| Session &amp; Auth | 2 | 2 | 0 |
+| UI &amp; Display | 3 | 3 | 0 |
+| Form &amp; Input | 3 | 3 | 0 |
 
-Figure 4.23: EasyEarn Compatibility Testing Summary
+Compatibility Testing was performed to determine if EasyEarn was consistent with the browsers, screen sizes, devices and interaction environments within the scope of the test. The testing categories were: Browser Compatibility, Responsive Design, Feature Compatibility, Session & Auth, UI & Display, Form & Input. A total of 23 Compatibility Testing test cases (CT-001 to CT-023) were executed, and all 23 achieved a Pass result in the final testing round. The tests included browser-dependent functionality, responsive layout, platform-dependent features, authentication-session functionality, presentation of the interface and form controls. Figure 4.24 summarises the six Compatibility Testing categories. One representative test case from each category is presented in this section, while the remaining test cases and supporting evidence are provided in Appendix 6.
+
+![Report figure](<Diagram/Final_Report_Len_Pei_Ying_QIU-202404-007159.pdf-0300-03.png>)
+
+_Figure 4.24: EasyEarn Compatibility Testing Summary_
 
 #### 4.3.5.1 Browser Compatibility
 
-Browser Compatibility Testing checks the consistency of the primary browser-dependent functions and interface elements on EasyEarn across the browsers in the testing environment. The tests included the following: CSS layout rendering, JavaScript functions, PDF resume generation, and Chart.js analytics rendering, across the tested browsers, including Google Chrome, Mozilla Firefox, Microsoft Edge and Safari. One example Browser Compatibility test case is given below, and the other test cases and supporting evidence are supplied in Appendix 6.1.
+Browser Compatibility Testing evaluated the consistency of selected browser-dependent EasyEarn functions and interface elements as they were tested in the directly tested desktop browsers. The testing covered CSS layout rendering, JavaScript functionality, PDF resume generation and Chart.js analytics rendering in Google Chrome, Mozilla Firefox and Microsoft Edge. Additional test cases and evidence are provided in Appendix 6.1.
 
-CT-001: CSS layout rendering
+##### CT-001: CSS Layout Rendering
 
-This test checks if the main EasyEarn layout is correctly displayed in Google Chrome, Mozilla Firefox and Microsoft Edge. CSS Grid and Flexbox elements were also rendered without any broken layouts in the tested browsers, as were Lucide icons and role-specific visual elements. The home page layout looks the same across the browsers used for the tests, with no broken grid or flex elements visible, as in Figure 4.24.
+**Recorded result: Pass.**
 
-![Figure 4.24 image 1](Diagram/figure-25.png)
+Tested the EasyEarn Browse Jobs page in Google Chrome, Microsoft Edge and Mozilla Firefox on the same Windows device. The navigation bar, search/filter controls, job-card grid, verification badges, Apply buttons, icons, spacing and overall layout rendered consistently across all three browsers. No overlap, missing controls, broken Grid/Flex layout or meaningful visual discrepancy was observed. Safari was not tested because it was not available in the current Windows test environment.
 
-Figure 4.24: Browser Compatibility - CSS Layout Rendering
+**Expected result:** CSS layout renders consistently with no broken Grid/Flex, missing fonts, or visual discrepancies across all four browsers.
+
+**Test procedure:**
+
+1. Open EasyEarn homepage in Chrome and verify CSS Grid/Flex layout.
+2. Repeat in Firefox and compare layout.
+3. Repeat in Safari and compare layout.
+4. Repeat in Edge and compare layout.
+5. Check for any broken layout or missing styles across all four browsers.
+
+**Test input:** Browsers: Chrome, Firefox, Safari, Edge
+Files: css/*, includes.js
+
+**Recorded comments:** Chrome, Edge and Firefox showed consistent rendering. Safari was not available for direct testing in the current environment.
+
+Figure 4.25 retains the original screenshot associated with this case. The result and comments above follow the latest testing workbook.
+
+![Report figure](<Diagram/Final_Report_Len_Pei_Ying_QIU-202404-007159.pdf-0301-03.png>)
+
+_Figure 4.25: Browser Compatibility - CSS Layout Rendering_
 
 #### 4.3.5.2 Responsive Design
 
-Responsive Design Testing examines if EasyEarn's design, navigation and interactive features respond appropriately across desktop, tablet and mobile screen sizes, retaining usability and readability. These tests include layout breakpoints, mobile touch interaction, mobile content display, form validatio n presentation and mobile filtering functions. The following is one representative Responsive Design test case; the other test cases and supporting evidence are included in Appendix 6.2.
+Responsive Design Testing determined if EasyEarn's layout, navigation and interactive components were responsive to desktop, tablet and mobile screen sizes. The testing included layout breakpoints, touch interactions, mobile content display, validation presentation and mobile filtering, and video evidence is attached in Appendix 6.2.
 
-CT-005: Layout breakpoints
+##### CT-005: Layout Breakpoints
 
-This test confirms that the Jobs page layout is correct for the desktop, tablet and mobile breakpoints. Job grid switches to single column layout as needed, with navigation becoming collapsible for mobile view, without horizontal scrolling. The Jobs page layout adapts to the desktop, tablet and mobile breakpoints as illustrated in Figure 4.25.
+**Recorded result: Pass.**
 
-![Figure 4.25 image 1](Diagram/figure-26.png)
+Retested the responsive layout after the 375px mobile fixes. The desktop (1920px), tablet (768px), and mobile (375px) views now adapt correctly. On mobile, navigation remains collapsed appropriately, dashboard and chart content fits within the viewport, charts stack vertically without being cut off, and no visible horizontal overflow or overlapping content was observed.
 
-Figure 4.25: Responsive Design - Layout Breakpoints
+**Expected result:** Layout adapts fluidly at all three breakpoints with no horizontal scroll, overlapping elements, or broken navigation.
+
+**Test procedure:**
+
+1. Load Jobs page at 1920px (desktop) and verify multi-column grid layout.
+2. Resize to 768px (tablet) and verify layout adapts to two columns.
+3. Resize to 375px (mobile) and verify single-column layout.
+4. Check navigation collapses into hamburger menu at mobile width.
+5. Verify no horizontal scroll or overlapping elements at any breakpoint.
+
+**Test input:** Viewports: 1920px, 768px, 375px
+Files: css/*, includes.js
+
+**Recorded comments:** 375px responsive issue was fixed and successfully retested. Desktop, tablet and mobile layouts now display correctly.
+
+Figure 4.26 retains the original screenshot associated with this case. The result and comments above follow the latest testing workbook.
+
+![Report figure](<Diagram/Final_Report_Len_Pei_Ying_QIU-202404-007159.pdf-0302-01.png>)
+
+_Figure 4.26: Responsive Design - Layout Breakpoints_
 
 #### 4.3.5.3 Feature Compatibility
 
-For Feature Compatibility Testing, selected EasyEarn features are tested to see if they work consistently in the supported browsers and screen environments. The tested features include Google Translate Website Redirection, dark mode, the floating chatbot widget, Employer verification file uploads, notification updates and Admin analytics information. Below is one representative Feature Compatibility test case; the other test cases and evidence are found in Appendix 6.3.
+Feature Compatibility Testing checked if the selected EasyEarn features functioned correctly across the browsers and screen resolutions tested. The tests covered Google Translate Integration, dark mode, the floating chatbot, Employer verification uploads, notification updates and Admin analytics, with additional evidence provided in Appendix 6.3.
 
-CT-010: Google Translate Website Redirection
+##### CT-010: Google Translate Integration
 
-This test checks if the Google Translate Website Redirection can be turned on from EasyEarn and if the main page's content, navigation and UI remain accessible after translation. The tested translation process was successful for the feature. The EasyEarn website with Google Translate Website Redirection is presented in Figure 4.26.
+**Recorded result: Pass.**
 
-![Figure 4.26 image 1](Diagram/figure-27.png)
+Tested Google Translate integration on EasyEarn by switching the interface to Bahasa Malaysia and Mandarin, using the Jobs search/filter functions while translated, and then switching the interface back to English. Visible page text translated successfully, the layout remained intact, search and filter controls continued to work, and switching back to English restored the original interface without functional issues.
 
-Figure 4.26: Feature Compatibility - Google Translate Website Redirection
+**Expected result:** Google Translate widget loads and translates visible text; all interactive features continue to function while translated.
+
+**Test procedure:**
+
+1. Load homepage and activate Google Translate to Bahasa Malaysia.
+2. Verify page content translates without breaking layout.
+3. Use the Jobs search filter while translated.
+4. Submit a job application while translated.
+5. Switch back to English and verify all functionality is restored.
+
+**Test input:** Target language: Bahasa Malaysia / Mandarin
+Files: js/translate.js, index.html
+
+**Recorded comments:** Bahasa Malaysia and Mandarin translation worked without breaking page layout or Jobs interactions. Returning to English also worked correctly.
+
+Figure 4.27 retains the original screenshot associated with this case. The result and comments above follow the latest testing workbook.
+
+![Report figure](<Diagram/Final_Report_Len_Pei_Ying_QIU-202404-007159.pdf-0302-07.png>)
+
+_Figure 4.27: Feature Compatibility - Google Translate Integration_
 
 #### 4.3.5.4 Session & Auth
 
-Session & Auth Compatibility Testing checks if the authentication-session behaviour is consistent in various browser tabs. Tests are concentrated on "session persistence" and "synchronised logout" to make sure that the authentication changes are taken care of appropriately between tabs, which share the same browser session. The following is one Session & Auth test case, and the other test case and the evidence are presented in Appendix 6.4.
+Session & Auth Compatibility Testing checked if authentication-session behaviour was consistent across multiple tabs in the same browser session. Tests included cross tab session persistence and synchronised logout and there was additional evidence provided in Appendix 6.4.
 
-CT-017: Cross-tab logout
+##### CT-017: Cross-Tab Logout
 
-This test checks if an authenticated session in a browser tab is also invalidated when logged out from the EasyEarn browser tab. Once the user logs out, the second tab sees the change in authentication state and sends the user back to the login page. After logging out in the first tab, a second tab will redirect to the login page as shown in Figure 4.27.
+**Recorded result: Pass.**
 
-![Figure 4.27 image 1](Diagram/figure-28.png)
+Tested logout behaviour with the same Job Seeker session open in multiple tabs. Logging out from one tab cleared the shared authentication session and caused the other open EasyEarn tab to be logged out as well. After the session was cleared, protected pages could no longer be accessed without signing in again.
 
-Figure 4.27: Session & Auth - Cross-tab Logout
+**Expected result:** Logout clears the Supabase session from localStorage; subsequent navigation in any tab detects no active session and redirects to Login.
+
+**Test procedure:**
+
+1. Log in as Job Seeker and open dashboard in Tab 1 and Tab 2.
+2. Click Logout in Tab 1.
+3. Verify Tab 1 redirects to Login page.
+4. In Tab 2, attempt to navigate to a protected page or refresh.
+5. Verify Tab 2 also redirects to Login page after session is cleared.
+
+**Test input:** Files: js/auth.js (handleLogout), js/supabase-data.js (observeAuth)
+
+**Recorded comments:** Logout propagated across tabs correctly and cleared the shared browser session as expected.
+
+Figure 4.28 retains the original screenshot associated with this case. The result and comments above follow the latest testing workbook.
+
+![Report figure](<Diagram/Final_Report_Len_Pei_Ying_QIU-202404-007159.pdf-0303-05.png>)
+
+_Figure 4.28: Session & Auth - Cross-tab Logout_
 
 #### 4.3.5.5 UI & Display
 
-UI & Display Compatibility Testing determines if visual content is legible and accurately displayed in the browser and Operating System (OS) environments tested. The tests check font rendering, long text processing and image-upload previews for problems in compatibility with display. The following test case and supporting evidence represent one representative example of the UI & Display test cases; the other test cases and supporting evidence are contained in Appendix 6.5.
+UI & Display Compatibility Testing was used to determine the readability and proper display of the EasyEarn interface content in the test environments. Testing was conducted on font rendering, long text handling and image-upload preview, and some specifics are included in Appendix 6.5.
 
-CT-019: Long text overflow handling
+##### CT-019: Long Text Overflow Handling
 
-This test checks to ensure that the page layout will not be broken by long text content that remains inside the intended interface containers. Job cards and profile-related containers were given wrap and overflow control to be able to read longer content i n a given space. The following Figure 4.28 displays a job description that wraps correctly in the container.
+**Recorded result: Pass.**
 
-![Figure 4.28 image 1](Diagram/figure-29.png)
+Tested long text content using an extended job title, long job description and long employer company overview. At the 375px mobile viewport, text wrapped correctly inside the form fields and page containers without horizontal overflow, clipping or breaking the layout. The same content was also considered safe for the wider desktop layout because the available container width is greater than on mobile.
 
-Figure 4.28: UI & Display - Long Text Overflow Handling
+**Expected result:** Long text wraps correctly within containers at all viewports; no text overflows outside card or container boundaries.
+
+**Test procedure:**
+
+1. Open a job listing with a long description and verify text wraps correctly.
+2. Open Employer profile with a long company overview and verify layout.
+3. Resize to mobile (375px) and verify long text still wraps correctly.
+4. Check job cards on Jobs page with long job titles.
+5. Verify no text overflows outside card boundaries on any viewport.
+
+**Test input:** Viewport: 1920px, 375px
+Files: css/*, pages/jobseeker/jobs.html
+
+**Recorded comments:** Long job and employer profile text wrapped correctly at 375px with no visible overflow. Desktop layout provides more width, so no additional overflow issue was expected.
+
+Figure 4.29 retains the original screenshot associated with this case. The result and comments above follow the latest testing workbook.
+
+![Report figure](<Diagram/Final_Report_Len_Pei_Ying_QIU-202404-007159.pdf-0304-03.png>)
+
+_Figure 4.29: UI & Display - Long Text Overflow Handling_
 
 #### 4.3.5.6 Form & Input
 
-Form & Input Compatibility Testing checks to see if common form controls and input functions function the same way on the browsers of interest. These tests include things like interview date and time selection, file-size and file-type validation, and masking of password fields. The following is one representative Form & Input test case, with the other test cases and evidence included in Appendix 6.6.
+Form & Input Compatibility Testing was used to determine if common EasyEarn form controls and functions responded in a consistent manner in the tested browsers. The tests included interview date and time selection, file-size and file-type validation, and password-field masking; additional evidence is included in Appendix 6.6.
 
-CT-021: Interview date/time picker
+##### CT-021: Interview date/time picker
 
-This test checks if the interview date and time input works in Google Chrome, Mozilla Firefox and Microsoft Edge. The chosen date and time were successfully recorded and fed into the relevant interview scheduling function to be stored in the application re cord. To schedule an interview, use the date and time picker as illustrated in Figure 4.29.
+**Recorded result: Pass.**
 
-![Figure 4.29 image 1](Diagram/figure-30.png)
+Tested interview date/time scheduling in Google Chrome, Mozilla Firefox and Microsoft Edge. The Employer could open an accepted application, use the date/time picker, select a valid interview date and time, save the schedule, and view the saved interview date/time correctly in all three tested browsers.
 
-Figure 4.29: Form & Input - Interview Date/Time Picker
+**Expected result:** Date and time picker opens and saves correctly across all browsers; scheduled interview date is stored and displayed accurately.
 
-The overall outcome of all 23 Compatibility Testing test cases was Pass with 6 Testing categories. The findings show that the core EasyEarn functions, responsive layouts, chosen platform features, authentication process, user-interface components and form controls were consistent across the direct test environments. The findings apply to the browser, device and operating-system environments that were directly tested. The remaining Compatibility Testing test cases and supporting evidence are found in Appendix 6.
+**Test procedure:**
+
+1. Log in as Employer and open Applicants page in Chrome.
+2. Select an accepted application and open interview scheduling.
+3. Click the date/time input and verify date picker opens.
+4. Select a date and time and verify the value is saved correctly.
+5. Repeat steps 1–4 in Firefox, Safari, and Edge.
+
+**Test input:** Browsers: Chrome, Firefox, Safari, Edge
+Files: js/employer-applicants.js, pages/employer/applicants.html
+
+**Recorded comments:** Interview scheduling worked consistently in Chrome, Firefox and Edge. Browser picker appearance differed slightly, but the selected date/time saved and displayed correctly.
+
+Figure 4.30 retains the original screenshot associated with this case. The result and comments above follow the latest testing workbook.
+
+![Report figure](<Diagram/Final_Report_Len_Pei_Ying_QIU-202404-007159.pdf-0305-01.png>)
+
+_Figure 4.30: Form & Input - Interview Date/Time Picker_
+
+Overall, all 23 Compatibility Testing test cases across the six testing categories achieved a Pass result in the final testing round. For the EasyEarn browser, the results indicated that the tested environments operated in a consistent manner for the tested functions and the features of the platform selected, the authentication-session behaviour, the interface components and form controls. The findings are limited to the browsers, devices, operating systems and viewport conditions that were directly tested. The remaining Compatibility Testing test cases and supporting evidence are provided in Appendix 6.
 
 ### 4.3.6 Requirements Traceability and Verification Summary
 
-To demonstrate the traceability between the system requirements defined in Chapter 3 and the evaluation evidence presented in this chapter, the functional and non-functional requirements of EasyEarn were mapped to the corresponding verification evidence. Requirements traceability provides a systematic relationship between software requirements, implementation and verification activities, ensuring that every specified requirement can be verified through appropriate evaluation evidence [21], [96]. The verification matrices depict the relationship between each requirement and the activities undertaken for System Testing, User Acceptance Testing (UAT), Security Testing, Usability Testing and Compatibility Testing. A requirement is reported as Verified only when direct evaluation evidence is available. Requirements that are supported by implementation or deployment evidence, or not formally evaluated in the scope of this Final Year Project, are identified accordingly to avoid overstating the evaluation results. The 18 functional requirements listed in Table 3.8 are summarised in Table 4.9 that maps each requirement to the testing activities and evaluation evidence. The functional requirements of the system are the services and behaviours the system must offer to its users [21]. The verification evidence identifiers refer to the corresponding test cases: ST (System Testing), JS/EMP/ADM (User Acceptance Testing), SEC (Security Testing), CT (Compatibility Testing), and HE (Heuristic Evaluation).
+The updated records qualify the interpretation of verification: ST-017 records a submit-button state that did not reset after a network failure; CT-020 excludes pre-save image preview; CT-001–CT-004 do not directly test Safari in the formal compatibility suite. The iPhone UAT supplies separate Safari workflow evidence. SEC-002 confirms the outcome by database readback rather than the client-helper return value. These qualifications apply to the evidence mappings below.
 
-**Table 4.9: Functional Requirements Verification Summary**
+To show the connection between the system requirements established in Chapter 3 and the evidence of evaluating the system in this chapter, the FRs and NFRs of EasyEarn were mapped to the evidence of the implementation and the verification of the system. Requirements traceability provides a systematic relationship between software requirements, implementation and evaluation activities [21], [96]. Tables 4.9 and 4.10 accordingly show the evidence used to assess each requirement and whether it is verified, partially verified, evaluated or supported in terms of implementation evidence in the scope of this FYP.
 
-Requirement Verification Evidence Status FR01-User Registration & Login JS-001, EMP -001, ADM-001, ST-001, SEC-014 Verified FR02-Role-Based Access Control SEC-013, SEC -024, JS-Verified FR03-Profile Setup JS-011 Verified FR04-Browse & Filter Job Listings JS-003, CT-009 Verified FR05-Apply for Jobs JS-004, ST-001 Verified FR06-Application Status Tracking JS-006, ST-003 Verified FR07-Save Jobs / Wishlist JS-005, ST-012 Verified FR08-Work History Dashboard JS-008, ST-029 Verified FR09-Auto-Generate Resume JS-009, ST-015, CT-003 Verified FR10-Post & Manage Job Listings EMP-003, ST-002 Verified FR11-Review & Manage Applicants EMP-005, ST-003 Verified FR12-Employer Verification Badge EMP-010, ST -009, SEC-Verified FR13-Bidirectional Rating & Review EMP-007, ST -024, SEC-Verified FR14-Report / Flag System ST-028, SEC-010 Verified FR15-User Management ADM-003 Verified FR16-Job Listing Moderation ADM-005, ST-025 Verified FR17-Google Translate Website Redirection CT-010 Verified FR18-Rule-Based Chatbot ST-011, CT-012 Verified All functional requirements were verified through System Testing, User Acceptance Testing (UAT), Security Testing and Compatibility Testing. A total of 34 System Testing test cases, 36 functional UAT test cases, 29 Security Testing test cases and 23 Compatibility Testing test cases provided evidence that the implemented system satisfied the specified functional requirements within the evaluated scope [96]. Table 4.10 shows how the non-functional requirements stipulated in Table 3.9 are mapped to the corresponding verification evidence. Non-functional requirements are the quality attributes and operational constraints that impact on the performance of the system, such as performance, security, usability, compatibility and maintainability [20].
+The 18 FRs defined in Table 3.8 are mapped to the corresponding System Testing, UAT, Security Testing and Compatibility Testing evidence in Table 4.9. As the final UAT was structured as 15 core functional tasks for the Job Seeker, Employer and Admin roles, rather than as numbered test cases, the relevant UAT task descriptions are provided directly as evidence for verification in the table.
 
-**Table 4.10: Non-Functional Requirements Verification Summary**
+_Table 4.9: Functional Requirements Verification Summary_
 
-Requirement Verification Evidence Status NFR01-Page Load Time ST-013 Verified NFR02-HTTPS Encryption SEC-001, SEC-014 Verified NFR03-RLS SEC-004-SEC-013 Verified NFR04-Session Management SEC-023, CT-016 Verified NFR05-Responsive Design CT-005-CT-009 Verified NFR06-Accessibility HE, UAT Evaluated NFR07-System Availability Deployment Architecture Not Formally Verified NFR08-Concurrent Users ST-014 Partially Verified NFR09-Code Modularity Section 4.2 Source Code Structure Implementation Verified NFR10-PDPA 2010 SEC-026-SEC-029 Verified (Selected Controls) NFR11-Browser Compatibility CT-001-CT-004 Verified NFR12-Deployment Independence Section 4.2.5 Deployment Implementation Verified The verification evidence presented in Tables 4.9 and 4.10 complements the detailed testing results discussed in Sections 4.3.1 to 4.3.5. The majority of non-functional requirements were assessed during formal testing activities and, in particular, through performance testing, security testing, usability testing and compatibility testing. However, NFR07 (System Availability) was not validated through long-term uptime monitoring, while NFR08 (Concurrent Users) was only partially verified through concurrent application testing (ST-014), as formal load or stress testing involving 100 concurren t users was outside the scope of this project. Furthermore, implementation-oriented requirements such as NFR09 (Code Modularity) and NFR12 (Deployment Independence) were supported through implementation and deployment evidence rather than dedicated execution-based test cases, as these characteristics are generally verified through software design and implementation instead of functional testing [20], [21].
+|**Requirement**|**Verification Evidence**|**Status**|
+|---|---|---|
+|**FR01 – User Registration**|UAT – Job Seeker Registration & Login; ST-001;|Verified|
+|**& Login**|SEC-014; SEC-015||
+|**FR02 – RBAC**|SEC-013; SEC-024; ST-018|Verified|
+|**FR03 – Profile Setup**|ST-001|Verified|
+|**FR04 – Browse & Filter**<br>**Job Listings**|UAT – Job Seeker Job Search & Browsing; ST-<br>013; CT-009|Verified|
+|**FR05 – Apply for Jobs**|UAT – Job Seeker Job Application; ST-001; ST-<br>007|Verified|
+|**FR06**<br>**–**<br>**Application**<br>**Status Tracking**|ST-003; ST-023|Verified|
+|**FR07 – Save Jobs /**<br>**Wishlist**|ST-012|Verified|
+|**FR08 – Work History**|UAT – Job Seeker Work History & Employer|Verified|
+|**Dashboard**|Rating; ST-029||
+|**FR09 – Auto-Generate**|UAT – Job Seeker Resume Management; ST-|Verified|
+|**Resume**|015; CT-003||
+|**FR10 – Post & Manage**<br>**Job Listings**|UAT – Employer Job Posting; ST-002; ST-030|Verified|
+|**FR11**<br>**–**<br>**Review**<br>**&**|UAT – Employer Applicant Viewing and|Verified|
+|**Manage Applicants**|Acceptance/Rejection; ST-003||
+|**FR12**<br>**–**<br>**Employer**|UAT – Employer Verification; ST-009; ST-026;|Verified|
+|**Verification Badge**|SEC-030||
 
-## 4.4 Output Analysis
+|**FR13**<br>**–**<br>**Bidirectional**|UAT – Job Seeker Work History & Employer|Verified|
+|---|---|---|
+|**Rating & Review**|Rating; UAT – Employer Job Completion & Job<br>Seeker Rating; ST-024; SEC-008; SEC-009||
+|**FR14 – Report / Flag**|UAT – Admin Job Flagging/Removal; UAT –|Verified|
+|**System**|Admin Handling of Reports; ST-004; ST-028;<br>SEC-010; SEC-011||
+|**FR15**<br>**–**<br>**User**|UAT – Admin Employer Account Lock/Unlock;|Verified|
+|**Management**|ST-033||
+|**FR16**<br>**–**<br>**Job**<br>**Listing**|UAT – Admin Job Approval; UAT – Admin Job|Verified|
+|**Moderation**|Flagging/Removal; ST-004; ST-025||
+|**FR17 – Google Translate**|CT-010|Verified|
+|**Integration**|||
+|**FR18**<br>**–**<br>**Rule-Based**|ST-011; CT-012|Verified|
+|**Chatbot**|||
 
-This section examines two representative outputs of EasyEarn: the Admin Analytics Dashboard and the Job Seeker Auto-Generated Resume. The outputs in this section illustrate the conversion of information stored and processed in EasyEarn into information useful to various users. The Admin Analytics Dashboard displays consolidated platform information to help Admins keep track of what's happening on the platform, while the Auto-Generated Resume generates a resume from a Job Seeker's profile and finished work into a downloadable Portable Document Format (PDF) resume. The following subsections describe the purpose, data sources and resulting output of each feature.
+Direct evidence of evaluation of all 18 FRs was provided within the scope of testing defined. The verification evidence included 34 System Testing test cases, 75 UAT functional task executions completed by five testers, 30 Security Testing test cases and 23 Compatibility Testing test cases. The results demonstrate that the FRs implemented worked as expected in the scenarios and environments tested [96].
 
-### 4.4.1 Admin Analytics Dashboard Output
+Table 4.10 shows how the NFRs stipulated in Table 3.9 are mapped to the corresponding verification evidence. NFRs are the quality attributes and operational constraints that impact the performance of the system, such as performance, security, usability, compatibility and maintainability [20].
 
-Admins can use the Admin Analytics Dashboard to get a summary of what has happened on the platform, visualisations and detailed records. The dashboard displays user, jobs, reports and verification information. Selected platform statistics are presented as a visual chart to facilitate Admins in understanding platform activity and detecting changes in the information recorded more easily [51]. The dashboard accesses the tables on Supabase and performs the required operations on the client's side before presenting the calculated summaries and visualisations. Some analytics data is also kept in the analytics table as dated snapshots of the analytics data on the platform, so previous platform statistics can be stored as snapshots. This implementation is based on the static-frontend and BaaS paradigm used by EasyEarn, where the front end renders the retrieved data and performs calculations, while Supabase stores the data. The Dashboard also contains a Data Explorer which provides Admins with access to more detailed data and enables them to select just the information they want to view based on the criteria provided. There is also a Compliance Awareness panel to remind Admins about job information, reports, payment disputes and Employer verification records. These features enable Admins to access general user activity on the platform or individual records associated with admin/moderation activities. The Admin Analytics Dashboard thus turns the platform records in Supabase into an organised overview for administration. The Supabase analytics table containing the stored analytics records and historical snapshots is shown in Figure 4.30.
+_Table 4.10: Non-Functional Requirements Verification Summary_
 
-![Figure 4.30 image 1](Diagram/figure-31.png)
+|**Requirement**|**Verification Evidence**|**Status**|
+|---|---|---|
+|**NFR01 – Page Load Time**|ST-013; ST-016|Verified<br>(Selected<br>Pages)|
+|**NFR02**<br>**–**<br>**HTTPS**|Section 4.2.5 System Deployment;|Implementation|
+|**Encryption**|HTTPS implementation evidence|Verified|
+|**NFR03 – RLS**|SEC-001–SEC-007;<br>SEC-012;<br>SEC-019–SEC-021|Verified|
+|**NFR04**<br>**–**<br>**Session**<br>**Management**|ST-018; SEC-023; CT-016; CT-017|<sup>Verified</sup>|
+|**NFR05**<br>**–**<br>**Responsive**|CT-005–CT-009;<br>UAT<br>device|Verified within Tested|
+|**Design**|evidence|Devices|
+|**NFR06 – Accessibility**|UAT<br>Usability<br>Questionnaire;<br>Heuristic Evaluation|Evaluated|
+|**NFR07**<br>**–**<br>**System**<br>**Availability**|Section 4.2.5 System Deployment|Not Formally Verified|
+|**NFR08**<br>**–**<br>**Concurrent**|ST-014|Partially Verified|
+|**Users**|||
+|**NFR09**<br>**–**<br>**Code**|Section 4.2.1 Frontend|Implementation|
+|**Modularity**||Verified|
+|**NFR10 – PDPA 2010**|SEC-026–SEC-029;<br>ST-031–ST-<br>033|Verified<br>(Selected<br>Controls)|
+|**NFR11**<br>**–**<br>**Browser**|CT-001–CT-004;<br>UAT<br>–|Partially Verified|
+|**Compatibility**|iPhone/Safari||
+|**NFR12**<br>**–**<br>**Deployment**|Section 4.2.5 System Deployment;|Implementation|
+|**Independence**|Appendix 7|Verified|
 
-Figure 4.30: Supabase Analytics Table
-
-### 4.4.2 Auto-Generated Resume Output
-
-The Auto-Generated Resume function generates a PDF resume using information stored in the Job Seeker's EasyEarn profile and completed work history. The resume uses information such as the Job Seeker's profile summary, skills, education, availability and completed work history. This enables someone to reuse information that has already been documented in EasyEarn in a structured employment document th at does not require the Job Seeker to re-type the resume material. Firstly, the resume content is created within the browser with the information of the Job Seeker which he/she stored. The HTML2Canvas library is then used to capture the rendered resume, and this is then embedded into an A4-formatted PDF document using the jsPDF library [49], [93]. Therefore, the document produced will include the information that was available in the Job Seeker's profile and completed work record when the resume is generated. The generated resume includes profile information, skills, education, availability, and completed work experience. Completed engagement information can also be used to add supporting employment data like the role, completion dat e and platform rating, if applicable. This enables the Job Seeker to reuse their EasyEarn activity and augment their digital work history that can be used as part of their resume. The Auto-Generated Resume thus fulfils the purpose of the digital work history feature in the Job Seeker's platform provided by EasyEarn by converting the platform data of the Job Seeker to a portable employment document. Figure 4.31 shows an example of the PDF resume generated by EasyEarn.
-
-![Figure 4.31 image 1](Diagram/figure-32.png)
-
-Figure 4.31: Auto-Generated Resume Output (PDF)
-
-## 4.5 Conclusion
-
-This chapter presented the implementation, testing and representative system outputs of the EasyEarn Job Matching Portal. The implementation of the frontend, backend, database, imported packages and system deployment was discussed in section 4.2. EasyEarn is a multi-page web application built with HTML, CSS and JavaScript, with Supabase providing authentication, database services, RLS and selected database-level business logic. The system was deployed using a static-frontend and BaaS approach via GitHub Pages. Five complementary testing techniques were used to assess EasyEarn: System Testing, UAT, Usability Testing, Security Testing and Compatibility Testing, as presented in Section 4.3. System Testing comprised 34 test cases, with each one listed under one of the following categories: E2E Workflow, Integration, Performance, Recovery, Business Logic, Reporting and Compliance. The results of the tests indicated that major system workflows, integrations and system rules were in effect as per the defined test scenarios. UAT involved five testers who used designated user accounts and test data stored in Supabase for the Job Seeker, Employer and Admin roles across 36 functional test cases. The results indicated that the main role-based workflows could be completed successfully within the tested scenarios. Nielsen's 10 Usability Heuristics [55] were used for the Usability Testing. Four usability issues were identified across three heuristics, consisting of two minor issues and two cosmetic issues. These issues mainly concerned notification visibility, interface consistency and the coverage of help provided by the rule-based chatbot. Security Testing consisted of 29 test cases across eight categories. The testing showed that a variety of access-control, authentication, input-handling and privacy-related controls functioned as outlined in the test scenarios. There were several remaining security issues, such as incomplete server-side MIME-type validation and some business rules that are not fully enforced at the database level. There were 23 test cases in six categories-Browser Compatibility, Responsive Design, Feature Compatibility, Session & Auth, UI & Display, and Form & Input. The tested EasyEarn functions and interface components worked as expected in the tested environments, including browser testing conducted using Google Chrome, Mozilla Firefox, Microsoft Edge and Safari. The representative test cases or test evidence from System Testing, UAT, Security Testing and Compatibility Testing are presented in Section 4.3, and the remaining detailed test cases and supporting evidence are provided in Appendices 3 to 6, respectively. In Section 4.4, we introduced two representative system outputs: the Admin Analytics Dashboard and the Auto-Generated Resume. The Admin Analytics Dashboard transforms data on the platform stored in Supabase into summary data and visualisations for admin monitoring, while the Auto-Generated Resume generates a PDF resum e from a Job Seeker's profile and completed work data via html2canvas and jsPDF. The overall implementation and test results show that the key functions and workflows of the EasyEarn system are working as designed across the scenarios tested. Meanwhile, the usability, security and testing issues reported in this chapter indicate that a number of improvements are needed before the widespread production deployment. These results are elaborated upon in Chapter 5 and are related to the four research objectives.
+The detailed evaluation results discussed in Sections 4.3.1-4.3.5 are complemented by the verification evidence presented in Tables 4.9 and 4.10. Most NFRs were evaluated through performance, security, usability and compatibility testing. NFR07 (System Availability) was not formally verified because the project did not require monitoring of system availability over long periods of time; NFR08 (Concurrent Users) was partially verified by the concurrent application test in ST-014 instead of formal load or stress testing with 100 concurrent users. Partially verified was also NFR11 (Browser Compatibility), as the formal Compatibility Testing suite only covered Google Chrome, Mozilla Firefox and Microsoft Edge, with Safari covered via the iPhone UAT. The supporting evidence for NFR02 (HTTPS Encryption), NFR09 (Code Modularity) and NFR12 (Deployment Independence) was done mainly by implementing and deploying implementation evidence and not by dedicated test cases based on execution. These classifications are used to avoid overstating the verification results [20], [21], [96].
