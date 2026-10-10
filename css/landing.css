@@ -540,6 +540,9 @@ body.theme-dark .theme-toggle:hover {
   position: absolute;
   top: calc(100% + 12px);
   right: 0;
+  /* Keep the menu anchored to the language button even when the header's
+     flex layout or a translated label changes the surrounding nav widths. */
+  left: auto;
   z-index: 10000;
   width: 190px;
   max-height: min(360px, 60vh);
