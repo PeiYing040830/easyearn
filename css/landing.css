@@ -2840,6 +2840,38 @@ body.theme-dark .pub-section-card {
   }
 }
 
+/* Keep translated navigation labels from pushing the right-side controls
+   outside the viewport. At desktop widths the links can scroll horizontally
+   while the brand and account controls keep their place. */
+@media (min-width: 1281px) {
+  .app-navbar {
+    gap: clamp(8px, 1vw, 18px);
+  }
+
+  .app-navbar .nav-brand,
+  .app-navbar .nav-tools {
+    flex: 0 0 auto;
+  }
+
+  .app-navbar .nav-links {
+    flex: 1 1 auto;
+    min-width: 0;
+    gap: clamp(10px, 1.2vw, 24px);
+    justify-content: space-evenly;
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+
+  .app-navbar .nav-links::-webkit-scrollbar {
+    display: none;
+  }
+
+  .app-navbar .nav-links a {
+    flex: 0 0 auto;
+    white-space: nowrap;
+  }
+}
+
 /* ── nav-register inside hamburger dropdown: remove button style ── */
 @media (max-width: 1024px) {
   .marketing-navbar .nav-links .nav-login,
