@@ -145,8 +145,7 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     }
 
-    const isChatbotKnowledgePage = window.location.pathname.endsWith('/pages/admin/chatbot-knowledge.html');
-    if (!isChatbotKnowledgePage && !document.getElementById('easyearn-floating-chatbot')) {
+    if (!document.getElementById('easyearn-floating-chatbot')) {
       const script = document.createElement('script');
       script.id = 'easyearn-floating-chatbot';
       script.type = 'module';
