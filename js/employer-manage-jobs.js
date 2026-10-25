@@ -78,14 +78,14 @@ import {
       const expiry = job.expiry_date ? new Date(job.expiry_date) : null;
       const isExpired = expiry && !Number.isNaN(expiry.getTime()) && expiry < today;
 
-      if (status === 'closed' || status === 'removed') {
+      if (status === 'closed' || status === 'removed' || status === 'rejected') {
         counts.closed += 1;
       } else if (status === 'expired' || isExpired) {
         counts.expired += 1;
-      } else if (status === 'draft' || status === 'pending' || status === 'flagged') {
-        counts.draft += 1;
-      } else {
+      } else if (status === 'approved') {
         counts.published += 1;
+      } else {
+        counts.draft += 1;
       }
     });
 
@@ -101,7 +101,7 @@ import {
     if (countEls.closed) countEls.closed.textContent = String(counts.closed);
 
     if (noteEls.published) noteEls.published.textContent = counts.published ? 'Live listings currently visible.' : 'No live jobs yet.';
-    if (noteEls.draft) noteEls.draft.textContent = counts.draft ? 'Draft entries are waiting for review.' : 'No drafts saved.';
+    if (noteEls.draft) noteEls.draft.textContent = counts.draft ? 'Drafts and listings awaiting review.' : 'No drafts saved.';
     if (noteEls.expired) noteEls.expired.textContent = counts.expired ? 'These listings need refresh or repost.' : 'No expired jobs.';
     if (noteEls.closed) noteEls.closed.textContent = counts.closed ? 'Closed jobs can be reopened later.' : 'No closed jobs yet.';
   }
@@ -121,8 +121,8 @@ import {
   // Creates job card when the workflow needs a new record or message.
   function createJobCard(job) {
     const status = String(job.status || 'pending').toLowerCase();
-    const actionLabel = status === 'closed' ? 'Reopen' : 'Close';
-    const nextStatus = status === 'closed' ? 'approved' : 'closed';
+    const actionLabel = status === 'closed' ? 'Request Reopening' : 'Close';
+    const nextStatus = status === 'closed' ? 'pending' : 'closed';
     const applicants = Number(job.applicants_count || 0);
     const openings = Number(job.openings_count ?? 1);
 

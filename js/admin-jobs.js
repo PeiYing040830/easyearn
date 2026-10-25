@@ -145,7 +145,7 @@ import { observeAuth, fetchJobs, fetchReports, fetchProfilesByIds, updateJobList
   async function renderQueue() {
     if (!queueEl) return;
 
-    const allWithReview = cachedJobs.map((job) => {
+    const allWithReview = cachedJobs.filter((job) => String(job.status || '').toLowerCase() !== 'draft').map((job) => {
       let s = String(job.status || 'pending').toLowerCase();
       // DB default is 'open' which means not yet moderated — treat as 'pending'
       if (s === 'open') s = 'pending';

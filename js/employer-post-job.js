@@ -35,6 +35,7 @@ import {
   let currentUser = null;
   let editMode = Boolean(editJobId);
   let currentProfile = null;
+  let editingJobStatus = null;
 
   // Helper function for notify status used by this script.
   function notifyStatus(message, type = '') {
@@ -187,6 +188,7 @@ import {
 
   // Helper function for hydrate form from job used by this script.
   function hydrateFormFromJob(job = {}) {
+    editingJobStatus = String(job.status || '').toLowerCase();
     const description = String(job.description || '');
     const requirementPrefix = 'Requirements: ';
     let requirements = '';
@@ -214,7 +216,7 @@ import {
   // Updates edit UI state after the user changes something or data is refreshed.
   function setEditUiState() {
     if (publishBtn) {
-      publishBtn.textContent = editMode ? 'Update Job' : 'Publish Job';
+      publishBtn.textContent = editMode && editingJobStatus !== 'draft' ? 'Update Job' : 'Submit for Review';
       publishBtn.dataset.defaultText = publishBtn.textContent;
     }
     if (draftBtn) {
@@ -240,7 +242,7 @@ import {
     // In edit mode the draft button is labelled "Save Changes" and behaves
     // identically to Publish (the listing already has its own status).
     if (editMode) {
-      handlePublish(new Event('submit'));
+      return handlePublish(new Event('submit'), true);
       return;
     }
 
@@ -350,7 +352,7 @@ import {
   }
 
   // Handles the publish action triggered by the user.
-  async function handlePublish(event) {
+  async function handlePublish(event, preserveDraft = false) {
     event.preventDefault();
     if (!currentUser) {
       setStatus('Please log in as employer first.', 'is-error');
@@ -383,7 +385,7 @@ import {
         openings_count: parseOpenings(fields.openings?.value),
         skill_tags: requirements.split(',').map((item) => item.trim()).filter(Boolean),
         expiry_date: fields.expiryDate?.value || null,
-        status: editMode ? undefined : 'pending',
+        status: !editMode || (editingJobStatus === 'draft' && !preserveDraft) ? 'pending' : undefined,
         company_name: profile.companyName || profile.businessName || profile.name || ''
       };
 
@@ -394,7 +396,7 @@ import {
       }
 
       form?.reset();
-      setStatus(editMode ? 'Job updated successfully. Redirecting to Manage Jobs...' : 'Job published successfully. Redirecting to Manage Jobs...', 'is-success');
+      setStatus(editMode ? 'Job updated successfully. Redirecting to Manage Jobs...' : 'Job submitted for admin review. Redirecting to Manage Jobs...', 'is-success');
       setTimeout(() => {
         window.location.href = 'manage-jobs.html';
       }, 900);
@@ -436,6 +438,7 @@ import {
             return;
           }
           hydrateFormFromJob(job);
+          setEditUiState();
         })
         .catch((error) => {
           console.error('Failed to load job for editing:', error);

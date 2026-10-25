@@ -4,3 +4,6 @@ easyearn/
 /tmp/pdfs/
 /output/report-markdown/
 /output/EasyEarn_Markdown_Latest.zip
+
+# Local QA dependencies, generated accounts, and authenticated test artifacts.
+/.employer-qa/

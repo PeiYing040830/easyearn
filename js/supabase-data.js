@@ -837,14 +837,22 @@ export async function fetchVerificationRequests() {
 
 // Creates report when the workflow needs a new record or message.
 export async function createReport(payload) {
+  const session = await getCurrentSession();
+  if (!session?.user) {
+    throw new Error('Please sign in before submitting a report. Your report details have been kept.');
+  }
+  const user = await getCurrentUser();
+  if (!user) throw new Error('Your session has expired. Please sign in again.');
   const row = {
-    reporter_id: payload.reporter_id || null,
+    reporter_id: user.id,
     reported_user: payload.reported_user || null,
     report_type: payload.report_type || 'other',
     description: payload.description || '',
     status: payload.status || 'open',
     admin_notes: payload.admin_notes || null
   };
+
+  if (payload.evidence) row.evidence = payload.evidence;
 
   if (payload.job_id) row.job_id = payload.job_id;
 
@@ -955,9 +963,11 @@ export async function updateJobListing(jobId, payload) {
     pay_type: payload.pay_type || 'hourly',
     openings_count: Number.isFinite(Number(payload.openings_count)) ? Number(payload.openings_count) : 1,
     skill_tags: normalizeArray(payload.skill_tags),
-    expiry_date: payload.expiry_date || null,
-    status: payload.status || 'pending'
+    expiry_date: payload.expiry_date || null
   };
+
+  // Editing content must not implicitly submit a draft or change moderation status.
+  if (payload.status !== undefined) row.status = payload.status;
 
   const { data, error } = await supabase
     .from(TABLES.jobs)

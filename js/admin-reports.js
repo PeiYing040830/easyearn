@@ -1,3 +1,4 @@
+import { downloadReportEvidence } from './report-evidence.js';
 /**
  * EasyEarn file note: Handles the admin reports page behavior and related user interactions.
  */
@@ -237,7 +238,7 @@ import {
         <div class="admin-request-head">
           <div>
             <strong>${kind === 'payment' ? 'Payment dispute' : (report.report_type || 'Report case')}</strong>
-            <p>${kind === 'payment' ? (report.dispute_desc || 'No dispute details provided.') : (report.description || 'No description provided.')}</p>
+            <p>${kind === 'payment' ? (report.dispute_desc || 'No dispute details provided.') : escapeHtml(report.description || 'No description provided.')}</p>
           </div>
           <span class="admin-status-pill">${prettyStatus(state.status)}</span>
         </div>
@@ -251,6 +252,7 @@ import {
         ${kind === 'payment' ? `<p style="margin:.6rem 0 0;color:#475569;">Job: ${escapeHtml(context?.job?.title || 'Unknown job')}</p>` : ''}
         ${kind === 'payment' && report.evidence_url ? `<p style="margin:.6rem 0 0;color:#475569;">Evidence: <a href="${report.evidence_url}" target="_blank" rel="noopener noreferrer">${report.evidence_url}</a></p>` : ''}
         ${kind === 'payment' && report.admin_resolution ? `<p style="margin:.6rem 0 0;color:#475569;">Resolution: ${report.admin_resolution}</p>` : ''}
+        ${kind === 'report' && report.evidence ? `<p>Evidence: ${escapeHtml(report.evidence.name)} <button type="button" class="btn-outline" data-action="download-evidence" data-report-id="${report.id}">Download evidence</button></p>` : ''}
         <div class="admin-action-row">
           ${kind === 'payment'
             ? `${report.status === 'resolved'
@@ -277,6 +279,14 @@ import {
     if (!button) return;
     const { action, reportId } = button.dataset;
     if (!action || !reportId) return;
+    if (action === 'download-evidence') {
+      try {
+        const report = cachedReports.find(item => item.id === reportId);
+        if (!report?.evidence) throw new Error('Evidence attachment is unavailable.');
+        downloadReportEvidence(report.evidence);
+      } catch (error) { setStatus(error.message); }
+      return;
+    }
     setStatus(`Processing ${action}...`);
 
     if (action === 'warn-employer') {

@@ -1,3 +1,4 @@
+import { readReportEvidence } from './report-evidence.js';
 /**
  * EasyEarn file note: Handles the report page behavior and related user interactions.
  */
@@ -194,7 +195,9 @@ import { getReportReason, reportReasonOptions } from './report-reasons.js';
       setSubmitting(form, submitButton, true);
 
       try {
+        const evidence = await readReportEvidence(getField('report-file')?.files?.[0]);
         const report = await createReport({
+          evidence,
           reporter_id: currentUser?.id || null,
           reported_user: null,
           job_id: linkedJobId(),

@@ -155,6 +155,7 @@ create table if not exists public.reports (
   reported_user uuid,
   report_type text,
   description text,
+  evidence jsonb,
   status text default 'pending'::text,
   admin_notes text,
   created_at timestamp with time zone default now()
@@ -2229,3 +2230,50 @@ where job.status in ('pending', 'submitted')
       and existing.target_id = job.id
       and existing.is_admin is true
   );
+
+-- Integrated fixes: private job drafts and report evidence (2026-10-24).
+-- Combined EasyEarn fixes: job drafts and private report evidence.
+-- Safe to rerun after either previous script. Existing reports RLS is unchanged.
+begin;
+
+-- Preserve the deployed status rule and also allow private employer drafts.
+-- This does not change row-level security or publish any listing.
+
+do $migration$
+declare
+  existing_rule text;
+begin
+  select pg_get_expr(conbin, conrelid)
+    into existing_rule
+    from pg_constraint
+   where conrelid = 'public.job_listings'::regclass
+     and conname = 'job_listings_status_check'
+     and contype = 'c';
+
+  if existing_rule is not null and position('draft' in existing_rule) = 0 then
+    alter table public.job_listings drop constraint job_listings_status_check;
+    execute format(
+      'alter table public.job_listings add constraint job_listings_status_check check ((%s) or status = %L)',
+      existing_rule, 'draft'
+    );
+  end if;
+end
+$migration$;
+
+-- Evidence stays on the report row, protected by existing reports RLS.
+
+alter table public.reports add column if not exists evidence jsonb;
+
+alter table public.reports drop constraint if exists reports_evidence_check;
+alter table public.reports add constraint reports_evidence_check check (
+  evidence is null or (
+    jsonb_typeof(evidence) = 'object'
+    and coalesce(length(evidence->>'name') between 1 and 255, false)
+    and coalesce(evidence->>'type' in ('application/pdf', 'image/png', 'image/jpeg', 'image/webp'), false)
+    and coalesce(length(evidence->>'base64') between 4 and 4194304, false)
+    and coalesce((evidence->>'base64') ~ '^[A-Za-z0-9+/]+={0,2}$', false)
+  )
+);
+notify pgrst, 'reload schema';
+
+commit;

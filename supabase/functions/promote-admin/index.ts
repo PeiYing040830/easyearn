@@ -7,7 +7,8 @@ const expectedCode = Deno.env.get('ADMIN_REGISTRATION_CODE') || '';
 const allowedOrigins = new Set([
   'https://peiying040830.github.io',
   'http://localhost:5500',
-  'http://127.0.0.1:5500'
+  'http://127.0.0.1:5500',
+  'http://127.0.0.1:8765'
 ]);
 
 function responseHeaders(origin: string | null) {
